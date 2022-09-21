@@ -1,7 +1,7 @@
 # *Software Requirement Specification*
 
 ## Problem Statement: 
-People often feel unmotivated and discouraged to do tasks. There currently are only to-do list applications that allow you to list and plan the tasks that you need to complete. The market is lacking a solution that focuses on actually pushes users to actually do the tasks!
+People often feel unmotivated and discouraged to do tasks. There currently are only to-do list applications that allow you to list and plan the tasks that you need to complete. The market is lacking a solution that focuses on actually pushing users to actually do the tasks!
 
 The Dolt app will help people stay focused with their tasks and be present by connecting with your close friends. People are more motivated by losses rather then gains, so we want to motivate people by introducing consequences. We also allow them to be motivated by recognition and followers across our social platform.
 
