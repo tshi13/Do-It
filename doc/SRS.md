@@ -1,7 +1,9 @@
 # *Software Requirement Specification*
 
 ## Problem Statement: 
-People often feel unmotivated and discouraged to do tasks. The Dolt app will help people stay focused with their tasks and be present by connecting with your close friends. People are more motivated by losses rather then gains, so we want to motivate people by introducing consequences. We also allow them to be motivated by recognition and followers across our social platform.
+People often feel unmotivated and discouraged to do tasks. There currently are only to-do list applications that allow you to list and plan the tasks that you need to complete. The market is lacking a solution that focuses on actually pushes users to actually do the tasks!
+
+The Dolt app will help people stay focused with their tasks and be present by connecting with your close friends. People are more motivated by losses rather then gains, so we want to motivate people by introducing consequences. We also allow them to be motivated by recognition and followers across our social platform.
 
 ## Potential Clients：
 - Anyone who needs help with staying focused and beating their procrastination. 
@@ -17,6 +19,7 @@ This solution allows users to complete tasks under the supervision of others (an
 ## Functional Requirements: 
 
 ### Must have：
+- As a user, I want to have a secure way of logging into my account
 - As a user, I want to be able to create tasks for myself to complete  
 - As a user, I want to be able to see tasks that other people have created  
 - As a user, I want to be able to create or join private groups with my friends so we can have fun while holding each other accountable for the tasks  
@@ -39,6 +42,7 @@ This solution allows users to complete tasks under the supervision of others (an
 - As a user, I want to be able to gain followers and also follow others  
 - As a user, I want to be notified about the progress of other members in the group
 - As a user, I want to be able to report application bugs, suggestions, inappropriate behavior from other users
+- As a user, I want to be able to login with my social media accounts so I can easily invite and connect my existing friends
 
 
 ### Non-functional Requirements:
