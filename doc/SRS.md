@@ -50,7 +50,7 @@ This solution allows users to complete tasks under the supervision of others (an
 
 
 ## Software Architecture & Technology Stack: 
-It will be a web application, and we will use the MongoDB, Express, React, and Node.js. Programming languages could be Javascript and Python.
+It will be a CRUD web application, and we will use the MongoDB, Express, React, and Node.js. More technologies may be introduced if needed, programming languages could be Javascript and Python.
 
 
 ## Similar Apps:
