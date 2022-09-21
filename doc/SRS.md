@@ -6,6 +6,7 @@ People often feel unmotivated and discouraged to do tasks. The Dolt app will hel
 ## Potential Clients：
 - Anyone who needs help with staying focused and beating their procrastination. 
 - People who want to acquire new skills/complete tasks/achieve consistency.
+- People who want to gain influence and share their good progress of doing something meaningful.
 
 ## Proposed Solution: 
 Through the betting system in Dolt, users need a certain amount of Dolt coin to play the game. Users in a group will set tasks for themselves and other people will keep track of them by using public social media posts or private group posts. The user who fails to do their tasks will lose coins and the rest of the users will spilt the coins evenly. Successful users will 
@@ -26,6 +27,7 @@ This solution allows users to complete tasks under the supervision of others (an
 - As a user, I want to be able to vote on whether a group member has finished their tasks  
 - As a user, I want to be able to gain/lose coins when someone fails to finish tasks 
 - As a user, I want to be able to search for existing groups and users
+- As a developer, I want to be able to ban certain users if necessary
 
 
 ### Nice to have：
@@ -36,6 +38,7 @@ This solution allows users to complete tasks under the supervision of others (an
 - As a user, I want to be able to post my progress to the public  
 - As a user, I want to be able to gain followers and also follow others  
 - As a user, I want to be notified about the progress of other members in the group
+- As a user, I want to be able to report application bugs, suggestions, inappropriate behavior from other users
 
 
 ### Non-functional Requirements:
