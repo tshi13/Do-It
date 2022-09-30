@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TaskModal from "../components/TaskModal";
+import ChatBox from "../components/ChatBox";
 
 export default class Home extends Component {
     render() {
@@ -7,6 +8,7 @@ export default class Home extends Component {
         <div>
             <div className="taskModal">
                 <TaskModal/>
+                <ChatBox />
             </div>
             <h1>Home</h1>
             <button onClick={() => {}}> 
