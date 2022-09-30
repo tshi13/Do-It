@@ -1,9 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
+
+import TaskCard from './components/taskCard';
 
 function App() {
   return (
-    <div>Hello This is Doit</div>
+    <div>
+      <div>Hello This is Doit</div>
+    </div>
   );
 }
 
