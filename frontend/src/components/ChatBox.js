@@ -9,12 +9,14 @@ export default class ChatBox extends Component {
         this.state = {
             show: false,
             message: "",
-            messages: []
+            messages: [],
+            variant:  false,
         };
     }
 
-    handleClose = () => this.setState({show: false});
-    handleShow = () => this.setState({show: true});
+    handleClose = () => this.setState({show: false, variant: false});
+
+    handleShow = () => this.setState({show: true, variant: true});
 
     handleChange = (event) => {
         this.setState({message: event.target.value});
@@ -29,8 +31,8 @@ export default class ChatBox extends Component {
     render() {
         return (
             <div>
-                <Button variant="primary" onClick={this.handleShow}>
-                    Chat
+                <Button variant = {this.state.variant ? "primary" : "outline-primary"} size = "lg" onClick={this.handleShow}>
+                    Group Chat
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <div>

@@ -5,13 +5,10 @@ export default class Home extends Component {
     render() {
         return (
         <div>
-            <div className="taskModal">
+            <div style ={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
                 <ChatBox />
             </div>
-            <h1>Home</h1>
-            <button onClick={() => {}}> 
-                Login
-            </button>
+            
         </div>
         );
     }

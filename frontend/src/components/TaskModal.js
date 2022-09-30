@@ -15,11 +15,6 @@ export default function TaskModal() {
         float: 'right',
     
     },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     inputStyle: {
         width: '100%',
         height: '30px',
@@ -27,9 +22,7 @@ export default function TaskModal() {
         borderRadius: '5px',
         border: 'none',
         marginBottom: '5%',
-    }
-
-    
+    },
   }
 
   return (
