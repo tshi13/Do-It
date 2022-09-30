@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import TaskModal from "../components/TaskModal";
 import ChatBox from "../components/ChatBox";
 
 export default class Home extends Component {
@@ -7,7 +6,6 @@ export default class Home extends Component {
         return (
         <div>
             <div className="taskModal">
-                <TaskModal/>
                 <ChatBox />
             </div>
             <h1>Home</h1>

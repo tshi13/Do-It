@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
+import TaskModal from "../components/TaskModal";
+
 
 export default class ChatBox extends Component {
     constructor(props) {
@@ -31,11 +33,15 @@ export default class ChatBox extends Component {
                     Chat
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
-                    <div style = {{backgroundColor: 'black'}}>
+                    <div>
                         <Modal.Header closeButton>
-                            <Modal.Title>Chat</Modal.Title>
+                            <Modal.Title style ={{color: 'lightblue'}}>Chat</Modal.Title>
+    
                         </Modal.Header>
                         <Modal.Body style = {{height: '500px'}}>
+                            <span style = {{width: '100%'}}>
+                                <TaskModal />
+                            </span>
                             {this.state.messages.map((message, index) => {
                                 return (
                                     <p style = {{color: 'blue'}} key={index}>{message}</p>
