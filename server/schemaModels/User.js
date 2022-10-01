@@ -8,7 +8,6 @@ const TaskSchema = new mongoose.Schema({
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  id: { type: String, required: true },
 	coins: {type: Number, required: true},
 	taskList: {type: [TaskSchema], required: true}
 });
