@@ -1,8 +1,9 @@
-
 import {Navigation} from './components/navigation';
 import './App.css';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from './containers/Home';
+import TaskCard from './components/taskCard';
+
 
 
 
