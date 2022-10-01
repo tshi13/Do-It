@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   id: { type: String, required: true },
 	coins: {type: Number, required: true},
-	taskList: {type: [TaskSchema]}
+	taskList: {type: [TaskSchema], required: true}
 });
 
 const User = mongoose.model("User", UserSchema);

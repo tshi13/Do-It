@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const URI = ``; //put our URI here
+const URI = `mongodb+srv://DOIT:DOIT@maindatabase.eymn8mi.mongodb.net/?retryWrites=true&w=majority`; //put our URI here
+
 
 async function connect() { //connect to MongoDB
   try {

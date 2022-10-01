@@ -1,4 +1,3 @@
-
 import TaskCard from './components/taskCard';
 
 function App() {
