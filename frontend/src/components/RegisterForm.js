@@ -1,58 +1,41 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-
+import axios from 'axios';
 import '../styles/RegisterForm.css';
 
-function LoginForm() {
+axios.defaults.baseURL = 'http://localhost:5000';
+
+function RegisterForm() {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  // User Login info
-  const database = [
-    {
-      username: "user1",
-      password: "pass1"
-    },
-    {
-      username: "user2",
-      password: "pass2"
-    }
-  ];
-
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password"
-  };
+  const [userName, setUserName] = useState("");
 
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
 
-    var { uname, pass } = document.forms[0];
+    const data = {
+      name : userName,
+      coins : 6,
+      taskIDList : [],
+    }  
 
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
+    axios
+    .post("/createUser", data)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
 
-    // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
-    }
+    setIsSubmitted(true);
+
+  
   };
 
   // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
+  // const renderErrorMessage = (name) =>
+  //   name === errorMessages.name && (
+  //     <div className="error">{errorMessages.message}</div>
+  //   );
 
   // JSX code for login form
   const renderForm = (
@@ -60,18 +43,18 @@ function LoginForm() {
       <form onSubmit={handleSubmit}>
         <div className="input-container">
           <label>New Username </label>
-          <input type="text" name="uname" required />
-          {renderErrorMessage("uname")}
+          <input type="text" name="uname" value={userName} onChange={e => setUserName(e.target.value)} required />
+          {/* {renderErrorMessage("uname")} */}
         </div>
         <div className="input-container">
           <label>Password </label>
-          <input type="password" name="pass" required />
-          {renderErrorMessage("pass")}
+          <input type="password" name="pass"  />
+          {/* {renderErrorMessage("pass")} */}
         </div>
         <div className="input-container">
           <label>Re-enter Password </label>
-          <input type="password" name="pass" required />
-          {renderErrorMessage("pass")}
+          <input type="password" name="pass"  />
+          {/* {renderErrorMessage("pass")} */}
         </div>
         <div className="button-container">
           <input type="submit" className="registering"/>
@@ -90,4 +73,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default RegisterForm;
