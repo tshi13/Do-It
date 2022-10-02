@@ -44,6 +44,20 @@ app.post("/createUser", (req,res) =>{ //creates new user
 			})
 })
 
+app.get("/checkUserExist", (req,res) =>{ //check whether the user exists by the username
+	const Uname = req.body["name"];
+		myData = {name: Uname};
+
+	User.exists({ name: Uname }).then(exists => {
+		if (exists) {
+			res.send("User Exists");
+		} else {
+			res.send("User Doesn't Exist");
+		}
+	})
+
+})
+
 app.put("/addTask", (req,res) => { //creates a new task and adds the coresponding objectID to User taskIDList
 	const {userID,taskName,time,coinsEntered} = req.body;
 	let taskID;
