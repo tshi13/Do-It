@@ -5,10 +5,11 @@ export default class Home extends Component {
     render() {
         return (
         <div>
-            <div style ={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
-                <ChatBox />
-            </div>
-            
+            <div style = {{backgroundColor: "#212529"}} >
+                <div style ={{display: 'flex', justifyContent: 'center'}}>
+                    <ChatBox style = {{marginTop: '5%'}} color = 'white' />
+                </div>
+            </div> 
         </div>
         );
     }
