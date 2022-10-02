@@ -74,7 +74,7 @@ function LoginForm() {
           {renderErrorMessage("pass")}
         </div>
         <div className="button-container">
-          <input type="submit" />
+          <input type="submit" className="registering"/>
         </div>
       </form>
     </div>

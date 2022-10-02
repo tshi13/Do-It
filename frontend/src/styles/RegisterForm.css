@@ -16,7 +16,7 @@
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
   
-  input[type="submit"] {
+  .registering{
     margin-top: 10px;
     cursor: pointer;
     font-size: 15px;
@@ -27,12 +27,13 @@
   }
   
   input[type="submit"]:hover {
-    background: #6cf0c2;
+    background: #008CBA;
   }
-  
+
   .button-container {
     display: flex;
     justify-content: center;
+    
   }
   
   .login-form {
