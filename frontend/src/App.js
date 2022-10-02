@@ -3,6 +3,7 @@ import './App.css';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from './containers/Home';
 import TaskCard from './components/taskCard';
+import Login from './components/LoginForm';
 
 
 
@@ -14,6 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}/>
+          <Route path="/login" element={<Login />}/>
         </Routes>
       </BrowserRouter>
     </div>
