@@ -32,8 +32,8 @@ export default class ChatBox extends Component {
 
     render() {
         return (
-            <div>
-                <Button variant = {this.state.variant ? "primary" : "outline-primary"} size = "lg" onClick={this.handleShow}>
+            <div style = {this.state.style}>
+                <Button variant = {this.state.variant ? "primary" : "outline-primary"} size = "lg" onClick={this.handleShow} style ={{backgroundColor: this.props.color}}>
                     Group Chat
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
