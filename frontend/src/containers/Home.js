@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ChatBox from "../components/ChatBox";
+import TaskModal from "../components/TaskModal";
 import axios from 'axios';
 
 const api = axios.create({
@@ -8,16 +9,30 @@ const api = axios.create({
 
 export default class Home extends Component {
 
+    // const {username} = this.props;
 
     // this state could also probably be moved into the ChatBox.js class
     state = {
+        _id: "",
         tasks: [],
     }
 
     // this constructor could also probably be moved into the ChatBox.js class
     constructor() {
         super();
+        this.getUserID();
         this.getTasks();
+    }
+
+    getUserID() {
+        const username = this.props.username;
+        // let userId = api.get('');
+        
+        //----------------------
+        const userId = "6337dbc4d47cf068e83480f5";
+        // test above for now
+
+        this.setState({_id: userId});
     }
 
     // getting the list of tasks associated with a particular user
@@ -27,12 +42,13 @@ export default class Home extends Component {
             // testing the _id with Terry's _id
             let data = await api.get('/tasks', {
                 body: {
-                    "_id": "6337dbc4d47cf068e83480f5"
+                    "_id": this.state.userId,
                 }
             }).then(({data}) => data);
             // stored tasks in data
             // then updating React state with the data (the tasks list)
             this.setState({tasks: data});
+            console.log(data);
         }
         catch (err) {
             // error checking
@@ -40,17 +56,17 @@ export default class Home extends Component {
         }
     }
 
-    addTask = async() => {
+    addTask = async(taskName, time, coinsEntered) => {
         
         // add a list of tasks,
         // and make sure res
         // output is good
         let res = await api
             .post('/addTask', {
-                userID: "6337dbc4d47cf068e83480f5",
-                taskName: "Test task: Mon 10-3-2022 3:30pm",
-                time: "1 hour",
-                coinsEntered: 1,
+                userID: this.state.userId,
+                taskName: taskName,
+                time: time,
+                coinsEntered: coinsEntered,
             })
             .catch(err=>console.log(err));
         console.log(res);
@@ -64,7 +80,9 @@ export default class Home extends Component {
 
     render() {
         return (
+
         <div>
+            {/* <TaskModal addTask={this.addTask} getTasks={this.getTasks} /> */}
             <div style ={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
                 <ChatBox tasks={this.state.tasks} />
             </div>
