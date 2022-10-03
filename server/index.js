@@ -135,8 +135,8 @@ app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the l
  * 
  * 	res: a list of task objects associated with user in database 
  *  */ 
-app.get("/tasks",(req,res) => { //gets all tasks that an _id has
-	const {_id} = req.body;
+app.get("/tasks/:_id",(req,res) => { //gets all tasks that an _id has
+	const _id = req.params._id;
 	const data = User.findById(_id)
 		.then(async (data) => {
 		const taskIDList = data.taskIDList; //assume we only have one instance of each name
@@ -158,7 +158,21 @@ app.get("/tasks",(req,res) => { //gets all tasks that an _id has
     });	
 })
 
-
+/**
+ * req.params: 
+ * 	name: name of user 
+ * 
+ * res: ObjectId of user
+ */
+app.get("/user/:name",(req,res) => {
+	const name = req.params.name;
+	console.log(name);
+	User.find({name:name})
+	.then((data) => {
+		console.log(data);
+		res.send(data[0]._id);
+	})
+})
 
 
 app.listen(port, () => {
