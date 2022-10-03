@@ -23,7 +23,6 @@ function LoginForm() {
     const data = {
       name : userName,
     }  
-
     
     axios.post("/checkUserExist", data).then((response) => {
       if (response.data === "User Exists") {

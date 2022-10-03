@@ -11,6 +11,11 @@ function RegisterForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState("");
 
+  const errors = {
+    uname: "User Already Exist",
+    pass: "invalid password"
+  };
+
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
@@ -20,6 +25,18 @@ function RegisterForm() {
       coins : 6,
       taskIDList : [],
     }  
+    axios.post("/checkUserExist", data).then((response) => {
+      if (response.data === "User Exists") {
+        setIsSubmitted(false);
+        setErrorMessages({ name: "uname", message: errors.uname });
+      } else {
+        axios
+          .post("/createUser", data)
+          .then(res => console.log(res))
+          .catch(err => console.log(err));
+          setIsSubmitted(true);
+      }
+    });
 
     axios
     .post("/createUser", data)
@@ -32,10 +49,10 @@ function RegisterForm() {
   };
 
   // Generate JSX code for error message
-  // const renderErrorMessage = (name) =>
-  //   name === errorMessages.name && (
-  //     <div className="error">{errorMessages.message}</div>
-  //   );
+  const renderErrorMessage = (name) =>
+    name === errorMessages.name && (
+      <div className="error">{errorMessages.message}</div>
+    );
 
   // JSX code for login form
   const renderForm = (
@@ -44,7 +61,7 @@ function RegisterForm() {
         <div className="input-container">
           <label>New Username </label>
           <input type="text" name="uname" value={userName} onChange={e => setUserName(e.target.value)} required />
-          {/* {renderErrorMessage("uname")} */}
+          {renderErrorMessage("uname")}
         </div>
         <div className="input-container">
           <label>Password </label>
