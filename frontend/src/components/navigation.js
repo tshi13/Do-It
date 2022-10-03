@@ -23,6 +23,17 @@ export const Navigation = (props) => {
 				<form className="d-flex">
 					<ul className="navbar-nav">
 						<li className="nav-item">
+							<a className="nav-link active bubble" aria-current="page" href="Register">Register</a>
+						</li>
+					</ul>
+				</form>
+			</div>
+
+
+			<div>
+				<form className="d-flex">
+					<ul className="navbar-nav">
+						<li className="nav-item">
 							<a className="nav-link active bubble" aria-current="page" href="Login">Login</a>
 						</li>
 					</ul>
