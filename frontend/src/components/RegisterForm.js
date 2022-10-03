@@ -36,16 +36,7 @@ function RegisterForm() {
           .catch(err => console.log(err));
           setIsSubmitted(true);
       }
-    });
-
-    axios
-    .post("/createUser", data)
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
-
-    setIsSubmitted(true);
-
-  
+    });  
   };
 
   // Generate JSX code for error message
