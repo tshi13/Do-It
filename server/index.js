@@ -127,22 +127,29 @@ app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the l
 		.status(500)
 		.send({ message: "Error creating group with name: " + groupName })
 	})
-
 })
 
 /**
  * req.body: 
  * 	_id: ObjectId of user 
  * 
- * 	res: a list of ObjectIds of tasks associated with user in database 
+ * 	res: a list of task objects associated with user in database 
  *  */ 
 app.get("/tasks",(req,res) => { //gets all tasks that an _id has
 	const {_id} = req.body;
 	const data = User.findById(_id)
+		.then(async (data) => {
+		const taskIDList = data.taskIDList; //assume we only have one instance of each name
+		console.log(taskIDList); //prints retrieved list of taskIDs
+		let taskList = [];
+		for (let i = 0; i < taskIDList.length; i++) {
+			taskList[i] = await Task.findById(taskIDList[i]);
+		}
+		return taskList;
+		})
 		.then((data) => {
-		const taskList = data.taskIDList; //assume we only have one instance of each name
-		console.log(taskList); //prints retrieved list of taskIDs
-		res.send(taskList);
+		console.log(data); //prints retrieved list of taskIDs
+		res.send(data);
 		})
 		.catch(err => {
       res
