@@ -44,7 +44,7 @@ app.post("/createUser", (req,res) =>{ //creates new user
 			})
 })
 
-app.get("/checkUserExist", (req,res) =>{ //check whether the user exists by the username
+app.post("/checkUserExist", (req,res) =>{ //check whether the user exists by the username
 	const Uname = req.body["name"];
 		myData = {name: Uname};
 
