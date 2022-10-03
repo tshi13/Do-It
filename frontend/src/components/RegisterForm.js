@@ -5,11 +5,12 @@ import '../styles/RegisterForm.css';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 
-function RegisterForm() {
+function RegisterForm(props) {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState("");
+  
 
   const errors = {
     uname: "User Already Exist",
@@ -24,7 +25,10 @@ function RegisterForm() {
       name : userName,
       coins : 6,
       taskIDList : [],
-    }  
+    }
+
+    props.setUser(data.name);
+
     axios.post("/checkUserExist", data).then((response) => {
       if (response.data === "User Exists") {
         setIsSubmitted(false);

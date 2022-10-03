@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import '../styles/LoginForm.css';
 
-function LoginForm() {
+function LoginForm(props) {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -23,6 +23,8 @@ function LoginForm() {
     const data = {
       name : userName,
     }  
+    
+    props.setUser(data.name);
     
     axios.post("/checkUserExist", data).then((response) => {
       if (response.data === "User Exists") {
