@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ChatBox from "../components/ChatBox";
 import axios from 'axios';
+import TaskModal from "../components/TaskModal";
 
 const api = axios.create({
     baseURL: `http://localhost:3000/`,
@@ -65,9 +66,12 @@ export default class Home extends Component {
     render() {
         return (
         <div>
-            <div style ={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
-                <ChatBox tasks={this.state.tasks} />
+            <div style = {{marginRight: '50%'}}>
+                <TaskModal />
             </div>
+            {/* <div style ={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
+                <ChatBox tasks={this.state.tasks} />
+            </div> */}
             
         </div>
         );
