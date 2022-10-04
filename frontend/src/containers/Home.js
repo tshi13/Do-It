@@ -9,14 +9,14 @@ const api = axios.create({
 export default class Home extends Component {
 
 
-    // this state could also probably be moved into the ChatBox.js class
-    state = {
-        tasks: [],
-    }
+
 
     // this constructor could also probably be moved into the ChatBox.js class
-    constructor() {
+    constructor(props) {
         super();
+        this.state = {
+            tasks: props.tasks ? props.tasks : [],
+        };
         this.getTasks();
     }
 
