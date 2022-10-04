@@ -64,13 +64,19 @@ export default function Home(props) {
             // then updating React state with the data (the tasks list)
             // this.setState({tasks: data});
             
-            console.log(data);
-            setTasks(data);
+            console.log(data["data"]);
+
+            // this line is confusing me -- not sure how to
+            // get the tasks state variable to reflect
+            // what was loaded in from axios
+            setTasks(data["data"]);
         }
         catch (err) {
             // error checking
             console.log(err);
         }
+        console.log("in getTasks() function, tasks is: ");
+        console.log(tasks);
         return tasks;
     }
 
