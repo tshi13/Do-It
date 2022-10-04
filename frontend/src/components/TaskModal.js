@@ -5,7 +5,8 @@ import Home from '../containers/Home';
 
 export default function TaskModal(props) {
 
-    
+    const {addTask} = props;
+
     const [show, setShow] = useState(false);
     const [taskName, setTaskName] = useState("");
     const [time, setTimeForTask] = useState(0);
@@ -20,30 +21,14 @@ export default function TaskModal(props) {
 
   const handleClose = () => {
     setShow(false);
-    props.addTask();
+    // props.addTask();
   }
   const handleShow = () => setShow(true);
 
-
-  // onChange handlers for when the user
-  // updates the text field
-  // to update the state
-//   const setTaskName = (taskName) => {
-//     this.setState({
-//         taskName: taskName
-//     });
-//   }
-//   const setCoinsEntered = (coinsEntered) => {
-//     this.setState({
-//         coinsEntered: coinsEntered
-//     });
-//   }
-//   const setTimeForTask = (time) => {
-//     this.setState({
-//         time: time
-//     });
-//   }
-
+  const handleSubmit = () => {
+    // preventDefault();
+    props.addTask(taskName, time, coinsEntered);
+  }
   
   const styleSheet = {
     circle: {
@@ -77,21 +62,23 @@ export default function TaskModal(props) {
             <Modal.Title>Add Task</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <form onSubmit={props.addTask(taskName, time, coinsEntered)}>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <input type="text" placeholder="Task Name" style ={styleSheet.inputStyle} onChange={e => setTaskName(e.target.value)} />
                     <input type="text" placeholder="Task Description" style ={styleSheet.inputStyle} />
                     <input type="text" placeholder="Coins Per Task"  style ={styleSheet.inputStyle} onChange={e => setCoinsEntered(e.target.value)}/>
                     <input type="text" placeholder="Task Due Date" style ={styleSheet.inputStyle} onChange={e => setTimeForTask(e.target.value)} />
                 </div>
-
-            </form>
-            </Modal.Body>
-            <Modal.Footer>
+                
+                <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary">Confirm</Button>
+            </form>
+            </Modal.Body>
+            <Modal.Footer>
+                
+                
             </Modal.Footer>
         </Modal>
       </div>

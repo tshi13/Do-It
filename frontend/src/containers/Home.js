@@ -1,13 +1,19 @@
-import React, { useState, Component } from "react";
+import React, { useState, useEffect, Component } from "react";
 import ChatBox from "../components/ChatBox";
 import TaskModal from "../components/TaskModal";
 import axios from 'axios';
+import { useAsyncValue } from "react-router-dom";
 
 // const api = axios.create({
 //     baseURL: `http://localhost:5000/`,
 // });
 
 export default function Home(props) {
+
+    useEffect(()=>{
+        getUserID(); // will only run once
+        // due to empty dependency array below
+    }, [])
 
     // const {username} = this.props;
 
@@ -26,16 +32,21 @@ export default function Home(props) {
     //     this.getTasks();
     // }
 
-    const getUserID = () => {
-        const username = props.username;
-        // let userId = api.get('');
-        
-        //----------------------
+    const getUserID = async() => {
+        let username = props.username;
+        if (username === null) {
+            username = "Terry"; // default hardcoded username
+        }
+        console.log("username is " + username);
+
         const userId = "6337dbc4d47cf068e83480f5";
+        let data = await axios.get('/user/' + username).then(data => data);
+        console.log(data["data"]);
         // test above for now
 
         // this.setState({_id: userId});
-        setId(userId);
+        setId(data["data"]);
+        console.log("id is " + id);
     }
 
     // getting the list of tasks associated with a particular user
@@ -81,6 +92,9 @@ export default function Home(props) {
         // so we can see the updated list of tasks
         getTasks();
     }
+
+    // getUserID(); // runs repeatedly here
+    // getTasks(); // runs repeatedly here
 
     return (
 
