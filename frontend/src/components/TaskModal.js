@@ -3,7 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Home from '../containers/Home';
 
-export default function TaskModal() {
+export default function TaskModal(props) {
+
+    
     const [show, setShow] = useState(false);
     const [taskName, setTaskName] = useState("");
     const [time, setTimeForTask] = useState(0);
@@ -18,7 +20,7 @@ export default function TaskModal() {
 
   const handleClose = () => {
     setShow(false);
-    this.props.addTask();
+    props.addTask();
   }
   const handleShow = () => setShow(true);
 
@@ -75,7 +77,7 @@ export default function TaskModal() {
             <Modal.Title>Add Task</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <form onSubmit={this.props.addTask(taskName, time, coinsEntered)}>
+            <form onSubmit={props.addTask(taskName, time, coinsEntered)}>
                 <div className="form-group">
                     <input type="text" placeholder="Task Name" style ={styleSheet.inputStyle} onChange={e => setTaskName(e.target.value)} />
                     <input type="text" placeholder="Task Description" style ={styleSheet.inputStyle} />

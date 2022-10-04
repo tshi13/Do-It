@@ -1,54 +1,58 @@
-import React, { Component } from "react";
+import React, { useState, Component } from "react";
 import ChatBox from "../components/ChatBox";
 import TaskModal from "../components/TaskModal";
 import axios from 'axios';
 
-const api = axios.create({
-    baseURL: `http://localhost:3000/`,
-});
+// const api = axios.create({
+//     baseURL: `http://localhost:5000/`,
+// });
 
-export default class Home extends Component {
+export default function Home(props) {
 
     // const {username} = this.props;
 
     // this state could also probably be moved into the ChatBox.js class
-    state = {
-        _id: "",
-        tasks: [],
-    }
+    // state = {
+    //     _id: "",
+    //     tasks: [],
+    // }
+    const [id, setId] = useState("");
+    const [tasks, setTasks] = useState([]);
 
     // this constructor could also probably be moved into the ChatBox.js class
-    constructor() {
-        super();
-        this.getUserID();
-        this.getTasks();
-    }
+    // constructor() {
+    //     super();
+    //     this.getUserID();
+    //     this.getTasks();
+    // }
 
-    getUserID() {
-        const username = this.props.username;
+    const getUserID = () => {
+        const username = props.username;
         // let userId = api.get('');
         
         //----------------------
         const userId = "6337dbc4d47cf068e83480f5";
         // test above for now
 
-        this.setState({_id: userId});
+        // this.setState({_id: userId});
+        setId(userId);
     }
 
     // getting the list of tasks associated with a particular user
     // and storing it in the state' tasks variable
-    getTasks = async() => {
+    const getTasks = async() => {
+        getUserID();
         try {
             // testing the _id with Terry's _id
-            let data = await api.get('/tasks', {
-                body: {
-                    "_id": this.state.userId,
-                }
-            }).then(({data}) => data);
+            console.log("id is " + id);
+            let data = await axios.get('/tasks/6337dbc4d47cf068e83480f5')
+            .then(data => console.log(data));
             // stored tasks in data
             // then updating React state with the data (the tasks list)
-            this.setState({tasks: data});
+            // this.setState({tasks: data});
+            
             console.log(data);
+            setTasks(data);
         }
         catch (err) {
             // error checking
@@ -56,17 +60,17 @@ export default class Home extends Component {
         }
     }
 
-    addTask = async(taskName, time, coinsEntered) => {
-        
+    const addTask = async(taskName="test", time, coinsEntered) => {
+        getUserID();
         // add a list of tasks,
         // and make sure res
         // output is good
-        let res = await api
-            .post('/addTask', {
-                userID: this.state.userId,
-                taskName: taskName,
-                time: time,
-                coinsEntered: coinsEntered,
+        let res = await axios
+            .put('/addTask', {
+                "userID": id,
+                "taskName": taskName,
+                "time": time,
+                "coinsEntered": coinsEntered,
             })
             .catch(err=>console.log(err));
         console.log(res);
@@ -75,20 +79,18 @@ export default class Home extends Component {
         // refresh the list of tasks after you add a task
             // to the index.js backend and database
         // so we can see the updated list of tasks
-        this.getTasks();
+        getTasks();
     }
 
-    render() {
-        return (
+    return (
 
-        <div>
-            {/* <TaskModal addTask={this.addTask} getTasks={this.getTasks} /> */}
-            <div style ={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
-                <ChatBox tasks={this.state.tasks} />
-            </div>
-            
+    <div>
+        <TaskModal addTask={addTask} getTasks={getTasks} />
+        <div style ={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
+            <ChatBox tasks={tasks} />
         </div>
-        );
-    }
+        
+    </div>
+    );
 
 }
