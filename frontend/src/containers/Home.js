@@ -33,18 +33,20 @@ export default function Home(props) {
     // }
 
     const getUserID = async() => {
+
+        // getting username from the props
         let username = props.username;
         if (username === null) {
             username = "Terry"; // default hardcoded username
+            setId("6337dbc4d47cf068e83480f5"); // default hardcoded _id
         }
         console.log("username is " + username);
 
-        const userId = "6337dbc4d47cf068e83480f5";
+        // getting _id from the username (going to database)
         let data = await axios.get('/user/' + username).then(data => data);
         console.log(data["data"]);
-        // test above for now
 
-        // this.setState({_id: userId});
+        // setting id as the returned _id from the database
         setId(data["data"]);
         console.log("id is " + id);
     }
@@ -56,8 +58,8 @@ export default function Home(props) {
         try {
             // testing the _id with Terry's _id
             console.log("id is " + id);
-            let data = await axios.get('/tasks/6337dbc4d47cf068e83480f5')
-            .then(data => console.log(data));
+            let data = await axios.get('/tasks/' + id)
+            .then(data => data);
             // stored tasks in data
             // then updating React state with the data (the tasks list)
             // this.setState({tasks: data});
@@ -69,6 +71,7 @@ export default function Home(props) {
             // error checking
             console.log(err);
         }
+        return tasks;
     }
 
     const addTask = async(taskName="test", time, coinsEntered) => {
@@ -99,7 +102,7 @@ export default function Home(props) {
     return (
 
     <div>
-        <TaskModal addTask={addTask} getTasks={getTasks} />
+        <TaskModal addTask={addTask} getTasks={getTasks} tasks={tasks}/>
         <div style ={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
             <ChatBox tasks={tasks} />
         </div>

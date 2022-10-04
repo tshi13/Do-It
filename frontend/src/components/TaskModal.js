@@ -28,6 +28,9 @@ export default function TaskModal(props) {
   const handleSubmit = () => {
     // preventDefault();
     props.addTask(taskName, time, coinsEntered);
+    props.getTasks();
+
+    console.log("in taskmodal, printing tasks passed as props: " + props.tasks);
   }
   
   const styleSheet = {
@@ -64,10 +67,10 @@ export default function TaskModal(props) {
             <Modal.Body>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <input type="text" placeholder="Task Name" style ={styleSheet.inputStyle} onChange={e => setTaskName(e.target.value)} />
+                    <input type="text" placeholder="Task Name" style ={styleSheet.inputStyle} onInput={e => setTaskName(e.target.value)} />
                     <input type="text" placeholder="Task Description" style ={styleSheet.inputStyle} />
-                    <input type="text" placeholder="Coins Per Task"  style ={styleSheet.inputStyle} onChange={e => setCoinsEntered(e.target.value)}/>
-                    <input type="text" placeholder="Task Due Date" style ={styleSheet.inputStyle} onChange={e => setTimeForTask(e.target.value)} />
+                    <input type="text" placeholder="Coins Per Task"  style ={styleSheet.inputStyle} onInput={e => setCoinsEntered(e.target.value)}/>
+                    <input type="text" placeholder="Task Due Date" style ={styleSheet.inputStyle} onInput={e => setTimeForTask(e.target.value)} />
                 </div>
                 
                 <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
