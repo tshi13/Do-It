@@ -2,12 +2,14 @@ import React, { useState, useEffect, Component } from "react";
 import ChatBox from "../components/ChatBox";
 import TaskModal from "../components/TaskModal";
 import axios from 'axios';
+import DisplayTasks from '../pages/DisplayTasks'
 // import TaskModal from "../components/TaskModal";
 import { useAsyncValue } from "react-router-dom";
 
 // const api = axios.create({
 //     baseURL: `http://localhost:5000/`,
 // });
+
 
 export default function Home(props) {
 
@@ -113,7 +115,7 @@ export default function Home(props) {
         <div style ={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
             <ChatBox tasks={tasks} />
         </div>
-        
+        <DisplayTasks tasks={tasks}/> 
     </div>
     );
 
