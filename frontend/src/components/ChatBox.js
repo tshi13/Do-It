@@ -13,6 +13,7 @@ export default class ChatBox extends Component {
             messages: [],
             variant:  false,
             tasks: props.tasks,
+            style: props.style,
         };
     }
 
