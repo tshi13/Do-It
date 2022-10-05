@@ -15,13 +15,15 @@ function App() {
 
   const { user, setUser } = useUser();
 
+  const backgroundColor = '#99ffdd';
+
 
   return (    
     <div style ={{width: '100%', height: '100%'}}>
-      <Navigation/>
+      <Navigation backgroundColor = {backgroundColor}/>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home username = {user} />}/>
+          <Route path="/" element={<Home username = {user} backgroundColor = {backgroundColor}/>}/>
           <Route path="/login" element={<Login user = {user} setUser = {setUser} />}/>
           <Route path="/Register" element={<Register user = {user} setUser = {setUser} />}/>
         </Routes>

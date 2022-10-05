@@ -3,6 +3,7 @@ import ChatBox from "../components/ChatBox";
 import TaskModal from "../components/TaskModal";
 import axios from 'axios';
 // import TaskModal from "../components/TaskModal";
+import '../styles/Home.css';
 import { useAsyncValue } from "react-router-dom";
 
 // const api = axios.create({
@@ -109,9 +110,13 @@ export default function Home(props) {
     return (
 
     <div>
-        <TaskModal addTask={addTask} getTasks={getTasks} tasks={tasks}/>
-        <div style ={{display: 'flex', justifyContent: 'center', marginTop: '5%'}}>
-            <ChatBox tasks={tasks} />
+        <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
+            <h1 className="title">Welcome to the Home Page, {props.username}!</h1>
+            <p className = "h1" style = {{width: '25%', float: 'left'}}>Here at DoIt We Strive to give you the app to fulfill your goals!</p>
+            <div style ={{float: 'center'}}>
+                <TaskModal addTask={addTask} getTasks={getTasks} tasks={tasks}/>
+                <ChatBox tasks={tasks} style ={{display: 'flex', justifyContent: 'center'}} />
+            </div>
         </div>
         
     </div>
