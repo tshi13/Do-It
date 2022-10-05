@@ -110,7 +110,7 @@ export default function Home(props) {
                   </div>
                     <div className="home__container__right">
                         <TaskModal addTask={addTask} />
-                        <DisplayTasks tasks={tasks} />
+                        <ChatBox tasks={tasks} />
                     </div>
                 </div>
             </div>
