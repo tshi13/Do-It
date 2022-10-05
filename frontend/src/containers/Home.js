@@ -14,7 +14,8 @@ import { useAsyncValue } from "react-router-dom";
 export default function Home(props) {
 
     useEffect(()=>{
-        getUserID(); // will only run once
+        getTasks();
+        // getUserID(); // will only run once
         // due to empty dependency array below
     }, [])
 
