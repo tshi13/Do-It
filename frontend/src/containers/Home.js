@@ -43,15 +43,12 @@ export default function Home(props) {
             username = "Terry"; // default hardcoded username
             setId("6337dbc4d47cf068e83480f5"); // default hardcoded _id
         }
-        console.log("username is " + username);
 
         // getting _id from the username (going to database)
         let data = await axios.get('/user/' + username).then(data => data);
-        console.log(data["data"]);
 
         // setting id as the returned _id from the database
         setId(data["data"]);
-        console.log("id is " + id);
     }
 
     // getting the list of tasks associated with a particular user
@@ -60,14 +57,12 @@ export default function Home(props) {
         getUserID();
         try {
             // testing the _id with Terry's _id
-            console.log("id is " + id);
             let data = await axios.get('/tasks/' + id)
             .then(data => data);
             // stored tasks in data
             // then updating React state with the data (the tasks list)
             // this.setState({tasks: data});
             
-            console.log(data["data"]);
 
             // this line is confusing me -- not sure how to
             // get the tasks state variable to reflect
@@ -78,8 +73,6 @@ export default function Home(props) {
             // error checking
             console.log(err);
         }
-        console.log("in getTasks() function, tasks is: ");
-        console.log(tasks);
         return tasks;
     }
 
@@ -96,7 +89,6 @@ export default function Home(props) {
                 "coinsEntered": coinsEntered,
             })
             .catch(err=>console.log(err));
-        console.log(res);
 
         // provided the res output was good,
         // refresh the list of tasks after you add a task

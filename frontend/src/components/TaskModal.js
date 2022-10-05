@@ -30,8 +30,6 @@ export default function TaskModal(props) {
     props.addTask(taskName, time, coinsEntered);
     props.getTasks();
 
-    console.log("in taskmodal, printing tasks passed as props: ")
-    console.log(props.tasks);
   }
   
   const styleSheet = {
