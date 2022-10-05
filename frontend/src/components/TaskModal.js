@@ -1,14 +1,39 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Home from '../containers/Home';
 
+export default function TaskModal(props) {
 
-export default function TaskModal() {
-  const [show, setShow] = useState(false);
+    const {addTask} = props;
 
-  const handleClose = () => setShow(false);
+    const [show, setShow] = useState(false);
+    const [taskName, setTaskName] = useState("");
+    const [time, setTimeForTask] = useState(0);
+    const [coinsEntered, setCoinsEntered] = useState(0);
+
+  // state of input form
+//   state = {
+//     taskName: "",
+//     taskName: "",
+//     coinsEntered: 0,
+//   }
+
+  const handleClose = () => {
+    setShow(false);
+    // props.addTask();
+  }
   const handleShow = () => setShow(true);
 
+  const handleSubmit = () => {
+    // preventDefault();
+    props.addTask(taskName, time, coinsEntered);
+    props.getTasks();
+
+    console.log("in taskmodal, printing tasks passed as props: ")
+    console.log(props.tasks);
+  }
+  
   const styleSheet = {
     circle: {
         borderRadius: '50%',
@@ -41,21 +66,23 @@ export default function TaskModal() {
             <Modal.Title>Add Task</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <input type="text" placeholder="Task Name" style ={styleSheet.inputStyle} />
+                    <input type="text" placeholder="Task Name" style ={styleSheet.inputStyle} onInput={e => setTaskName(e.target.value)} />
                     <input type="text" placeholder="Task Description" style ={styleSheet.inputStyle} />
-                    <input type="text" placeholder="Coins Per Task"  style ={styleSheet.inputStyle}/>
-                    <input type="text" placeholder="Task Due Date" style ={styleSheet.inputStyle} />
+                    <input type="text" placeholder="Coins Per Task"  style ={styleSheet.inputStyle} onInput={e => setCoinsEntered(e.target.value)}/>
+                    <input type="text" placeholder="Task Due Date" style ={styleSheet.inputStyle} onInput={e => setTimeForTask(e.target.value)} />
                 </div>
-
-            </form>
-            </Modal.Body>
-            <Modal.Footer>
+                
+                <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary">Confirm</Button>
+            </form>
+            </Modal.Body>
+            <Modal.Footer>
+                
+                
             </Modal.Footer>
         </Modal>
       </div>

@@ -30,7 +30,28 @@ app.get("/", (req, res) => {
 });
 
 
-app.post("/createUser", (req,res) =>{ //creates new user
+app.post("/checkUserExist", (req,res) =>{ //check whether the user exists by the username
+	const Uname = req.body["name"];
+		myData = {name: Uname};
+
+	User.exists({ name: Uname }).then(exists => {
+		if (exists) {
+			res.send("User Exists");
+		} else {
+			res.send("User Doesn't Exist");
+		}
+	})
+})
+
+/**
+ * req.body: 
+ * 	name: String
+ * 	coins: Int
+ * 	taskIDList: [] Use empty array to initialize
+ * 
+ * 	res: Copy of created User object in database 
+ *  */ 
+ app.post("/createUser", (req,res) =>{ //creates new user
 	const {name,coins,taskIDList} = req.body;
 		const data = User.create({name,coins,taskIDList})
 			.then((data) => {
@@ -44,6 +65,16 @@ app.post("/createUser", (req,res) =>{ //creates new user
 			})
 })
 
+
+/**
+ * req.body: 
+ * 	userID: String, ObjectId of user associated to this task
+ * 	taskName: String
+ * 	time: int (temporary)
+ * 	coinsEntered: int
+ * 
+ * 	res: Copy of created Task object in database 
+ *  */ 
 app.put("/addTask", (req,res) => { //creates a new task and adds the coresponding objectID to User taskIDList
 	const {userID,taskName,time,coinsEntered} = req.body;
 	let taskID;
@@ -61,7 +92,7 @@ app.put("/addTask", (req,res) => { //creates a new task and adds the corespondin
 		newTaskIDList = user.taskIDList;
 		newCoinBalance = user.coins - coinsEntered;
 		newTaskIDList.push(taskID);
-		return User.findOneAndUpdate({ _id: userID}, {taskIDList:newTaskIDList, coins:newCoinBalance});
+		return User.findOneAndUpdate({ _id: userID}, {taskIDList:newTaskIDList, coins:newCoinBalance}); // add taskID and update coin balance for user
 	})
 	.catch((err) => {
 		res
@@ -69,6 +100,15 @@ app.put("/addTask", (req,res) => { //creates a new task and adds the corespondin
 		.send({ message: "Error creating task with name: " + taskName })
 	})
 })
+
+
+/**
+ * req.body: 
+ * 	groupName: String
+ * 	idList: [String], list of ObjectIds of users in this group 
+ * 
+ * 	res: Copy of created Group object in database 
+ *  */ 
 
 // please do not delete commented code out yet. This is for when we want to conenct the objectIDs in database
 app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the list of objectIDs of users
@@ -87,23 +127,51 @@ app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the l
 		.status(500)
 		.send({ message: "Error creating group with name: " + groupName })
 	})
-
 })
 
-
-app.get("/tasks",(req,res) => { //gets all tasks that an _id has
-	const {_id} = req.body;
+/**
+ * req.body: 
+ * 	_id: ObjectId of user 
+ * 
+ * 	res: a list of task objects associated with user in database 
+ *  */ 
+app.get("/tasks/:_id",(req,res) => { //gets all tasks that an _id has
+	const _id = req.params._id;
 	const data = User.findById(_id)
+		.then(async (data) => {
+		const taskIDList = data.taskIDList; //assume we only have one instance of each name
+		console.log(taskIDList); //prints retrieved list of taskIDs
+		let taskList = [];
+		for (let i = 0; i < taskIDList.length; i++) {
+			taskList[i] = await Task.findById(taskIDList[i]);
+		}
+		return taskList;
+		})
 		.then((data) => {
-		const taskList = data.taskList; //assume we only have one instance of each name
-		console.log(taskList); //prints retrieved list of task objects
-		res.send(taskList);
+		console.log(data); //prints retrieved list of taskIDs
+		res.send(data);
 		})
 		.catch(err => {
       res
         .status(500)
         .send({ message: "Error retrieving tasks with id: " + _id });
     });	
+})
+
+/**
+ * req.params: 
+ * 	name: name of user 
+ * 
+ * res: ObjectId of user
+ */
+app.get("/user/:name",(req,res) => {
+	const name = req.params.name;
+	console.log(name);
+	User.find({name:name})
+	.then((data) => {
+		console.log(data);
+		res.send(data[0]._id);
+	})
 })
 
 
