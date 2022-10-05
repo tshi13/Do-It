@@ -1,11 +1,10 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import ChatBox from "../components/ChatBox";
 import TaskModal from "../components/TaskModal";
 import axios from 'axios';
 import DisplayTasks from '../pages/DisplayTasks'
 // import TaskModal from "../components/TaskModal";
 import '../styles/Home.css';
-import { useAsyncValue } from "react-router-dom";
 
 // const api = axios.create({
 //     baseURL: `http://localhost:5000/`,
@@ -102,19 +101,35 @@ export default function Home(props) {
     // getUserID(); // runs repeatedly here
     // getTasks(); // runs repeatedly here
 
-    return (
-
-    <div>
-        <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
-            <h1 className="title">Welcome to the Home Page, {props.username}!</h1>
-            <p className = "h1" style = {{width: '25%', float: 'left'}}>Here at DoIt We Strive to give you the app to fulfill your goals!</p>
-            <div style ={{float: 'center'}}>
-                <TaskModal addTask={addTask} getTasks={getTasks} tasks={tasks}/>
-                <ChatBox tasks={tasks} style ={{display: 'flex', justifyContent: 'center'}} />
+    const loggedInPage = (
+        <div className="home">
+            <div className="home__container">
+                <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
+                    <h1 className="title">Welcome to the Home Page, {props.username}!</h1>
+                    <div className="home__container__left">
+                  </div>
+                    <div className="home__container__right">
+                        <TaskModal addTask={addTask} />
+                        <DisplayTasks tasks={tasks} />
+                    </div>
+                </div>
             </div>
         </div>
-        <DisplayTasks tasks={tasks}/> 
-    </div>
+    );
+
+    const homePage = (
+        <div className="home">
+            <p>Home Page</p>
+        </div>
+    );
+
+        
+
+
+    return (
+        <div>
+            {props.isLoggedIn ? loggedInPage : homePage}
+        </div>
     );
 
 }

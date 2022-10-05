@@ -14,16 +14,17 @@ import useUser from './utils/useUser';
 function App() {
 
   const { user, setUser } = useUser();
+  const isLoggedIn = user !== null;
 
   const backgroundColor = '#99ffdd';
 
 
   return (    
     <div style ={{width: '100%', height: '100%'}}>
-      <Navigation backgroundColor = {backgroundColor}/>
+      <Navigation backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn}/>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home username = {user} backgroundColor = {backgroundColor}/>}/>
+          <Route path="/" element={<Home username = {user} backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn}/>}/>
           <Route path="/login" element={<Login user = {user} setUser = {setUser} />}/>
           <Route path="/Register" element={<Register user = {user} setUser = {setUser} />}/>
         </Routes>
