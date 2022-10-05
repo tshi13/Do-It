@@ -44,10 +44,7 @@ node index.js
 - As developers, we want to create mongoose Schema for User
 - As a user, users should see a chatbox
 - As a user, will have a login functionality with username
-- As devs, we want to display task cards
-- As a user, I want to view task cards on a page so I can know what tasks I need to complete.
-- As a user, users should see a front-end home page that displays tasks
 - As a user, I want to be able to set the coin value of a task so I can say how much a task is worth.
 
-Note: if you refresh you will be logged out and will need to login again. Currently you need to create a new task to be able to see your previous task cards.
+Note: if you refresh you will be logged out and will need to login again. Currently you need to create a new task to be able to see your previous task cards (will implement next iteration)
 
