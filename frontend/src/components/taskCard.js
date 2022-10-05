@@ -13,13 +13,13 @@ export default function TaskCard(props) {
       <Card sx={{ minWidth: 250, maxWidth:300, boxShadow: 2, }}>
         <CardContent>
           <Typography variant="h5" component="div">
-            {task.name}
+            {task.taskName}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {task.second_title}
+            Coins entered: {task.coinsEntered}
           </Typography>
           <Typography variant="body2">
-            {task.content}
+            Time: {task.time}
           </Typography>
         </CardContent>
         <CardActions>
