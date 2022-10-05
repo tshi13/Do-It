@@ -28,11 +28,12 @@ node index.js
 4. You can click a plus button on the right side of the screen to add a task for yourself
 5. Enter the fields for the task then click confirm (may have to double click)
 
-### User Stories Completed on Iteration 1
+### User Stories (original) Completed on Iteration 1
 - As a user, I want to be able to create tasks for myself to complete  
 - As a user, I want to be able to enter a certain number of coins to the pool with my friends when setting up a task  
 - As a user, I want to be able to enter a due date or time for when the task is due so that I can be held accountable by others to complete tasks on time
 
+### More specific User Stories Completed on Iteration 1
 - As developers, we want to setup mongodb and backend express
 - As a developer and as a user, I want to be able to differentiate users from each other so I know who has which tasks.
 - As developers, we want to create mongoose Schema for Task
