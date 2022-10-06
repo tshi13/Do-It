@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React, { Component, useEffect, useState } from "react";
 import Database from "../utils/database";
 
 import '../styles/LoginForm.css';
@@ -49,6 +48,13 @@ function LoginForm(props) {
     // }
   })};
 
+  // useEffect hook to redirect to home page after login
+  useEffect(() => {
+    if (isSubmitted) {
+      window.location.href = "/";
+    }
+  }, [isSubmitted]);
+
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>
     name === errorMessages.name && (
@@ -80,7 +86,7 @@ function LoginForm(props) {
     <div className="app">
       <div className="login-form">
         <div className="title">Sign In</div>
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+        {isSubmitted ? <div>User is successfully logged in <br></br> <p>Redirecting to Main Page</p></div> : renderForm}
       </div>
     </div>
   );

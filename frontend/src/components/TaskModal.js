@@ -19,10 +19,20 @@ export default function TaskModal(props) {
   const handleSubmit = () => {
     // preventDefault();
 
+    // checks if the user inputs are valid and exist
     if(taskName === "" || time === 0 || coinsEntered === 0) {
       alert("Please fill out all fields");
     } else  {
-      Database.addData('tasks', {userID: props.userID, groupID: props.groupID, taskName: taskName, time: time, coinsEntered: coinsEntered});
+      // add task to database
+      let coinsEnteredInt;
+      let timeInt;
+      try { // try to convert the input to an integer and catch any errors that may occur
+        coinsEnteredInt = parseInt(coinsEntered);
+        timeInt = parseInt(time);
+      } catch (err) {
+        alert("Please enter a valid number for time and coins");
+      }
+      Database.addData('tasks', {userID: props.userID, groupID: props.groupID, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
     }
   }
   
@@ -42,6 +52,7 @@ export default function TaskModal(props) {
     },
   }
 
+   // JSX code for taskModal form
   return (
     <div>
         <Button variant="primary" onClick={handleShow} style ={styleSheet.circle}>

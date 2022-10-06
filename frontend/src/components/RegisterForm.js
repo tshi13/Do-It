@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from "react";
 import '../styles/RegisterForm.css';
 import Database from "../utils/database";
 
@@ -9,6 +8,13 @@ function RegisterForm(props) {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState("");
+
+    // useEffect hook to redirect to home page after login
+  useEffect(() => {
+    if (isSubmitted) {
+      window.location.href = "/";
+    }
+  }, [isSubmitted]);
   
 
   const errors = {
@@ -76,7 +82,7 @@ function RegisterForm(props) {
     <div className="app">
       <div className="login-form">
         <div className="title">Registration </div>
-        {isSubmitted ? <div>Register successfully</div> : renderForm}
+        {isSubmitted ? <div>Register successfully<br></br> <p>Redirecting to Main Page</p></div> : renderForm}
       </div>
     </div>
   );
