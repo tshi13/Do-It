@@ -21,7 +21,7 @@ function App() {
 
   return (    
     <div style ={{width: '100%', height: '100%'}}>
-      <Navigation backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn}/>
+      <Navigation backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} setUser = {setUser}/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home username = {user} backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn}/>}/>

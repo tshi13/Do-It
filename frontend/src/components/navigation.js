@@ -2,6 +2,49 @@ import React from 'react';
 import '../styles/navigation.css';
 
 export const Navigation = (props) => { 
+	
+	function logOut(e) {
+		e.preventDefault();
+		props.setUser(null);
+	}
+	
+	const loginOptions = (
+		<>
+		<div>
+			<form className="d-flex">
+				<ul className="navbar-nav">
+					<li className="nav-item">
+						<a className="nav-link active bubble font-weight-bold" aria-current="page" href="Register"  style = {{fontWeight: 'bold'}}>Register</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+		<div>
+			<form className="d-flex">
+				<ul className="navbar-nav">
+					<li className="nav-item">
+						<a className="nav-link active bubble font-weight-bold" aria-current="page" href="Login"  style = {{fontWeight: 'bold'}}>Login</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+		</>
+	);
+
+	const logoutOptions = (
+		<>
+		<div>
+			<form className="d-flex">
+				<ul className="navbar-nav">
+					<li className="nav-item">
+						<a className="nav-link active bubble font-weight-bold" aria-current="page" href="/"  style = {{fontWeight: 'bold'}} onClick={logOut}>Logout</a>
+					</li>
+				</ul>
+			</form>
+		</div>
+		</>
+	);
+
     return ( 
         <nav className="navbar navbar-expand-lg" style = {{backgroundColor: props.backgroundColor}}>
 			<a className="navbar-brand block" href="/" style = {{marginLeft: '2%', fontWeight: 'bold'}}>Do/It</a>
@@ -19,25 +62,7 @@ export const Navigation = (props) => {
 					</form>
 			</div>
 
-			<div>
-				<form className="d-flex">
-					<ul className="navbar-nav">
-						<li className="nav-item">
-							<a className="nav-link active bubble font-weight-bold" aria-current="page" href="Register"  style = {{fontWeight: 'bold'}}>Register</a>
-						</li>
-					</ul>
-				</form>
-			</div>
-
-			<div>
-				<form className="d-flex">
-					<ul className="navbar-nav">
-						<li className="nav-item">
-							<a className="nav-link active bubble font-weight-bold" aria-current="page" href="Login"  style = {{fontWeight: 'bold'}}>Login</a>
-						</li>
-					</ul>
-				</form>
-			</div>
+            {props.isLoggedIn ? logoutOptions : loginOptions}
 
 		</nav>		
     );
