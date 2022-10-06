@@ -2,34 +2,28 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Home from '../containers/Home';
+import Database from '../utils/database';
 
 export default function TaskModal(props) {
-
-    const {addTask} = props;
 
     const [show, setShow] = useState(false);
     const [taskName, setTaskName] = useState("");
     const [time, setTimeForTask] = useState(0);
     const [coinsEntered, setCoinsEntered] = useState(0);
 
-  // state of input form
-//   state = {
-//     taskName: "",
-//     taskName: "",
-//     coinsEntered: 0,
-//   }
-
   const handleClose = () => {
     setShow(false);
-    // props.addTask();
   }
   const handleShow = () => setShow(true);
 
   const handleSubmit = () => {
     // preventDefault();
-    props.addTask(taskName, time, coinsEntered);
-    props.getTasks();
 
+    if(taskName === "" || time === 0 || coinsEntered === 0) {
+      alert("Please fill out all fields");
+    } else  {
+      Database.addData('tasks', {userID: props.userID, groupID: props.groupID, taskName: taskName, time: time, coinsEntered: coinsEntered});
+    }
   }
   
   const styleSheet = {

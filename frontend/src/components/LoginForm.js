@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import axios from 'axios';
+import Database from "../utils/database";
 
 import '../styles/LoginForm.css';
 
@@ -24,17 +24,16 @@ function LoginForm(props) {
       name : userName,
     }  
     
-    props.setUser(data.name);
     
-    axios.post("/checkUserExist", data).then((response) => {
-      if (response.data === "User Exists") {
+    Database.getData("user", data).then((response) => {
+      
+      if (response !== "User not found") {
         setIsSubmitted(true);
+        props.setUser(data.name, response);
       } else {
         setIsSubmitted(false);
         setErrorMessages({ name: "uname", message: errors.uname });
       }
-    });
-
 
     // // Compare user info
     // if (userData) {
@@ -48,7 +47,7 @@ function LoginForm(props) {
     //   // Username not found
     //   setErrorMessages({ name: "uname", message: errors.uname });
     // }
-  };
+  })};
 
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>

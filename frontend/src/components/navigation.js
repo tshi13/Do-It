@@ -5,7 +5,7 @@ export const Navigation = (props) => {
 	
 	function logOut(e) {
 		e.preventDefault();
-		props.setUser(null);
+		props.setUser(null, null);
 	}
 	
 	const loginOptions = (
