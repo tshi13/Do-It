@@ -7,6 +7,8 @@ import frontpage from ".././assets/frontpage.png";
 
 
 export default function Home(props) {
+    const [groups, setGroups] = useState([]);
+
     const loggedInPage = (
         <div className="home">
             <div className="home__container">

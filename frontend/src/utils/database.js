@@ -3,16 +3,13 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:5000';
 async function getData(type, data) {
     if(type === "user") {
-        let res = await axios.post('/user', data).then(data => data);
+        let res = await axios.get('/user/:' + data).then(data => data);
         return res["data"];
     } else if(type === "tasks") {
-        let res = await axios.post('/tasks', data).then(data => data);
+        let res = await axios.get('/tasks/:' + data).then(data => data);
         return res["data"];
     } else if(type === "group") {
-        let res = await axios.get('/group/' + data).then(data => data);
-        return res["data"];
-    } else {
-        let res = await axios.post(type, data).then(data => data);
+        let res = await axios.get('/group/:' + data).then(data => data);
         return res["data"];
     }
 }

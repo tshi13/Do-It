@@ -68,11 +68,12 @@ app.post("/createTask", (req,res) => { //creates a new task and adds the corespo
 	let newCoinBalance;
 	let intTime = parseInt(time);
 	let intCoinsEntered = parseInt(coinsEntered);
-	const task = Task.create({userID, taskName, intTime, intCoinsEntered})
+	const task = Task.create({userID, taskName, time: intTime, coinsEntered: intCoinsEntered})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);
 	})
+
 	.then(() => {
 		return User.findById(userID);
 	})

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Home from '../containers/Home';
 import Database from '../utils/database';
 
 export default function TaskModal(props) {
@@ -33,6 +32,8 @@ export default function TaskModal(props) {
         alert("Please enter a valid number for time and coins");
       }
       Database.addData('tasks', {userID: props.userID, groupID: props.groupID, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+      setState({taskName: "", time: 0, coinsEntered: 0});
+      setShow(false);
     }
   }
   
