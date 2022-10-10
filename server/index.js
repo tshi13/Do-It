@@ -30,19 +30,6 @@ app.get("/", (req, res) => {
 });
 
 
-app.post("/checkUserExist", (req,res) =>{ //check whether the user exists by the username
-	const Uname = req.body["name"];
-		myData = {name: Uname};
-
-	User.exists({ name: Uname }).then(exists => {
-		if (exists) {
-			res.send("User Exists");
-		} else {
-			res.send("User Doesn't Exist");
-		}
-	})
-})
-
 /**
  * req.body: 
  * 	name: String
