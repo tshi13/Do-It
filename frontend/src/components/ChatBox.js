@@ -69,11 +69,6 @@ export default class ChatBox extends Component {
                                 <TaskModal userID = {this.state.userID} groupID = {this.state.groupID} taskCallback = {this.taskCallback}/>
                             </span>
 
-                            {this.state.messages.map((message, index) => {
-                                return (
-                                    <p style = {{color: 'blue'}} key={index}>{message}</p>
-                                );
-                            })}
                             {
                                 this.state.tasks.map((task, index) => {
                                     return (
@@ -81,6 +76,12 @@ export default class ChatBox extends Component {
                                     );
                                 })
                             }
+
+                            {this.state.messages.map((message, index) => {
+                                return (
+                                    <p style = {{color: 'blue'}} key={index}>{message}</p>
+                                );
+                            })}
                             
                         </Modal.Body>
                         <Modal.Footer>

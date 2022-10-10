@@ -31,12 +31,17 @@ export default function TaskModal(props) {
       } catch (err) {
         alert("Please enter a valid number for time and coins");
       }
-      Database.addData('tasks', {userID: props.userID, groupID: props.groupID, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
-      setCoinsEntered(0);
-      setTimeForTask(0);
-      setTaskName("");
-      setShow(false);
-      props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+      if(isNaN(coinsEnteredInt) || isNaN(timeInt)) {
+        alert("Please enter a valid number for time and coins");
+      } else {
+        // add task to database
+        Database.addData('tasks', {userID: props.userID, groupID: props.groupID, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+        setCoinsEntered(0);
+        setTimeForTask(0);
+        setTaskName("");
+        setShow(false);
+        props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+      }
     }
   }
   
