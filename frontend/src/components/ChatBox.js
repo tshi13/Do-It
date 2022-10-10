@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
 import TaskModal from "../components/TaskModal";
 import BasicCard from "../components/taskCard";
+import Database from '../utils/database';
+
+import  '../styles/chatBox.css';
 
 
 export default class ChatBox extends Component {
@@ -12,13 +15,16 @@ export default class ChatBox extends Component {
             message: "",
             messages: [],
             variant:  false,
-            tasks: props.tasks,
+            tasks: [],
+            style: props.style,
+            userID: props.userID,
+            groupID: props.groupID,
         };
     }
 
     handleClose = () => this.setState({show: false, variant: false});
 
-    handleShow = () => this.setState({show: true, variant: true});
+    handleShow = () => {this.setState({show: true, variant: true});};
 
     handleChange = (event) => {
         this.setState({message: event.target.value});
@@ -30,10 +36,19 @@ export default class ChatBox extends Component {
         this.setState({message: ""});
     }
 
+    getTasks = () => {
+        Database.getData('tasks', {userID: this.state.userID})
+            .then((response) => {
+                this.setState({tasks: response});
+            })
+    }   
+
+
+
     render() {
         return (
-            <div>
-                <Button variant = {this.state.variant ? "primary" : "outline-primary"} size = "lg" onClick={this.handleShow}>
+            <div style = {this.state.style}>
+                <Button variant = {this.state.variant ? "primary" : "outline-primary"} size = "lg" onClick={() => {this.handleShow(); this.getTasks()}} style ={{backgroundColor: this.props.color}}>
                     Group Chat
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
@@ -42,10 +57,11 @@ export default class ChatBox extends Component {
                             <Modal.Title style ={{color: 'lightblue'}}>Chat</Modal.Title>
     
                         </Modal.Header>
-                        <Modal.Body style = {{height: '500px'}}>
+                        <Modal.Body style = {{height: '500px'}} className = "scrollWrapper">
                             <span style = {{width: '100%'}}>
-                                <TaskModal />
+                                <TaskModal userID = {this.state.userID} groupID = {this.state.groupID}/>
                             </span>
+
                             {this.state.messages.map((message, index) => {
                                 return (
                                     <p style = {{color: 'blue'}} key={index}>{message}</p>

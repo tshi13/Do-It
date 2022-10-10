@@ -7,10 +7,19 @@ export default function useUser() {
     return userUser;
   };
 
+  const getUserID = () => {
+    const UserString = sessionStorage.getItem("userID");
+    const userUser = JSON.parse(UserString);
+    return userUser;
+  };
+
   const [user, setUser] = useState(getUser());
 
-  const saveUser = (userUser) => {
+  const [userID] = useState(getUserID());
+
+  const saveUser = (userUser, userUserID) => {
     sessionStorage.setItem("user", JSON.stringify(userUser));
+    sessionStorage.setItem("userID", JSON.stringify(userUserID));
     setUser(userUser);
     if (userUser === "") {
       sessionStorage.removeItem("user");
@@ -20,5 +29,6 @@ export default function useUser() {
   return {
     setUser: saveUser,
     user,
+    userID: getUserID(),
   };
 }

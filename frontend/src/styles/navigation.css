@@ -39,3 +39,7 @@ a:active{
 .right {
     text-align:right;
 }
+
+.navbar-nav, .navbar-nav > li, .nav-link.active {
+    color: black;
+}

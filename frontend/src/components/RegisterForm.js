@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
 import '../styles/RegisterForm.css';
+import Database from "../utils/database";
 
-axios.defaults.baseURL = 'http://localhost:5000';
 
 function RegisterForm(props) {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState("");
+
+    // useEffect hook to redirect to home page after login
+  useEffect(() => {
+    if (isSubmitted) {
+      window.location.href = "/";
+    }
+  }, [isSubmitted]);
   
 
   const errors = {
@@ -27,16 +32,14 @@ function RegisterForm(props) {
       taskIDList : [],
     }
 
-    props.setUser(data.name);
 
-    axios.post("/checkUserExist", data).then((response) => {
-      if (response.data === "User Exists") {
+    Database.getData("user", data).then((response) => {
+      if (response !== "User not found") {
         setIsSubmitted(false);
         setErrorMessages({ name: "uname", message: errors.uname });
       } else {
-        axios
-          .post("/createUser", data)
-          .then(res => console.log(res))
+        Database.addData("user", data)
+          .then((res) => props.setUser(data.name, res))
           .catch(err => console.log(err));
           setIsSubmitted(true);
       }
@@ -55,7 +58,7 @@ function RegisterForm(props) {
       <form onSubmit={handleSubmit}>
         <div className="input-container">
           <label>New Username </label>
-          <input type="text" name="uname" value={userName} onChange={e => setUserName(e.target.value)} required />
+          <input type="text" name="uname"  value={userName} onChange={e => setUserName(e.target.value)} required />
           {renderErrorMessage("uname")}
         </div>
         <div className="input-container">
@@ -79,7 +82,7 @@ function RegisterForm(props) {
     <div className="app">
       <div className="login-form">
         <div className="title">Registration </div>
-        {isSubmitted ? <div>Register successfully</div> : renderForm}
+        {isSubmitted ? <div>Register successfully<br></br> <p>Redirecting to Main Page</p></div> : renderForm}
       </div>
     </div>
   );
