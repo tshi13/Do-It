@@ -32,8 +32,11 @@ export default function TaskModal(props) {
         alert("Please enter a valid number for time and coins");
       }
       Database.addData('tasks', {userID: props.userID, groupID: props.groupID, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
-      setState({taskName: "", time: 0, coinsEntered: 0});
+      setCoinsEntered(0);
+      setTimeForTask(0);
+      setTaskName("");
       setShow(false);
+      props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
     }
   }
   

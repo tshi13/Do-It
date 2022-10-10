@@ -42,7 +42,6 @@ app.get("/", (req, res) => {
 	const {name,coins,taskIDList} = req.body;
 		const data = User.create({name,coins,taskIDList})
 			.then((data) => {
-			console.log(data); //prints created user object
 			res.send(data);
 			})
 			.catch((err) => {
@@ -62,7 +61,7 @@ app.get("/", (req, res) => {
  * 
  * 	res: Copy of created Task object in database 
  *  */ 
-app.put("/addTask", (req,res) => { //creates a new task and adds the coresponding objectID to User taskIDList
+app.put("/createTask", (req,res) => { //creates a new task and adds the coresponding objectID to User taskIDList
 	const {userID,taskName,time,coinsEntered} = req.body;
 	let taskID;
 	let newTaskIDList;
@@ -106,7 +105,6 @@ app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the l
 	// }
 	const data = Group.create({groupName,idList})
 	.then((data) => {
-		console.log(data); //prints created user object
 		res.send(data);
 	})
 	.catch((err) => {
@@ -127,7 +125,6 @@ app.get("/tasks/:_id",(req,res) => { //gets all tasks that an _id has
 	const data = User.findById(_id)
 		.then(async (data) => {
 		const taskIDList = data.taskIDList; //assume we only have one instance of each name
-		console.log(taskIDList); //prints retrieved list of taskIDs
 		let taskList = [];
 		for (let i = 0; i < taskIDList.length; i++) {
 			taskList[i] = await Task.findById(taskIDList[i]);
@@ -153,10 +150,8 @@ app.get("/tasks/:_id",(req,res) => { //gets all tasks that an _id has
  */
 app.get("/user/:name",(req,res) => {
 	const name = req.params.name;
-	console.log(name);
 	User.find({name:name})
 	.then((data) => {
-		console.log(data);
 		res.send(data[0]._id);
 	})
 })

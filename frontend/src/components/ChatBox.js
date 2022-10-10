@@ -20,6 +20,9 @@ export default class ChatBox extends Component {
             userID: props.userID,
             groupID: props.groupID,
         };
+        this.taskCallback = this.taskCallback.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleClose = () => this.setState({show: false, variant: false});
@@ -42,7 +45,11 @@ export default class ChatBox extends Component {
                 this.setState({tasks: response});
             })
     }   
-
+    
+    taskCallback = (task) => {
+        this.setState({tasks: [...this.state.tasks, task]});
+    }
+    
 
 
     render() {
@@ -59,7 +66,7 @@ export default class ChatBox extends Component {
                         </Modal.Header>
                         <Modal.Body style = {{height: '500px'}} className = "scrollWrapper">
                             <span style = {{width: '100%'}}>
-                                <TaskModal userID = {this.state.userID} groupID = {this.state.groupID}/>
+                                <TaskModal userID = {this.state.userID} groupID = {this.state.groupID} taskCallback = {this.taskCallback}/>
                             </span>
 
                             {this.state.messages.map((message, index) => {
