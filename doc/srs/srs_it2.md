@@ -11,7 +11,7 @@ The Dolt app will help people stay focused with their tasks and be present by co
 - People who want to gain influence and share their good progress of doing something meaningful with others.
 
 ## Proposed Solution: 
-Through the betting system in Dolt, users need a certain amount of Dolt coins to play the game. Users in a group will set tasks for themselves and other people will keep track of them by verifying their public social media posts or private group posts. The user who fails to do their tasks will lose coins and the rest of the users will spilt the coins evenly. Successful users will be able to help friends gain better habits, get tasks done, earn more coins along the way, and have the opportunity to upload content to the general public. 
+Through the betting system in Dolt, users need a certain amount of Dolt coins to play the game. Users can set private tasks for themselves or set tasks for everyone in a group. For group tasks, other people will keep track of them by verifying their public social media posts or private group posts. The user who fails to do their tasks will lose coins and the rest of the users will spilt the coins evenly. Successful users will be able to help friends gain better habits, get tasks done, earn more coins along the way, and have the opportunity to upload content to the general public. 
 
 Two types of coins exist: free coins and paid coins. Only the paid coins correspond to real money. The free coins exist in order to allow groups to complete tasks even if they choose not to use real money.
 
