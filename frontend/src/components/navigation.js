@@ -1,7 +1,11 @@
 import React from 'react';
+import { NavDropdown } from 'react-bootstrap';
 import '../styles/navigation.css';
+import ProfilePicture from './ProfilePicture';
 
 export const Navigation = (props) => { 
+
+	const coins =  props.coins ? props.coins : 0;
 	
 	function logOut(e) {
 		e.preventDefault();
@@ -32,17 +36,19 @@ export const Navigation = (props) => {
 	);
 
 	const logoutOptions = (
-		<>
 		<div>
-			<form className="d-flex">
-				<ul className="navbar-nav">
-					<li className="nav-item">
-						<a className="nav-link active bubble font-weight-bold" aria-current="page" href="/"  style = {{fontWeight: 'bold'}} onClick={logOut}>Logout</a>
-					</li>
-				</ul>
-			</form>
+			<ul className="navbar-nav">
+				<li className="nav-item">
+					<a className="nav-link active bubble font-weight-bold" aria-current="page" href="/"  style = {{fontWeight: 'bold'}} onClick={logOut}>Logout</a>
+				</li>
+				<NavDropdown title={<ProfilePicture profilePicture={props.profilePicture} />} id="basic-nav-dropdown">
+					<NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+					<NavDropdown.Item disabled >Coins: {coins}</NavDropdown.Item>
+				</NavDropdown>
+
+			</ul>
 		</div>
-		</>
+	
 	);
 
     return ( 

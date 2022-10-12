@@ -4,6 +4,8 @@ import TaskModal from "../components/TaskModal";
 import '../styles/Home.css';
 import Database from "../utils/database";
 import frontpage from ".././assets/frontpage.png";
+import ProfilePicture from "../components/ProfilePicture";
+
 
 
 export default function Home(props) {
@@ -13,7 +15,9 @@ export default function Home(props) {
         <div className="home">
             <div className="home__container">
                 <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
-                    <h1 className="title">Welcome to the Home Page, {props.username}!</h1>
+                    <div className = "profileData" style ={{float: 'right'}}>
+                        <h1 className="title" style ={{fontSize: '20px'}}>Welcome to the Home Page, {props.username}!</h1>
+                    </div>
                     <div className="home__container__left">
                   </div>
                     <div className="home__container__right">
