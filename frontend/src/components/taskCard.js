@@ -10,9 +10,9 @@ export default function TaskCard(props) {
   const { task } = props;
   return (
     <ListItem>
-      <Card sx={{ minWidth: 250, maxWidth:300, boxShadow: 2, }}>
+      <Card sx={{ minWidth: 250, maxWidth:300, boxShadow: 2, }} style={{"height": '10vw', "whiteSpace": 'pre-wrap', "overflowWrap": 'break-word'}}>
         <CardContent>
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="div" style={{ textOverflow: 'ellipsis'}} noWrap>
             {task.taskName}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
