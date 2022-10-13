@@ -6,20 +6,17 @@ export default class ProfilePicture extends Component {
         this.state = {
             picture: props.profilePicture,
         }
+        this.style = {
+            height: this.props.radius ? this.props.radius : 50,
+            width: this.props.radius ? this.props.radius : 50,
+            borderRadius: '50%',
+        }
     }
 
-    style = {
-        profilePicture: {
-            borderRadius: '50%',
-            width: '40px',
-            height: '40px',
-            marginTop: '0px',
-        }, 
-    }
 
     render() {
         return (
-            <img src={this.state.picture} alt="profile" className="profilePicture" style ={this.style.profilePicture}/>
+            <img src={this.state.picture} alt="profile" className="profilePicture" style ={this.style}/>
         );
     }
 }

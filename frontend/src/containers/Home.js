@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from "react";
 import ChatBox from "../components/ChatBox";
-import TaskModal from "../components/TaskModal";
 import '../styles/Home.css';
 import Database from "../utils/database";
 import frontpage from ".././assets/frontpage.png";
-import ProfilePicture from "../components/ProfilePicture";
 
 
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
+    const [coins, setCoins] = useState(0);
+
+    useEffect(() => {
+        if(props.isLoggedIn){
+            Database.getData("groups", {userID: props.userID}).then((response) => {
+                setGroups(response);
+            });
+    }
+    }, [props.username]);
+
+
 
     const loggedInPage = (
         <div className="home">
             <div className="home__container">
                 <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
-                    <div className = "profileData" style ={{float: 'right'}}>
-                        <h1 className="title" style ={{fontSize: '20px'}}>Welcome to the Home Page, {props.username}!</h1>
-                    </div>
                     <div className="home__container__left">
                   </div>
                     <div className="home__container__right">
