@@ -3,6 +3,7 @@ import {Button, Modal, Form} from 'react-bootstrap';
 import TaskModal from "../components/TaskModal";
 import BasicCard from "../components/taskCard";
 import Database from '../utils/database';
+import {Grid} from '@mui/material';
 
 import  '../styles/chatBox.css';
 
@@ -67,13 +68,16 @@ export default class ChatBox extends Component {
                                     <p style = {{color: 'blue'}} key={index}>{message}</p>
                                 );
                             })}
-                            {
-                                this.state.tasks.map((task, index) => {
-                                    return (
-                                        <BasicCard key={index} task={task}/>
-                                    );
-                                })
-                            }
+                            {/* <Grid>
+                                {
+                                    this.state.tasks.map((task, index) => {
+                                        return (
+                                            <BasicCard key={index} task={task}/>
+                                        );
+                                    })
+                                }
+                            </Grid> */}
+                            
                             
                         </Modal.Body>
                         <Modal.Footer>

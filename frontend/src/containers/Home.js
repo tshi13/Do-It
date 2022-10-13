@@ -4,6 +4,7 @@ import TaskModal from "../components/TaskModal";
 import '../styles/Home.css';
 import Database from "../utils/database";
 import frontpage from ".././assets/frontpage.png";
+import DisplayTasks from "../pages/DisplayTasks";
 
 
 export default function Home(props) {
@@ -13,6 +14,8 @@ export default function Home(props) {
                 <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
                     <h1 className="title">Welcome to the Home Page, {props.username}!</h1>
                     <div className="home__container__left">
+                        
+                    <DisplayTasks userID = {props.userID} groupID = {props.groupID} />
                   </div>
                     <div className="home__container__right">
                         <ChatBox userID = {props.userID} groupID = {props.groupID} />
