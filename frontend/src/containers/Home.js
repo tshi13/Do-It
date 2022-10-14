@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ChatBox from "../components/ChatBox";
 import '../styles/Home.css';
-import Database from "../utils/database";
 import frontpage from ".././assets/frontpage.png";
 
 
@@ -9,15 +8,6 @@ import frontpage from ".././assets/frontpage.png";
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
     const [coins, setCoins] = useState(0);
-
-    useEffect(() => {
-        if(props.isLoggedIn){
-            Database.getData("groups", {userID: props.userID}).then((response) => {
-                setGroups(response);
-            });
-    }
-    }, [props.username]);
-
 
 
     const loggedInPage = (

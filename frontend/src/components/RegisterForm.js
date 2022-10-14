@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../styles/RegisterForm.css';
-import Database from "../utils/database";
-
+import userDAO from "../utils/userDAO";
 
 function RegisterForm(props) {
   // React States
@@ -33,12 +32,12 @@ function RegisterForm(props) {
     }
 
 
-    Database.getData("user", data).then((response) => {
+    userDAO.getUser(data).then((response) => {
       if (response !== "User not found") {
         setIsSubmitted(false);
         setErrorMessages({ name: "uname", message: errors.uname });
       } else {
-        Database.addData("user", data)
+        userDAO.addData(data)
           .then((res) => props.setUser(data.name, res))
           .catch(err => console.log(err));
           setIsSubmitted(true);

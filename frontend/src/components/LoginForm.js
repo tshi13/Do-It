@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import Database from "../utils/database";
+import userDAO from "../utils/userDAO";
 
 import '../styles/LoginForm.css';
 
@@ -24,7 +24,7 @@ function LoginForm(props) {
     }  
     
     
-    Database.getData("user", data).then((response) => {
+    userDAO.getUser(data).then((response) => {
       
       if (response !== "User not found") {
         setIsSubmitted(true);
