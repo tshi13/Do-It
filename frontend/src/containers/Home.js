@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ChatBox from "../components/ChatBox";
 import '../styles/Home.css';
 import frontpage from ".././assets/frontpage.png";
-
+import DisplayTasks from "../pages/DisplayTasks";
 
 
 export default function Home(props) {
@@ -18,10 +18,9 @@ export default function Home(props) {
                     <div className="home__container__right">
                         <ChatBox userID = {props.userID} groupID = {props.groupID} />
                     </div>
-                    <div className="home__container__left">
-                        
-                    <DisplayTasks userID = {props.userID} groupID = {props.groupID} />
-                  </div>
+                    <div className="home__container__left">  
+                        <DisplayTasks userID = {props.userID} groupID = {props.groupID} />
+                    </div>
                 </div>
             </div>
         </div>

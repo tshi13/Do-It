@@ -61,6 +61,9 @@ export default class DisplayTasks extends Component {
                         return <TaskCard task = {task} key = {index}/>
                     })}
                 </List> */}
+                <h3>
+                    My Tasks
+                </h3>
                 <Grid container spacing={1}>
                     {
                         this.state.tasks.map((task, index) => {
