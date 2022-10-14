@@ -40,9 +40,9 @@ app.get("/", (req, res) => {
  *  */ 
  app.post("/createUser", (req,res) =>{ //creates new user
 	const {name,coins,taskIDList} = req.body;
-		 User.create({name,coins,taskIDList})
+		const data = User.create({name,coins,taskIDList})
 			.then((data) => {
-			res.send(data._id);
+			res.send(data);
 			})
 			.catch((err) => {
 				res
@@ -61,14 +61,12 @@ app.get("/", (req, res) => {
  * 
  * 	res: Copy of created Task object in database 
  *  */ 
-app.post("/createTask", (req,res) => { //creates a new task and adds the coresponding objectID to User taskIDList
-	const {userID, taskName,time, coinsEntered} = req.body;
+app.put("/createTask", (req,res) => { //creates a new task and adds the coresponding objectID to User taskIDList
+	const {userID,taskName,time,coinsEntered} = req.body;
 	let taskID;
 	let newTaskIDList;
 	let newCoinBalance;
-	let intTime = parseInt(time);
-	let intCoinsEntered = parseInt(coinsEntered);
-	const task = Task.create({userID, taskName, intTime, intCoinsEntered})
+	const task = Task.create({userID, taskName,time,coinsEntered})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);
@@ -78,7 +76,7 @@ app.post("/createTask", (req,res) => { //creates a new task and adds the corespo
 	})
 	.then((user) => {
 		newTaskIDList = user.taskIDList;
-		newCoinBalance = user.coins - intCoinsEntered;
+		newCoinBalance = user.coins - coinsEntered;
 		newTaskIDList.push(taskID);
 		return User.findOneAndUpdate({ _id: userID}, {taskIDList:newTaskIDList, coins:newCoinBalance}); // add taskID and update coin balance for user
 	})
@@ -107,7 +105,6 @@ app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the l
 	// }
 	const data = Group.create({groupName,idList})
 	.then((data) => {
-		console.log(data); //prints created user object
 		res.send(data);
 	})
 	.catch((err) => {
@@ -123,8 +120,8 @@ app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the l
  * 
  * 	res: a list of task objects associated with user in database 
  *  */ 
-app.post("/tasks" ,(req,res) => { //gets all tasks that an _id has
-	const _id = req.body["userID"];
+app.get("/tasks/:_id",(req,res) => { //gets all tasks that an _id has
+	const _id = req.params._id;
 	const data = User.findById(_id)
 		.then(async (data) => {
 		const taskIDList = data.taskIDList; //assume we only have one instance of each name
@@ -135,6 +132,7 @@ app.post("/tasks" ,(req,res) => { //gets all tasks that an _id has
 		return taskList;
 		})
 		.then((data) => {
+		console.log(data); //prints retrieved list of taskIDs
 		res.send(data);
 		})
 		.catch(err => {
@@ -150,15 +148,11 @@ app.post("/tasks" ,(req,res) => { //gets all tasks that an _id has
  * 
  * res: ObjectId of user
  */
-app.post("/user",(req,res) => {
-	const name = req.body["name"];
+app.get("/user/:name",(req,res) => {
+	const name = req.params.name;
 	User.find({name:name})
 	.then((data) => {
-		if(data.length == 0){
-			res.send("User not found");
-		} else {
-			res.send(data[0]._id);
-		}
+		res.send(data[0]._id);
 	})
 })
 

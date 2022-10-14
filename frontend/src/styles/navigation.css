@@ -43,3 +43,9 @@ a:active{
 .navbar-nav, .navbar-nav > li, .nav-link.active {
     color: black;
 }
+
+.dropdown-toggle::after {
+    display: none !important;
+    content: none;
+
+}
