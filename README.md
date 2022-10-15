@@ -55,4 +55,4 @@ Note: if you refresh you will be logged out and will need to login again. Curren
 - As a user, I want to see a list of groups that are associated with me
 - As a user, I want to create tasks for a group
 - As a user, I want to see the list of tasks that are assigned with a group
-
+- As a user, I want to be able to click on group icons to show a separate group window
