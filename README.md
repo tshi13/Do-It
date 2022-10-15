@@ -48,3 +48,11 @@ node index.js
 
 Note: if you refresh you will be logged out and will need to login again. Currently you need to create a new task to be able to see your previous task cards (will implement next iteration)
 
+## Iteration 2
+- As a user, I want to be able to search for groups using groupname
+- As a user, I want to be able to join groups after searching for them
+- As a user, I want to be able to create a group
+- As a user, I want to see a list of groups that are associated with me
+- As a user, I want to create tasks for a group
+- As a user, I want to see the list of tasks that are assigned with a group
+
