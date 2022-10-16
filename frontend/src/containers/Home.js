@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ChatBox from "../components/ChatBox";
 import '../styles/Home.css';
 import frontpage from ".././assets/frontpage.png";
+import CreatGroup from "../components/CreateGroup";
 import GroupComponent from "../components/GroupClasses/GroupComponent";
 import GroupList from "../components/GroupClasses/GroupList";
 import groupDAO from '../utils/groupDAO';
@@ -49,6 +50,17 @@ export default function Home(props) {
     const remiainingHeightOfPage = window.innerHeight - 100;
 
     const loggedInPage = (
+        <div className="home">
+            <div className="home__container">
+                <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
+                    <div className="home__container__left">
+                  </div>
+                    <div className="home__container__right">
+                        <ChatBox userID = {props.userID} groupID = {props.groupID} />
+                    </div>
+                    <div className="home__container__right">
+                        <CreatGroup userID = {props.userID}/>
+                    </div>
         <div className="home" style = {{display: 'flex', flexDirection: 'row', height: '100%'}}>
             <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px'}}>
                 <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center', height: {remiainingHeightOfPage}}}>
