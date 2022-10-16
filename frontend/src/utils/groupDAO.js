@@ -2,8 +2,8 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 
-async function getGroups(data) {
-    let res = await axios.get('/group/' + data.groupID).then(data => data);
+async function getGroups(userID) {
+    let res = await axios.get('/groups/' + userID).then(data => data);
     return res["data"];
 }
 
@@ -18,24 +18,29 @@ async function getUser(groupID) {
 }
 
 async function getTasks(groupID) {
-    let res = await axios.get('/getTasksForGroup/' + groupID).then(data => data);
+    let res = await axios.get('/tasks/group/' + groupID).then(data => data);
     return res["data"];
 }
 
 async function addTasks(groupID, data) {
     
-    data = {
+    let updatedData = {
         groupID: groupID,
-        task: data
+        userID: "Group Task",
+        taskName: data.taskName,
+        time: data.time,
+        coinsEntered: data.coinsEntered
     }
 
-    let res = await axios.put('/createGroupTask', data).then(data => data);
+    let res = await axios.put('/createTask/group', updatedData).then(data => data);
     return res["data"];
 }
 
+
+
 export default class groupDAO {
-    static getGroups(data) {
-        return getGroups(data);
+    static getGroups(userID) {
+        return getGroups(userID);
     }
 
     static getUser(groupID) {
@@ -46,8 +51,8 @@ export default class groupDAO {
         return getTasks(groupID);
     }
 
-    static addTasks(groupID) {
-        return addTasks(groupID);
+    static addTasks(groupID, data) {
+        return addTasks(groupID, data);
     }
 
     static createGroup(data) {

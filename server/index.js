@@ -89,13 +89,14 @@ app.put("/createTask/user", (req,res) => { //creates a new task and adds the cor
 })
 
 app.put("/createTask/group", (req,res) => { //creates a new task for a group and adds the coresponding objectID to Group taskIDList
-	const {taskName,time,coinsEntered = 0,groupID} = req.body;
-	const userID = "Group Task";
+	console.log(req.body);
+	const {groupID, userID, taskName, time,coinsEntered = 0} = req.body;
 	let taskID;
 	let newTaskIDList;
 	// let newCoinBalance;
-	Task.create({userID, taskName,time,coinsEntered,groupID})
+	Task.create({userID, taskName, time, coinsEntered, groupID})
 	.then((data) => {
+		console.log(data);
 		taskID = data._id;
 		res.send(data);
 	})
@@ -199,6 +200,29 @@ app.get("/tasks/group/:_id",(req,res) => { //gets all tasks that an _id has
     });	
 })
 
+app.get("/groups/:_id",(req,res) => { //gets all groups that an _id has
+	const _id = req.params._id;
+	User.findById(_id)
+		.then(async (data) => {
+		const groupIDList = data.groupIDList; //assume we only have one instance of each name
+		let groupList = [];
+		for (let i = 0; i < groupIDList.length; i++) {
+			groupList[i] = await Group.findById(groupIDList[i]);
+		}
+		return groupList;
+		})
+		.then((data) => {
+		res.send(data);
+		})
+		.catch(err => {
+			res
+			.status(500)
+			.send({ message: "Error retrieving groups with id: " + _id });
+		});
+})
+
+
+
 
 /**
  * req.params: 
@@ -210,7 +234,11 @@ app.get("/user/:name",(req,res) => {
 	const name = req.params.name;
 	User.find({name:name})
 	.then((data) => {
-		res.send(data[0]._id);
+		if(data.length != 0){
+			res.send(data[0]._id);
+		} else {
+			res.send("User not found");
+		}
 	})
 })
 

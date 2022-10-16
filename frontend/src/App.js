@@ -1,7 +1,9 @@
-import {Navigation} from './components/navigation';
+import {Navigation} from './components/Navigation';
 import './App.css';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from './containers/Home';
+import TaskCard from './components/TaskCard';
+import DisplayTasks from './pages/DisplayTasks'
 import Login from './components/LoginForm';
 import Register from './components/RegisterForm';
 import React, { useEffect, useState } from 'react';
@@ -19,7 +21,7 @@ function App() {
 
 
   return (    
-    <div style ={{width: '100%', height: '100%'}}>
+    <div style ={{width: '100%', height: '100vh'}}>
       <Navigation backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} setUser = {setUser} username = {user} userID = {userID} profilePicture = {test}/>
       <BrowserRouter>
         <Routes>

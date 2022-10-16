@@ -1,5 +1,5 @@
 import {List} from '@mui/material';
-import TaskCard from '../components/taskCard';
+import TaskCard from '../components/TaskCard';
 
 const flexContainer = {
     display: 'flex',
