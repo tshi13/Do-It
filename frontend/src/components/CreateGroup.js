@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
-import BasicCard from "../components/taskCard";
 import GroupModal from './GroupModal';
-import Database from '../utils/database';
-
 
 
 export default class CreatGroup extends Component {
@@ -40,7 +37,7 @@ export default class CreatGroup extends Component {
     render() {
         return (
             <div style = {this.state.style}>
-                <Button variant = {this.state.variant ? "primary" : "outline-primary"} size = "lg" onClick={() => {this.handleShow();}} style ={{backgroundColor: this.props.color}}>
+                <Button className = "buttonDesign" size = "lg" onClick={() => {this.handleShow();}} >
                     Create Group
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
