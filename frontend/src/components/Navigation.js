@@ -13,7 +13,7 @@ export const Navigation = (props) => {
 		if(props.isLoggedIn){
 			setUsername(props.username);
 			setProfilePicture(props.profilePicture);
-			setCoins(props.userID.coins);
+			//setCoins(0); //have to find a way to get the coins from the database
 		}
 	}, [props.username, props.userID]); 
 	

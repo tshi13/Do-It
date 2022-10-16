@@ -7,6 +7,7 @@ function RegisterForm(props) {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState("");
+  let user = props.user;
 
     // useEffect hook to redirect to home page after login
   useEffect(() => {
@@ -29,18 +30,21 @@ function RegisterForm(props) {
       name : userName,
       coins : 6,
       taskIDList : [],
+      groupIDList : [],
     }
-
 
     userDAO.getUser(data).then((response) => {
       if (response !== "User not found") {
         setIsSubmitted(false);
         setErrorMessages({ name: "uname", message: errors.uname });
       } else {
-        userDAO.addData(data)
-          .then((res) => props.setUser(data.name, res))
+        userDAO.addUser(data)
+          .then((res) => 
+          {
+            props.setUser(data.name, res._id );
+            setIsSubmitted(true);
+          })
           .catch(err => console.log(err));
-          setIsSubmitted(true);
       }
     });  
   };

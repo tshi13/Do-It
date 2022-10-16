@@ -37,7 +37,15 @@ export default function TaskModal(props) {
         alert("Please enter a valid number for time and coins");
       } else {
         // add task to database
-        groupDAO.addTasks(groupID, {userID: props.userID, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+
+        let data = {
+          userID: props.userID,
+          taskName: taskName,
+          time: timeInt,
+          coinsEntered: coinsEnteredInt,
+        }
+
+        groupDAO.addTasks(groupID, data);
         setCoinsEntered(0);
         setTimeForTask(0);
         setTaskName("");
@@ -50,8 +58,7 @@ export default function TaskModal(props) {
   const styleSheet = {
     circle: {
         borderRadius: '50%',
-        float: 'right',
-    
+        float: 'center',
     },
     inputStyle: {
         width: '100%',
@@ -65,16 +72,25 @@ export default function TaskModal(props) {
 
    // JSX code for taskModal form
   return (
-    <div>
-        <Button variant="primary" onClick={handleShow} style ={styleSheet.circle}>
-            +
-        </Button>
+    <div style ={props.style}>
+      <div className ="parent" style ={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <div>
+            <p style ={{marginBottom: '1%'}}>Create a task</p>
+          </div>
+          <div>
+            <Button variant="primary" onClick={handleShow} style ={styleSheet.circle}>
+                +
+            </Button>
+          </div> 
+        </div>
+
 
         <Modal
             show={show}
             onHide={handleClose}
             backdrop="static"
             keyboard={false}
+            style = {{width: '100%', top: '25%',}}
         >
             <Modal.Header closeButton>
             <Modal.Title>Add Task</Modal.Title>
@@ -94,10 +110,6 @@ export default function TaskModal(props) {
                 </Button>
             </form>
             </Modal.Body>
-            <Modal.Footer>
-                
-                
-            </Modal.Footer>
         </Modal>
       </div>
   );
