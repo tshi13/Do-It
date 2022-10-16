@@ -4,6 +4,7 @@ import TaskModal from "../components/TaskModal";
 import '../styles/Home.css';
 import Database from "../utils/database";
 import frontpage from ".././assets/frontpage.png";
+import CreatGroup from "../components/CreateGroup";
 
 
 export default function Home(props) {
@@ -16,6 +17,9 @@ export default function Home(props) {
                   </div>
                     <div className="home__container__right">
                         <ChatBox userID = {props.userID} groupID = {props.groupID} />
+                    </div>
+                    <div className="home__container__right">
+                        <CreatGroup userID = {props.userID}/>
                     </div>
                 </div>
             </div>
