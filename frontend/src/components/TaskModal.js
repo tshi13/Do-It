@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Home from '../containers/Home';
-import Database from '../utils/database';
+import groupDAO from '../utils/groupDAO';
 
 export default function TaskModal(props) {
 
@@ -10,6 +9,8 @@ export default function TaskModal(props) {
     const [taskName, setTaskName] = useState("");
     const [time, setTimeForTask] = useState(0);
     const [coinsEntered, setCoinsEntered] = useState(0);
+    const [groupID] = useState(props.groupID);
+
 
   const handleClose = () => {
     setShow(false);
@@ -32,7 +33,17 @@ export default function TaskModal(props) {
       } catch (err) {
         alert("Please enter a valid number for time and coins");
       }
-      Database.addData('tasks', {userID: props.userID, groupID: props.groupID, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+      if(isNaN(coinsEnteredInt) || isNaN(timeInt)) {
+        alert("Please enter a valid number for time and coins");
+      } else {
+        // add task to database
+        groupDAO.addTasks(groupID, {userID: props.userID, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+        setCoinsEntered(0);
+        setTimeForTask(0);
+        setTaskName("");
+        setShow(false);
+        props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+      }
     }
   }
   

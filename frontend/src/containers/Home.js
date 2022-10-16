@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import ChatBox from "../components/ChatBox";
-import TaskModal from "../components/TaskModal";
 import '../styles/Home.css';
-import Database from "../utils/database";
 import frontpage from ".././assets/frontpage.png";
 import CreatGroup from "../components/CreateGroup";
 
 
+
 export default function Home(props) {
+    const [groups, setGroups] = useState([]);
+    const [coins, setCoins] = useState(0);
+
+
     const loggedInPage = (
         <div className="home">
             <div className="home__container">
                 <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
-                    <h1 className="title">Welcome to the Home Page, {props.username}!</h1>
                     <div className="home__container__left">
                   </div>
                     <div className="home__container__right">
