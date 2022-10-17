@@ -5,17 +5,18 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { ListItem } from '@mui/material';
-import axios from 'axios';
+import groupDao from "../utils/groupDAO";
 
 export default function groupCard(props) {
   const { item, userID } = props;
 
   function handleSubmit (e) {
     e.preventDefault();
-    axios.post('/addToGroup', {
-        userID: userID,
-        groupID: e.target.value
-    })
+    const data = {
+      userID: userID,
+      groupID: e.target.value
+    }
+    groupDao.addToGroup(data);
 }
 
   

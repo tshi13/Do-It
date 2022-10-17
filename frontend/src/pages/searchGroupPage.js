@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import '../styles/Home.css';
 import GroupCard from "../components/groupCard";
-import axios from 'axios';
+import groupDao from "../utils/groupDAO";
 
 function SearchGroup(props) {
     const { userID } = props;
@@ -10,10 +10,9 @@ function SearchGroup(props) {
     useEffect(() => {
         async function fetchData() {
         const query = window.sessionStorage.getItem("searchQuery");
-        let res = await axios.get('/searchGroup/' + query).then(data => data);
-        setGroups(res.data);
+        groupDao.searchGroup(query).then((data) => {setGroups(data)});
         }
-            fetchData();
+        fetchData();
     }, [groups]);
    
     
