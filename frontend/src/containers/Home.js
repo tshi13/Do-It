@@ -49,6 +49,7 @@ export default function Home(props) {
 				.then((tasks) => {
 					setPrivateTasks(tasks);
 				})
+                console.log("Ran");
 	}
 
 

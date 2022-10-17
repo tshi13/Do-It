@@ -14,6 +14,10 @@ export default function DisplayTasks(props){
 
     const tasks = props.privateTasks;
 
+    useEffect(() => {
+        props.getTasks();
+    }, [props.privateTasksChange]);
+
     return (
         <>
             <Typography variant="h5" component="div" style={{"color": 'black', "margin": '2vw'}}>
