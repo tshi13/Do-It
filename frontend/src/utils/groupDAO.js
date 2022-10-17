@@ -36,6 +36,11 @@ async function addTasks(groupID, data) {
     return res["data"];
 }
 
+async function getGroup(groupID) {
+    let res = await axios.get('/group/' + groupID).then(data => data);
+    return res["data"];
+}
+
 
 
 export default class groupDAO {
@@ -57,6 +62,10 @@ export default class groupDAO {
 
     static createGroup(data) {
         return createGroup(data);
+    }
+
+    static getGroup(groupID) {
+        return getGroup(groupID);
     }
 
 

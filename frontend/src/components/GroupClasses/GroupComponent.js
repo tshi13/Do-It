@@ -11,6 +11,7 @@ export default function GroupComponent(props)  {
     const userID = props.userID;
     const username = props.username;
     const [tasks, setTasks] = useState([]);
+    const [groupName, setGroupName] = useState("");
 
     useEffect(() => {
         //grab tasks from database for groupID
@@ -31,7 +32,11 @@ export default function GroupComponent(props)  {
             setTasks(taskList);
         });
 
-    }, []);
+        groupDAO.getGroup(groupID).then((group) => {
+            setGroupName(group.groupName);
+        });
+
+    }, [groupID]);
 
     const renderTasks = () => {
         if(tasks.length > 0) {
@@ -49,7 +54,7 @@ export default function GroupComponent(props)  {
    const renderChat = () => {
         if(userID !== undefined && groupID !== undefined) {
             return (
-                <ChatBox username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback}/>
+                <ChatBox username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName}/>
             );
         }
     }

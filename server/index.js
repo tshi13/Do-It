@@ -269,6 +269,28 @@ app.get("/groups/:_id",(req,res) => { //gets all groups that an _id has
 		});
 })
 
+/** 
+ * req.params:
+ * 	_id: ObjectId of group
+ * 
+ * res: a group object with the matching _id
+ */
+
+app.get("/group/:_id",(req,res) => { //gets all groups that an _id has
+	const _id = req.params._id;
+	Group.findById(_id)
+		.then((data) => {
+			res.send(data);
+		})
+		.catch(err => {
+			res
+			.status(500)
+			.send({ message: "Error retrieving groups with id: " + _id });
+		});
+})
+
+
+
 
 
 
