@@ -6,12 +6,14 @@ import CreateGroup from "../components/CreateGroup";
 import GroupComponent from "../components/GroupClasses/GroupComponent";
 import GroupList from "../components/GroupClasses/GroupList";
 import groupDAO from '../utils/groupDAO';
+import taskDAO from "../utils/taskDAO";
 import DisplayTasks from "../pages/DisplayTasks";
 import TaskModalUser from "../components/TaskModalUser";
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
     const [groupsChange, setGroupsChange] = useState(false); // makes useEffect refetch list of groups, passed as props
+	const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setCoins] = useState(0);
     const [selectedGroupID, setSelectedGroupID] = useState(null);
     const userID = props.userID;
@@ -21,9 +23,7 @@ export default function Home(props) {
     useEffect(() => {
         //grab groups from database for userID
         //set groups to the groups from the database
-        
         groupDAO.getGroups(userID).then((groups) => {
-						console.log(groups);
             let groupList = [];
             for(let i = 0; i < groups.length; i++) {
                 let groupData = {
@@ -36,7 +36,18 @@ export default function Home(props) {
         });
     }, [groupsChange]);
 
+    useEffect(() => {
+        taskDAO.getTasks({userID: props.userID})
+            .then((tasks) => {
+                setPrivateTasks(tasks);
+            })
+    }, []);
+    
+    const taskCallback = (task) => {
+        setPrivateTasks([...privateTasks, task]);
+    }
 
+	
     const setSelectedID = (groupID) => {
         setSelectedGroupID(groupID);
     }
@@ -45,6 +56,14 @@ export default function Home(props) {
         if(selectedGroupID !== null) {
             return (
                 <GroupComponent groupID = {selectedGroupID} userID = {props.userID} username = {props.username}/>
+            );
+        }
+        else {
+            return (
+                <>
+                    <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
+                    <DisplayTasks userID={props.userID} privateTasks = {privateTasks} />
+                </>
             );
         }
     }
@@ -63,8 +82,8 @@ export default function Home(props) {
                 </div>
             </div>
             <div style = {{width: '100%'}}>
-                <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {() => {}} userID = {userID} />
-                <DisplayTasks userID={props.userID}></DisplayTasks>
+                {/* <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
+                <DisplayTasks userID={props.userID} privateTasks = {privateTasks} /> */}
                 {/* <TaskModal ></TaskModal> */}
                 {renderGroup()}
             </div>

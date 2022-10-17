@@ -17,7 +17,7 @@ export default function TaskModalUser(props) {
   }
   const handleShow = () => setShow(true);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // preventDefault();
 
     // checks if the user inputs are valid and exist
@@ -45,7 +45,7 @@ export default function TaskModalUser(props) {
           coinsEntered: coinsEnteredInt,
         }
 
-        userDAO.addTasks(userID, data).then(data => console.log(data));
+        await userDAO.addTasks(userID, data).then(data => console.log(data));
         setCoinsEntered(0);
         setTimeForTask(0);
         setTaskName("");
