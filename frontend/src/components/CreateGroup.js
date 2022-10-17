@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
 import GroupModal from './GroupModal';
+import "../styles/GroupList.css"
 
 export default class CreateGroup extends Component {
     constructor(props) {
@@ -37,9 +38,9 @@ export default class CreateGroup extends Component {
     render() {
         return (
             <div style = {this.state.style}>
-                <Button className = "buttonDesign" size = "lg" onClick={() => {this.handleShow();}} >
+                <button className = "buttonDesign" size = "lg" onClick={() => {this.handleShow();}} >
                     Create Group
-                </Button>
+                </button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <div>
                         <Modal.Body style = {{height: '500px'}} className = "scrollWrapper">
