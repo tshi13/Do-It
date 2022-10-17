@@ -50,8 +50,7 @@ export default function TaskModalUser(props) {
         setTimeForTask(0);
         setTaskName("");
         setShow(false);
-        // props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
-        await this.props.getTasks();
+        props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
       }
     }
   }
