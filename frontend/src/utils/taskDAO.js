@@ -2,8 +2,9 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'http://localhost:5000';
 
+// getting tasks for a user only
 async function getTasks(data) {
-    let res = await axios.get('/tasks/' + data.userID).then(data => data);
+    let res = await axios.get('/tasks/user/' + data.userID).then(data => data);
     return res["data"];
 }
 

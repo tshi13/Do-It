@@ -22,6 +22,20 @@ async function getTasks(userID) {
     return res["data"];
 }
 
+async function addTasks(userID, data) {
+    
+    let updatedData = {
+        userID: userID,
+        groupID: "None",
+        taskName: data.taskName,
+        time: data.time,
+        coinsEntered: data.coinsEntered
+    }
+
+    let res = await axios.put('/createTask/user', updatedData).then(data => data);
+    return res["data"];
+}
+
 async function joinGroup(userID, groupID) {
     let res = await axios.post('/joingroup', {userID: userID, groupID: groupID}).then(data => data);
     return res["data"];
@@ -42,6 +56,10 @@ export default class userDAO {
 
     static getTasks(userID) {
         return getTasks(userID);
+    }
+
+    static addTasks(groupID, data) {
+        return addTasks(groupID, data);
     }
 
     static joinGroup(userID, groupID) {
