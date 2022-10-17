@@ -41,6 +41,16 @@ async function getGroup(groupID) {
     return res["data"];
 }
 
+async function searchGroup(groupName) {
+    let res = await axios.get('/searchGroup/' + groupName).then(data => data);
+    return res["data"];
+}
+
+async function addToGroup(data) {
+    let res = await axios.post('/addToGroup', data).then(data => data);
+    return res["data"];
+}
+
 
 
 export default class groupDAO {
@@ -66,6 +76,14 @@ export default class groupDAO {
 
     static getGroup(groupID) {
         return getGroup(groupID);
+    }
+
+    static searchGroup(groupName) {
+        return searchGroup(groupName);
+    }
+
+    static addToGroup(data) {
+        return addToGroup(data);
     }
 
 
