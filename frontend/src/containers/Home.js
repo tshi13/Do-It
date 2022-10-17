@@ -58,6 +58,14 @@ export default function Home(props) {
                 <GroupComponent groupID = {selectedGroupID} userID = {props.userID} username = {props.username}/>
             );
         }
+        else {
+            return (
+                <>
+                    <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
+                    <DisplayTasks userID={props.userID} privateTasks = {privateTasks} />
+                </>
+            );
+        }
     }
 
     const remiainingHeightOfPage = window.innerHeight - 100;
@@ -74,8 +82,8 @@ export default function Home(props) {
                 </div>
             </div>
             <div style = {{width: '100%'}}>
-                <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
-                <DisplayTasks userID={props.userID} privateTasks = {privateTasks} />
+                {/* <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
+                <DisplayTasks userID={props.userID} privateTasks = {privateTasks} /> */}
                 {/* <TaskModal ></TaskModal> */}
                 {renderGroup()}
             </div>
