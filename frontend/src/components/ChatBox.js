@@ -10,8 +10,7 @@ export default function Chatbox(props)  {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
 
-    //const groupName = props.groupName;
-    const groupName = 'test';
+    const groupName = props.groupName;
     const groupID = props.groupID;
     const userID = props.userID;
     const username = props.username;
