@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
 import GroupModal from './GroupModal';
 
-
-export default class CreatGroup extends Component {
+export default class CreateGroup extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,6 +12,7 @@ export default class CreatGroup extends Component {
             userID: props.userID,
         };
     }
+		
 
     handleClose = () => this.setState({show: false, variant: false});
 
@@ -44,7 +44,7 @@ export default class CreatGroup extends Component {
                     <div>
                         <Modal.Body style = {{height: '500px'}} className = "scrollWrapper">
                             <span style = {{width: '100%'}}>
-                                <GroupModal userID = {this.state.userID} close = {this.handleCardClose}/>
+                                <GroupModal userID = {this.state.userID} close = {this.handleCardClose} groupsChange = {this.props.groupsChange} setGroupsChange = {this.props.setGroupsChange}/>
                             </span>                     
                         </Modal.Body>
                     </div>
