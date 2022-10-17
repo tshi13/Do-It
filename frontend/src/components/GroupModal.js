@@ -22,6 +22,7 @@ export default function GroupModal(props) {
       let taskList = []
       groupDAO.createGroup({groupName: groupName, idList: newGroupIDList, taskIDList: taskList})
     }
+		props.close();
   }
   
   const styleSheet = {
