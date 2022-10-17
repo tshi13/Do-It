@@ -13,7 +13,7 @@ export default function GroupCard(props) {
             <div className="groupCard__image">
                 <img src={Test} alt="group image" />
             </div>
-            <h2 className = "customText" > {groupData.groupName} </h2>
+            <p className = "customText" style = {{ width: '90%', fontSize: 'auto'}}> {groupData.groupName} </p>
             <div className = "overlay">
             </div>
         </div>
