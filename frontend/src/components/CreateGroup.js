@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
 import GroupModal from './GroupModal';
 
-
 export default class CreateGroup extends Component {
     constructor(props) {
         super(props);
