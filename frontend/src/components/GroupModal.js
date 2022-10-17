@@ -9,19 +9,22 @@ export default function GroupModal(props) {
     const [groupName, setGroupName] = useState("");
     const [userID] = useState(props.userID);
     //const [description, setDiscription] = useState("");
+		const {groupsChange, setGroupsChange} = props;
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // preventDefault();
 
     // checks if the user inputs are valid and exist
     if(groupName === "") {
       alert("Please fill out all fields");
     } else  {
-      let newGroupIDList = [userID]
-      let taskList = []
-      groupDAO.createGroup({groupName: groupName, idList: newGroupIDList, taskIDList: taskList})
+      let newGroupIDList = [userID];
+      let taskList = [];
+      await groupDAO.createGroup({groupName: groupName, idList: newGroupIDList, taskIDList: taskList});
     }
+		console.log(groupsChange);
+		setGroupsChange(!groupsChange);
 		props.close();
   }
   
@@ -44,7 +47,7 @@ export default function GroupModal(props) {
    // JSX code for taskModal form
   return (
     <div>
-        <Divider textAlign="middle">
+        <Divider textAlign="center">
             Create Group
         </Divider>
         <form onSubmit={handleSubmit}>
