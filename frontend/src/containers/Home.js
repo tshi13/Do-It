@@ -6,12 +6,15 @@ import CreateGroup from "../components/CreateGroup";
 import GroupComponent from "../components/GroupClasses/GroupComponent";
 import GroupList from "../components/GroupClasses/GroupList";
 import groupDAO from '../utils/groupDAO';
+import taskDAO from "../utils/taskDAO";
 import DisplayTasks from "../pages/DisplayTasks";
 import TaskModalUser from "../components/TaskModalUser";
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
     const [groupsChange, setGroupsChange] = useState(false); // makes useEffect refetch list of groups, passed as props
+		const [privateTasks, setPrivateTasks] = useState([]);
+		const [privateTasksChange, setPrivateTasksChange] = useState(false); // makes 
     const [coins, setCoins] = useState(0);
     const [selectedGroupID, setSelectedGroupID] = useState(null);
     const userID = props.userID;
@@ -21,9 +24,7 @@ export default function Home(props) {
     useEffect(() => {
         //grab groups from database for userID
         //set groups to the groups from the database
-        
         groupDAO.getGroups(userID).then((groups) => {
-						console.log(groups);
             let groupList = [];
             for(let i = 0; i < groups.length; i++) {
                 let groupData = {
@@ -35,6 +36,20 @@ export default function Home(props) {
             setGroups(groupList);
         });
     }, [groupsChange]);
+
+		// useEffect(() => { //grab private tasks for userID as soon as a new private task is created
+		// 	taskDAO.getTasks({userID: props.userID})
+    //   		.then((tasks) => {
+    //         setPrivateTasks(tasks);
+    //       })
+		// }, [privateTasksChange]);
+
+		const getTasks = () => {
+			taskDAO.getTasks({userID: props.userID})
+				.then((tasks) => {
+					setPrivateTasks(tasks);
+				})
+	}
 
 
     const setSelectedID = (groupID) => {
@@ -63,8 +78,8 @@ export default function Home(props) {
                 </div>
             </div>
             <div style = {{width: '100%'}}>
-                <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {() => {}} userID = {userID} />
-                <DisplayTasks userID={props.userID}></DisplayTasks>
+                <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {() => {}} userID = {userID} getTasks = {getTasks}/>
+                <DisplayTasks userID={props.userID} privateTasks = {privateTasks} getTasks = {getTasks}/>
                 {/* <TaskModal ></TaskModal> */}
                 {renderGroup()}
             </div>

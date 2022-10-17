@@ -2,6 +2,7 @@ import {List, Grid, Typography} from '@mui/material';
 import TaskCard from '../components/TaskCard';
 import {Component} from 'react';
 import taskDAO from '../utils/taskDAO';
+import { useEffect } from 'react';
 
 const flexContainer = {
     display: 'flex',
@@ -9,7 +10,7 @@ const flexContainer = {
     padding: 0,
 };
 
-export default class DisplayTasks extends Component {
+export default function DisplayTasks{
     // const { tasks } = this.props;
     constructor(props) {
         super(props);
@@ -18,17 +19,16 @@ export default class DisplayTasks extends Component {
             message: "",
             messages: [],
             variant:  false,
-            tasks: [],
+            tasks: props.privateTasks,
             style: props.style,
             userID: props.userID,
             groupID: props.groupID,
-        };
-        
+        };		
     }
 
     componentDidMount () {
-        this.getTasks = this.getTasks.bind(this);
-        this.getTasks();
+        // this.getTasks = this.getTasks.bind(this);
+        this.props.getTasks();
     }
 
     handleChange = (event) => {
@@ -41,12 +41,14 @@ export default class DisplayTasks extends Component {
         this.setState({message: ""});
     }
 
-    getTasks = () => {
-        taskDAO.getTasks({userID: this.state.userID})
-            .then((response) => {
-                this.setState({tasks: response});
-            })
-    }
+	
+
+    // getTasks = () => {
+    //     taskDAO.getTasks({userID: this.state.userID})
+    //         .then((response) => {
+    //             this.setState({tasks: response});
+    //         })
+    // }
 
     render() {
         return (
@@ -61,7 +63,7 @@ export default class DisplayTasks extends Component {
                 </Typography>
                 <Grid container spacing={1}>
                     {
-                        this.state.tasks.map((task, index) => {
+                        this.props.privateTasks.map((task, index) => {
                             return (
                                 <Grid item xs={2.2} key={index}>
                                     <TaskCard key={index} task={task}/>
