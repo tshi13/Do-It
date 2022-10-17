@@ -1,5 +1,7 @@
-import {List} from '@mui/material';
+import {List, Grid, Typography} from '@mui/material';
 import TaskCard from '../components/TaskCard';
+import {Component} from 'react';
+import taskDAO from '../utils/taskDAO';
 
 const flexContainer = {
     display: 'flex',
@@ -21,12 +23,13 @@ export default class DisplayTasks extends Component {
             userID: props.userID,
             groupID: props.groupID,
         };
-        this.getTasks();
+        
     }
 
-    handleClose = () => this.setState({show: false, variant: false});
-
-    handleShow = () => {this.setState({show: true, variant: true});};
+    componentDidMount () {
+        this.getTasks = this.getTasks.bind(this);
+        this.getTasks();
+    }
 
     handleChange = (event) => {
         this.setState({message: event.target.value});
@@ -39,7 +42,7 @@ export default class DisplayTasks extends Component {
     }
 
     getTasks = () => {
-        Database.getData('tasks', {userID: this.state.userID})
+        taskDAO.getTasks({userID: this.state.userID})
             .then((response) => {
                 this.setState({tasks: response});
             })
@@ -53,15 +56,15 @@ export default class DisplayTasks extends Component {
                         return <TaskCard task = {task} key = {index}/>
                     })}
                 </List> */}
-                <h3>
+                <Typography variant="h5" component="div" style={{"color": 'black', "margin": '2vw'}}>
                     My Tasks
-                </h3>
+                </Typography>
                 <Grid container spacing={1}>
                     {
                         this.state.tasks.map((task, index) => {
                             return (
-                                <Grid item xs={2}>
-                                    <BasicCard key={index} task={task}/>
+                                <Grid item xs={2.2} key={index}>
+                                    <TaskCard key={index} task={task}/>
                                 </Grid>
                             );
                         })
