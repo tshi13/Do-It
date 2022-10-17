@@ -1,100 +1,82 @@
-import React, {Component} from 'react';
-import {Button, Modal, Form} from 'react-bootstrap';
+import React, {useState, useEffect, useRef} from 'react';
+import MessageChat from './MessageChat';
 import TaskModal from "../components/TaskModal";
-import BasicCard from "../components/taskCard";
-import Database from '../utils/database';
-import {Grid} from '@mui/material';
 
-import  '../styles/chatBox.css';
+import  '../styles/chatBoxv2.css';
 
 
-export default class ChatBox extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            show: false,
-            message: "",
-            messages: [],
-            variant:  false,
-            tasks: [],
-            style: props.style,
-            userID: props.userID,
-            groupID: props.groupID,
-        };
-        this.taskCallback = this.taskCallback.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+export default function Chatbox(props)  {
 
-    handleClose = () => this.setState({show: false, variant: false});
+    const [messages, setMessages] = useState([]);
+    const [message, setMessage] = useState('');
 
-    handleShow = () => {this.setState({show: true, variant: true});};
+    //const groupName = props.groupName;
+    const groupName = 'test';
+    const groupID = props.groupID;
+    const userID = props.userID;
+    const username = props.username;
+    const profilePicture = props.profilePicture;
+    const style = props.style ? props.style : {};
+    const taskCallback = props.taskCallback ? props.taskCallback : () => {};
 
-    handleChange = (event) => {
-        this.setState({message: event.target.value});
-    }
+    const messageDiv = useRef(null);
 
-    handleSubmit = (event) => {
+    useEffect(() => {
+        setMessages(props.messages);
+    }, [props.messages]);
+
+    
+    useEffect(() => {
+        if(messageDiv) {
+            messageDiv.current.addEventListener('DOMNodeInserted', event => {
+                const { currentTarget: target } = event;
+                target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+              });
+            }
+    }, []);
+
+
+
+    
+    const handleSubmit = (event) => {
         event.preventDefault();
-        this.setState({messages: [...this.state.messages, this.state.message]});
-        this.setState({message: ""});
+        if(message !== '') {
+            setMessages([...messages, message]);
+            setMessage('');
+        }
     }
 
-    getTasks = () => {
-        Database.getData('tasks', {userID: this.state.userID})
-            .then((response) => {
-                this.setState({tasks: response});
-            })
-    }   
-    
-    taskCallback = (task) => {
-        this.setState({tasks: [...this.state.tasks, task]});
-    }
-    
 
-
-    render() {
-        return (
-            <div style = {this.state.style}>
-                <Button variant = {this.state.variant ? "primary" : "outline-primary"} size = "lg" onClick={() => {this.handleShow(); this.getTasks()}} style ={{backgroundColor: this.props.color}}>
-                    Group Chat
-                </Button>
-                <Modal show={this.state.show} onHide={this.handleClose}>
-                    <div>
-                        <Modal.Header closeButton>
-                            <Modal.Title style ={{color: 'lightblue'}}>Chat</Modal.Title>
-    
-                        </Modal.Header>
-                        <Modal.Body style = {{height: '500px'}} className = "scrollWrapper">
-                            <span style = {{width: '100%'}}>
-                                <TaskModal userID = {this.state.userID} groupID = {this.state.groupID} taskCallback = {this.taskCallback}/>
-                            </span>
-
-                            {
-                                this.state.tasks.map((task, index) => {
-                                    return (
-                                        <BasicCard key={index} task={task}/>
-                                    );
-                                })
-                            }
-
-                            {this.state.messages.map((message, index) => {
+    return (
+            <div style = {style} >
+                <div className = "rectangleContainer" style ={{width: '100%'}} >
+                    <div className = "chatBox" style={{height: '95%'}} >
+                        <div className = "chatFeedHeaderTitle" style ={{width: '100%', display: 'inline-block'}}>
+                            <h1 style ={{float: 'center'}}>{groupName}</h1>
+                        </div>
+                        <div className = "chatFeedHeaderButtons" style ={{display: 'inline-block'}}>
+                            <TaskModal style ={{float: 'right', marginRight: '1%', marginLeft: '2%'}} groupID = {groupID} taskCallback = {taskCallback} userID = {userID} />
+                        </div>
+                        <div className= "chatFeed customscrollWrapper" style ={{height: '100%'}} ref = {messageDiv}>
+                            {messages.map((message, index) => {
                                 return (
-                                    <p style = {{color: 'blue'}} key={index}>{message}</p>
-                                );
-                            })}
-                            
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Form onSubmit={this.handleSubmit} style ={{width: '100%'}}>
-                                <Form.Group>
-                                    <Form.Control type="text" placeholder="Enter message" value={this.state.message} onChange={this.handleChange}/>
-                                </Form.Group>
-                            </Form>
-                        </Modal.Footer>
+                                    <MessageChat style ={{marginLeft: '1%'}} key={index} message={message} username={username} time={new Date().toLocaleTimeString()} profilePicture="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"/>
+                                );})
+                            }
+                        </div>
                     </div>
-                </Modal>
+
+                    <div className = "textBar">
+                        <form className="input-area" onSubmit={handleSubmit}>
+                            <div className ="input-wrapper">
+                                <input style ={{width: '100%'}} type="text" placeholder="Type a message..." value={message} onChange={(e)=>{setMessage(e.target.value)}}/>
+                            </div>
+                            <button className ="iconButtons" style ={{float: 'right'}} type="button">+</button>
+                            <button className ="iconButtons" style ={{float: 'right'}} type="button">˙ᵕ˙</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-        );
-    }
+    );
 }
+

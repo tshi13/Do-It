@@ -58,3 +58,11 @@
 .a:hover {
     text-decoration: underline;
 }
+
+.sideBar {
+    min-height: 90vh;
+    z-index: 1;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding-top: 20px;
+}

@@ -1,0 +1,27 @@
+.buttonDesign {
+    color: black;
+    background-color: white;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    width: 8em;
+    font-size: large;
+    font-weight: 600;
+  } 
+
+  .buttonDesign:hover {
+    color: #1cc49d;
+    background-color: gray;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    width: 8em;
+    font-size: large;
+    font-weight: 600;
+  }
+
+

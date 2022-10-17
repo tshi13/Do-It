@@ -9,13 +9,13 @@ import { ListItem } from '@mui/material';
 export default function TaskCard(props) {
   const { task } = props;
   return (
-    <ListItem>
-      <Card sx={{ minWidth: 250, maxWidth:300, boxShadow: 2, }} style={{"height": '10vw', "whiteSpace": 'pre-wrap', "overflowWrap": 'break-word'}}>
+    <ListItem href="#simple-list">
+      <Card sx={{ minWidth: 250, maxWidth:300, boxShadow: 2, }}>
         <CardContent>
-          <Typography variant="h5" component="div" style={{ textOverflow: 'ellipsis'}} noWrap>
+          <Typography variant="h5" component="div" className="title" style ={{color: 'black'}}>
             {task.taskName}
           </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          <Typography sx={{ mb: 1 }} color="text.secondary">
             Coins entered: {task.coinsEntered}
           </Typography>
           <Typography variant="body2">
@@ -24,6 +24,7 @@ export default function TaskCard(props) {
         </CardContent>
         <CardActions>
           <Button size="small">Finished</Button>
+          <Button size="small">Learn More</Button>
         </CardActions>
       </Card>
     </ListItem>

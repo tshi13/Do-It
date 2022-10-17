@@ -1,13 +1,5 @@
 import {List} from '@mui/material';
-import TaskCard from '../components/taskCard';
-import React, {Component} from 'react';
-import {Button, Modal, Form} from 'react-bootstrap';
-import TaskModal from "../components/TaskModal";
-import BasicCard from "../components/taskCard";
-import Database from '../utils/database';
-import {Grid} from '@mui/material';
-
-import  '../styles/chatBox.css';
+import TaskCard from '../components/TaskCard';
 
 const flexContainer = {
     display: 'flex',
