@@ -148,6 +148,53 @@ app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the l
 
 /**
  * req.params: 
+ * 	groupName: String
+ * 
+ * 	res: List of Group Objects with the matching groupName
+ *  */ 
+
+ app.get("/searchGroup/:groupName", (req,res) =>{  
+	const groupName = req.params.groupName;
+	const data = Group.find({groupName})
+	.then((data) => {
+		res.send(data);
+	})
+	.catch((err) => {
+		res
+		.status(500)
+		.send({ message: "Error finding group with name: " + groupName })
+	})
+})
+
+/**
+ * req.body: 
+ * 	userID: String
+ * 	Add the users with the relevant userID to the group
+ *  groupID: String
+ * 
+ * 	res: Successfully added or not
+ *  */ 
+
+ app.post("/addToGroup", (req,res) =>{  
+	const {userID, groupID} = req.body;
+	console.log(userID);
+	console.log(groupID);
+	Group.updateOne({ _id: groupID },{ $push: { idList : [ userID] } })
+	.then(() => {
+		return User.updateOne({ _id: userID}, {$push: {groupIDList: [groupID]}});
+	})
+	.catch(err => {
+		res
+			.status(500)
+			.send({ message: "Error adding to group with: " + groupID });
+	});	
+	
+	
+})
+
+
+/**
+ * req.params: 
  * 	_id: ObjectId of user 
  * 
  * 	res: a list of task objects associated with user in database 
