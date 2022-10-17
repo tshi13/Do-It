@@ -89,7 +89,6 @@ app.put("/createTask/user", (req,res) => { //creates a new task and adds the cor
 })
 
 app.put("/createTask/group", (req,res) => { //creates a new task for a group and adds the coresponding objectID to Group taskIDList
-	console.log(req.body);
 	const {groupID, userID, taskName, time,coinsEntered = 0} = req.body;
 	let taskID;
 	let newTaskIDList;
@@ -124,17 +123,21 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
  * 
  * 	res: Copy of created Group object in database 
  *  */ 
-
-// please do not delete commented code out yet. This is for when we want to conenct the objectIDs in database
 app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the list of objectIDs of users
 	const {groupName,idList,taskIDList = []} = req.body;
-	// const objectIDArray = [];
-	// for (let i = 0; i < idList.length; i++) {
-	// 	objectIDArray[i] = new mongoose.Types.ObjectId(idList[i]);
-	// }
+	let groupID;
 	const data = Group.create({groupName,idList,taskIDList})
 	.then((data) => {
+		groupID = data._id;
 		res.send(data);
+	})
+	.then(()=>{
+		return User.findById(idList[0])
+	})
+	.then((user) => {
+		newGroupList = user.groupIDList;
+		newGroupList.push(groupID);
+		return User.findOneAndUpdate({_id:idList[0]},{groupIDList:newGroupList}); //add new groupID to User groupIDList
 	})
 	.catch((err) => {
 		res
@@ -142,6 +145,53 @@ app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the l
 		.send({ message: "Error creating group with name: " + groupName })
 	})
 })
+
+/**
+ * req.params: 
+ * 	groupName: String
+ * 
+ * 	res: List of Group Objects with the matching groupName
+ *  */ 
+
+ app.get("/searchGroup/:groupName", (req,res) =>{  
+	const groupName = req.params.groupName;
+	const data = Group.find({groupName})
+	.then((data) => {
+		res.send(data);
+	})
+	.catch((err) => {
+		res
+		.status(500)
+		.send({ message: "Error finding group with name: " + groupName })
+	})
+})
+
+/**
+ * req.body: 
+ * 	userID: String
+ * 	Add the users with the relevant userID to the group
+ *  groupID: String
+ * 
+ * 	res: Successfully added or not
+ *  */ 
+
+ app.post("/addToGroup", (req,res) =>{  
+	const {userID, groupID} = req.body;
+	console.log(userID);
+	console.log(groupID);
+	Group.updateOne({ _id: groupID },{ $push: { idList : [ userID] } })
+	.then(() => {
+		return User.updateOne({ _id: userID}, {$push: {groupIDList: [groupID]}});
+	})
+	.catch(err => {
+		res
+			.status(500)
+			.send({ message: "Error adding to group with: " + groupID });
+	});	
+	
+	
+})
+
 
 /**
  * req.params: 
@@ -161,7 +211,6 @@ app.get("/tasks/user/:_id",(req,res) => { //gets all tasks that an _id has
 		return taskList;
 		})
 		.then((data) => {
-		console.log(data); //prints retrieved list of taskIDs
 		res.send(data);
 		})
 		.catch(err => {
@@ -190,8 +239,7 @@ app.get("/tasks/group/:_id",(req,res) => { //gets all tasks that an _id has
 		return taskList;
 		})
 		.then((data) => {
-		console.log(data); //prints retrieved list of taskIDs
-		res.send(data);
+			res.send(data);
 		})
 		.catch(err => {
       res

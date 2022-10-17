@@ -3,6 +3,7 @@ import { NavDropdown } from 'react-bootstrap';
 import '../styles/navigation.css';
 import ProfilePicture from './ProfilePicture';
 
+
 export const Navigation = (props) => { 
 
 	const [coins, setCoins] = useState(0);
@@ -20,6 +21,12 @@ export const Navigation = (props) => {
 	function logOut(e) {
 		e.preventDefault();
 		props.setUser(null, null);
+	}
+
+	async function handleSubmit (e) {
+		e.preventDefault();
+		window.sessionStorage.setItem("searchQuery", props.searchString);
+		window.location.href = '/searchGroup';
 	}
 	
 	const loginOptions = (
@@ -73,8 +80,8 @@ export const Navigation = (props) => {
 				</ul>
 			</div>
 			<div className="center">
-					<form className="d-flex">
-						<input className="form-control me-2" type="search" placeholder="Search For Groups" aria-label="Search"/>
+					<form onSubmit={handleSubmit} className="d-flex" action="/searchGroup" >
+						<input className="form-control me-2" type="search" placeholder="Search For Groups" onChange={e => {props.setSearchString(e.target.value)}}  aria-label="Search"/>
 						<button className="btn btn-outline-success" type="submit"  style = {{fontWeight: 'bold'}}>Search</button>
 					</form>
 			</div>

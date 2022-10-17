@@ -6,8 +6,8 @@ import CreatGroup from "../components/CreateGroup";
 import GroupComponent from "../components/GroupClasses/GroupComponent";
 import GroupList from "../components/GroupClasses/GroupList";
 import groupDAO from '../utils/groupDAO';
-
-
+import DisplayTasks from "../pages/DisplayTasks";
+import TaskModalUser from "../components/TaskModalUser";
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
@@ -16,6 +16,8 @@ export default function Home(props) {
     const [selectedGroupID, setSelectedGroupID] = useState(null);
     const userID = props.userID;
 
+
+    
     useEffect(() => {
         //grab groups from database for userID
         //set groups to the groups from the database
@@ -50,25 +52,20 @@ export default function Home(props) {
     const remiainingHeightOfPage = window.innerHeight - 100;
 
     const loggedInPage = (
-        <div className="home">
-            <div className="home__container">
-                <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
-                    <div className="home__container__left">
-                  </div>
-                    <div className="home__container__right">
-                        <ChatBox userID = {props.userID} groupID = {props.groupID} />
-                    </div>
-                    <div className="home__container__right">
-                        <CreatGroup userID = {props.userID}/>
-                    </div>
+        
         <div className="home" style = {{display: 'flex', flexDirection: 'row', height: '100%'}}>
+           
             <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px'}}>
                 <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center', height: {remiainingHeightOfPage}}}>
                     <button className = "buttonDesign" onClick = {() => {setSelectedGroupID(null)}}>Close Chat</button>
                     <GroupList groups={groups} groupCallback = {setSelectedID} />
+                    <CreatGroup userID = {props.userID}/>
                 </div>
             </div>
             <div style = {{width: '100%'}}>
+                <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {() => {}} userID = {userID} />
+                <DisplayTasks userID={props.userID}></DisplayTasks>
+                {/* <TaskModal ></TaskModal> */}
                 {renderGroup()}
             </div>
         </div>
