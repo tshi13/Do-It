@@ -29,7 +29,7 @@ export default class CreateGroup extends Component {
     render() {
         return (
             <div style = {this.state.style}>
-                <button className = "buttonDesign" size = "lg" onClick={() => {this.handleShow();}} >
+                <button className = "buttonDesign" size = "lg" onClick={() => {this.handleShow();}}  style ={{marginTop: '5%'}}>
                     Create Group
                 </button>
                 <Modal show={this.state.show} onHide={this.handleClose}>

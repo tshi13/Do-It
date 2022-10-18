@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useRef } from 'react';
-import ProfileImage from '../components/profilePictureMaker';
+import ProfileImage from '../components/imageEditor';
 import userDAO from '../utils/userDAO';
 
 import '../styles/profile.css';

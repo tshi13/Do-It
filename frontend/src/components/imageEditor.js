@@ -18,7 +18,7 @@ export default function ProfileImage(props) {
 
 
     const handleSave = () => {
-        if (editor) {
+        if (editor && image) {
             const canvas = editor.getImageScaledToCanvas();
             canvas.toBlob(blob => {
                 const file = new File([blob], 'image.png', { type: 'image/png' });
@@ -31,6 +31,8 @@ export default function ProfileImage(props) {
                     props.setImage(buffer);
                 }
             });
+        } else {
+            alert("Please select an image to upload");
         }
     };
     

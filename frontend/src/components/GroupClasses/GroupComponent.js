@@ -61,7 +61,7 @@ export default function GroupComponent(props)  {
 
     return (
         <div className = "groupComponent">
-            <div className = "centerSection" style ={{width: '85%'}}>
+            <div className = "centerSection" style ={{width: '85%', height: '100%'}}>
                 {renderChat()}
             </div>
             <div className = "rightSection" style ={{width: '20%', height: '100%'}}>

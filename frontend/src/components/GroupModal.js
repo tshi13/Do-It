@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Database from '../utils/database';
 import groupDAO from '../utils/groupDAO';
-import ProfileImage from './profilePictureMaker';
+import ProfileImage from './imageEditor';
 
 export default function GroupModal(props) {
 
