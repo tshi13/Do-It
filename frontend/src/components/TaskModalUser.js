@@ -45,7 +45,7 @@ export default function TaskModalUser(props) {
           coinsEntered: coinsEnteredInt,
         }
 
-        await userDAO.addTasks(userID, data).then(data => console.log(data));
+        await userDAO.addTasks(userID, data);
         setCoinsEntered(0);
         setTimeForTask(0);
         setTaskName("");
