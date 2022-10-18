@@ -151,7 +151,7 @@ This section shows how to use the DoIt web app. How-to instructions, screenshots
 
 ### Iteration 1 - Usage
 1. Please use the Register button to create a new account (password is optional, not implemented for this iteration yet)
-![Register Page](https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fraw.githubusercontent.com%2Fjhu-oose-f22%2Fteam-doit-project-repo%2Fnew_readme%2Fdoc%2Fscreenshots%2Fdoit%2520register%2520page.png%3Ftoken%3DGHSAT0AAAAAABSJ66TLDS5NMEKX6R35UIFWY2OBNGA)
+![Register Page](https://slack-imgs.com/?c=1&o1=ro.gu&url=https%3A%2F%2Fraw.githubusercontent.com%2Fjhu-oose-f22%2Fteam-doit-project-repo%2Fmain%2Fdoc%2Fscreenshots%2Fdoit%2520register%2520page.png%3Ftoken%3DGHSAT0AAAAAABSJ66TLKUQX5Z3IWDIZ4JUQY2OCB5Q)
 2. Please use the Login button to login to your account
 3. Once you login, please click on the home button on your screen
 4. You can click a plus button on the right side of the screen to add a task for yourself
