@@ -9,6 +9,7 @@ export default function GroupModal(props) {
 
     const [groupName, setGroupName] = useState("");
     const [userID] = useState(props.userID);
+    const [image, setImage] = useState(null);
     //const [description, setDiscription] = useState("");
 
 
@@ -21,17 +22,16 @@ export default function GroupModal(props) {
     } else  {
       let newGroupIDList = [userID];
       let taskList = [];
-      groupDAO.createGroup({groupName: groupName, idList: newGroupIDList, taskIDList: taskList})
+      groupDAO.createGroup({groupName: groupName, idList: newGroupIDList, taskIDList: taskList, groupPicture: image})
 			.then((group) => {
-				props.groupCallback({id: group._id, groupName: group.groupName});
+				props.groupCallback({id: group._id, groupName: group.groupName, groupPicture: image});
 			});
+      props.close();
     }
-		props.close();
   }
 
-  const profilePictureCallback = (data) => {
-    console.log(data);
-  }
+
+   
   
   const styleSheet = {
     circle: {
@@ -60,7 +60,7 @@ export default function GroupModal(props) {
                 <input type="text" placeholder="Group Name" style ={styleSheet.inputStyle} onInput={e => setGroupName(e.target.value)} />
                 {/* <input type="text" placeholder="Group Description" style ={styleSheet.inputStyle} /> */}
             </div>
-            <ProfileImage profilePictureCallback = {profilePictureCallback} />
+            <ProfileImage setImage = {setImage} />
             <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
             <Button variant="secondary" onClick={props.close}>
                 Close

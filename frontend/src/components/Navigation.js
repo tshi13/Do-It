@@ -15,9 +15,6 @@ export const Navigation = (props) => {
 	const [coins, setCoins] = useState(0);
 	const [username, setUsername] = useState(null);
 	const [profilePicture, setProfilePicture] = useState(null);
-
-
-
 	
 	useEffect(() => {
 		if(props.isLoggedIn){

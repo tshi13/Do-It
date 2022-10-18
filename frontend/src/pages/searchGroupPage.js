@@ -10,19 +10,18 @@ function SearchGroup(props) {
     useEffect(() => {
         async function fetchData() {
         const query = window.sessionStorage.getItem("searchQuery");
-        groupDao.searchGroup(query).then((data) => {setGroups(data)});
+            groupDao.searchGroup(query).then((data) => {setGroups(data)});
         }
         fetchData();
-    }, [groups]);
-   
-    
+    }, []);
 
+   
    return (
     <>
         {
             groups?.map((item, index) => {
                 return (
-                    <GroupCard item={item} userID={userID} />
+                    <GroupCard key = {index} item={item} userID={userID} />
                 );
             })
         }

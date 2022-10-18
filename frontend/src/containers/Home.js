@@ -8,10 +8,12 @@ import groupDAO from '../utils/groupDAO';
 import taskDAO from "../utils/taskDAO";
 import DisplayTasks from "../pages/DisplayTasks";
 import TaskModalUser from "../components/TaskModalUser";
+import {Buffer} from 'buffer';
+
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
-		const [privateTasks, setPrivateTasks] = useState([]);
+	const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setCoins] = useState(0);
     const [selectedGroupID, setSelectedGroupID] = useState(null);
     const userID = props.userID;
@@ -25,6 +27,7 @@ export default function Home(props) {
                 let groupData = {
                     id: groups[i]._id,
                     groupName: groups[i].groupName,
+                    groupPicture: groups[i].groupPicture ? Buffer.from(groups[i].groupPicture).toString('base64') : null,
                 }
                 groupList.push(groupData);
             }
@@ -40,7 +43,12 @@ export default function Home(props) {
     }, []);
     
 		const groupCallback = (group) => {
-			setGroups([...groups, group]);
+            let newGroup = {
+                id: group._id,
+                groupName: group.groupName,
+                groupPicture: group.groupPicture ? Buffer.from(group.groupPicture).toString('base64') : null,
+            }
+			setGroups([...groups, newGroup]);
 		}
 
     const taskCallback = (task) => {

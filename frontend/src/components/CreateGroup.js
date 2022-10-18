@@ -8,7 +8,6 @@ export default class CreateGroup extends Component {
         super(props);
         this.state = {
             show: false,
-            variant: false,
             style: props.style,
             userID: props.userID,
         };
@@ -19,15 +18,6 @@ export default class CreateGroup extends Component {
 
     handleShow = () => {this.setState({show: true, variant: true});};
 
-    handleChange = (event) => {
-        this.setState({message: event.target.value});
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.setState({messages: [...this.state.messages, this.state.message]});
-        this.setState({message: ""});
-    }
 
     handleCardClose = (show) => {
         this.setState({show: false})

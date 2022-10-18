@@ -139,8 +139,9 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
  *  */ 
 app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the list of objectIDs of users
 	const {groupName,idList,taskIDList = []} = req.body;
+	const groupPicture = req.body.groupPicture || null;
 	let groupID;
-	const data = Group.create({groupName,idList,taskIDList})
+	const data = Group.create({groupName,idList,taskIDList, groupPicture})
 	.then((data) => {
 		groupID = data._id;
 		res.send(data);

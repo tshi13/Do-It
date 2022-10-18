@@ -29,7 +29,6 @@ export default function ProfileImage(props) {
                     let base64data = reader.result;
                     let buffer = Buffer.from(base64data.split(',')[1], 'base64');
                     props.setImage(buffer);
-            
                 }
             });
         }
