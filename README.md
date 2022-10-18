@@ -79,7 +79,9 @@
   </ol>
 </details>
 
+<br>
 
+![Register Page](../team-doit-project-repo/doc/screenshots/doit%20landing%20page.png)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -89,9 +91,9 @@
 The purpose of the DoIt application is to help you stay focused and motivated on the important things in life. Whenever you want to stay focused or show off your accomplishments to your circle of friends, use DoIt and place a bet. Stay motivated daily and turn hard work into a handful of DoIt coins. In the future, we believe that DoIt would be a popular productivity app that helps people beat their laziness and reach their goals in an interesting and pleasant way. 
 
 Here's why:
-* People often feel unmotivated and discouraged to do academic, professional, and personal tasks. :sad:
+* People often feel unmotivated and discouraged to do academic, professional, and personal tasks. :sob:
 * There currently are only to-do list applications that allow you to list and plan the tasks that you need to complete. 
-* The market is lacking a solution that focuses on actually pushing users to actually do the tasks!
+* The market is lacking a solution that focuses on actually pushing users to actually do the tasks! DoIt is our solution to these problems. :relaxed:
 
 Through the betting system in Dolt, users need a certain amount of Dolt coins to play the game. Users can set private tasks for themselves or set tasks for everyone in a group. For group tasks, other people will keep track of them by verifying their public social media posts or private group posts. The user who fails to do their tasks will lose coins and the rest of the users will spilt the coins evenly. Successful users will be able to help friends gain better habits, get tasks done, earn more coins along the way, and have the opportunity to upload content to the general public. In this way, people are more motivated by losses rather then gains, so we want to motivate people by introducing consequences. We also allow them to be motivated by recognition and followers across our social platform.
 
@@ -115,6 +117,8 @@ Here are major frameworks/libraries we used to build our project.
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![MongoDB][MongoDB.com]][MongoDB-url]
 * [![MaterialUI][mui.com]][mui-url]
+* [![Axios][axios-http.com]][axios-http-url]
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -147,6 +151,7 @@ This section shows how to use the DoIt web app. How-to instructions, screenshots
 
 ### Iteration 1 - Usage
 1. Please use the Register button to create a new account (password is optional, not implemented for this iteration yet)
+![Register Page](../team-doit-project-repo/doc/screenshots/doit%20register%20page.png)
 2. Please use the Login button to login to your account
 3. Once you login, please click on the home button on your screen
 4. You can click a plus button on the right side of the screen to add a task for yourself
@@ -154,12 +159,18 @@ This section shows how to use the DoIt web app. How-to instructions, screenshots
 
 ### Iteration 2 - Usage
 1. After logging in and registering, you can see a navigation bar at the top with a search bar and your profile picture.
-2. You can type the name of a group that you want to join in the search bar and press enter, and the matching results should appear. To join a group that appears in your search results, you can click its group card that appears and press the "Join group" button. Then, on the left sidebar, a new group icon should appear for that group, meaning you have joined the group. You can also click the group icon to view the group. 
+2. You can type the name of a group that you want to join in the search bar and press enter, and the matching results should appear. To join a group that appears in your search results, you can click its group card that appears and press the "Join group" button. Then, on the left sidebar, a new group icon should appear for that group, meaning you have joined the group. You can also click the group icon to view the group.
+![Search Results Page](../team-doit-project-repo/doc/screenshots/doit%20search%20results.png)
 3. You can click on your profile picture to see a drop-down menu of the number of coins you have and other stats. You can also log out using a button on this drop-down menu.
+![Profile Pic Drop Down Menu](../team-doit-project-repo/doc/screenshots/doit%20profile%20drop%20down%20menu%20on%20right.png)
 4. On the left hand side of the screen are buttons for creating a group and for opening up groups that you have already joined.
 5. To create a group, please press the "Create Group" button and please name your group in the field, then please press "Confirm". The group should appear on the left sidebar as a new group icon.
+![Create Group Page](../team-doit-project-repo/doc/screenshots/doit%20creating%20a%20group.png)
 6. To view/open a group, please click on the corresponding icon on the left sidebar. The group chat will open in the middle of the screen, and on the right will be a vertical list of tasks that belong to the group as a whole. You can also click the blue plus button on the right to add a task for the entire group.
-7. If you are currently viewing a group and want to return to the home view, please press the "Close Chat" button on the left sidebar. Your personal tasks will appear again, and you can press the blue plus button to add more personal tasks for yourself (unrelated to any group).
+![Group Chat and Tasks Page](../team-doit-project-repo/doc/screenshots/doit%20two%20chats%20and%20two%20group%20tasks.png)
+![Adding Group Task Page](../team-doit-project-repo/doc/screenshots/doit%20add%20group%20task.png)
+1. If you are currently viewing a group and want to return to the home view, please press the "Close Chat" button on the left sidebar. Your personal tasks will appear again, and you can press the blue plus button to add more personal tasks for yourself (unrelated to any group).
+![Personal Tasks Page](../team-doit-project-repo/doc/screenshots/doit%20personal%20tasks%20filled.png)
 
 
 _For more examples and documentation, please refer to the [doc folder in this repo](https://github.com/jhu-oose-f22/team-doit-project-repo/tree/main/doc) which contains the SRS and the UML diagram._
@@ -220,10 +231,11 @@ Please see the [Team DoIt Project Backlog](https://github.com/orgs/jhu-oose-f22/
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the development community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+If you have a suggestion that would make this better, please fork this repo and create a pull request. Please feel free to reach out to one of the Team DoIt Members below via email to contact us, too! We'd love to talk.
+
+Don't forget to give the project a star! :star: Thanks again!
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -255,16 +267,14 @@ Project Link: [https://github.com/jhu-oose-f22/team-doit-project-repo](https://g
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+We are thankful for these resources which have helped us on our development journey:
 
 * [Choose an Open Source License](https://choosealicense.com)
+* [Material UI](https://mui.com)
+* [StackOverflow](https://stackoverflow.com)
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
 * [Img Shields](https://shields.io)
 * [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -307,4 +317,6 @@ Use this space to list resources you find helpful and would like to give credit 
 [Node.js-url]: https://nodejs.org/en/
 [mui.com]: https://img.shields.io/badge/Material%20UI-ffffff?style=for-the-badge&logo=mui&logoColor=2979ff
 [mui-url]: https://mui.com
+[axios-http.com]: https://img.shields.io/badge/Axios-ffffff?style=for-the-badge&logo=axios&logoColor=7F00FF
+[axios-http-url]: https://axios-http.com/docs/intro
 
