@@ -151,7 +151,7 @@ This section shows how to use the DoIt web app. How-to instructions, screenshots
 
 ### Iteration 1 - Usage
 1. Please use the Register button to create a new account (password is optional, not implemented for this iteration yet)
-![Register Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/new_readme/doc/screenshots/doit%20register%20page.png?token=GHSAT0AAAAAABSJ66TLWPZS33EEXGNEYKK2Y2OBAWQ)
+![Register Page](https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fraw.githubusercontent.com%2Fjhu-oose-f22%2Fteam-doit-project-repo%2Fnew_readme%2Fdoc%2Fscreenshots%2Fdoit%2520register%2520page.png%3Ftoken%3DGHSAT0AAAAAABSJ66TLDS5NMEKX6R35UIFWY2OBNGA)
 2. Please use the Login button to login to your account
 3. Once you login, please click on the home button on your screen
 4. You can click a plus button on the right side of the screen to add a task for yourself
@@ -165,7 +165,7 @@ This section shows how to use the DoIt web app. How-to instructions, screenshots
 ![Profile Pic Drop Down Menu](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/new_readme/doc/screenshots/doit%20profile%20drop%20down%20menu%20on%20right.png?token=GHSAT0AAAAAABSJ66TLJLQ2JXZ7J5IEGALGY2OBGOA)
 4. On the left hand side of the screen are buttons for creating a group and for opening up groups that you have already joined.
 5. To create a group, please press the "Create Group" button and please name your group in the field, then please press "Confirm". The group should appear on the left sidebar as a new group icon.
-![Create Group Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/new_readme/doc/screenshots/doit%20creating%20a%20group.png?token=GHSAT0AAAAAABSJ66TLUVIEHIXQN2KNS5VAY2OBFPQ)
+![Create Group Page](https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fraw.githubusercontent.com%2Fjhu-oose-f22%2Fteam-doit-project-repo%2Fnew_readme%2Fdoc%2Fscreenshots%2Fdoit%2520creating%2520a%2520group.png%3Ftoken%3DGHSAT0AAAAAABSJ66TLUJIRLR2DOIH6XFNGY2OBPDQ)
 6. To view/open a group, please click on the corresponding icon on the left sidebar. The group chat will open in the middle of the screen, and on the right will be a vertical list of tasks that belong to the group as a whole. You can also click the blue plus button on the right to add a task for the entire group.
 ![Group Chat and Tasks Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/new_readme/doc/screenshots/doit%20two%20chats%20and%20two%20group%20tasks.png?token=GHSAT0AAAAAABSJ66TKEMKXEKX6G4XFKZZIY2OBHAA)
 ![Adding Group Task Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/new_readme/doc/screenshots/doit%20add%20group%20task.png?token=GHSAT0AAAAAABSJ66TK3QGRVFZ2YLAY4N5GY2OBHJQ)
@@ -238,9 +238,9 @@ If you have a suggestion that would make this better, please fork this repo and 
 Don't forget to give the project a star! :star: Thanks again!
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b`)
+3. Commit your Changes (`git commit -m 'RandomMessage'`)
+4. Push to the Branch (`git push origin`)
 5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -315,8 +315,8 @@ We are thankful for these resources which have helped us on our development jour
 [Express-url]: https://expressjs.com/
 [Node.js.com]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
 [Node.js-url]: https://nodejs.org/en/
-[mui.com]: https://img.shields.io/badge/Material%20UI-ffffff?style=for-the-badge&logo=mui&logoColor=2979ff
+[mui.com]: https://img.shields.io/badge/MaterialUI-007FFF?style=for-the-badge&logo=mui&logoColor=white
 [mui-url]: https://mui.com
-[axios-http.com]: https://img.shields.io/badge/Axios-ffffff?style=for-the-badge&logo=axios&logoColor=7F00FF
+[axios-http.com]: https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white
 [axios-http-url]: https://axios-http.com/docs/intro
 
