@@ -31,7 +31,7 @@
 # Welcome to the Team DOIT Repository !
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/jhu-oose-f22/team-doit-project-repo">
     <img src="doitimage.png" alt="Logo" width="80" height="80">
   </a>
 
