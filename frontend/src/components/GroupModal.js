@@ -10,10 +10,9 @@ export default function GroupModal(props) {
     const [groupName, setGroupName] = useState("");
     const [userID] = useState(props.userID);
     //const [description, setDiscription] = useState("");
-		const {groupsChange, setGroupsChange} = props;
 
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     // preventDefault();
 
     // checks if the user inputs are valid and exist
@@ -22,9 +21,11 @@ export default function GroupModal(props) {
     } else  {
       let newGroupIDList = [userID];
       let taskList = [];
-      await groupDAO.createGroup({groupName: groupName, idList: newGroupIDList, taskIDList: taskList});
+      groupDAO.createGroup({groupName: groupName, idList: newGroupIDList, taskIDList: taskList})
+			.then((group) => {
+				props.groupCallback({id: group._id, groupName: group.groupName});
+			});
     }
-		setGroupsChange(!groupsChange);
 		props.close();
   }
 

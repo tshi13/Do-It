@@ -46,7 +46,7 @@ export default class CreateGroup extends Component {
                     <div>
                         <Modal.Body className = "scrollWrapper">
                             <span style = {{width: '100%'}}>
-                                <GroupModal userID = {this.state.userID} close = {this.handleCardClose} groupsChange = {this.props.groupsChange} setGroupsChange = {this.props.setGroupsChange}/>
+                                <GroupModal userID = {this.state.userID} close = {this.handleCardClose} groupCallback = {this.props.groupCallback}/>
                             </span>                     
                         </Modal.Body>
                     </div>

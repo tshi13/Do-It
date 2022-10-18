@@ -11,13 +11,10 @@ import TaskModalUser from "../components/TaskModalUser";
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
-    const [groupsChange, setGroupsChange] = useState(false); // makes useEffect refetch list of groups, passed as props
-	const [privateTasks, setPrivateTasks] = useState([]);
+		const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setCoins] = useState(0);
     const [selectedGroupID, setSelectedGroupID] = useState(null);
     const userID = props.userID;
-
-
     
     useEffect(() => {
         //grab groups from database for userID
@@ -33,7 +30,7 @@ export default function Home(props) {
             }
             setGroups(groupList);
         });
-    }, [groupsChange]);
+    }, []);
 
     useEffect(() => {
         taskDAO.getTasks({userID: props.userID})
@@ -42,11 +39,14 @@ export default function Home(props) {
             })
     }, []);
     
+		const groupCallback = (group) => {
+			setGroups([...groups, group]);
+		}
+
     const taskCallback = (task) => {
         setPrivateTasks([...privateTasks, task]);
     }
 
-	
     const setSelectedID = (groupID) => {
         setSelectedGroupID(groupID);
     }
@@ -77,7 +77,7 @@ export default function Home(props) {
                 <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center', height: {remiainingHeightOfPage}}}>
                     <button className = "buttonDesign" onClick = {() => {setSelectedGroupID(null)}}>Close Chat</button>
                     <GroupList groups={groups} groupCallback = {setSelectedID} />
-                    <CreateGroup userID = {props.userID} groupsChange = {groupsChange} setGroupsChange = {setGroupsChange}/>
+                    <CreateGroup userID = {props.userID} groupCallback = {groupCallback}/>
                 </div>
             </div>
             <div style = {{width: '100%'}}>
