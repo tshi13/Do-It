@@ -24,7 +24,7 @@ export default function GroupModal(props) {
       let taskList = [];
       groupDAO.createGroup({groupName: groupName, idList: newGroupIDList, taskIDList: taskList, groupPicture: image})
 			.then((group) => {
-				props.groupCallback({id: group._id, groupName: group.groupName, groupPicture: image});
+				props.groupCallback({_id: group._id, groupName: group.groupName, groupPicture: image});
 			});
       props.close();
     }
