@@ -22,6 +22,7 @@ function App() {
   const backgroundColor = '#99ffdd';
   const [searchString, setSearchString] = useState("");
 
+
   return (    
     <div style ={{width: '100%', height: '100%'}}>
       <Navigation backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} setUser = {setUser} username = {user} userID = {userID} searchString = {searchString} setSearchString = {setSearchString}/>

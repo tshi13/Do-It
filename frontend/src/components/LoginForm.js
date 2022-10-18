@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import userDAO from "../utils/userDAO";
 
 import '../styles/LoginForm.css';
@@ -28,7 +28,7 @@ function LoginForm(props) {
       
       if (response !== "User not found") {
         setIsSubmitted(true);
-        props.setUser(data.name, response);
+        props.setUser(data.name, response._id);
       } else {
         setIsSubmitted(false);
         setErrorMessages({ name: "uname", message: errors.uname });
