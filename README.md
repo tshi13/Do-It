@@ -142,20 +142,26 @@ node index.js
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+This section shows how to use the DoIt web app. How-to instructions, screenshots, code examples, demos, and links to more resources may be included here.
 
 ### Iteration 1 - Usage
-1. Use the Register button to create a new account (password is optional, not implemented for this iteration yet)
-2. Use the Login button to login to your account
-3. Once you login, click on the home button on your screen
+1. Please use the Register button to create a new account (password is optional, not implemented for this iteration yet)
+2. Please use the Login button to login to your account
+3. Once you login, please click on the home button on your screen
 4. You can click a plus button on the right side of the screen to add a task for yourself
-5. Enter the fields for the task then click confirm (may have to double click)
+5. Please enter the fields for the task then click confirm (may have to double click)
 
 ### Iteration 2 - Usage
+1. After logging in and registering, you can see a navigation bar at the top with a search bar and your profile picture.
+2. You can type the name of a group that you want to join in the search bar and press enter, and the matching results should appear. To join a group that appears in your search results, you can click its group card that appears and press the "Join group" button. Then, on the left sidebar, a new group icon should appear for that group, meaning you have joined the group. You can also click the group icon to view the group. 
+3. You can click on your profile picture to see a drop-down menu of the number of coins you have and other stats. You can also log out using a button on this drop-down menu.
+4. On the left hand side of the screen are buttons for creating a group and for opening up groups that you have already joined.
+5. To create a group, please press the "Create Group" button and please name your group in the field, then please press "Confirm". The group should appear on the left sidebar as a new group icon.
+6. To view/open a group, please click on the corresponding icon on the left sidebar. The group chat will open in the middle of the screen, and on the right will be a vertical list of tasks that belong to the group as a whole. You can also click the blue plus button on the right to add a task for the entire group.
+7. If you are currently viewing a group and want to return to the home view, please press the "Close Chat" button on the left sidebar. Your personal tasks will appear again, and you can press the blue plus button to add more personal tasks for yourself (unrelated to any group).
 
 
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+_For more examples and documentation, please refer to the [doc folder in this repo](https://github.com/jhu-oose-f22/team-doit-project-repo/tree/main/doc) which contains the SRS and the UML diagram._
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
