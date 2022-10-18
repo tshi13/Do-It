@@ -328,11 +328,11 @@ app.get("/user/:name",(req,res) => {
 	User.find({name:name})
 	.then((data) => {
 		if(data.length != 0){
-			let data = {
+			let newData = {
 				_id: data[0]._id,
 				profilePicture: data[0].profilePicture ? data[0].profilePicture : null
 			}
-			res.send(data);
+			res.send(newData);
 		} else {
 			res.send("User not found");
 		}

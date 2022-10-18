@@ -10,8 +10,8 @@ export default function GroupList(props) {
     const groupCallback = props.groupCallback ? props.groupCallback : () => {};
 
     return (
-        <div style = {style}>
-            <div style ={{height: '100%'}}>
+        <div className = "overflowWrapper" style = {style}>
+            <div>
                 {groups.map((group, index) => {
                     return (
                         <GroupCard groupData = {group} key = {index} groupCallback = {groupCallback} />

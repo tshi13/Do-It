@@ -48,7 +48,7 @@ export default function Chatbox(props)  {
 
     return (
             <div style = {style} >
-                <div className = "rectangleContainer" style ={{width: '100%'}} >
+                <div className = "rectangleContainer" style ={{width: '100%', height: '100%'}} >
                     <div className = "chatBox" style={{height: '95%'}} >
                         <div className = "chatFeedHeaderTitle" style ={{width: '100%', display: 'inline-block'}}>
                             <h1 style ={{float: 'center'}}>{groupName}</h1>
