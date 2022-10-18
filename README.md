@@ -168,7 +168,7 @@ This section shows how to use the DoIt web app. How-to instructions, screenshots
 ![Create Group Page](https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fraw.githubusercontent.com%2Fjhu-oose-f22%2Fteam-doit-project-repo%2Fnew_readme%2Fdoc%2Fscreenshots%2Fdoit%2520creating%2520a%2520group.png%3Ftoken%3DGHSAT0AAAAAABSJ66TLUJIRLR2DOIH6XFNGY2OBPDQ)
 6. To view/open a group, please click on the corresponding icon on the left sidebar. The group chat will open in the middle of the screen, and on the right will be a vertical list of tasks that belong to the group as a whole. You can also click the blue plus button on the right to add a task for the entire group.
 ![Group Chat and Tasks Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20two%20chats%20and%20two%20group%20tasks.png?token=GHSAT0AAAAAABSJ66TLQOAFEGNSQ3BLB22CY2OB6KQ)
-![Adding Group Task Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/new_readme/doc/screenshots/doit%20add%20group%20task.png?token=GHSAT0AAAAAABSJ66TK3QGRVFZ2YLAY4N5GY2OBHJQ)
+![Adding Group Task Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20add%20group%20task.png?token=GHSAT0AAAAAABSJ66TKRFVCZCGVOQ256ONMY2OCABA)
 1. If you are currently viewing a group and want to return to the home view, please press the "Close Chat" button on the left sidebar. Your personal tasks will appear again, and you can press the blue plus button to add more personal tasks for yourself (unrelated to any group).
 ![Personal Tasks Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20personal%20tasks%20filled.png?token=GHSAT0AAAAAABSJ66TKCEA2F2D6IODUL5QYY2OB63Q)
 
