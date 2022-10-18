@@ -81,7 +81,7 @@
 
 <br>
 
-![Landing Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20landing%20page.png?token=GHSAT0AAAAAABSJ66TKZHME3UH5AQPU3GZ4Y2OBF5A)
+![Landing Page](https://slack-imgs.com/?c=1&o1=ro.gu&url=https%3A%2F%2Fraw.githubusercontent.com%2Fjhu-oose-f22%2Fteam-doit-project-repo%2Fmain%2Fdoc%2Fscreenshots%2Fdoit%2520landing%2520page.png%3Ftoken%3DGHSAT0AAAAAABSJ66TLX2JD26LDB2J7VABEY2OB5GQ)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -160,17 +160,17 @@ This section shows how to use the DoIt web app. How-to instructions, screenshots
 ### Iteration 2 - Usage
 1. After logging in and registering, you can see a navigation bar at the top with a search bar and your profile picture.
 2. You can type the name of a group that you want to join in the search bar and press enter, and the matching results should appear. To join a group that appears in your search results, you can click its group card that appears and press the "Join group" button. Then, on the left sidebar, a new group icon should appear for that group, meaning you have joined the group. You can also click the group icon to view the group.
-![Search Results Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20search%20results.png?token=GHSAT0AAAAAABSJ66TKWOXYYE6YTEP3QTGWY2OBG3Q)
+![Search Results Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20search%20results.png?token=GHSAT0AAAAAABSJ66TLXHEBXV7FDIBZFB4CY2OB6FA)
 3. You can click on your profile picture to see a drop-down menu of the number of coins you have and other stats. You can also log out using a button on this drop-down menu.
-![Profile Pic Drop Down Menu](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20profile%20drop%20down%20menu%20on%20right.png?token=GHSAT0AAAAAABSJ66TLJLQ2JXZ7J5IEGALGY2OBGOA)
+![Profile Pic Drop Down Menu](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20profile%20drop%20down%20menu%20on%20right.png?token=GHSAT0AAAAAABSJ66TL7NXG3LKNJHXQK2BOY2OB6YA)
 4. On the left hand side of the screen are buttons for creating a group and for opening up groups that you have already joined.
 5. To create a group, please press the "Create Group" button and please name your group in the field, then please press "Confirm". The group should appear on the left sidebar as a new group icon.
 ![Create Group Page](https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fraw.githubusercontent.com%2Fjhu-oose-f22%2Fteam-doit-project-repo%2Fnew_readme%2Fdoc%2Fscreenshots%2Fdoit%2520creating%2520a%2520group.png%3Ftoken%3DGHSAT0AAAAAABSJ66TLUJIRLR2DOIH6XFNGY2OBPDQ)
 6. To view/open a group, please click on the corresponding icon on the left sidebar. The group chat will open in the middle of the screen, and on the right will be a vertical list of tasks that belong to the group as a whole. You can also click the blue plus button on the right to add a task for the entire group.
-![Group Chat and Tasks Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20two%20chats%20and%20two%20group%20tasks.png?token=GHSAT0AAAAAABSJ66TKEMKXEKX6G4XFKZZIY2OBHAA)
-![Adding Group Task Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20add%20group%20task.png?token=GHSAT0AAAAAABSJ66TK3QGRVFZ2YLAY4N5GY2OBHJQ)
+![Group Chat and Tasks Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20two%20chats%20and%20two%20group%20tasks.png?token=GHSAT0AAAAAABSJ66TLQOAFEGNSQ3BLB22CY2OB6KQ)
+![Adding Group Task Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/new_readme/doc/screenshots/doit%20add%20group%20task.png?token=GHSAT0AAAAAABSJ66TK3QGRVFZ2YLAY4N5GY2OBHJQ)
 1. If you are currently viewing a group and want to return to the home view, please press the "Close Chat" button on the left sidebar. Your personal tasks will appear again, and you can press the blue plus button to add more personal tasks for yourself (unrelated to any group).
-![Personal Tasks Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20personal%20tasks%20filled.png?token=GHSAT0AAAAAABSJ66TKBSQ6DCJVG5HJMSEQY2OBGFQ)
+![Personal Tasks Page](https://raw.githubusercontent.com/jhu-oose-f22/team-doit-project-repo/main/doc/screenshots/doit%20personal%20tasks%20filled.png?token=GHSAT0AAAAAABSJ66TKCEA2F2D6IODUL5QYY2OB63Q)
 
 
 _For more examples and documentation, please refer to the [doc folder in this repo](https://github.com/jhu-oose-f22/team-doit-project-repo/tree/main/doc) which contains the SRS and the UML diagram._
