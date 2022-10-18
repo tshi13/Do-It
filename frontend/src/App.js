@@ -2,17 +2,12 @@ import {Navigation} from './components/Navigation';
 import './App.css';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from './containers/Home';
-import TaskCard from './components/TaskCard';
-import DisplayTasks from './pages/DisplayTasks'
 import Login from './components/LoginForm';
 import Register from './components/RegisterForm';
 import React, { useEffect, useState } from 'react';
 import useUser from './utils/useUser';
-import test from './assets/test.jpg';
 import SearchGroup from './pages/searchGroupPage';
 import Profile from './containers/Profile';
-
-import {Buffer} from 'buffer';
 
 
 function App() {
