@@ -35,6 +35,7 @@ export default class CreateGroup extends Component {
 
 
 
+
     render() {
         return (
             <div style = {this.state.style}>
@@ -43,7 +44,7 @@ export default class CreateGroup extends Component {
                 </button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <div>
-                        <Modal.Body style = {{height: '500px'}} className = "scrollWrapper">
+                        <Modal.Body className = "scrollWrapper">
                             <span style = {{width: '100%'}}>
                                 <GroupModal userID = {this.state.userID} close = {this.handleCardClose} groupsChange = {this.props.groupsChange} setGroupsChange = {this.props.setGroupsChange}/>
                             </span>                     

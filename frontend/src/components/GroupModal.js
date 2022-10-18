@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Database from '../utils/database';
 import groupDAO from '../utils/groupDAO';
+import ProfileImage from './profilePictureMaker';
 
 export default function GroupModal(props) {
 
@@ -25,6 +26,10 @@ export default function GroupModal(props) {
     }
 		setGroupsChange(!groupsChange);
 		props.close();
+  }
+
+  const profilePictureCallback = (data) => {
+    console.log(data);
   }
   
   const styleSheet = {
@@ -54,6 +59,7 @@ export default function GroupModal(props) {
                 <input type="text" placeholder="Group Name" style ={styleSheet.inputStyle} onInput={e => setGroupName(e.target.value)} />
                 {/* <input type="text" placeholder="Group Description" style ={styleSheet.inputStyle} /> */}
             </div>
+            <ProfileImage profilePictureCallback = {profilePictureCallback} />
             <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
             <Button variant="secondary" onClick={props.close}>
                 Close
