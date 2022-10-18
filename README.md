@@ -144,6 +144,17 @@ node index.js
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
+### Iteration 1 - Usage
+1. Use the Register button to create a new account (password is optional, not implemented for this iteration yet)
+2. Use the Login button to login to your account
+3. Once you login, click on the home button on your screen
+4. You can click a plus button on the right side of the screen to add a task for yourself
+5. Enter the fields for the task then click confirm (may have to double click)
+
+### Iteration 2 - Usage
+
+
+
 _For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -151,17 +162,49 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 
 <!-- ROADMAP -->
-## Roadmap
+## Roadmap (User Stories Completed)
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+### Iteration 1 
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+#### User Stories (original) Completed on Iteration 1
+- [x] As a user, I want to be able to create tasks for myself to complete  
+- [x] As a user, I want to be able to enter a certain number of coins to the pool with my friends when setting up a task  
+- [x] As a user, I want to be able to enter a due date or time for when the task is due so that I can be held accountable by others to complete tasks on time
+
+#### More specific User Stories Completed on Iteration 1
+- [x] As developers, we want to setup mongodb and backend express
+- [x] As a developer and as a user, I want to be able to differentiate users from each other so I know who has which tasks.
+- [x] As developers, we want to create mongoose Schema for Task
+- [x] As devs, we want to setup react frontend
+- [x] As developers, we want to connect to the MongoDB database
+- [x] As a user, will help Taiming with linking up backend server express js logic with the mongodb database using postman
+- [x] As a user, will link up express js logic with posting the createUser to the backend and storing users in db with CRUD logic
+- [x] As developers, we want to create mongoose Schema for User
+- [x] As a user, users should see a chatbox
+- [x] As a user, will have a login functionality with username
+- [x] As a user, I want to be able to set the coin value of a task so I can say how much a task is worth.
+- Note: if you refresh you will be logged out and will need to login again. Currently you need to create a new task to be able to see your previous task cards (will implement next iteration)
+
+### Iteration 2
+
+#### Iteration 2 User Stories Completed (original)
+- [x] As a user, I want to be able to search for groups using groupname
+- [x] As a user, I want to be able to join groups after searching for them
+- [x] As a user, I want to be able to create a group
+- [x] As a user, I want to see a list of groups that are associated with me
+- [x] As a user, I want to create tasks for a group
+- [x] As a user, I want to see the list of tasks that are assigned with a group
+- [x] As a user, I want to be able to click on group icons to show a separate group window
+
+#### Iteration 2 User Stories Completed (more specific)
+- [x] When a user creates a group or enters a new group through search, a new group button is shown on the left hand side
+- [x] The API for createGroupTask will be updated, and updates will also be made to the createGroup API, User, Task, Group Schema
+- [x] A Group Card will have a separate chat section (non functional) and task section that shows tasks for group.
+- [x] Private task cards will render for the user on their homepage in a grid with a better looking frontend
+- [x] Search bar works to display searched group and has button to join
+- [x] "Create Group" button on homepage to create new group
+
+Please see the [Team DoIt Project Backlog](https://github.com/orgs/jhu-oose-f22/projects/8/views/1) for a full list of user stories for current and upcoming iterations.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -187,9 +230,16 @@ Don't forget to give the project a star! Thanks again!
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+### Team DoIt Project Members (listed in alphabetical order):
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+- Jonathan Bakhit - [@syncre02](https://github.com/syncre02) - jbakhit1@jhu.edu
+- Christopher Li - [@cli135](https://github.com/cli135) - cli135@jhu.edu
+- Yujian (Ken) He - [@Kennnnn774](https://github.com/Kennnnn774) - yhe99@jhu.edu
+- Taiming Shi - [@tshi13](https://github.com/tshi13) - tshi13@jhu.edu
+- Shaopeng Zeng - [@SP-Zeng](https://github.com/SP-Zeng) - szeng10@jhu.edu
+- Ian Zheng - [@ianzhg](https://github.com/ianzhg) - yzheng67@jhu.edu
+
+Project Link: [https://github.com/jhu-oose-f22/team-doit-project-repo](https://github.com/jhu-oose-f22/team-doit-project-repo)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -270,40 +320,3 @@ node index.js
 
 
 
-## Iteration 1 
-
-### Usage
-1. Use the Register button to create a new account (password is optional, not implemented for this iteration yet)
-2. Use the Login button to login to your account
-3. Once you login, click on the home button on your screen
-4. You can click a plus button on the right side of the screen to add a task for yourself
-5. Enter the fields for the task then click confirm (may have to double click)
-
-### User Stories (original) Completed on Iteration 1
-- As a user, I want to be able to create tasks for myself to complete  
-- As a user, I want to be able to enter a certain number of coins to the pool with my friends when setting up a task  
-- As a user, I want to be able to enter a due date or time for when the task is due so that I can be held accountable by others to complete tasks on time
-
-### More specific User Stories Completed on Iteration 1
-- As developers, we want to setup mongodb and backend express
-- As a developer and as a user, I want to be able to differentiate users from each other so I know who has which tasks.
-- As developers, we want to create mongoose Schema for Task
-- As devs, we want to setup react frontend
-- As developers, we want to connect to the MongoDB database
-- As a user, will help Taiming with linking up backend server express js logic with the mongodb database using postman
-- As a user, will link up express js logic with posting the createUser to the backend and storing users in db with CRUD logic
-- As developers, we want to create mongoose Schema for User
-- As a user, users should see a chatbox
-- As a user, will have a login functionality with username
-- As a user, I want to be able to set the coin value of a task so I can say how much a task is worth.
-
-Note: if you refresh you will be logged out and will need to login again. Currently you need to create a new task to be able to see your previous task cards (will implement next iteration)
-
-## Iteration 2
-- As a user, I want to be able to search for groups using groupname
-- As a user, I want to be able to join groups after searching for them
-- As a user, I want to be able to create a group
-- As a user, I want to see a list of groups that are associated with me
-- As a user, I want to create tasks for a group
-- As a user, I want to see the list of tasks that are assigned with a group
-- As a user, I want to be able to click on group icons to show a separate group window
