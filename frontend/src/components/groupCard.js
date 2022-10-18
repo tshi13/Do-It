@@ -21,7 +21,7 @@ export default function groupCard(props) {
     );
   
     return (
-    <div style ={{maxWidth: '300px'}} className = "card">
+    <div style ={{maxWidth: '200px', margin: '10px'}} className = "card">
       <img src={groupPicture} className="card__image" alt="" style = {{width: '100%', height: '100%'}} />
       <div className="card__overlay" style ={{backgroundColor: 'white'}}>
         <div className="card__header"  style ={{backgroundColor: 'white'}}>
