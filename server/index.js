@@ -21,8 +21,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.urlencoded());
-app.use(bodyParser.json());
+app.use(express.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({limit: '50mb'}));
 
 
 app.get("/", (req, res) => {
@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
  *  */ 
  app.post("/createUser", (req,res) =>{ //creates new user
 	const {name,coins,taskIDList = [],groupIDList = []} = req.body;
-		User.create({name,coins,taskIDList, groupIDList})
+		User.create({name,coins,taskIDList, groupIDList, profilePicture: null})
 			.then((data) => {
 			res.send(data);
 			})
@@ -49,6 +49,20 @@ app.get("/", (req, res) => {
 				.status(500)
 				.send({ message: "Error creating user with name: " + name })
 			})
+})
+
+app.put("/updateUser", (req,res) =>{ //updates user
+	const {userID, data} = req.body;
+	User.findByIdAndUpdate(userID, data, {new: true, $set: data})
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res
+			.status(500)
+			.send({ message: "Error updating user with id: " + userID })
+
+		})
 })
 
 
@@ -289,23 +303,35 @@ app.get("/group/:_id",(req,res) => { //gets all groups that an _id has
 		});
 })
 
-
-
-
-
+app.get("/userdata/:_id",(req,res) => { //gets the details of a user
+	const _id = req.params._id;
+	User.findById(_id)
+		.then((data) => {
+			res.send(data);
+		})
+		.catch(err => {
+			res
+			.status(500)
+			.send({ message: "Error retrieving user with id: " + _id });
+		});
+})
 
 /**
  * req.params: 
  * 	name: name of user 
  * 
- * res: ObjectId of user
+ * res: ObjectId of user, profile picture, 
  */
 app.get("/user/:name",(req,res) => {
 	const name = req.params.name;
 	User.find({name:name})
 	.then((data) => {
 		if(data.length != 0){
-			res.send(data[0]._id);
+			let data = {
+				_id: data[0]._id,
+				profilePicture: data[0].profilePicture ? data[0].profilePicture : null
+			}
+			res.send(data);
 		} else {
 			res.send("User not found");
 		}

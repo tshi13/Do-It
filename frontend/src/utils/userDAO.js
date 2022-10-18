@@ -4,6 +4,7 @@ axios.defaults.baseURL = 'http://localhost:5000';
 
 async function getUser(data) {
     let res = await axios.get('/user/' + data.name).then(data => data);
+    console.log(res);
     return res["data"];
 }
 
@@ -19,6 +20,17 @@ async function getGroups(userID) {
 
 async function getTasks(userID) {
     let res = await axios.get('/tasks/' + userID).then(data => data);
+    return res["data"];
+}
+
+
+async function updateProfile(userID, data) {
+    let res = await axios.put('/updateUser', {userID: userID, data: data}).then(data => data);
+    return res["data"];
+}
+
+async function getUserData(userID) {
+    let res = await axios.get('/userdata/' + userID).then(data => data);
     return res["data"];
 }
 
@@ -64,6 +76,14 @@ export default class userDAO {
 
     static joinGroup(userID, groupID) {
         return joinGroup(userID, groupID);
+    }
+
+    static updateProfile(userID, data) {
+        return updateProfile(userID, data);
+    }
+
+    static getUserData(userID) {
+        return getUserData(userID);
     }
 }
 

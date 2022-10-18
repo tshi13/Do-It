@@ -3,9 +3,13 @@ import React, { useRef, useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import Dropzone from 'react-dropzone';
 
+import {Buffer} from 'buffer';
+
+
+
 import '../styles/Home.css';
 
-export default function ProfileImage() { 
+export default function ProfileImage(props) { 
 
     const [image, setImage] = useState(null);
     const [scale, setScale] = useState(1);
@@ -18,13 +22,19 @@ export default function ProfileImage() {
             const canvas = editor.getImageScaledToCanvas();
             canvas.toBlob(blob => {
                 const file = new File([blob], 'image.png', { type: 'image/png' });
-                console.log(file);
 
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onloadend = () => {
+                    let base64data = reader.result;
+                    let buffer = Buffer.from(base64data.split(',')[1], 'base64');
+                    props.setImage(buffer);
+            
+                }
             });
         }
     };
-
-
+    
 
     let fileInput = React.createRef();
 
@@ -45,7 +55,9 @@ export default function ProfileImage() {
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
-                ref={fileInput} />
+                ref={fileInput}
+                style ={{marginBottom: '5%'}}
+                 />
                     
                 <Dropzone
                 onDrop={handleDrop}
@@ -64,6 +76,7 @@ export default function ProfileImage() {
                     color = {[255, 255, 255, 0.6]}
                     scale = {scale}
                     rotate = {rotate}
+                    style = {{border: '1px solid black'}}
                     />
                     </div>
 

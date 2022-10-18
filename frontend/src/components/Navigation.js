@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { NavDropdown } from 'react-bootstrap';
 import '../styles/navigation.css';
 import ProfilePicture from './ProfilePicture';
+import {Buffer} from 'buffer';
+
+import test from '../assets/test.jpg';
+import userDAO from '../utils/userDAO';
+
+
 
 
 export const Navigation = (props) => { 
@@ -9,14 +15,24 @@ export const Navigation = (props) => {
 	const [coins, setCoins] = useState(0);
 	const [username, setUsername] = useState(null);
 	const [profilePicture, setProfilePicture] = useState(null);
+
+
+
 	
 	useEffect(() => {
 		if(props.isLoggedIn){
 			setUsername(props.username);
-			setProfilePicture(props.profilePicture);
-			//setCoins(0); //have to find a way to get the coins from the database
+			userDAO.getUserData(props.userID).then((res) => {
+				try {
+					setProfilePicture(Buffer.from(res.profilePicture).toString('base64'));
+				}
+				catch (err) {
+					
+				}
+				setCoins(res.coins)
+			});
 		}
-	}, [props.username, props.userID]); 
+	}, [props.username, props.userID]);
 	
 	function logOut(e) {
 		e.preventDefault();
@@ -55,7 +71,7 @@ export const Navigation = (props) => {
 	const logoutOptions = (
 		<div>
 			<ul className="navbar-nav">
-				<NavDropdown title={<ProfilePicture profilePicture={props.profilePicture} />} id="basic-nav-dropdown">
+				<NavDropdown title={ profilePicture ? <ProfilePicture profilePicture={profilePicture} />: <ProfilePicture /> } id="basic-nav-dropdown">
 					<NavDropdown.Item disabled >Username: {username}</NavDropdown.Item>
 					<NavDropdown.Item disabled >Coins: {coins}</NavDropdown.Item>
 					<NavDropdown.Divider />

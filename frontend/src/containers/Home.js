@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ChatBox from "../components/ChatBox";
 import '../styles/Home.css';
 import frontpage from ".././assets/frontpage.png";
 import CreateGroup from "../components/CreateGroup";
