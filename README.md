@@ -108,12 +108,9 @@ Either coins work well in our betting system. The existence of free coins allows
 
 Here are major frameworks/libraries we used to build our project.
 
-* [![Next][Next.js]][Next-url]
+* [![Node.js][Node.js.com]][Node.js-url]
 * [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
+* [![Express][Express.com]][Express-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![MongoDB][MongoDB.com]][MongoDB-url]
 
@@ -260,8 +257,12 @@ Use this space to list resources you find helpful and would like to give credit 
 [Laravel-url]: https://laravel.com
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
-[MongoDB.com]: https://www.google.com/url?sa=i&url=https%3A%2F%2F1000logos.net%2Fmongodb-logo%2F&psig=AOvVaw0rfawFyq7McauoHKqe1z16&ust=1666137431951000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCOiKgeG76PoCFQAAAAAdAAAAABAE
+[MongoDB.com]: https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=laravel&logoColor=white
 [MongoDB-url]: https://www.mongodb.com/ 
+[Express.com]: https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=laravel&logoColor=white
+[Express-url]: https://expressjs.com/
+[Node.js.com]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=laravel&logoColor=white
+[Node.js-url]: https://nodejs.org/en/
 
 # Welcome to the Team DOIT Repository !
 ## Getting Started
