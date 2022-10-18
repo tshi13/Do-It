@@ -9,7 +9,6 @@ export default function GroupModal(props) {
     const [groupName, setGroupName] = useState("");
     const [userID] = useState(props.userID);
     //const [description, setDiscription] = useState("");
-		const {groupCallback} = props;
 
 
   const handleSubmit = () => {
@@ -23,7 +22,7 @@ export default function GroupModal(props) {
       let taskList = [];
       groupDAO.createGroup({groupName: groupName, idList: newGroupIDList, taskIDList: taskList})
 			.then((group) => {
-				groupCallback({id: group._id, groupName: group.groupName});
+				props.groupCallback({id: group._id, groupName: group.groupName});
 			});
     }
 		props.close();
