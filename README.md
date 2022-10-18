@@ -86,7 +86,7 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-The Doit application is to help you stay focus and motivated on the important things in life. Whenever you want to stay focused or show off your accomplishments to your circle of friend, use doit and place a bet. Stay motivated daily and turn hard work into a handful of doit coins. In the future, we believe that the doit would be a popular productivity app that helps people beat their laziness and reach their goal in an interesting and pleasant way. 
+The purpose of the DoIt application is to help you stay focused and motivated on the important things in life. Whenever you want to stay focused or show off your accomplishments to your circle of friends, use DoIt and place a bet. Stay motivated daily and turn hard work into a handful of DoIt coins. In the future, we believe that DoIt would be a popular productivity app that helps people beat their laziness and reach their goals in an interesting and pleasant way. 
 
 Here's why:
 * People often feel unmotivated and discouraged to do academic, professional, and personal tasks. :sad:
@@ -114,6 +114,7 @@ Here are major frameworks/libraries we used to build our project.
 * [![Express][Express.com]][Express-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![MongoDB][MongoDB.com]][MongoDB-url]
+* [![MaterialUI][mui.com]][mui-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -298,31 +299,12 @@ Use this space to list resources you find helpful and would like to give credit 
 [Laravel-url]: https://laravel.com
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
-[MongoDB.com]: https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=laravel&logoColor=white
+[MongoDB.com]: https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white
 [MongoDB-url]: https://www.mongodb.com/ 
-[Express.com]: https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=laravel&logoColor=white
+[Express.com]: https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white
 [Express-url]: https://expressjs.com/
-[Node.js.com]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=laravel&logoColor=white
+[Node.js.com]: https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white
 [Node.js-url]: https://nodejs.org/en/
-
-# Welcome to the Team DOIT Repository !
-## Getting Started
-
-### Installation
-
-1. Navigate to the ```server``` folder and run ```npm i``` to install all dependencies. 
-
-2. Next run the following code to start the server
-```sh
-node index.js
-```
-3. Navigate to the ```frontend``` folder and run ```npm i``` to install all dependencies. 
-   
-4. Run the following code to start the frontend
-  ```sh
-  npm run start
-  ```
-5. You should be directed to ```http://localhost:3000/```
-
-
+[mui.com]: https://img.shields.io/badge/Material%20UI-ffffff?style=for-the-badge&logo=mui&logoColor=2979ff
+[mui-url]: https://mui.com
 
