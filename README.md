@@ -252,8 +252,8 @@ Don't forget to give the project a star! :star: Thanks again!
 ### Team DoIt Project Members (listed in alphabetical order):
 
 - Jonathan Bakhit - [@syncre02](https://github.com/syncre02) - jbakhit1@jhu.edu
-- Christopher Li - [@cli135](https://github.com/cli135) - cli135@jhu.edu
 - Yujian (Ken) He - [@Kennnnn774](https://github.com/Kennnnn774) - yhe99@jhu.edu
+- Christopher Li - [@cli135](https://github.com/cli135) - cli135@jhu.edu
 - Taiming Shi - [@tshi13](https://github.com/tshi13) - tshi13@jhu.edu
 - Shaopeng Zeng - [@SP-Zeng](https://github.com/SP-Zeng) - szeng10@jhu.edu
 - Ian Zheng - [@ianzhg](https://github.com/ianzhg) - yzheng67@jhu.edu
