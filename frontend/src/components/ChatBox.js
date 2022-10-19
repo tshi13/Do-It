@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import MessageChat from './MessageChat';
 import TaskModal from "../components/TaskModal";
+import GroupSettings from './GroupSettings';
+
 
 import  '../styles/chatBoxv2.css';
 
@@ -18,6 +20,7 @@ export default function Chatbox(props)  {
     const style = props.style ? props.style : {};
     const taskCallback = props.taskCallback ? props.taskCallback : () => {};
 
+
     const messageDiv = useRef(null);
 
     useEffect(() => {
@@ -34,8 +37,6 @@ export default function Chatbox(props)  {
             }
     }, []);
 
-
-
     
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -45,13 +46,19 @@ export default function Chatbox(props)  {
         }
     }
 
+    const leaveGroup = () => {
+        props.leaveGroupCallback(groupID, userID);
+    }
 
     return (
             <div style = {style} >
                 <div className = "rectangleContainer" style ={{width: '100%', height: '92vh'}} >
-                    <div className = "chatBox" style={{height: '95%'}} >
+                    <div className = "chatBox" style={{height: '95%'}}>
+                        <div className = "chatBoxHeader">
+                            <GroupSettings leaveGroup = {leaveGroup} />
+                        </div>
                         <div className = "chatFeedHeaderTitle" style ={{width: '100%', display: 'inline-block'}}>
-                            <h1 style ={{float: 'center'}}>{groupName}</h1>
+                            <h1 style ={{float: 'center'}}>{groupName}</h1>                            
                         </div>
                         <div className = "chatFeedHeaderButtons" style ={{display: 'inline-block'}}>
                             <TaskModal style ={{float: 'right', marginRight: '1%', marginLeft: '2%'}} groupID = {groupID} taskCallback = {taskCallback} userID = {userID} />

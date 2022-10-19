@@ -49,12 +49,18 @@ export default function GroupComponent(props)  {
     const taskCallback = (newTask) => {
         setTasks([...tasks, newTask]);
     }
+
+    const leaveGroupCallback = (groupID, userID) => {
+        groupDAO.leaveGroup(groupID, userID).then(() => {
+            props.leaveGroupCallback(groupID);
+        });
+    }
     
 
    const renderChat = () => {
         if(userID !== undefined && groupID !== undefined) {
             return (
-                <ChatBox username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName}/>
+                <ChatBox username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback}/>
             );
         }
     }

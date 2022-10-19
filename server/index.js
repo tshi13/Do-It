@@ -16,7 +16,7 @@ db.connect();
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST, PUT, DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
@@ -160,6 +160,59 @@ app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the l
 		.send({ message: "Error creating group with name: " + groupName })
 	})
 })
+
+/** 
+ * Leave group
+ * req.params: userID groupID 
+ * 
+ * res: updated user object
+ */
+
+app.put("/leaveGroup", (req,res) => {
+	const {userID, groupID} = req.body;
+	let newGroupList;
+	let newTaskIDList;
+	let newGroupTaskIDList;
+	let user;
+	let group;
+	let newUserList;
+	User.findById(userID)
+	.then((data) => {
+		user = data;
+		newGroupList = user.groupIDList;
+		newTaskIDList = user.taskIDList;
+		return Group.findById(groupID);
+	})
+	.then((data) => {
+		group = data;
+		newGroupTaskIDList = group.taskIDList;
+		newGroupList = newGroupList.filter((id) => id != groupID);
+		newTaskIDList = newTaskIDList.filter((id) => !newGroupTaskIDList.includes(id));
+		newUserList = group.idList.filter((id) => id != userID);
+		return User.findOneAndUpdate({_id:userID},{groupIDList:newGroupList, taskIDList:newTaskIDList}); //remove groupID from User groupIDList
+
+
+	}).then(() => {
+		if(newUserList.length == 0){
+			return Group.findOneAndDelete({_id:groupID});
+		} else {
+			return Group.findOneAndUpdate({_id:groupID},{idList:newUserList});
+		}
+	})
+
+	.then(() =>
+		res.send(user)
+	)
+	.catch((err) => {
+		res
+		.status(500)
+		.send({ message: "Error leaving group with id: " + groupID })
+	})
+})
+
+
+
+
 
 /**
  * req.params: 

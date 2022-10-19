@@ -51,6 +51,14 @@ export default function Home(props) {
 			setGroups([...groups, newGroup]);
 		}
 
+        const leaveGroupCallback = (groupID) => {
+            let newGroups = groups.filter((group) => {
+                return group.id !== groupID;
+            });
+            setGroups(newGroups);
+            setSelectedGroupID(null);
+        }
+
     const taskCallback = (task) => {
         setPrivateTasks([...privateTasks, task]);
     }
@@ -62,7 +70,7 @@ export default function Home(props) {
     const renderGroup = () => {
         if(selectedGroupID !== null) {
             return (
-                <GroupComponent groupID = {selectedGroupID} userID = {props.userID} username = {props.username}/>
+                <GroupComponent groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} />
             );
         }
         else {
