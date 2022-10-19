@@ -198,7 +198,7 @@ app.put("/leaveGroup", (req,res) => {
 		} else {
 			return Group.findOneAndUpdate({_id:groupID},{idList:newUserList});
 		}
-	})
+	}) //have to delete task cards
 
 	.then(() =>
 		res.send(user)
