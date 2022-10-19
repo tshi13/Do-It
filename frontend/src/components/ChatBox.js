@@ -20,7 +20,6 @@ export default function Chatbox(props)  {
     const style = props.style ? props.style : {};
     const taskCallback = props.taskCallback ? props.taskCallback : () => {};
 
-
     const messageDiv = useRef(null);
 
     useEffect(() => {
@@ -66,7 +65,7 @@ export default function Chatbox(props)  {
                         <div className= "chatFeed customscrollWrapper" style ={{height: '100%'}} ref = {messageDiv}>
                             {messages.map((message, index) => {
                                 return (
-                                    <MessageChat style ={{marginLeft: '1%'}} key={index} message={message} username={username} time={new Date().toLocaleTimeString()} profilePicture="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"/>
+                                    <MessageChat style ={{marginLeft: '1%'}} key={index} message={message} username={username} time={new Date().toLocaleTimeString()} profilePicture={profilePicture}/>
                                 );})
                             }
                         </div>

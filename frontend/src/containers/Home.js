@@ -6,6 +6,7 @@ import GroupComponent from "../components/GroupClasses/GroupComponent";
 import GroupList from "../components/GroupClasses/GroupList";
 import groupDAO from '../utils/groupDAO';
 import taskDAO from "../utils/taskDAO";
+import userDAO from "../utils/userDAO";
 import DisplayTasks from "../pages/DisplayTasks";
 import TaskModalUser from "../components/TaskModalUser";
 import {Buffer} from 'buffer';
@@ -17,6 +18,7 @@ export default function Home(props) {
     const [coins, setCoins] = useState(0);
     const [selectedGroupID, setSelectedGroupID] = useState(null);
     const userID = props.userID;
+    const [profilePicture, setProfilePicture] = useState(null);
     
     useEffect(() => {
         //grab groups from database for userID
@@ -41,6 +43,7 @@ export default function Home(props) {
                 setPrivateTasks(tasks);
             })
     }, []);
+
     
 		const groupCallback = (group) => {
             let newGroup = {
