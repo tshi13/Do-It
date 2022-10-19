@@ -39,7 +39,9 @@ export default function Home(props) {
     useEffect(() => {
         taskDAO.getTasks({userID: props.userID})
             .then((tasks) => {
-                setPrivateTasks(tasks);
+                if (tasks[0]) {
+                    setPrivateTasks(tasks);
+                }
             })
     }, []);
     
