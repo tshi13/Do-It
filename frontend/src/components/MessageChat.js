@@ -13,12 +13,13 @@ export default class MessageChat extends Component {
             profilePicture: this.props.profilePicture,
         };
     }
+    
     render() {
         return (
             <div style ={this.state.style}>
                 <div className = "chat">
                     <div className = "profileBox">
-                        {this.state.profilePicture ?  <img src={`data:image/png;base64,${this.state.profilePicture}`} alt="v" className="profilePicture"/> : <img src = "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" alt = "profilePicture"/>}
+                        {this.state.profilePicture ?  <img src={`data:image/png;base64,${this.state.profilePicture}`} alt="v" className="profilePicture"/> : <img className = "profilePicture" src = "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" alt = "profilePicture"/>}
                     </div>
                     <div className = "content"> 
                         <div className = "textBox">

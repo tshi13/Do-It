@@ -12,7 +12,6 @@ export default class CreateGroup extends Component {
             userID: props.userID,
         };
     }
-		
 
     handleClose = () => this.setState({show: false, variant: false});
 
@@ -22,9 +21,6 @@ export default class CreateGroup extends Component {
     handleCardClose = (show) => {
         this.setState({show: false})
     }
-
-
-
 
     render() {
         return (

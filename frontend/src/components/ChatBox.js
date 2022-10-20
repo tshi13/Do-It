@@ -12,6 +12,8 @@ export default function Chatbox(props)  {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
 
+    const [showTaskModal, setShowTaskModal] = useState(false);
+
     const groupName = props.groupName;
     const groupID = props.groupID;
     const userID = props.userID;
@@ -51,16 +53,16 @@ export default function Chatbox(props)  {
 
     return (
             <div style = {style} >
-                <div className = "rectangleContainer" style ={{width: '100%', height: '92vh'}} >
+                <div className = "rectangleContainer" style ={{height: props.newHeight}} >
                     <div className = "chatBox" style={{height: '95%'}}>
                         <div className = "chatBoxHeader">
-                            <GroupSettings leaveGroup = {leaveGroup} />
+                            <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
                         </div>
                         <div className = "chatFeedHeaderTitle" style ={{width: '100%', display: 'inline-block'}}>
                             <h1 style ={{float: 'center'}}>{groupName}</h1>                            
                         </div>
                         <div className = "chatFeedHeaderButtons" style ={{display: 'inline-block'}}>
-                            <TaskModal style ={{float: 'right', marginRight: '1%', marginLeft: '2%'}} groupID = {groupID} taskCallback = {taskCallback} userID = {userID} />
+                            <TaskModal style ={{float: 'right', marginRight: '1%', marginLeft: '2%'}} show = {showTaskModal} setShow = {setShowTaskModal} groupID = {groupID} taskCallback = {taskCallback} userID = {userID} />
                         </div>
                         <div className= "chatFeed customscrollWrapper" style ={{height: '100%'}} ref = {messageDiv}>
                             {messages.map((message, index) => {

@@ -26,7 +26,6 @@
 
   .overflowWrapper {
     overflow: auto;
-    height: 100%;
   }
 
   .overflowWrapper::-webkit-scrollbar {

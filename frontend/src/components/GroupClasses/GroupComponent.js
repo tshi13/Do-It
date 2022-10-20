@@ -16,6 +16,8 @@ export default function GroupComponent(props)  {
     const [groupName, setGroupName] = useState("");
     const [profilePicture, setProfilePicture] = useState(null);
 
+    const newHeight = props.newHeight;
+
     useEffect(() => {
         //grab tasks from database for groupID
         //set tasks to the tasks from the database
@@ -51,7 +53,7 @@ export default function GroupComponent(props)  {
     const renderTasks = () => {
         if(tasks.length > 0) {
             return (
-                <GroupTaskBar tasks={tasks} style ={{width: '100%'}} />
+                <GroupTaskBar tasks={tasks} style ={{width: '100%'}} newHeight = {newHeight} />
             );
         }
     }
@@ -70,7 +72,7 @@ export default function GroupComponent(props)  {
    const renderChat = () => {
         if(userID !== undefined && groupID !== undefined) {
             return (
-                <ChatBox profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback}/>
+                <ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback}/>
             );
         }
     }
@@ -81,7 +83,6 @@ export default function GroupComponent(props)  {
                 {renderChat()}
             </div>
             <div className = "rightSection" style ={{width: '20%', height: '100%'}}>
-                <h1 style ={{textAlign: 'center'}}>Task List</h1>
                 {renderTasks()}
             </div>
         </div>

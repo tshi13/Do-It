@@ -1,5 +1,4 @@
 .customContainer {
-    height: 75vh;
     width: '100%'
 }
 
@@ -60,7 +59,6 @@
 }
 
 .sideBar {
-    min-height: 90vh;
     z-index: 1;
     overflow-x: hidden;
     overflow-y: hidden;
