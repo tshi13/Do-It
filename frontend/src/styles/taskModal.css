@@ -1,0 +1,37 @@
+.transition {
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+#switch {
+    font-size: 0;
+    color: black;
+    vertical-align: middle;
+    background-color: #99ffdd;
+    border: 1px solid black;
+    width: 100%;
+}
+#switch .choice {
+    font-size: 16px;
+    text-align: center;
+    padding: 8px;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    vertical-align: middle;
+    width: 50%;
+}
+#switch .choice.on {
+    background-color: white;
+}
+#switch .or {
+    font-size: 10px;
+    z-index: 1;
+}
+

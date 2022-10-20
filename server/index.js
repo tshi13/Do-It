@@ -16,13 +16,13 @@ db.connect();
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, POST, PUT, DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
 
-app.use(express.urlencoded());
-app.use(bodyParser.json());
+app.use(express.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({limit: '50mb'}));
 
 
 app.get("/", (req, res) => {
@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
  *  */ 
  app.post("/createUser", (req,res) =>{ //creates new user
 	const {name,coins,taskIDList = [],groupIDList = []} = req.body;
-		User.create({name,coins,taskIDList, groupIDList})
+		User.create({name,coins,taskIDList, groupIDList, profilePicture: null})
 			.then((data) => {
 			res.send(data);
 			})
@@ -49,6 +49,20 @@ app.get("/", (req, res) => {
 				.status(500)
 				.send({ message: "Error creating user with name: " + name })
 			})
+})
+
+app.put("/updateUser", (req,res) =>{ //updates user
+	const {userID, data} = req.body;
+	User.findByIdAndUpdate(userID, data, {new: true, $set: data})
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res
+			.status(500)
+			.send({ message: "Error updating user with id: " + userID })
+
+		})
 })
 
 
@@ -125,8 +139,9 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
  *  */ 
 app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the list of objectIDs of users
 	const {groupName,idList,taskIDList = []} = req.body;
+	const groupPicture = req.body.groupPicture || null;
 	let groupID;
-	const data = Group.create({groupName,idList,taskIDList})
+	const data = Group.create({groupName,idList,taskIDList, groupPicture})
 	.then((data) => {
 		groupID = data._id;
 		res.send(data);
@@ -145,6 +160,59 @@ app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the l
 		.send({ message: "Error creating group with name: " + groupName })
 	})
 })
+
+/** 
+ * Leave group
+ * req.params: userID groupID 
+ * 
+ * res: updated user object
+ */
+
+app.put("/leaveGroup", (req,res) => {
+	const {userID, groupID} = req.body;
+	let newGroupList;
+	let newTaskIDList;
+	let newGroupTaskIDList;
+	let user;
+	let group;
+	let newUserList;
+	User.findById(userID)
+	.then((data) => {
+		user = data;
+		newGroupList = user.groupIDList;
+		newTaskIDList = user.taskIDList;
+		return Group.findById(groupID);
+	})
+	.then((data) => {
+		group = data;
+		newGroupTaskIDList = group.taskIDList;
+		newGroupList = newGroupList.filter((id) => id != groupID);
+		newTaskIDList = newTaskIDList.filter((id) => !newGroupTaskIDList.includes(id));
+		newUserList = group.idList.filter((id) => id != userID);
+		return User.findOneAndUpdate({_id:userID},{groupIDList:newGroupList, taskIDList:newTaskIDList}); //remove groupID from User groupIDList
+
+
+	}).then(() => {
+		if(newUserList.length == 0){
+			return Group.findOneAndDelete({_id:groupID});
+		} else {
+			return Group.findOneAndUpdate({_id:groupID},{idList:newUserList});
+		}
+	}) //have to delete task cards
+
+	.then(() =>
+		res.send(user)
+	)
+	.catch((err) => {
+		res
+		.status(500)
+		.send({ message: "Error leaving group with id: " + groupID })
+	})
+})
+
+
+
+
 
 /**
  * req.params: 
@@ -289,23 +357,35 @@ app.get("/group/:_id",(req,res) => { //gets all groups that an _id has
 		});
 })
 
-
-
-
-
+app.get("/userdata/:_id",(req,res) => { //gets the details of a user
+	const _id = req.params._id;
+	User.findById(_id)
+		.then((data) => {
+			res.send(data);
+		})
+		.catch(err => {
+			res
+			.status(500)
+			.send({ message: "Error retrieving user with id: " + _id });
+		});
+})
 
 /**
  * req.params: 
  * 	name: name of user 
  * 
- * res: ObjectId of user
+ * res: ObjectId of user, profile picture, 
  */
 app.get("/user/:name",(req,res) => {
 	const name = req.params.name;
 	User.find({name:name})
 	.then((data) => {
 		if(data.length != 0){
-			res.send(data[0]._id);
+			let newData = {
+				_id: data[0]._id,
+				profilePicture: data[0].profilePicture ? data[0].profilePicture : null
+			}
+			res.send(newData);
 		} else {
 			res.send("User not found");
 		}

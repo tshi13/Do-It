@@ -51,6 +51,17 @@ async function addToGroup(data) {
     return res["data"];
 }
 
+async function leaveGroup(groupID, userID) {
+
+    let data = {
+        groupID: groupID,
+        userID: userID
+    }
+
+    let res = await axios.put('/leaveGroup', data).then(data => data);
+
+    return res["data"];
+}
 
 
 export default class groupDAO {
@@ -86,7 +97,9 @@ export default class groupDAO {
         return addToGroup(data);
     }
 
-
+    static leaveGroup(groupID, userID) {
+        return leaveGroup(groupID, userID);
+    }
 
 }
 

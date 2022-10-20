@@ -24,4 +24,36 @@
     font-weight: 600;
   }
 
+  .overflowWrapper {
+    overflow: auto;
+  }
+
+  .overflowWrapper::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  .overflowWrapper::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .overflowWrapper::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
+
+  .groupList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .groupList > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
 

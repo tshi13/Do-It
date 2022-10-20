@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ChatBox from "../components/ChatBox";
 import '../styles/Home.css';
 import frontpage from ".././assets/frontpage.png";
 import CreateGroup from "../components/CreateGroup";
@@ -7,15 +6,21 @@ import GroupComponent from "../components/GroupClasses/GroupComponent";
 import GroupList from "../components/GroupClasses/GroupList";
 import groupDAO from '../utils/groupDAO';
 import taskDAO from "../utils/taskDAO";
-import DisplayTasks from "../pages/DisplayTasks";
+import userDAO from "../utils/userDAO";
+import DisplayTasks from "../components/DisplayTasks";
 import TaskModalUser from "../components/TaskModalUser";
+import {Buffer} from 'buffer';
+
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
-		const [privateTasks, setPrivateTasks] = useState([]);
+	const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setCoins] = useState(0);
     const [selectedGroupID, setSelectedGroupID] = useState(null);
     const userID = props.userID;
+    const [profilePicture, setProfilePicture] = useState(null);
+
+    const newHeight = props.newHeight;
     
     useEffect(() => {
         //grab groups from database for userID
@@ -26,6 +31,7 @@ export default function Home(props) {
                 let groupData = {
                     id: groups[i]._id,
                     groupName: groups[i].groupName,
+                    groupPicture: groups[i].groupPicture ? Buffer.from(groups[i].groupPicture).toString('base64') : null,
                 }
                 groupList.push(groupData);
             }
@@ -41,10 +47,24 @@ export default function Home(props) {
                 }
             })
     }, []);
+
     
 		const groupCallback = (group) => {
-			setGroups([...groups, group]);
+            let newGroup = {
+                id: group._id,
+                groupName: group.groupName,
+                groupPicture: group.groupPicture ? Buffer.from(group.groupPicture).toString('base64') : null,
+            }
+			setGroups([...groups, newGroup]);
 		}
+
+        const leaveGroupCallback = (groupID) => {
+            let newGroups = groups.filter((group) => {
+                return group.id !== groupID;
+            });
+            setGroups(newGroups);
+            setSelectedGroupID(null);
+        }
 
     const taskCallback = (task) => {
         setPrivateTasks([...privateTasks, task]);
@@ -57,7 +77,7 @@ export default function Home(props) {
     const renderGroup = () => {
         if(selectedGroupID !== null) {
             return (
-                <GroupComponent groupID = {selectedGroupID} userID = {props.userID} username = {props.username}/>
+                <GroupComponent groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight} />
             );
         }
         else {
@@ -70,16 +90,13 @@ export default function Home(props) {
         }
     }
 
-    const remiainingHeightOfPage = window.innerHeight - 100;
 
     const loggedInPage = (
         
-        <div className="home" style = {{display: 'flex', flexDirection: 'row', height: '100%'}}>
-           
+        <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
             <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px'}}>
-                <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center', height: {remiainingHeightOfPage}}}>
-                    <button className = "buttonDesign" onClick = {() => {setSelectedGroupID(null)}}>Close Chat</button>
-                    <GroupList groups={groups} groupCallback = {setSelectedID} />
+                <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                    <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
                     <CreateGroup userID = {props.userID} groupCallback = {groupCallback}/>
                 </div>
             </div>
@@ -93,7 +110,7 @@ export default function Home(props) {
     );
 
     const homePage = (
-        <div className="home">
+        <div className="home" style ={{height: {newHeight}}}>
             <div className="home__container">
                     <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
                         <div style ={{float: 'left', width: '50%', marginTop: '10%', marginLeft: '10%'}}>

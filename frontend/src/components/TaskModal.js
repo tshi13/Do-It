@@ -3,20 +3,21 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import groupDAO from '../utils/groupDAO';
 
+import '../styles/taskModal.css'; 
+
 export default function TaskModal(props) {
 
-    const [show, setShow] = useState(false);
+
+    const show = props.show;
+    const setShow = props.setShow;
     const [taskName, setTaskName] = useState("");
     const [time, setTimeForTask] = useState(0);
     const [coinsEntered, setCoinsEntered] = useState(0);
     const [groupID] = useState(props.groupID);
+    const [type, setType] = useState("group");
 
-
-  const handleClose = () => {
-    setShow(false);
-  }
-  const handleShow = () => setShow(true);
-
+    
+    
   const handleSubmit = () => {
     // preventDefault();
 
@@ -70,47 +71,56 @@ export default function TaskModal(props) {
     },
   }
 
+  const flipModal = () => {
+    let personal = document.getElementById("individual");
+    let group = document.getElementById("group");
+    if(type === "group") {
+      personal.classList.add("on");
+      group.classList.remove("on");
+
+      setType("personal");
+
+    } else {
+      personal.classList.remove("on");
+      group.classList.add("on");
+      setType("group");
+    }
+  }
+
    // JSX code for taskModal form
   return (
     <div style ={props.style}>
-      <div className ="parent" style ={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <div>
-            <p style ={{marginBottom: '1%'}}>Create a task</p>
+      <Modal
+          show={show}
+          onHide={() => {setShow(false)}}
+          backdrop="static"
+          keyboard={false}
+          style = {{width: '100%', top: '25%',}}
+      >
+          <Modal.Header closeButton>
+          <Modal.Title>Add Task</Modal.Title>
+          <div id="switch" onClick ={() => {flipModal()}} style ={{width: '60%', marginLeft: '5%'}}>
+            <div className="choice on" id ="individual">Individual</div>
+            <div className="choice" id = "group">Group</div>
           </div>
-          <div>
-            <Button variant="primary" onClick={handleShow} style ={styleSheet.circle}>
-                +
-            </Button>
-          </div> 
-        </div>
-
-
-        <Modal
-            show={show}
-            onHide={handleClose}
-            backdrop="static"
-            keyboard={false}
-            style = {{width: '100%', top: '25%',}}
-        >
-            <Modal.Header closeButton>
-            <Modal.Title>Add Task</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <input type="text" placeholder="Task Name" style ={styleSheet.inputStyle} onInput={e => setTaskName(e.target.value)} />
-                    <input type="text" placeholder="Task Description" style ={styleSheet.inputStyle} />
-                    <input type="text" placeholder="Coins Per Task"  style ={styleSheet.inputStyle} onInput={e => setCoinsEntered(e.target.value)}/>
-                    <input type="text" placeholder="Task Due Date" style ={styleSheet.inputStyle} onInput={e => setTimeForTask(e.target.value)} />
-                </div>
-                
-                <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
-                </Button>
-            </form>
-            </Modal.Body>
-        </Modal>
-      </div>
+          
+          </Modal.Header>
+          <Modal.Body>
+          <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                  <input type="text" placeholder="Task Name" style ={styleSheet.inputStyle} onInput={e => setTaskName(e.target.value)} />
+                  <input type="text" placeholder="Task Description" style ={styleSheet.inputStyle} />
+                  <input type="text" placeholder="Coins Per Task"  style ={styleSheet.inputStyle} onInput={e => setCoinsEntered(e.target.value)}/>
+                  <input type="text" placeholder="Task Due Date" style ={styleSheet.inputStyle} onInput={e => setTimeForTask(e.target.value)} />
+              </div>
+              
+              <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
+              <Button variant="secondary" onClick={() => {setShow(false)}}>
+                  Close
+              </Button>
+          </form>
+          </Modal.Body>
+      </Modal>
+    </div>
   );
 }

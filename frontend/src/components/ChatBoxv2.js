@@ -42,7 +42,7 @@ export default class ChatBox extends Component {
 
         return (
             <div style = {this.state.style}>
-                <div className = "rectangleContainer" style ={{height: '100%'}} >
+                <div className = "rectangleContainer"  >
                     <ChatEngine
                     height = "100vh"
                     projectID = "9fbc3a05-49fe-4279-b30b-858265ba077c"

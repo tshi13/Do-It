@@ -1,0 +1,57 @@
+.chat {
+    border-radius: 6px;
+    height: 100%;
+    overflow-y: hidden;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.chat::-webkit-scrollbar {
+    display: none;
+}
+
+ .profileBox {
+    float: left;
+ }
+
+ .content {
+    display: flex;
+    flex-direction: column;
+ }
+
+  .profilePicture{
+      width: 45px;
+      height: 45px;
+      background: #E6E7ED;
+      border-radius: 50%;
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      float: left;
+      margin-right: 10px;
+  }
+  
+   .textBox {
+    background-color: #f6f6f6;
+    padding: 15px;
+    border-radius: 12px;
+    max-width: 99%;
+    float: left;
+    width: fit-content;
+    height: fit-content;
+  }
+  
+  .time {
+    font-size: 10px;
+    color:lightgrey;
+    margin-bottom:10px;
+  }
+
+  .userName {
+    font-weight: 600;
+    font-size: 16px;
+    color: #000000;
+    margin-bottom: 5px;
+  }

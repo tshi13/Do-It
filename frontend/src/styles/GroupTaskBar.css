@@ -1,25 +1,22 @@
 .scrollWrapper {
-    overflow:scroll;
-    overflow-x:hidden;
-    height:100%;
+    overflow:auto;
 }
 
 .scrollWrapper::-webkit-scrollbar {
-    background: transparent; /* make scrollbar transparent */
+width: 0.5em;
 }
 
 .scrollWrapper::-webkit-scrollbar-track {
-    background: transparent; /* make scrollbar transparent */
+box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 .scrollWrapper::-webkit-scrollbar-thumb {
-    background: transparent; /* make scrollbar transparent */
+background-color: darkgrey;
+outline: 1px solid slategrey;
 }
-
 
 .taskList {
     width: 100%;
-    height: 100vh;
     background-color: #f0f0f0;
 }
 

@@ -8,42 +8,29 @@ export default class CreateGroup extends Component {
         super(props);
         this.state = {
             show: false,
-            variant: false,
             style: props.style,
             userID: props.userID,
         };
     }
-		
 
     handleClose = () => this.setState({show: false, variant: false});
 
     handleShow = () => {this.setState({show: true, variant: true});};
 
-    handleChange = (event) => {
-        this.setState({message: event.target.value});
-    }
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.setState({messages: [...this.state.messages, this.state.message]});
-        this.setState({message: ""});
-    }
 
     handleCardClose = (show) => {
         this.setState({show: false})
     }
 
-
-
     render() {
         return (
             <div style = {this.state.style}>
-                <button className = "buttonDesign" size = "lg" onClick={() => {this.handleShow();}} >
+                <button className = "buttonDesign" size = "lg" onClick={() => {this.handleShow();}}  style ={{marginTop: '5%'}}>
                     Create Group
                 </button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <div>
-                        <Modal.Body style = {{height: '500px'}} className = "scrollWrapper">
+                        <Modal.Body className = "scrollWrapper">
                             <span style = {{width: '100%'}}>
                                 <GroupModal userID = {this.state.userID} close = {this.handleCardClose} groupCallback = {this.props.groupCallback}/>
                             </span>                     
