@@ -7,7 +7,7 @@ import GroupList from "../components/GroupClasses/GroupList";
 import groupDAO from '../utils/groupDAO';
 import taskDAO from "../utils/taskDAO";
 import userDAO from "../utils/userDAO";
-import DisplayTasks from "../pages/DisplayTasks";
+import DisplayTasks from "../components/DisplayTasks";
 import TaskModalUser from "../components/TaskModalUser";
 import {Buffer} from 'buffer';
 

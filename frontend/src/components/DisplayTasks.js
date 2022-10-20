@@ -1,5 +1,5 @@
 import {List, Grid, Typography} from '@mui/material';
-import TaskCard from '../components/TaskCard';
+import TaskCard from './TaskCard';
 import {Component} from 'react';
 import taskDAO from '../utils/taskDAO';
 import { useEffect } from 'react';

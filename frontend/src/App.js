@@ -6,7 +6,7 @@ import Login from './components/LoginForm';
 import Register from './components/RegisterForm';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import useUser from './utils/useUser';
-import SearchGroup from './pages/searchGroupPage';
+import SearchGroup from './containers/searchGroupPage';
 import Profile from './containers/Profile';
 
 function useWindowSize() {
