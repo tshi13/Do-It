@@ -4,7 +4,6 @@ import groupDao from "../utils/groupDAO";
 import '../styles/searchGroupCard.css';
 import {Buffer} from 'buffer';
 
-import test from '../assets/test.jpg';
 
 export default function groupCard(props) {
   const { item, userID } = props;
@@ -28,8 +27,8 @@ export default function groupCard(props) {
   
     return (
     <div style ={{maxWidth: '200px', maxHeight: '200px', margin: '10px'}} className = "card">
-      { groupPicture ? <img src={`data:image/png;base64,${groupPicture}`} className="card__image" alt="" /> : <img src={test} className="card__image" alt="" style = {{width: '100%', height: '100%'}} /> }
-      <img src={test} className="card__image" alt="" style = {{width: '100%', height: '100%'}} />  
+      { groupPicture ? <img src={`data:image/png;base64,${groupPicture}`} className="card__image" alt="" /> : <img src= "https://i.imgur.com/pPJmXV7.png" className="card__image" alt="" style = {{width: '100%', height: '100%'}} /> }
+      <img src= "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" className="card__image" alt="" style = {{width: '100%', height: '100%'}} />  
       <div className="card__overlay" style ={{backgroundColor: 'white'}}>
         <div className="card__header"  style ={{backgroundColor: 'white'}}>
           <svg className="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                     

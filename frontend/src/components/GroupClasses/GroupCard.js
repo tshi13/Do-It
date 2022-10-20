@@ -1,7 +1,4 @@
 import * as React from 'react';
-
-import test from '../../assets/test.jpg';
-
 import '../../styles/GroupCard.css';
 
 
@@ -16,7 +13,7 @@ export default function GroupCard(props) {
         );
     } else {
         return (
-            <img src={test} alt="group image" className="group image"/>
+            <img src="https://i.imgur.com/pPJmXV7.png" alt="group image" className="group image"/>
         );
     }
 }

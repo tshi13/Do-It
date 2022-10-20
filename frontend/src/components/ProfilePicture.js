@@ -1,5 +1,4 @@
 import React,  {Component} from 'react';
-import test from '../assets/test.jpg';
 
 export default function ProfilePicture(props)  {
 
@@ -18,7 +17,7 @@ export default function ProfilePicture(props)  {
             );
         } else {
             return (
-                <img src={test} alt="profile" className="profilePicture" style ={style}/>
+                <img src="https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png" alt="profile" className="profilePicture" style ={style}/>
             );
         }
     }

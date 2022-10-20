@@ -4,7 +4,6 @@ import '../styles/navigation.css';
 import ProfilePicture from './ProfilePicture';
 import {Buffer} from 'buffer';
 
-import test from '../assets/test.jpg';
 import userDAO from '../utils/userDAO';
 
 
