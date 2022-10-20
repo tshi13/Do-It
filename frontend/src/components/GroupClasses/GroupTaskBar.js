@@ -13,7 +13,7 @@ export default function GroupTaskBar(props) {
             return (
             <div style = {{height: newHeight}} className = "taskList">
                 <h1 style ={{textAlign: 'center'}}>Task List</h1>
-                <div className = "scrollWrapper">
+                <div className = "scrollWrapper" style = {{height: '90%'}}>
                     <div style ={{alignItems: 'center'}}>
                         {
                             tasks.map((task, index) => {
@@ -25,6 +25,15 @@ export default function GroupTaskBar(props) {
                     </div>
                 </div>
             </div>
+            );
+        } else {
+            return (
+                <div style = {{height: newHeight}} className = "taskList">
+                    <h1 style ={{textAlign: 'center'}}>Task List</h1>
+                    <div style = {{height: '90%'}}>
+                        <h2 style ={{textAlign: 'center'}}>No Tasks</h2>
+                    </div>
+                </div>
             );
         }
     }

@@ -51,11 +51,9 @@ export default function GroupComponent(props)  {
 
     
     const renderTasks = () => {
-        if(tasks.length > 0) {
-            return (
-                <GroupTaskBar tasks={tasks} style ={{width: '100%'}} newHeight = {newHeight} />
-            );
-        }
+        return (
+            <GroupTaskBar tasks={tasks} style ={{width: '100%'}} newHeight = {newHeight} />
+        );
     }
 
     const taskCallback = (newTask) => {
