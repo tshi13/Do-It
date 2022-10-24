@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import groupDAO from '../utils/groupDAO';
+import userDAO from '../utils/userDAO';
 
 import '../styles/taskModal.css'; 
 
@@ -15,6 +16,7 @@ export default function TaskModal(props) {
     const [coinsEntered, setCoinsEntered] = useState(0);
     const [groupID] = useState(props.groupID);
     const [type, setType] = useState("group");
+    const userID = props.userID;
 
     
     
@@ -39,19 +41,28 @@ export default function TaskModal(props) {
       } else {
         // add task to database
 
-        let data = {
-          userID: props.userID,
-          taskName: taskName,
-          time: timeInt,
-          coinsEntered: coinsEnteredInt,
-        }
+        userDAO.getUserData(userID).then((res) => {
+          if(res.data) {
+            if(res.data.coins < coinsEnteredInt) {
+              alert("You do not have enough coins to enter this task");
+            } else {
+              let data = {
+                userID: props.userID,
+                taskName: taskName,
+                time: timeInt,
+                coinsEntered: coinsEnteredInt,
+              }
 
-        groupDAO.addTasks(groupID, data);
-        setCoinsEntered(0);
-        setTimeForTask(0);
-        setTaskName("");
-        setShow(false);
-        props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+              groupDAO.addTasks(groupID, data);
+              userDAO.updateUser(userID, {coins: res.data.coins - coinsEnteredInt});
+              setCoinsEntered(0);
+              setTimeForTask(0);
+              setTaskName("");
+              setShow(false);
+              props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+            }
+          }
+        });
       }
     }
   }

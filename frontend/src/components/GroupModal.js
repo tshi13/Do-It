@@ -68,7 +68,7 @@ export default function GroupModal(props) {
   }
 
 
-   // JSX code for taskModal form
+   // JSX code for groupModal form
   return (
     <div>
         <Divider textAlign="center">

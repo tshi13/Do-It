@@ -38,22 +38,30 @@ export default function TaskModalUser(props) {
       } else {
         // add task to database
 
-        let data = {
-          userID: props.userID,
-          taskName: taskName,
-          time: timeInt,
-          coinsEntered: coinsEnteredInt,
-        }
+        userDAO.getUserData(userID).then((res) => {
+          if(res.data) {
+            if(res.data.coins < coinsEnteredInt) {
+              alert("You do not have enough coins to enter this task");
+            } else {
+            let data = {
+              userID: props.userID,
+              taskName: taskName,
+              time: timeInt,
+              coinsEntered: coinsEnteredInt,
+            }
 
-        await userDAO.addTasks(userID, data);
-        setCoinsEntered(0);
-        setTimeForTask(0);
-        setTaskName("");
-        setShow(false);
-        props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
-      }
+            userDAO.addTasks(userID, data);
+            userDAO.updateUser(userID, {coins: res.data.coins - coinsEnteredInt});
+            setCoinsEntered(0);
+            setTimeForTask(0);
+            setTaskName("");
+            setShow(false);
+            props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
+          }
+        }
+      });
     }
-  }
+  }}
   
   const styleSheet = {
     circle: {
