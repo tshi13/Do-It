@@ -76,18 +76,12 @@ export default function SearchGroupCard(props) {
       if(val) {
         userDAO.getUserData(userID).then((user) => {
           if(user.coins >= item.costToJoin) {
-            let userData = {
+            const data = {
               userID: userID,
-              coins: user.coins - item.costToJoin
+              groupID: e.target.value
             }
-            userDAO.updateUser(userID, userData).then(() => {
-             const data = {
-                userID: userID,
-                groupID: e.target.value
-              }
-              groupDao.addToGroup(data);
-              setJoined(true);
-          });
+            groupDao.addToGroup(data);
+            setJoined(true);
           } else {
             alert("You do not have enough coins to join this group");
             return;
