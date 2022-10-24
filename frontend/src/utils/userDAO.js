@@ -24,7 +24,7 @@ async function getTasks(userID) {
 }
 
 
-async function updateProfile(userID, data) {
+async function updateUser(userID, data) {
     let res = await axios.put('/updateUser', {userID: userID, data: data}).then(data => data);
     return res["data"];
 }
@@ -78,8 +78,8 @@ export default class userDAO {
         return joinGroup(userID, groupID);
     }
 
-    static updateProfile(userID, data) {
-        return updateProfile(userID, data);
+    static updateUser(userID, data) {
+        return updateUser(userID, data);
     }
 
     static getUserData(userID) {

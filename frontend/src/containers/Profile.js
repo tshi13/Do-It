@@ -20,7 +20,7 @@ export default function Profile(props) {
         let data = {
             profilePicture: image
         }
-       await userDAO.updateProfile(userID, data);
+       await userDAO.updateUser(userID, data);
     }
 
     

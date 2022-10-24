@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../styles/Home.css';
-import GroupCard from "../components/groupCard";
+import SearchGroupCard from "../components/searchGroupCard";
 import groupDao from "../utils/groupDAO";
 
 function SearchGroup(props) {
@@ -17,15 +17,15 @@ function SearchGroup(props) {
 
    
    return (
-    <>
+    <div style ={{display: 'flex', flexDirection: 'row'}}>
         {
             groups?.map((item, index) => {
                 return (
-                    <GroupCard key = {index} item={item} userID={userID} />
+                    <SearchGroupCard key = {index} item={item} userID={userID} />
                 );
             })
         }
-    </>
+    </div>
    );
    
 }
