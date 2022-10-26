@@ -16,6 +16,8 @@ export default function GroupComponent(props)  {
     const [groupName, setGroupName] = useState("");
     const [profilePicture, setProfilePicture] = useState(null);
     const [inviteID, setInviteID] = useState("");
+    const [userList, setUserList] = useState([]);
+
 
     const newHeight = props.newHeight;
 
@@ -41,6 +43,19 @@ export default function GroupComponent(props)  {
         groupDAO.getGroup(groupID).then((group) => {
             setGroupName(group.groupName);
             setInviteID(group.inviteID);
+            let userListIDs = group.idList;
+            let userList = [];
+            for(let i = 0; i < userListIDs.length; i++) {
+                userDAO.getUserData(userListIDs[i]).then((user) => {
+                    let userData = {
+                        id: user._id,
+                        name: user.name,
+                        profilePicture: user.profilePicture,
+                    }
+                    userList.push(userData);
+                });
+            }
+            setUserList(userList);
         });
 
     }, [groupID]);
@@ -72,7 +87,7 @@ export default function GroupComponent(props)  {
    const renderChat = () => {
         if(userID !== undefined && groupID !== undefined) {
             return (
-                <ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback}/>
+                <ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback} userList = {userList}/>
             );
         }
     }

@@ -3,8 +3,6 @@ import  '../styles/chatBoxv2.css';
 import gearIcon from '../assets/gear.ico';
 import GroupModal from './GroupModal';
 
-
-
 export default function GroupSettings(props) {
 
     const [showModal, setShowModal] = useState(false);
@@ -15,11 +13,6 @@ export default function GroupSettings(props) {
             props.leaveGroup();
         }
     }
-
-    const toggleModal = () => {
-        setShowModal(!showModal);
-    }
-
     
     return (
         <div className="dropdown" style ={{display: 'flex', flexDirection: 'column'}}>
@@ -27,7 +20,7 @@ export default function GroupSettings(props) {
                 <img src={gearIcon} className = "imgAsButton" alt="gearIcon" onClick ={() => setShowModal(!showModal)} />
             </div>
             <div className="dropdown-content" style = {{display: showModal ? 'flex' : 'none', flexDirection: 'column'}}>
-                <button onClick = {() => {toggleModal()}}>Settings</button>
+                <button onClick = {() => {console.log("settings")}}>Settings</button>
                 <button onClick = {() => {props.setShow(true)}}>Create Task</button>
                 <button onClick = {() => {toggleLogoutModal()}}>Leave Group</button>
             </div>

@@ -26,7 +26,7 @@ async function addTasks(groupID, data) {
     
     let updatedData = {
         groupID: groupID,
-        userID: "Group Task",
+        userID: data.userID,
         taskName: data.taskName,
         time: data.time,
         coinsEntered: data.coinsEntered
