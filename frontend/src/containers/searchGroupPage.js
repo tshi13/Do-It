@@ -8,11 +8,9 @@ function SearchGroup(props) {
     const [groups, setGroups] = useState([]);
 
     useEffect(() => {
-        async function fetchData() {
         const query = window.sessionStorage.getItem("searchQuery");
-            groupDao.searchGroup(query).then((data) => {setGroups(data)});
-        }
-        fetchData();
+        const type = window.sessionStorage.getItem("searchType");
+        groupDao.searchGroup(query, type).then((data) => {setGroups(data)});
     }, []);
 
    

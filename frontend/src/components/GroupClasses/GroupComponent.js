@@ -15,6 +15,7 @@ export default function GroupComponent(props)  {
     const [tasks, setTasks] = useState([]);
     const [groupName, setGroupName] = useState("");
     const [profilePicture, setProfilePicture] = useState(null);
+    const [inviteID, setInviteID] = useState("");
 
     const newHeight = props.newHeight;
 
@@ -39,6 +40,7 @@ export default function GroupComponent(props)  {
 
         groupDAO.getGroup(groupID).then((group) => {
             setGroupName(group.groupName);
+            setInviteID(group.inviteID);
         });
 
     }, [groupID]);
@@ -52,7 +54,7 @@ export default function GroupComponent(props)  {
     
     const renderTasks = () => {
         return (
-            <GroupTaskBar tasks={tasks} style ={{width: '100%'}} newHeight = {newHeight} />
+            <GroupTaskBar tasks={tasks} style ={{width: '100%'}} newHeight = {newHeight} inviteID = {inviteID} />
         );
     }
 

@@ -47,5 +47,4 @@ a:active{
 .dropdown-toggle::after {
     display: none !important;
     content: none;
-
 }

@@ -18,6 +18,15 @@ export default function GroupModal(props) {
     const [pass, setPass] = useState("");
     const [cost, setCost] = useState(0);
 
+    const generateRandomInviteCode = (length) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        for (let i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    }
 
   const handleSubmit = () => {
     // preventDefault();
@@ -42,6 +51,7 @@ export default function GroupModal(props) {
           owner: userID,
           costToJoin: cost,
           password: pass,
+          inviteID: generateRandomInviteCode(10),
         }
         groupDAO.createGroup(group).then((group) => {
           props.groupCallback({_id: group._id, groupName: group.groupName, groupPicture: image})
