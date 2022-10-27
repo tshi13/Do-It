@@ -17,29 +17,24 @@ export default function GroupComponent(props)  {
     const [profilePicture, setProfilePicture] = useState(null);
     const [inviteID, setInviteID] = useState("");
     const [userList, setUserList] = useState([]);
-
+    
 
     const newHeight = props.newHeight;
+
+    async function getGroupTasks() {
+        let taskList = [];
+        groupDAO.getTasks(groupID).then((tasks) => {
+            taskList = tasks;
+        }).then(() => {
+            setTasks(taskList);
+        });
+    }
 
     useEffect(() => {
         //grab tasks from database for groupID
         //set tasks to the tasks from the database
-        groupDAO.getTasks(groupID).then((tasks) => {
-            let taskList = [];
-            for(let i = 0; i < tasks.length; i++) {
-                let taskData = {
-                    id: tasks[i]._id,
-                    taskName: tasks[i].taskName,
-                    taskDescription: tasks[i].taskDescription,
-                    coinsEntered: tasks[i].coinsEntered,
-                    completed: tasks[i].completed,
-                    time: tasks[i].time,
-                }
-                taskList.push(taskData);
-            }
-            setTasks(taskList);
-        });
-
+        setTasks([]);
+        getGroupTasks();
         groupDAO.getGroup(groupID).then((group) => {
             setGroupName(group.groupName);
             setInviteID(group.inviteID);
@@ -69,7 +64,7 @@ export default function GroupComponent(props)  {
     
     const renderTasks = () => {
         return (
-            <GroupTaskBar tasks={tasks} style ={{width: '100%'}} newHeight = {newHeight} inviteID = {inviteID} />
+            <GroupTaskBar tasks={tasks} style ={{width: '100%'}} newHeight = {newHeight} inviteID = {inviteID} userID = {userID} userList = {userList} />
         );
     }
 

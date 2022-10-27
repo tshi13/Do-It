@@ -65,6 +65,21 @@ app.put("/updateUser", (req,res) =>{ //updates user
 		})
 })
 
+app.put("/updateTask", (req,res) =>{ //updates task"
+	const {taskID, data} = req.body;
+	Task.findByIdAndUpdate(taskID, data, {new: true, $set: data})
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res
+			.status(500)
+			.send({ message: "Error updating task with id: " + taskID })
+
+		})
+})
+
+
 
 /**
  * req.body: 
@@ -81,7 +96,7 @@ app.put("/createTask/user", (req,res) => { //creates a new task and adds the cor
 	let taskID;
 	let newTaskIDList;
 	let newCoinBalance;
-	Task.create({userID, taskName,time,coinsEntered,groupID})
+	Task.create({userID, taskName,time,coinsEntered,groupID, completed: false, completedList: []})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);
@@ -107,7 +122,7 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
 	let taskID;
 	let newTaskIDList;
 	// let newCoinBalance;
-	Task.create({userID, taskName, time, coinsEntered, groupID})
+	Task.create({userID, taskName, time, coinsEntered, groupID, completed: false, completedList: []})
 	.then((data) => {
 		console.log(data);
 		taskID = data._id;
@@ -128,6 +143,9 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
 		.send({ message: "Error creating task with name: " + taskName })
 	})
 })
+
+
+
 
 
 /**

@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import userDAO from '../utils/userDAO';
 
+import '../styles/taskModal.css';
+
 export default function TaskModalUser(props) {
 
     const [show, setShow] = useState(false);
@@ -17,12 +19,17 @@ export default function TaskModalUser(props) {
   }
   const handleShow = () => setShow(true);
 
-  const handleSubmit = async () => {
-    // preventDefault();
-
+  const handleSubmit = () => {
     // checks if the user inputs are valid and exist
     if(taskName === "" || time === 0 || coinsEntered === 0) {
-      alert("Please fill out all fields");
+      if(taskName === "") {
+        alert("Please enter a task name");
+      } else if(time === 0) {
+        alert("Please enter a time");
+      }
+      else if(coinsEntered === 0) {
+        alert("Please enter a coin amount");
+      }
     } else  {
       // add task to database
       let coinsEnteredInt;
@@ -37,46 +44,34 @@ export default function TaskModalUser(props) {
         alert("Please enter a valid number for time and coins");
       } else {
         // add task to database
-
         userDAO.getUserData(userID).then((res) => {
-          if(res.data) {
-            if(res.data.coins < coinsEnteredInt) {
+          if(res) {
+            if(res.coins < coinsEnteredInt) {
               alert("You do not have enough coins to enter this task");
             } else {
-            let data = {
-              userID: props.userID,
-              taskName: taskName,
-              time: timeInt,
-              coinsEntered: coinsEnteredInt,
+              let data = {
+                userID: userID,
+                taskName: taskName,
+                time: timeInt,
+                coinsEntered: coinsEnteredInt,
+              }
+              userDAO.addTasks(userID, data).then((res) => {
+                if(res) {
+                  userDAO.updateUser(userID, {coins: res.coins - coinsEnteredInt});
+                  setShow(false);
+                  props.taskCallback({_id: res._id, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt, userID: userID, completed: false, completedList: []});
+                  } else {
+                  alert("Error adding task");
+                }
+              });
             }
-
-            userDAO.addTasks(userID, data);
-            userDAO.updateUser(userID, {coins: res.data.coins - coinsEnteredInt});
-            setCoinsEntered(0);
-            setTimeForTask(0);
-            setTaskName("");
-            setShow(false);
-            props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt});
           }
+        });
         }
-      });
+      }
     }
-  }}
-  
-  const styleSheet = {
-    circle: {
-        borderRadius: '50%',
-        float: 'center',
-    },
-    inputStyle: {
-        width: '100%',
-        height: '30px',
-        backgroundColor: 'lightgray',
-        borderRadius: '5px',
-        border: 'none',
-        marginBottom: '5%',
-    },
-  }
+
+ 
 
    // JSX code for taskModal form
   return (
@@ -86,12 +81,11 @@ export default function TaskModalUser(props) {
             <p style ={{marginBottom: '1%'}}>Create a task</p>
           </div>
           <div>
-            <Button variant="primary" onClick={handleShow} style ={styleSheet.circle}>
+            <Button variant="primary" onClick={handleShow} style ={{borderRadius: '50%'}}>
                 +
             </Button>
           </div> 
         </div>
-
 
         <Modal
             show={show}
@@ -106,10 +100,10 @@ export default function TaskModalUser(props) {
             <Modal.Body>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <input type="text" placeholder="Task Name" style ={styleSheet.inputStyle} onInput={e => setTaskName(e.target.value)} />
-                    <input type="text" placeholder="Task Description" style ={styleSheet.inputStyle} />
-                    <input type="text" placeholder="Coins Per Task"  style ={styleSheet.inputStyle} onInput={e => setCoinsEntered(e.target.value)}/>
-                    <input type="text" placeholder="Task Due Date" style ={styleSheet.inputStyle} onInput={e => setTimeForTask(e.target.value)} />
+                    <input type="text" placeholder="Task Name" className = "taskBox" onInput={e => setTaskName(e.target.value)} />
+                    <input type="text" placeholder="Task Description" className = "taskBox" />
+                    <input type="text" placeholder="Coins Per Task"  className = "taskBox" onInput={e => setCoinsEntered(e.target.value)}/>
+                    <input type="text" placeholder="Task Due Date" className = "taskBox" onInput={e => setTimeForTask(e.target.value)} />
                 </div>
                 
                 <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>

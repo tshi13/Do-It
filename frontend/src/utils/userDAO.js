@@ -4,7 +4,6 @@ axios.defaults.baseURL = 'http://localhost:5000';
 
 async function getUser(data) {
     let res = await axios.get('/user/' + data.name).then(data => data);
-    console.log(res);
     return res["data"];
 }
 
@@ -22,7 +21,6 @@ async function getTasks(userID) {
     let res = await axios.get('/tasks/' + userID).then(data => data);
     return res["data"];
 }
-
 
 async function updateUser(userID, data) {
     let res = await axios.put('/updateUser', {userID: userID, data: data}).then(data => data);

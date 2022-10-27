@@ -49,22 +49,22 @@ export default function Home(props) {
     }, []);
 
     
-		const groupCallback = (group) => {
-            let newGroup = {
-                id: group._id,
-                groupName: group.groupName,
-                groupPicture: group.groupPicture ? Buffer.from(group.groupPicture).toString('base64') : null,
-            }
-			setGroups([...groups, newGroup]);
-		}
-
-        const leaveGroupCallback = (groupID) => {
-            let newGroups = groups.filter((group) => {
-                return group.id !== groupID;
-            });
-            setGroups(newGroups);
-            setSelectedGroupID(null);
+    const groupCallback = (group) => {
+        let newGroup = {
+            id: group._id,
+            groupName: group.groupName,
+            groupPicture: group.groupPicture ? Buffer.from(group.groupPicture).toString('base64') : null,
         }
+        setGroups([...groups, newGroup]);
+    }
+
+    const leaveGroupCallback = (groupID) => {
+        let newGroups = groups.filter((group) => {
+            return group.id !== groupID;
+        });
+        setGroups(newGroups);
+        setSelectedGroupID(null);
+    }
 
     const taskCallback = (task) => {
         setPrivateTasks([...privateTasks, task]);
@@ -84,7 +84,7 @@ export default function Home(props) {
             return (
                 <>
                     <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
-                    <DisplayTasks userID={props.userID} privateTasks = {privateTasks} />
+                    <DisplayTasks userID={userID} privateTasks = {privateTasks} />
                 </>
             );
         }

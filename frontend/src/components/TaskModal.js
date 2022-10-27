@@ -18,26 +18,38 @@ export default function TaskModal(props) {
     const [coinsEntered, setCoinsEntered] = useState(0);
     const [groupID] = useState(props.groupID);
     const [type, setType] = useState("group");
-    const [TaskForUser, setTaskForUser] = useState("");
+    const [TaskForUser, setTaskForUser] = useState("Group Task");
     const userID = props.userID;
     const userList = props.userList;
 
 
-    console.log(TaskForUser);
-
   const handleSubmit = () => {
-    // preventDefault();
-
     // checks if the user inputs are valid and exist
     if(taskName === "" || time === 0 || coinsEntered === 0 || TaskForUser === "") {
-      alert("Please fill out all fields");
+      if(taskName === "") {
+        alert("Please enter a task name");
+      } else if(time === 0) {
+        alert("Please enter a time");
+      }
+      else if(coinsEntered === 0) {
+        alert("Please enter a coin amount");
+      }
+      else if(TaskForUser === "") {
+        alert("Please select a user");
+      }
     } else  {
       // add task to database
       let coinsEnteredInt;
       let timeInt;
+      let taskID;
       try { // try to convert the input to an integer and catch any errors that may occur
         coinsEnteredInt = parseInt(coinsEntered);
         timeInt = parseInt(time);
+        if(type !== "group") {
+          taskID = TaskForUser.id;
+        } else {
+          taskID = "Group Task";
+        }
       } catch (err) {
         alert("Please enter a valid number for time and coins");
       }
@@ -46,24 +58,21 @@ export default function TaskModal(props) {
       } else {
         // add task to database
         userDAO.getUserData(userID).then((res) => {
-
           if(res) {
             if(res.coins < coinsEnteredInt) {
               alert("You do not have enough coins to enter this task");
             } else {
               let data = {
-                userID: TaskForUser,
+                userID: taskID,
                 taskName: taskName,
                 time: timeInt,
                 coinsEntered: coinsEnteredInt,
               }
               groupDAO.addTasks(groupID, data);
               userDAO.updateUser(userID, {coins: res.coins - coinsEnteredInt});
-              setCoinsEntered(0);
-              setTimeForTask(0);
-              setTaskName("");
               setShow(false);
-              props.taskCallback({taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt, userID: TaskForUser});
+              setType("group");
+              props.taskCallback({_id: res._id, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt, userID: TaskForUser, completed: false, completedList: [], groupID: groupID, userList: userList});
             }
           }
         });
@@ -76,17 +85,17 @@ export default function TaskModal(props) {
     let personal = document.getElementById("individual");
     let autoPersonal = document.getElementById("individualAuto");
     let group = document.getElementById("group");
-    if(type === "group") {
+    if(type !== "group") {
       personal.classList.add("on");
       group.classList.remove("on");
       autoPersonal.style.display = "none";
-      setType("personal");
+      setType("group");
       setTaskForUser("Group Task");
     } else {
       autoPersonal.style.display = "block";
       personal.classList.remove("on");
       group.classList.add("on");
-      setType("group");
+      setType("personal");
       setTaskForUser("")
     }
   }
@@ -112,25 +121,19 @@ export default function TaskModal(props) {
           <Modal.Body>
           <form onSubmit={handleSubmit}>
               <div className="form-group">
-                <div id = "individualAuto" style ={{display: 'none', marginBottom: '2%'}}>
-                <Autocomplete
-                  sx={{
-                    display: 'inline-block',
-                    '& input': {
-                      width: 200,
-                      bgcolor: 'background.paper',
-                      color: (theme) =>
-                        theme.palette.getContrastText(theme.palette.background.paper),
-                    },
-                  }}
-                  id="custom-input-demo"
-                  options={}
+                <div id = "individualAuto" style ={{display: 'none', marginBottom: '2%'}}> 
+                { userList && type !== "group" ?
+                  <Autocomplete 
+                  onChange={(event, value) => {setTaskForUser(value)}}
+                  options = {userList}
+                  getOptionLabel={(userList) => userList.name}
                   renderInput={(params) => (
                     <div ref={params.InputProps.ref}>
-                      <input type="text" {...params.inputProps} />
+                      <input type="text" {...params.inputProps} className = "taskBox2" placeholder = "Select User"/>
                     </div>
                   )}
-                />
+                /> : null}
+
                   </div>
                   <input type="text" placeholder="Task Name" className = "taskBox" onInput={e => setTaskName(e.target.value)} />
                   <input type="text" placeholder="Task Description" className = "taskBox"  />
