@@ -15,9 +15,10 @@ export default function GroupComponent(props)  {
     const username = props.username;
     const [tasks, setTasks] = useState([]);
     const [groupName, setGroupName] = useState("");
-    const [profilePicture, setProfilePicture] = useState(null);
     const [inviteID, setInviteID] = useState("");
     const [userList, setUserList] = useState([]);
+    const groupPicture = props.groupPicture;
+
     
 
     const newHeight = props.newHeight;
@@ -56,16 +57,11 @@ export default function GroupComponent(props)  {
 
     }, [groupID]);
 
-    useEffect(() => {
-        userDAO.getUserData(userID).then((user) => {
-            {user.profilePicture ? setProfilePicture(Buffer.from(user.profilePicture).toString('base64')) : setProfilePicture(null)}
-        });
-    }, [userID]);
-
+  
     
     const renderTasks = () => {
         return (
-            <GroupTaskBar tasks={tasks} style ={{width: '100%'}} newHeight = {newHeight} inviteID = {inviteID} userID = {userID} userList = {userList} />
+            <GroupTaskBar tasks={tasks} style ={{width: '100%'}}  groupID = {groupID}  newHeight = {newHeight} inviteID = {inviteID} userID = {userID} userList = {userList} leaveGroupCallback = {leaveGroupCallback} taskCallback = {taskCallback} />
         );
     }
 
@@ -81,9 +77,10 @@ export default function GroupComponent(props)  {
     
 
    const renderChat = () => {
+        {/*<ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback} userList = {userList}/>*/}
         if(userID !== undefined && groupID !== undefined) {
             return (
-                <ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback} userList = {userList}/>
+                <GetStream newHeight = {newHeight} groupName = {groupName} userList = {userList} groupPicture = {groupPicture}/>
             );
         }
     }
@@ -91,8 +88,7 @@ export default function GroupComponent(props)  {
     return (
         <div className = "groupComponent">
             <div className = "centerSection" style ={{width: '85%', height: '100%'}}>
-                {/* {renderChat()} */}
-								<GetStream/>
+                {renderChat()}
             </div>
             <div className = "rightSection" style ={{width: '20%', height: '100%'}}>
                 {renderTasks()}

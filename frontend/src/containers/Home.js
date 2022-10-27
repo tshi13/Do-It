@@ -17,8 +17,10 @@ export default function Home(props) {
 	const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setCoins] = useState(0);
     const [selectedGroupID, setSelectedGroupID] = useState(null);
+    const [selectedGroupPicture, setSelectedGroupPicture] = useState(null);
     const userID = props.userID;
-    const [profilePicture, setProfilePicture] = useState(null);
+
+
 
     const newHeight = props.newHeight;
     
@@ -72,12 +74,20 @@ export default function Home(props) {
 
     const setSelectedID = (groupID) => {
         setSelectedGroupID(groupID);
+
+        let groupPicture = groups.filter((group) => {
+            return group.id === groupID;
+        });
+
+        let groupPictureString = groupPicture[0].groupPicture;
+        setSelectedGroupPicture(groupPictureString);
+
     }
 
     const renderGroup = () => {
         if(selectedGroupID !== null) {
             return (
-                <GroupComponent groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight} />
+                <GroupComponent groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight} />
             );
         }
         else {

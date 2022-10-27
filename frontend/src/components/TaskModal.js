@@ -80,7 +80,7 @@ export default function TaskModal(props) {
     }
   }
   
-
+  
   const flipModal = () => {
     let personal = document.getElementById("individual");
     let autoPersonal = document.getElementById("individualAuto");

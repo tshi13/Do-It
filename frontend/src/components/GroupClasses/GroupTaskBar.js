@@ -1,5 +1,7 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import TaskCard from '../TaskCard';
+import TaskModal from '../TaskModal';
+import GroupSettings from '../GroupSettings';
 
 import '../../styles/GroupTaskBar.css';
 
@@ -9,6 +11,16 @@ export default function GroupTaskBar(props) {
     const newHeight = props.newHeight;
     const userID = props.userID;
     const userList = props.userList;
+
+    const [showTaskModal, setShowTaskModal] = useState(false);
+
+    const leaveGroup = () => {
+        props.leaveGroupCallback(props.groupID, userID);
+    }
+
+    const taskCallback = (task) => {
+        props.taskCallback(task);
+    }
     
 
 
@@ -16,6 +28,7 @@ export default function GroupTaskBar(props) {
         if(tasks.length > 0) {
             return (
             <div style = {{height: newHeight}} className = "taskList">
+                <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
                 <h1 style ={{textAlign: 'center'}}>Task List</h1>
                 <p style = {{textAlign: 'center'}}>Group Invite ID: {props.inviteID}</p>
                 <div className = "scrollWrapper" style = {{height: '85%'}}>
@@ -51,6 +64,7 @@ export default function GroupTaskBar(props) {
         } else {
             return (
                 <div style = {{height: newHeight}} className = "taskList">
+                    <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
                     <h1 style ={{textAlign: 'center'}}>Task List</h1>
                     <p style = {{textAlign: 'center'}}>Group Invite ID: {props.inviteID}</p>
                     <div style = {{height: '85%'}}>
@@ -63,6 +77,7 @@ export default function GroupTaskBar(props) {
 
     return (
         <div>
+            <TaskModal style ={{float: 'right', marginRight: '1%', marginLeft: '2%', zIndex: "5000"}} show = {showTaskModal} setShow = {setShowTaskModal} groupID = {props.groupID} taskCallback = {taskCallback} userID = {userID} userList = {userList}/>
             {renderTasks()}
         </div>
     );
