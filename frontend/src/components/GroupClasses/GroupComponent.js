@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ChatBox from "../ChatBox";
 import GroupTaskBar from "./GroupTaskBar";
 import groupDAO from '../../utils/groupDAO';
+import GetStream from '../GetStream';
 
 import '../../styles/groupComponent.css';
 import userDAO from '../../utils/userDAO';
@@ -90,7 +91,8 @@ export default function GroupComponent(props)  {
     return (
         <div className = "groupComponent">
             <div className = "centerSection" style ={{width: '85%', height: '100%'}}>
-                {renderChat()}
+                {/* {renderChat()} */}
+								<GetStream/>
             </div>
             <div className = "rightSection" style ={{width: '20%', height: '100%'}}>
                 {renderTasks()}
