@@ -1,60 +1,12 @@
 
-@charset "UTF-8";
-
-/***********************************
-			/* 1. BODY */
-/***********************************/
-
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-text-size-adjust: none;
-}
-
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
-
-body {
-  padding: 0;
-  margin: 0;
-  background: #181828;
-  font-size: 14px;
-  line-height: 1;
-}
-
-label {
-  cursor: pointer;
-}
-
-a {
-  margin: 0;
-  padding: 0;
-  vertical-align: baseline;
-  background: transparent;
-  text-decoration: none;
-  color: #000;
-}
-
-input, select, button, textarea {
-  margin: 0;
-  font-size: 100%;
-}
-
-html, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, input {
-  border: 0;
-  outline: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent;
-}
 
 
-.top-header:before {
+
+
+
+
+
+.top-header-NF:before {
     background-image: url(https://1.bp.blogspot.com/-gxsOcYWghHA/Xp_izTh4sFI/AAAAAAAAU8s/y637Fwg99qAuzW9na_NT_uApny8Vce95gCEwYBhgL/s1600/header-footer-gradient-bg.png);
 }
 .top-header:before {
@@ -71,7 +23,7 @@ fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, 
 }
 
 
-.starsec{
+.starsec-NF{
   content: " ";
     position: absolute;
     width: 3px;
@@ -81,7 +33,7 @@ fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, 
   animation: animStar 150s linear infinite;
 }
 
-.starthird
+.starthird-NF
 {
   content: " ";
     position: absolute;
@@ -92,7 +44,7 @@ fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, 
   animation: animStar 10s linear infinite;
 }
 
-.starfourth
+.starfourth-NF
 {
   content: " ";
     position: absolute;
@@ -103,7 +55,7 @@ fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, 
   animation: animStar 50s linear infinite;
 }
 
-.starfifth
+.starfifth-NF
 {
   content: " ";
     position: absolute;
@@ -126,7 +78,7 @@ fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, 
 
 
 
-button {
+.button-NF {
   border: none;
   padding: 0;
   font-size: 0;
@@ -139,18 +91,18 @@ button {
   outline: 0;
 }
 
-.clearfix:before, .clearfix:after {
+.clearfix-NF:before, .clearfix-NF:after {
   content: "\0020";
   display: block;
   height: 0;
   visibility: hidden;
 }
 
-.clearfix:after {
+.clearfix-NF:after {
   clear: both;
 }
 
-.clearfix {
+.clearfix-NF {
   zoom: 1;
 }
 
@@ -161,7 +113,7 @@ button {
 			/* 2. CONTENT */
 /***********************************/
 /* 2.1. Section error */
-.error {
+.error-NF {
   min-height: 100vh;
   position: relative;
   padding: 240px 0;
@@ -172,7 +124,7 @@ button {
   margin-top: 70px;
 }
 
-.error__overlay {
+.error__overlay-NF {
   position: absolute;
   top: 0;
   left: 0;
@@ -181,7 +133,7 @@ button {
   overflow: hidden;
 }
 
-.error__content {
+.error__content-NF {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -192,12 +144,12 @@ button {
           transform: translate(0, -50%);
 }
 
-.error__message {
+.error__message-NF {
   text-align: center;
   color: #181828;
 }
 
-.message__title {
+.message__title-NF {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
@@ -208,7 +160,7 @@ button {
   margin: 0 auto;
 }
 
-.message__text {
+.message__text-NF {
   font-family: 'Montserrat', sans-serif;
   line-height: 42px;
   font-size: 18px;
@@ -217,13 +169,13 @@ button {
   margin: auto;
 }
 
-.error__nav {
+.error__nav-NF {
   max-width: 600px;
   margin: 40px auto 0;
   text-align: center;
 }
 
-.e-nav__form {
+.e-nav__form-NF {
   position: relative;
   height: 45px;
   overflow: hidden;
@@ -235,7 +187,7 @@ button {
   padding-right: 46px;
 }
 
-.e-nav__icon {
+.e-nav__icon-NF {
   position: absolute;
   right: 15px;
   top: 50%;
@@ -246,7 +198,7 @@ button {
   transition: color .25s ease;
 }
 
-.e-nav__link {
+.e-nav__link-NF {
   height: 45px;
   line-height: 45px;
   width: 170px;
@@ -264,7 +216,7 @@ button {
   overflow: hidden;
 }
 
-.e-nav__link:before {
+.e-nav__link-NF:before {
   content: '';
   height: 200px;
   background: #212121;
@@ -278,33 +230,33 @@ button {
           transform: rotate(50deg);
 }
 
-.e-nav__link:after {
+.e-nav__link-NF:after {
   -webkit-transition: all .3s;
   transition: all .3s;
   z-index: 999;
   position: relative;
 }
 
-.e-nav__link:after {
+.e-nav__link-NF:after {
   content: "Home Page";
 }
 
-.e-nav__link:hover:before {
+.e-nav__link-NF:hover:before {
   top: -60px;
   right: -50px;
 }
 
-.e-nav__link:hover {
+.e-nav__link-NF:hover {
   color: #fff;
 }
 
-.e-nav__link:nth-child(2):hover:after {
+.e-nav__link-NF:nth-child(2):hover:after {
   color: #fff;
 }
 /* 2.1. END Section Error */
 
 /* 2.2. Social style */
-.error__social {
+.error__social-NF {
   position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -313,28 +265,28 @@ button {
   z-index: 10;
 }
 
-.e-social__list {
+.e-social__list-NF {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-.e-social__icon {
+.e-social__icon-NF {
   padding-bottom: 30px;
 }
 
-.e-social__icon:last-child {
+.e-social__icon-NF:last-child {
   padding-bottom: 0;
 }
 
-.e-social__link {
+.e-social__link-NF {
   color: #fff;
   -webkit-transition: all .25s ease;
   transition: all .25s ease;
   display: block;
 }
 
-.e-social__link:hover {
+.e-social__link-NF:hover {
   opacity: .7;
 }
 /* 2.2. END Social style */
@@ -346,38 +298,31 @@ button {
 /***********************************
 			/* 3. RESPONSIVE */
 /***********************************/
-.error {
+.error-NF {
   overflow: hidden;
   max-height: 100vh;
 }
 @media (max-width: 1400px) { 
-  .lamp {
-    zoom: .5;
-  }
-  .error__content {
+  .error__content-NF {
     top: 55%;
   }
-  .message__title {
+  .message__title-NF {
     font-size: 3.5rem;
   }
 }
 @media (max-width: 900px) {
 
-  .message__title {
+  .message__title-NF {
     font-size: 34px;
 
   }
-  .error__content {
+  .error__content-NF {
     top: 55%;
   }
   }
 @media (max-width: 950px) {
-  .lamp__wrap {
-    max-height: 100vh;
-    overflow: hidden;
-    max-width: 100vw;
-  }
-  .error__social {
+
+  .error__social-NF {
     bottom: 30px;
     top: auto;
     transform: none;
@@ -385,57 +330,51 @@ button {
     position: fixed;
     left: 0;
   }
-  .e-social__icon {
+  .e-social__icon-NF {
     display: inline-block;
     padding-right: 30px;
   }
-  .e-social__icon:last-child {
+  .e-social__icon:last-child-NF {
     padding-right: 0;
   }
-  .e-social__icon {
+  .e-social__icon-NF {
     padding-bottom: 0;
   }
 }
 @media (max-width: 600px) {
-  .message__title {
+  .message__title-NF {
     font-size: 30px;
   }
-  .error__content {
+  .error__content-NF {
     top: 55%;
-  }
-  .lamp {
-    zoom: .4;
   }
 }
 @media (max-width: 650px) {
-  .message__title {
+  .message__title-NF {
     font-size: 36px;
     padding-bottom: 20px;
   }
-  .message__text {
+  .message__text-NF {
     font-size: 16px;
     line-height: 2;
     padding-right: 20px;
     padding-left: 20px;
   }
-  .lamp {
-    zoom: .6;
-  }
-  .error__content {
+  .error__content-NF {
     padding-top: 180px;
   }
   }
 @media (max-width: 480px) {
 
-  .message__title {
+  .message__title-NF {
     font-size: 30px;
   }
-  .message__text {
+  .message__text-NF {
     padding-left: 10px;
     padding-right: 10px;
     font-size: 15px;
   }
-  .error__nav {
+  .error__nav-NF {
     margin-top: 20px;
   }
 }
