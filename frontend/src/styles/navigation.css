@@ -13,8 +13,9 @@ a:active{
     font-size: 12px;
 }
 
+
 .bubble:hover {
-    background-color: #555;
+    opacity: 0.6;
 }
 
 .block {
