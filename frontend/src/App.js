@@ -38,7 +38,7 @@ function App() {
 
   const [width, height] = useWindowSize();
 
-  let newHeight = height - 75;
+  let newHeight = height - 72;
 
   return (    
     <div>
