@@ -13,6 +13,11 @@ async function addTask(data) {
     return res["data"];
 }
 
+async function updateTask(data) {
+    let res = await axios.put('/updateTask', data).then(data => data);
+    return res["data"];
+}
+
 export default class taskDAO {
     static getTasks(data) {
         return getTasks(data);
@@ -20,6 +25,10 @@ export default class taskDAO {
 
     static addTasks(data) {
         return addTask(data);
+    }
+
+    static updateTask(data) {
+        return updateTask(data);
     }
 }
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../styles/Home.css';
-import GroupCard from "../components/groupCard";
+import SearchGroupCard from "../components/searchGroupCard";
 import groupDao from "../utils/groupDAO";
 
 function SearchGroup(props) {
@@ -8,24 +8,22 @@ function SearchGroup(props) {
     const [groups, setGroups] = useState([]);
 
     useEffect(() => {
-        async function fetchData() {
         const query = window.sessionStorage.getItem("searchQuery");
-            groupDao.searchGroup(query).then((data) => {setGroups(data)});
-        }
-        fetchData();
+        const type = window.sessionStorage.getItem("searchType");
+        groupDao.searchGroup(query, type).then((data) => {setGroups(data)});
     }, []);
 
    
    return (
-    <>
+    <div style ={{display: 'flex', flexDirection: 'row'}}>
         {
             groups?.map((item, index) => {
                 return (
-                    <GroupCard key = {index} item={item} userID={userID} />
+                    <SearchGroupCard key = {index} item={item} userID={userID} />
                 );
             })
         }
-    </>
+    </div>
    );
    
 }

@@ -17,8 +17,10 @@ export default function Home(props) {
 	const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setCoins] = useState(0);
     const [selectedGroupID, setSelectedGroupID] = useState(null);
+    const [selectedGroupPicture, setSelectedGroupPicture] = useState(null);
     const userID = props.userID;
-    const [profilePicture, setProfilePicture] = useState(null);
+
+
 
     const newHeight = props.newHeight;
     
@@ -49,22 +51,22 @@ export default function Home(props) {
     }, []);
 
     
-		const groupCallback = (group) => {
-            let newGroup = {
-                id: group._id,
-                groupName: group.groupName,
-                groupPicture: group.groupPicture ? Buffer.from(group.groupPicture).toString('base64') : null,
-            }
-			setGroups([...groups, newGroup]);
-		}
-
-        const leaveGroupCallback = (groupID) => {
-            let newGroups = groups.filter((group) => {
-                return group.id !== groupID;
-            });
-            setGroups(newGroups);
-            setSelectedGroupID(null);
+    const groupCallback = (group) => {
+        let newGroup = {
+            id: group._id,
+            groupName: group.groupName,
+            groupPicture: group.groupPicture ? Buffer.from(group.groupPicture).toString('base64') : null,
         }
+        setGroups([...groups, newGroup]);
+    }
+
+    const leaveGroupCallback = (groupID) => {
+        let newGroups = groups.filter((group) => {
+            return group.id !== groupID;
+        });
+        setGroups(newGroups);
+        setSelectedGroupID(null);
+    }
 
     const taskCallback = (task) => {
         setPrivateTasks([...privateTasks, task]);
@@ -72,19 +74,27 @@ export default function Home(props) {
 
     const setSelectedID = (groupID) => {
         setSelectedGroupID(groupID);
+
+        let groupPicture = groups.filter((group) => {
+            return group.id === groupID;
+        });
+
+        let groupPictureString = groupPicture[0].groupPicture;
+        setSelectedGroupPicture(groupPictureString);
+
     }
 
     const renderGroup = () => {
         if(selectedGroupID !== null) {
             return (
-                <GroupComponent groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight} />
+                <GroupComponent groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight} />
             );
         }
         else {
             return (
                 <>
                     <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
-                    <DisplayTasks userID={props.userID} privateTasks = {privateTasks} />
+                    <DisplayTasks userID={userID} privateTasks = {privateTasks} />
                 </>
             );
         }

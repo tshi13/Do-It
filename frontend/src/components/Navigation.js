@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { NavDropdown } from 'react-bootstrap';
+import { Dropdown, NavDropdown } from 'react-bootstrap';
 import '../styles/navigation.css';
 import ProfilePicture from './ProfilePicture';
 import {Buffer} from 'buffer';
 
 import userDAO from '../utils/userDAO';
 
-
-
-
 export const Navigation = (props) => { 
 
 	const [coins, setCoins] = useState(0);
 	const [username, setUsername] = useState(null);
 	const [profilePicture, setProfilePicture] = useState(null);
+	const [buttonSelected, setButtonSelected] = useState(null);
+
 	
 	useEffect(() => {
 		if(props.isLoggedIn){
@@ -35,10 +34,20 @@ export const Navigation = (props) => {
 		props.setUser(null, null);
 	}
 
-	async function handleSubmit (e) {
+	async function handleSubmit (e, type) {
 		e.preventDefault();
 		window.sessionStorage.setItem("searchQuery", props.searchString);
-		window.location.href = '/searchGroup';
+		window.sessionStorage.setItem("searchType", type);
+		window.location.href = "/searchGroup";
+	}
+
+	function handleSearchChange(e) {
+		props.setSearchString(e.target.value);
+		if(e.target.value != "") {
+			document.getElementById("searchDropDown").style.display = "block";
+		} else {
+			document.getElementById("searchDropDown").style.display = "none";
+		}
 	}
 	
 	const loginOptions = (
@@ -91,11 +100,14 @@ export const Navigation = (props) => {
 					</li>
 				</ul>
 			</div>
-			<div className="center">
-					<form onSubmit={handleSubmit} className="d-flex" action="/searchGroup" >
-						<input className="form-control me-2" type="search" placeholder="Search For Groups" onChange={e => {props.setSearchString(e.target.value)}}  aria-label="Search"/>
-						<button className="btn btn-outline-success" type="submit"  style = {{fontWeight: 'bold'}}>Search</button>
-					</form>
+			<div className="center" style = {{width: '20%'}}>
+					<input className="form-control me-2" type="search" placeholder="Search For Groups" onChange={e => {handleSearchChange(e)}}  aria-label="Search"/>
+					<div id = "searchDropDown" className="searchButton" style ={{position: 'absolute', display: 'none', zIndex: '10', width: '20%'}}>
+						<button className="form-control me-2" type="submit" onClick={e => {handleSubmit(e, "name")}}>Search by Name</button>
+						<Dropdown.Divider />
+						<button className="form-control me-2" type="submit" onClick={e => {handleSubmit(e, "ID")}}>Search by ID</button>
+					</div>
+
 			</div>
 
             {props.isLoggedIn ? logoutOptions : loginOptions}

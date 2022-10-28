@@ -65,6 +65,21 @@ app.put("/updateUser", (req,res) =>{ //updates user
 		})
 })
 
+app.put("/updateTask", (req,res) =>{ //updates task"
+	const {taskID, data} = req.body;
+	Task.findByIdAndUpdate(taskID, data, {new: true, $set: data})
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res
+			.status(500)
+			.send({ message: "Error updating task with id: " + taskID })
+
+		})
+})
+
+
 
 /**
  * req.body: 
@@ -81,7 +96,7 @@ app.put("/createTask/user", (req,res) => { //creates a new task and adds the cor
 	let taskID;
 	let newTaskIDList;
 	let newCoinBalance;
-	Task.create({userID, taskName,time,coinsEntered,groupID})
+	Task.create({userID, taskName,time,coinsEntered,groupID, completed: false, completedList: []})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);
@@ -107,7 +122,7 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
 	let taskID;
 	let newTaskIDList;
 	// let newCoinBalance;
-	Task.create({userID, taskName, time, coinsEntered, groupID})
+	Task.create({userID, taskName, time, coinsEntered, groupID, completed: false, completedList: []})
 	.then((data) => {
 		console.log(data);
 		taskID = data._id;
@@ -130,6 +145,9 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
 })
 
 
+
+
+
 /**
  * req.body: 
  * 	groupName: String
@@ -138,10 +156,10 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
  * 	res: Copy of created Group object in database 
  *  */ 
 app.post("/createGroup", (req,res) =>{  // creating a new group. idList is the list of objectIDs of users
-	const {groupName,idList,taskIDList = []} = req.body;
+	const {groupName,idList,taskIDList = [], owner, costToJoin, password, typeOfGroup, inviteID} = req.body;
 	const groupPicture = req.body.groupPicture || null;
 	let groupID;
-	const data = Group.create({groupName,idList,taskIDList, groupPicture})
+	const data = Group.create({groupName,idList,taskIDList, groupPicture, typeOfGroup, owner, costToJoin, password, inviteID})
 	.then((data) => {
 		groupID = data._id;
 		res.send(data);
@@ -233,6 +251,27 @@ app.put("/leaveGroup", (req,res) => {
 		.send({ message: "Error finding group with name: " + groupName })
 	})
 })
+
+/**
+ * req.params: 
+ * 	ID: String
+ * 
+ * 	res: List of Group Objects with the matching ID/InviteLink
+ *  */ 
+
+ app.get("/searchGroupID/:ID", (req,res) =>{  
+	const inviteID = req.params.ID;
+	const data = Group.find({inviteID})
+	.then((data) => {
+		res.send(data);
+	})
+	.catch((err) => {
+		res
+		.status(500)
+		.send({ message: "Error finding group with ID: " + ID })
+	})
+})
+
 
 /**
  * req.body: 
