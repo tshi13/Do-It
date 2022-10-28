@@ -66,15 +66,15 @@ export const Navigation = (props) => {
 					</div>
 			</div>
 
-			<div class="dropdown">
-				<button class="dropbtn">{props.isLoggedIn ? 
+			<div className="dropdown">
+				<button className="dropbtn">{props.isLoggedIn ? 
 					<ProfilePicture profilePicture = {profilePicture} username = {username} /> :
 					<ProfilePicture profilePicture = {null} username = {null} />
 				}</button>
-				<div class="dropdown-content">
+				<div className="dropdown-content">
 				<p>{props.isLoggedIn ? "Username: "  + username : "Guest"}</p>
 				<p>{props.isLoggedIn ? "Coins: " + coins : ""}</p>
-				<div class="dividerCustom"></div>
+				<div className="dividerCustom"></div>
 				 <a href="/profile">Profile</a>
 				 <a href="/settings">Settings</a>
 				 <a href="/login" onClick={e => {logOut(e)}}>Log Out</a>

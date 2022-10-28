@@ -67,8 +67,10 @@ app.put("/updateUser", (req,res) =>{ //updates user
 
 app.put("/updateTask", (req,res) =>{ //updates task"
 	const {taskID, data} = req.body;
+	console.log(taskID);
 	Task.findByIdAndUpdate(taskID, data, {new: true, $set: data})
 		.then((data) => {
+			console.log(data);
 			res.send(data);
 		})
 		.catch((err) => {

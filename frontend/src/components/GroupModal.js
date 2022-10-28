@@ -54,7 +54,7 @@ export default function GroupModal(props) {
           inviteID: generateRandomInviteCode(10),
         }
         groupDAO.createGroup(group).then((group) => {
-          props.groupCallback({_id: group._id, groupName: group.groupName, groupPicture: image})
+          props.groupCallback({_id: group._id, groupName: group.groupName, groupPicture: image, idList: group.idList, taskIDList: group.taskIDList, typeOfGroup: group.typeOfGroup, owner: group.owner, costToJoin: group.costToJoin, password: group.password, inviteID: group.inviteID});
         });
         props.close();
       }

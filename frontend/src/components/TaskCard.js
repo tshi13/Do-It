@@ -11,9 +11,11 @@ import taskDAO from '../utils/taskDAO';
 export default function TaskCard(props) {
   const { task } = props;
   const [completed, setCompleted] = React.useState(task.completed);
-  const [userCompleted, setUserCompleted] = React.useState(task.userCompleted);
+  const [userCompleted, setUserCompleted] = React.useState();
   const [list, setList] = React.useState(task.completedList ? task.completedList : []); // list of users who have completed the task 
   const [progress, setProgress] = React.useState(0);
+  const groupSize = task.groupSize ? task.groupSize : 1;
+
 
 
   const handleSubmit = () => {
@@ -30,7 +32,7 @@ export default function TaskCard(props) {
     if(task.type === "private") {
       newTask.data.completed = true;
     } else if(task.type === "groupIndividual") {
-      let maxSize = Math.ceil(task.groupSize * 0.20);
+      let maxSize = Math.ceil(groupSize * 0.20);
       if(list.length + 1 >= maxSize) {
         newTask.data.completed = true;
       }
@@ -40,17 +42,18 @@ export default function TaskCard(props) {
     taskDAO.updateTask(newTask).then((res) => {
       setCompleted(res.completed);
       setUserCompleted(true);
-      setList(res.completedList);
+      setList(newCompletedList);
+      handleProgress();
     });
   };
 
   const handleProgress = () => {
-    if(Array.isArray(task.completedList) && Array.isArray(list)) {
+    if(Array.isArray(list)) {
       let localProgress = 0;
       if(task.type === "group") {
-        localProgress = list.length / task.groupSize * 100;
+        localProgress = list.length / groupSize * 100;
       } else if(task.type === "groupIndividual") {
-        let maxSize = Math.ceil(task.groupSize * 0.20);
+        let maxSize = Math.ceil(groupSize * 0.20);
         if(list.length >= maxSize) {
           localProgress = 100;
         } else {
@@ -68,7 +71,7 @@ export default function TaskCard(props) {
       }
     }
     handleProgress();
-  }, [task.completedList, list]);
+  }, []);
 
     
 
