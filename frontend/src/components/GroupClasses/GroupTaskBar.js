@@ -12,6 +12,10 @@ export default function GroupTaskBar(props) {
     const userID = props.userID;
     const userList = props.userList;
 
+    const firstPartOfURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+
+
+
     const [showTaskModal, setShowTaskModal] = useState(false);
 
     const leaveGroup = () => {
@@ -28,8 +32,9 @@ export default function GroupTaskBar(props) {
             <div style = {{height: newHeight}} className = "taskList">
                 <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
                 <h1 style ={{textAlign: 'center'}}>Task List</h1>
-                <p style = {{textAlign: 'center'}}>Group Invite ID: {props.inviteID}</p>
-                <div className = "scrollWrapper" style ={{height: '75%'}} >
+                <p style = {{textAlign: 'center'}}>Group Invite: {props.inviteID}</p>
+                 <button className = "button" onClick = {() => {navigator.clipboard.writeText(firstPartOfURL +"/invite/ID=" + props.inviteID)}}>Copy Invite Link To Clipboard</button>
+                <div className = "scrollWrapper" style ={{height: '65%'}} >
                     <div style ={{alignItems: 'center'}}>
                         {
                             tasks.map((task, index) => {
@@ -64,8 +69,9 @@ export default function GroupTaskBar(props) {
                 <div style = {{height: newHeight}} className = "taskList">
                     <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
                     <h1 style ={{textAlign: 'center'}}>Task List</h1>
-                    <p style = {{textAlign: 'center'}}>Group Invite ID: {props.inviteID}</p>
-                    <div style = {{height: '85%'}}>
+                    <p style = {{textAlign: 'center'}}>Group Invite: {props.inviteID}</p>
+                    <button className = "button" onClick = {() => {navigator.clipboard.writeText(firstPartOfURL +"/invite/ID=" + props.inviteID)}}>Copy Invite Link To Clipboard</button>
+                    <div style = {{height: '65%'}}>
                         <h2 style ={{textAlign: 'center'}}>No Tasks</h2>
                     </div>
                 </div>

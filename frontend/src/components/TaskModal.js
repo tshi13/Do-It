@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import groupDAO from '../utils/groupDAO';
 import userDAO from '../utils/userDAO';
-import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import '../styles/taskModal.css'; 

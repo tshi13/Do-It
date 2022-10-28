@@ -8,6 +8,7 @@ import React, { useEffect, useState, useLayoutEffect } from 'react';
 import useUser from './utils/useUser';
 import SearchGroup from './containers/searchGroupPage';
 import Profile from './containers/Profile';
+import InvitePage from './containers/InvitePage';
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);
@@ -50,7 +51,7 @@ function App() {
           <Route path="/Register" element={<Register user = {user} setUser = {setUser} />}/>
           <Route path="/SearchGroup" element={<SearchGroup user = {user} setUser = {setUser} searchString = {searchString} setSearchString = {setSearchString}  userID = {userID} />}/>
           <Route path="/Profile" element={<Profile user = {user} setUser = {setUser} searchString = {searchString} setSearchString = {setSearchString}  userID = {userID}  />}/>
-
+          <Route path={'/invite/*'} element={<InvitePage userID = {userID} />}/>
         </Routes>
       </BrowserRouter>
     </div>
