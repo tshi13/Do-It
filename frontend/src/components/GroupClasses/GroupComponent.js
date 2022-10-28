@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ChatBox from "../ChatBox";
 import GroupTaskBar from "./GroupTaskBar";
 import groupDAO from '../../utils/groupDAO';
-import GetStream from '../GetStream';
+import GetStream from '../GetStreamChat/GetStream';
 
 import '../../styles/groupComponent.css';
 import userDAO from '../../utils/userDAO';
