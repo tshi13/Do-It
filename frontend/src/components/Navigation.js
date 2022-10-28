@@ -56,7 +56,7 @@ export const Navigation = (props) => {
 			<form className="d-flex">
 				<ul className="navbar-nav">
 					<li className="nav-item">
-						<a className="nav-link active bubble font-weight-bold" aria-current="page" href="Register"  style = {{fontWeight: 'bold'}}>Register</a>
+						<a className="nav-link active bubble font-weight-bold" aria-current="page" href="/Register"  style = {{fontWeight: 'bold'}}>Register</a>
 					</li>
 				</ul>
 			</form>
@@ -65,7 +65,7 @@ export const Navigation = (props) => {
 			<form className="d-flex">
 				<ul className="navbar-nav">
 					<li className="nav-item">
-						<a className="nav-link active bubble font-weight-bold" aria-current="page" href="Login"  style = {{fontWeight: 'bold'}}>Login</a>
+						<a className="nav-link active bubble font-weight-bold" aria-current="page" href="/Login"  style = {{fontWeight: 'bold'}}>Login</a>
 					</li>
 				</ul>
 			</form>
