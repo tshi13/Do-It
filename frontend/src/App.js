@@ -9,6 +9,7 @@ import Profile from './containers/Profile';
 import InvitePage from './containers/InvitePage';
 import IntroPage from './components/IntroPage';
 import RegisterForm from './components/RegisterForm';
+import NotFound from './components/NotFound';
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);
@@ -50,7 +51,8 @@ function App() {
               <Route path="/" element={<Home userID={userID} newHeight={newHeight} />} />
               <Route path="/search" element={<SearchGroup searchString={searchString} />} />
               <Route path="/profile" element={<Profile userID={userID} />} />
-              <Route path="/invite" element={<InvitePage userID={userID} />} />
+              <Route path="/invite/*" element={<InvitePage userID={userID} />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </div>
@@ -60,12 +62,13 @@ function App() {
             <Routes>
               <Route path="/" element={<IntroPage user = {user} setUser = {setUser}/>} />
               <Route path="/register" element={<RegisterForm setUser = {setUser}/>} />
+              <Route path="/invite/*" element={<InvitePage userID={userID} />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </div>
       }
     </div>
-
   );
 }
 
