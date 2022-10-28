@@ -1,14 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import groupDAO from '../utils/groupDAO';
 import InviteGroupCard from '../components/InviteGroupCard';
+import '../styles/IntroPage.css';
+
 
 export default function InvitePage(props) {
 
     const userID = props.userID;
     const [inviteID, setInviteID] = useState("");
-
     const [group, setGroup] = useState([]);
-
+    const [error, setError] = useState("");
 
     useEffect(() => {
         let url = window.location.href;
@@ -22,8 +23,10 @@ export default function InvitePage(props) {
                 });
                 setInviteID(id);
             }  else {
-                return false;
+                setError("Invalid invite ID");
             }
+        } else {
+            setError("You must be logged in to join a group");
         }
     }, [userID]);
 
@@ -36,7 +39,15 @@ export default function InvitePage(props) {
                 <div> 
                     {group.length !== 0 ? <InviteGroupCard item = {group} userID={userID}  /> : <h2>Group not found</h2>}
                 </div>
-                :<h2>Invalid Invite ID or you need to log in</h2>}
+                : <div>
+                    <h2>{error}</h2>
+                    {
+                        error === "Invalid invite ID" ? <h3>Invite ID must be 10 characters long and contain only letters and numbers</h3> : null
+                    } {
+                        error === "You must be logged in to join a group" ? <h3>Click <a href = "/">here</a> to login</h3> : null
+                    }
+                </div>
+            }
             </div>
         </div>
     );
