@@ -50,15 +50,17 @@ export default function Chatbox(props)  {
 			let tempChannel = await chatClient.channel('messaging', groupID, {  //make channel
 				// add as many custom fields as you'd like
 				image: 'https://www.drupal.org/files/project-images/react.png',
-				name: "terry"
+				name: groupName
 			});
 			await tempChannel.create(); // create channel
-			await tempChannel.addMembers([userID],{ text: {username} + ' joined the channel.' }); // add someone to channel
+			console.log()
+			await tempChannel.addMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' }); // add someone to channel
 			setChannel(tempChannel);
 			console.log("chat setup completed");
+			console.log(groupName, username);
 		}
 		setupChat();		
-	},[channelName]);
+	},[groupName]);
 
 	console.log(channel);
 	return (
