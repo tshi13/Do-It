@@ -80,7 +80,7 @@ export default function GroupComponent(props)  {
         <div className = "groupComponent">
             <div className = "centerSection" style ={{width: '85%', height: '800px'}}>
                 {/* {renderChat()} */}
-								<GetStream/>
+								<GetStream userID = {userID} username = {username} groupID = {groupID} groupName = {groupName}/>
             </div>
             <div className = "rightSection" style ={{width: '20%', height: '100%'}}>
                 {renderTasks()}
