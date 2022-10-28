@@ -22,8 +22,6 @@ export default function GroupTaskBar(props) {
         props.taskCallback(task);
     }
     
-
-
     const renderTasks = () => {
         if(tasks.length > 0) {
             return (
@@ -31,7 +29,7 @@ export default function GroupTaskBar(props) {
                 <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
                 <h1 style ={{textAlign: 'center'}}>Task List</h1>
                 <p style = {{textAlign: 'center'}}>Group Invite ID: {props.inviteID}</p>
-                <div className = "scrollWrapper" style = {{height: '85%'}}>
+                <div className = "scrollWrapper" style ={{height: '75%'}} >
                     <div style ={{alignItems: 'center'}}>
                         {
                             tasks.map((task, index) => {
