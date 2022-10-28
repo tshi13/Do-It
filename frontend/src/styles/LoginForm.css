@@ -12,7 +12,6 @@
   
   input[type="text"],
   input[type="password"] {
-    height: 25px;
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
   
@@ -60,4 +59,38 @@
     flex-direction: column;
     gap: 8px;
     margin: 10px;
+  }
+
+  .input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px;
+    padding: 0;
+    font-size: 15px;
+  }
+
+  .inputButton {
+    cursor: pointer;
+    font-size: 15px;
+    background: #01d28e;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    }
+
+  .inputButton:hover{
+    background: #6cf0c2;
+  }
+
+  .inputLogin {
+    cursor: pointer;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 5%;
+    height: 50px;
+    background-color: lightgray;
+    opacity: 0.6;
+    color: black;
   }

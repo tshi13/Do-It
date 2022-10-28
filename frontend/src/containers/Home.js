@@ -101,43 +101,25 @@ export default function Home(props) {
     }
 
 
-    const loggedInPage = (
-        
-        <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
-            <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px'}}>
-                <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
-                    <CreateGroup userID = {props.userID} groupCallback = {groupCallback}/>
-                </div>
-            </div>
-            <div style = {{width: '100%'}}>
-                {/* <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
-                <DisplayTasks userID={props.userID} privateTasks = {privateTasks} /> */}
-                {/* <TaskModal ></TaskModal> */}
-                {renderGroup()}
-            </div>
-        </div>
-    );
-
-    const homePage = (
-        <div className="home" style ={{height: {newHeight}}}>
-            <div className="home__container">
-                    <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
-                        <div style ={{float: 'left', width: '50%', marginTop: '10%', marginLeft: '10%'}}>
-                            <h1 className="h1" style ={{color: 'black', width: '25%'}}>Achieve Dreams!</h1>
-                            <h2 className="h2" style ={{color: 'black', width: '25%'}}>Please login to get started!</h2>
-                        </div>
-                        <div className="home__container__right" style ={{float: 'right', marginTop: '2%', marginRight: '2%'}}>
-                                <img src= {frontpage} alt="frontPicture" />
-                        </div>
-                </div>
-            </div>
-        </div>
-    );
+   
     return (
         <div>
-            {props.isLoggedIn ? loggedInPage : homePage}
+            <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
+                <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px'}}>
+                    <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
+                        <CreateGroup userID = {props.userID} groupCallback = {groupCallback}/>
+                    </div>
+                </div>
+                <div style = {{width: '100%'}}>
+                    {/* <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
+                    <DisplayTasks userID={props.userID} privateTasks = {privateTasks} /> */}
+                    {/* <TaskModal ></TaskModal> */}
+                    {renderGroup()}
+                </div>
+            </div>
         </div>
+
     );
 
 }

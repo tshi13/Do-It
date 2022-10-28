@@ -10,13 +10,8 @@ function RegisterForm(props) {
   let user = props.user;
 
     // useEffect hook to redirect to home page after login
-  useEffect(() => {
-    if (isSubmitted) {
-      window.location.href = "/";
-    }
-  }, [isSubmitted]);
-  
 
+  
   const errors = {
     uname: "User Already Exist",
     pass: "invalid password"
@@ -42,7 +37,7 @@ function RegisterForm(props) {
           .then((res) => 
           {
             props.setUser(data.name, res._id );
-            setIsSubmitted(true);
+            window.location.href = "/";
           })
           .catch(err => console.log(err));
       }

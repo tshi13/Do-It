@@ -12,6 +12,7 @@ export const Navigation = (props) => {
 	const [username, setUsername] = useState(null);
 	const [profilePicture, setProfilePicture] = useState(null);
 	const [buttonSelected, setButtonSelected] = useState(null);
+	const [profileWindow, setProfileWindow] = useState(false);
 
 	
 	useEffect(() => {
@@ -32,6 +33,7 @@ export const Navigation = (props) => {
 	function logOut(e) {
 		e.preventDefault();
 		props.setUser(null, null);
+		window.location.href = '/';
 	}
 
 	async function handleSubmit (e, type) {
@@ -49,57 +51,12 @@ export const Navigation = (props) => {
 			document.getElementById("searchDropDown").style.display = "none";
 		}
 	}
-	
-	const loginOptions = (
-		<>
-		<div>
-			<form className="d-flex">
-				<ul className="navbar-nav">
-					<li className="nav-item">
-						<a className="nav-link active bubble font-weight-bold" aria-current="page" href="/Register"  style = {{fontWeight: 'bold'}}>Register</a>
-					</li>
-				</ul>
-			</form>
-		</div>
-		<div>
-			<form className="d-flex">
-				<ul className="navbar-nav">
-					<li className="nav-item">
-						<a className="nav-link active bubble font-weight-bold" aria-current="page" href="/Login"  style = {{fontWeight: 'bold'}}>Login</a>
-					</li>
-				</ul>
-			</form>
-		</div>
-		</>
-	);
 
-	const logoutOptions = (
-		<div>
-			<ul className="navbar-nav">
-				<NavDropdown title={ profilePicture ? <ProfilePicture profilePicture={profilePicture} />: <ProfilePicture /> } id="basic-nav-dropdown">
-					<NavDropdown.Item disabled >Username: {username}</NavDropdown.Item>
-					<NavDropdown.Item disabled >Coins: {coins}</NavDropdown.Item>
-					<NavDropdown.Divider />
-					<NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-					<NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
-					<NavDropdown.Divider />
-					<NavDropdown.Item href="/logout" onClick={logOut}>Logout</NavDropdown.Item>
-				</NavDropdown>
-			</ul>
-		</div>
-	
-	);
 
+	
     return ( 
         <nav className="navbar navbar-expand-lg" style = {{backgroundColor: props.backgroundColor}}>
-			<a className="navbar-brand block" href="/" style = {{marginLeft: '2%', fontWeight: 'bold'}}>Do/It</a>
-			<div>
-				<ul className="navbar-nav">
-					<li className="nav-item">
-						<a className="nav-link active bubble" aria-current="page" href="/" style = {{fontWeight: 'bold'}}>Home</a>
-					</li>
-				</ul>
-			</div>
+			<a className="navbar-brand bubble" aria-current="page" href="/" style = {{marginLeft: '2%', fontWeight: 'bold'}}>Do/It</a>
 			<div className="center" style = {{width: '20%'}}>
 					<input className="form-control me-2" type="search" placeholder="Search For Groups" onChange={e => {handleSearchChange(e)}}  aria-label="Search"/>
 					<div id = "searchDropDown" className="searchButton" style ={{position: 'absolute', display: 'none', zIndex: '10', width: '20%'}}>
@@ -107,10 +64,24 @@ export const Navigation = (props) => {
 						<Dropdown.Divider />
 						<button className="form-control me-2" type="submit" onClick={e => {handleSubmit(e, "ID")}}>Search by ID</button>
 					</div>
-
 			</div>
 
-            {props.isLoggedIn ? logoutOptions : loginOptions}
+			<div class="dropdown">
+				<button class="dropbtn">{props.isLoggedIn ? 
+					<ProfilePicture profilePicture = {profilePicture} username = {username} /> :
+					<ProfilePicture profilePicture = {null} username = {null} />
+				}</button>
+				<div class="dropdown-content">
+				<p>{props.isLoggedIn ? "Username: "  + username : "Guest"}</p>
+				<p>{props.isLoggedIn ? "Coins: " + coins : ""}</p>
+				<div class="dividerCustom"></div>
+				 <a href="/profile">Profile</a>
+				 <a href="/settings">Settings</a>
+				 <a href="/login" onClick={e => {logOut(e)}}>Log Out</a>
+
+				</div>
+			</div>
+
 
 		</nav>		
     );
