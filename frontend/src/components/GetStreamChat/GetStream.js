@@ -1,38 +1,38 @@
 import React from 'react';
-import {StreamChat} from 'stream-chat'
-import { Chat, Channel, ChannelHeader, ChannelList, LoadingIndicator, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
-import { useClient } from './UseClient';
+import { StreamChat } from 'stream-chat';
+import { Chat, Channel, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
+
 import 'stream-chat-react/dist/css/v2/index.css';
 
-const userToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoibXV0ZS1kYXJrbmVzcy00In0.O80JYT4w7LNhR-3XDE_rrm6ka0r7DnWxes2K3EwmY1o';
+const chatClient = new StreamChat('hm7ff5yafac3');
+const userToken = 'DEV'; //DEV TOKEN, DO NOT CHANGE!
+let channel;
 
-const user = {
-  id: 'mute-darkness-4',
-  name: 'mute-darkness-4',
-  image: 'https://getstream.io/random_png/?id=mute-darkness-4&name=mute-darkness-4',
-};
+(async () => {
+	await chatClient.connectUser( //create new user or connect to existing user
+		{
+			id: 'DEV',
+			name: 'DEV',
+			image: 'https://getstream.io/random_png/?id=mute-darkness-4&name=mute-darkness-4',
+		},
+		chatClient.devToken(userToken), //use devtoken as usertoken for now
+	);
 
-const filters = { type: 'messaging', members: { $in: ['mute-darkness-4'] } };
-const sort = { last_message_at: -1 };
+	channel = chatClient.channel('messaging', 'TEST', {  //make channel
+		// add as many custom fields as you'd like
+		image: 'https://www.drupal.org/files/project-images/react.png',
+		name: 'TEST CHANNEL'
+	});
+	await channel.create(); // create channel
+	await channel.addMembers(['DEV'],{ text: 'Dev joined the channel.' }); // add someone to channel
+})();
+
 
 
 
 export default function Chatbox(props)  {
-	const chatClient = useClient({ apiKey: 'hm7ff5yafac3', userData: user, tokenOrProvider: userToken });
-	if (!chatClient) {
-    return <LoadingIndicator />;
-  }
-
-	const channel = chatClient.channel('messaging', 'custom_channel_id', {
-		// add as many custom fields as you'd like
-		image: 'https://www.drupal.org/files/project-images/react.png',
-		name: 'Talk about React',
-		members: ['mute-darkness-4'],
-	});
-	
 	return (
 		<Chat client={chatClient} theme='str-chat__theme-light'>
-      {/* <ChannelList filters={filters} sort={sort} /> */}
       <Channel channel={channel}>
         <Window>
           <ChannelHeader />
