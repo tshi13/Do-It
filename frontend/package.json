@@ -23,11 +23,12 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "stream-browserify": "^3.0.0",
+    "stream-chat": "^8.0.0",
     "stream-chat-react": "^10.3.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": " GENERATE_SOURCEMAP=false react-scripts start",
+    "start": "set GENERATE_SOURCEMAP=false && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
