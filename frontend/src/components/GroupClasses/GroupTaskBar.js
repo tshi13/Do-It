@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import TaskCard from '../TaskCard';
 import TaskModal from '../TaskModal';
 import GroupSettings from '../GroupSettings';
@@ -11,12 +11,15 @@ export default function GroupTaskBar(props) {
     const newHeight = props.newHeight;
     const userID = props.userID;
     const userList = props.userList;
+    const [sorted, setSorted] = useState(false);
 
     const firstPartOfURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
 
-
-
     const [showTaskModal, setShowTaskModal] = useState(false);
+
+    const [individualTask, setIndividualTask] = useState({});
+    const [groupTask, setGroupTask] = useState({});
+
 
     const leaveGroup = () => {
         props.leaveGroupCallback(props.groupID, userID);
@@ -26,8 +29,28 @@ export default function GroupTaskBar(props) {
         props.taskCallback(task);
     }
     
+
+    useEffect(() => {
+        let individualTask = [];
+        let groupTask = [];
+        tasks.map((item, index) => {
+            if(item.userID !== "Group Task") {
+                individualTask.push(item);
+            } else {
+                groupTask.push(item);
+            }
+        });
+        setIndividualTask(individualTask);
+        setGroupTask(groupTask);
+        setSorted(true);
+        
+    
+    }, [tasks]);
+            
+            
+    
     const renderTasks = () => {
-        if(tasks.length > 0) {
+        if(tasks.length > 0 && sorted ) {
             return (
             <div style = {{height: newHeight}} className = "taskList">
                 <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
@@ -36,29 +59,51 @@ export default function GroupTaskBar(props) {
                  <button className = "button" onClick = {() => {navigator.clipboard.writeText(firstPartOfURL +"/invite/ID=" + props.inviteID)}}>Copy Invite Link To Clipboard</button>
                 <div className = "scrollWrapper" style ={{height: '65%'}} >
                     <div style ={{alignItems: 'center'}}>
-                        {
-                            tasks.map((task, index) => {
-                                let user = userList.find((user) => user.id === task.userID);
-                                let username = user ? user.name : "User not found";
-                                let taskData = {
-                                    taskName: task.taskName,
-                                    coinsEntered: task.coinsEntered,
-                                    time: task.time,
-                                    id: task._id,
-                                    completed: task.completed,
-                                    type: "group",
-                                    userID: userID,
-                                    username: username,
-                                    completedList: task.completedList,
-                                    groupSize: userList.length,
-                                }
-                                if(task.userID !== "Group Task") {
-                                    taskData.type = "groupIndividual";
-                                }
-                                return (
-                                    <TaskCard key={index} task={taskData}/>
-                                );
-                            }) 
+                        {groupTask.length > 0 ? 
+                            <div className = "taskWrapper">
+                                <h2 style = {{textAlign: 'center'}}>Group Tasks</h2>
+                                {groupTask.map((item, index) => {
+                                     let taskData = {
+                                        taskName: item.taskName,
+                                        coinsEntered: item.coinsEntered,
+                                        time: item.time,
+                                        id: item._id,
+                                        completed: item.completed,
+                                        type: "group",
+                                        userID: userID,
+                                        completedList: item.completedList,
+                                        groupSize: userList.length,
+                                    }
+                                    return (
+                                        <TaskCard task = {taskData} key = {index} taskCallback = {taskCallback} />
+                                    )
+                                })}
+                            </div>
+                            :
+                            null
+                        } 
+                        {individualTask.length > 0 ?
+                            <div className = "taskWrapper">
+                                <h2 style = {{textAlign: 'center'}}>Individual Tasks</h2>
+                                {individualTask.map((item, index) => {
+                                    let taskData = {
+                                        taskName: item.taskName,
+                                        coinsEntered: item.coinsEntered,
+                                        time: item.time,
+                                        id: item._id,
+                                        completed: item.completed,
+                                        type: "groupIndividual",
+                                        userID: userID,
+                                        completedList: item.completedList,
+                                        groupSize: userList.length,
+                                    }
+                                    return (
+                                        <TaskCard task = {taskData} key = {index} taskCallback = {taskCallback} />
+                                    )
+                                })}
+                            </div>
+                            :
+                            null
                         }
                     </div>
                 </div>

@@ -124,7 +124,6 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
 	// let newCoinBalance;
 	Task.create({userID, taskName, time, coinsEntered, groupID, completed: false, completedList: []})
 	.then((data) => {
-		console.log(data);
 		taskID = data._id;
 		res.send(data);
 	})
@@ -143,7 +142,6 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
 		.send({ message: "Error creating task with name: " + taskName })
 	})
 })
-
 
 
 

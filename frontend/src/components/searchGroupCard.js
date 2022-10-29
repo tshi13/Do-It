@@ -46,6 +46,8 @@ export default function SearchGroupCard(props) {
     }
     groupDao.addToGroup(data);*/
 
+
+
     if(groupType == "public") {
       let val = window.confirm ("Are you sure you want to join this group?");
       if(val) {
