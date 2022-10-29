@@ -83,8 +83,7 @@ export default function Chatbox(props)  {
 			// using the global_moderator logged in to create or recreate the channel
 			// and add the userID to become a member of the group 
 			await tempChannel.create(); // create channel
-			console.log()
-			await tempChannel.addMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' }); // add someone to channel
+			await tempChannel.addMembers([{user_id:userID}],{ text: `${username} + joined the channel.` }); // add someone to channel
 			setChannel(tempChannel);
 			console.log("chat setup completed");
 			console.log(groupName, username);
@@ -93,6 +92,9 @@ export default function Chatbox(props)  {
 
 			// logging out of the global_moderator, since we are done with the adding of users
 			await chatClient.disconnectUser();
+			if (username != undefined && groupName!= undefined){
+				setFlag(true);
+			}
 
 
 			// in the <GetStream2> component which rendered below,
@@ -109,14 +111,17 @@ export default function Chatbox(props)  {
 	},[groupName]);
 
 	console.log(channel);
-	return (
+
+	if (flag){
+		return (
 		// completely new re-render of the chat from the ground up
 		// to avoid async/await issues
 		// although some still may persist
 		// re-render was suggested by the following link:
 		// https://bytemeta.vip/repo/GetStream/stream-chat-react/issues/1188
-		<GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName}/>
+		<GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName}/>		
 	);
+	}
 }
 
 
