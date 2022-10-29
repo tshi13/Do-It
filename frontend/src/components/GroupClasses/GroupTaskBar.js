@@ -64,6 +64,7 @@ export default function GroupTaskBar(props) {
                                 <h2 style = {{textAlign: 'center'}}>Group Tasks</h2>
                                 {groupTask.map((item, index) => {
                                      let taskData = {
+                                        id: item._id,
                                         taskName: item.taskName,
                                         coinsEntered: item.coinsEntered,
                                         time: item.time,
@@ -87,6 +88,7 @@ export default function GroupTaskBar(props) {
                                 <h2 style = {{textAlign: 'center'}}>Individual Tasks</h2>
                                 {individualTask.map((item, index) => {
                                     let taskData = {
+                                        id: item._id,
                                         taskName: item.taskName,
                                         coinsEntered: item.coinsEntered,
                                         time: item.time,

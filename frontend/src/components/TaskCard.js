@@ -38,26 +38,27 @@ export default function TaskCard(props) {
       }
     }
 
-
     taskDAO.updateTask(newTask).then((res) => {
       setCompleted(res.completed);
       setUserCompleted(true);
       setList(newCompletedList);
-      handleProgress();
+      handleProgress(newCompletedList);
     });
   };
 
-  const handleProgress = () => {
-    if(Array.isArray(list)) {
+  const handleProgress = (newCompletedList) => {
+    let compareList = newCompletedList ? newCompletedList : list;
+  
+    if(Array.isArray(compareList)) {
       let localProgress = 0;
       if(task.type === "group") {
-        localProgress = list.length / groupSize * 100;
+        localProgress = compareList.length / groupSize * 100;
       } else if(task.type === "groupIndividual") {
         let maxSize = Math.ceil(groupSize * 0.20);
-        if(list.length >= maxSize) {
+        if(compareList.length >= maxSize) {
           localProgress = 100;
         } else {
-          localProgress = list.length / maxSize * 100;
+          localProgress = compareList.length / maxSize * 100;
         }
       }
       setProgress(localProgress);
