@@ -43,14 +43,16 @@ export default function GroupComponent(props)  {
             let userListIDs = group.idList;
             let userList = [];
             for(let i = 0; i < userListIDs.length; i++) {
-                userDAO.getUserData(userListIDs[i]).then((user) => {
-                    let userData = {
-                        id: user._id,
-                        name: user.name,
-                        profilePicture: user.profilePicture,
-                    }
-                    userList.push(userData);
-                });
+                if(userListIDs[i] !== null) {
+                    userDAO.getUserData(userListIDs[i]).then((user) => {
+                        let userData = {
+                            id: user._id,
+                            name: user.name,
+                            profilePicture: user.profilePicture,
+                        }
+                        userList.push(userData);
+                    });
+                }
             }
             setUserList(userList);
         });
