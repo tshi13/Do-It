@@ -29,7 +29,14 @@ const userToken = 'DEV'; //DEV TOKEN, DO NOT CHANGE!
 // })();
 
 
+// the purpose of this function is to login as a global_moderator
+// and use the global_moderator to add the userID to the chat
+// then we will call <GetStream2 /> to form a whole new re-render
+// so that the userID can login and send messages (done in <GetStream2 />)
 
+// re-render was suggested by the following link:
+// https://bytemeta.vip/repo/GetStream/stream-chat-react/issues/1188
+		
 export default function Chatbox(props)  {
 	const [channel, setChannel] = useState();
 	const [channelName, setChannelName] = useState();
@@ -39,7 +46,10 @@ export default function Chatbox(props)  {
 	useEffect(()=> {
 		const setupChat = async() => {
 
-			if (flag === false) {
+
+			// first, logging in as global_moderator so the global_moderator
+			// can add the userID to the group.
+			// global_moderator has permissions to do this, so we need global_moderator
 				await chatClient.connectUser( //create new user or connect to existing user
 			{
 				id: "global_moderator108438945109697465891073291325065231",
@@ -62,13 +72,16 @@ export default function Chatbox(props)  {
 		// 	chatClient.devToken(userID), //use devtoken as usertoken for now
 		// )	;
 	
+		// getting the group
 			let tempChannel = await chatClient.channel('messaging', groupID, {  //make channel
 				// add as many custom fields as you'd like
 				image: 'https://www.drupal.org/files/project-images/react.png',
 				name: groupName
 			});
 
-			// await tempChannel.inviteMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' });
+			
+			// using the global_moderator logged in to create or recreate the channel
+			// and add the userID to become a member of the group 
 			await tempChannel.create(); // create channel
 			console.log()
 			await tempChannel.addMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' }); // add someone to channel
@@ -77,21 +90,19 @@ export default function Chatbox(props)  {
 			console.log(groupName, username);
 			// chatClient.disconnectUser();
 
-			await chatClient.disconnectUser();
-			
-			setFlag(true);
 
-			}
-			else {
-				await chatClient.connectUser( //create new user or connect to existing user
-					{
-						id: userID,
-						name: username,
-						image: 'https://getstream.io/random_png/?id=mute-darkness-4&name=mute-darkness-4',
-					},
-					chatClient.devToken(userID), //use devtoken as usertoken for now
-				)	;
-			}
+			// logging out of the global_moderator, since we are done with the adding of users
+			await chatClient.disconnectUser();
+
+
+			// in the <GetStream2> component which rendered below,
+			// that will be a completely new re-render from the ground up
+			// so that we give enough time for the async/await chatClient.disconnectUser()
+			// to disconnect the global_moderator
+			// before we log in as the actual userID
+
+			// re-render was suggested by the following link:
+			// https://bytemeta.vip/repo/GetStream/stream-chat-react/issues/1188
 	
 		}
 		setupChat();		
@@ -99,6 +110,11 @@ export default function Chatbox(props)  {
 
 	console.log(channel);
 	return (
+		// completely new re-render of the chat from the ground up
+		// to avoid async/await issues
+		// although some still may persist
+		// re-render was suggested by the following link:
+		// https://bytemeta.vip/repo/GetStream/stream-chat-react/issues/1188
 		<GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName}/>
 	);
 }
