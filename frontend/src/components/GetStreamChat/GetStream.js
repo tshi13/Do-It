@@ -44,8 +44,7 @@ export default function Chatbox(props)  {
 	const {userID,username,groupID,groupName} = props;
 	const [flag, setFlag] = useState(false);
 	const render = username && userID && username && groupID && groupName;
-	let renderOnce = true;
-	
+
 
 	useEffect(()=> {
 		const setupChat = async() => {
@@ -53,7 +52,7 @@ export default function Chatbox(props)  {
 			// ACTS AS AN EXAMPLE OF HOW WE CAN DO STUFF WITHOUT INTRODUCING MULTIPLE RENDERS. THIS FUNCTIONALITY IS ALREADY ACHIEVED IN USERDAO addUser(). 
 
 		
-			//log in as global_moderato, add the userID to the group
+			//log in as global_moderator, add the userID to the group
 				await chatClient.connectUser( //create new user or connect to existing user
 			{
 				id: "global_moderator108438945109697465891073291325065231",
@@ -84,8 +83,7 @@ export default function Chatbox(props)  {
 			setFlag(true);	
 		}
 
-		if (username && groupName && renderOnce){
-			renderOnce = false;
+		if (username && groupName && !flag){
 			setupChat();		
 		}
 	},[username, groupName]);

@@ -16,7 +16,6 @@ export default function Chatbox2(props)  {
 	const [channelName, setChannelName] = useState();
 	const {userID,username,groupID,groupName} = props;
 	const [flag, setFlag] = useState(false);
-	let renderOnce = true;
 
 	useEffect(()=> {
 		const setupChat = async() => {
@@ -44,10 +43,9 @@ export default function Chatbox2(props)  {
 			console.log("chat setup completed");
 			console.log(groupName, username);
 		}
-		if (username && groupName && renderOnce){
-			renderOnce = false;
+		
 			setupChat();		
-		}		
+		
 		
 	},[username,groupName]);
 
