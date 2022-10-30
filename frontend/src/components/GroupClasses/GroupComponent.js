@@ -90,9 +90,11 @@ export default function GroupComponent(props)  {
 
     return (
         <div className = "groupComponent">
-            <div className = "centerSection" style ={{width: '85%', height: '800px'}}>
-                {renderChat()}
-								{/* <GetStream userID = {userID} username = {username} groupID = {groupID} groupName = {groupName}/> */}
+            <div className = "centerSection" style ={{width: '80%', height: '800px'}}>
+                {userID && username && groupName && groupID ? 
+                <GetStream userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
+                : null}
+
             </div>
             <div className = "rightSection" style ={{width: '20%', height: '100%'}}>
                 {renderTasks()}

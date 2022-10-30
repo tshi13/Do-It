@@ -90,7 +90,6 @@ export default function Home(props) {
 
         let groupPictureString = groupPicture[0].groupPicture;
         setSelectedGroupPicture(groupPictureString);
-
     }
 
     const renderGroup = () => {
@@ -109,8 +108,6 @@ export default function Home(props) {
         }
     }
 
-
-   
     return (
         <div>
             <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
