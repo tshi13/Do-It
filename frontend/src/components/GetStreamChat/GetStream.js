@@ -43,8 +43,6 @@ export default function Chatbox(props)  {
 	const [channelName, setChannelName] = useState();
 	const {userID,username,groupID,groupName} = props;
 	const [flag, setFlag] = useState(false);
-	const render = username && userID && username && groupID && groupName;
-
 
 	useEffect(()=> {
 		const setupChat = async() => {
@@ -60,7 +58,7 @@ export default function Chatbox(props)  {
 				image: 'https://getstream.io/random_png/?id=mute-darkness-4&name=mute-darkness-4',
 			},
 			chatClient.devToken("global_moderator108438945109697465891073291325065231"), //use devtoken as usertoken for now
-		)	;
+		);
 				
 		// getting the group
 			let tempChannel = await chatClient.channel('messaging', groupID, {  //make channel
