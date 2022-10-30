@@ -87,7 +87,7 @@ export default function SearchGroupCard(props) {
 
 
 
-  function handleSubmit (e) {
+  const handleSubmit = () => {
       if(groupType == "public") {
         setMessage("Are you sure you want to join this group?");
         setTitle("Join Group");
