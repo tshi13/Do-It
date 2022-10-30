@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import TaskCard from '../TaskCard';
-import TaskModal from '../TaskModal';
-import GroupSettings from '../GroupSettings';
+import TaskCard from '../Task/TaskCard';
+import TaskModal from '../Task/TaskModal';
+import GroupSettings from './GroupSettings';
 
 import '../../styles/GroupTaskBar.css';
 

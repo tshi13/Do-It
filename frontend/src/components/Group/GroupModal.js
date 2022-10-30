@@ -1,11 +1,11 @@
 import { Divider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Database from '../utils/database';
-import groupDAO from '../utils/groupDAO';
-import ProfileImage from './imageEditor';
+import Database from '../../utils/database';
+import groupDAO from '../../utils/groupDAO';
+import ProfileImage from '../imageEditor';
 
-import '../styles/groupModal.css';
+import '../../styles/groupModal.css';
 
 export default function GroupModal(props) {
 

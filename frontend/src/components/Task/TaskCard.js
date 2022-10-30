@@ -5,8 +5,8 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { ListItem } from '@mui/material';
-import ProgressBar from './progressBar';
-import taskDAO from '../utils/taskDAO';
+import ProgressBar from '../progressBar';
+import taskDAO from '../../utils/taskDAO';
 
 export default function TaskCard(props) {
   const { task } = props;
