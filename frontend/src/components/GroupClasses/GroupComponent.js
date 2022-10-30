@@ -13,6 +13,7 @@ export default function GroupComponent(props)  {
     const groupID = props.groupID;
     const userID = props.userID;
     const username = props.username;
+		console.log(username);
     const [tasks, setTasks] = useState([]);
     const [groupName, setGroupName] = useState("");
     const [inviteID, setInviteID] = useState("");
@@ -80,18 +81,18 @@ export default function GroupComponent(props)  {
 
    const renderChat = () => {
         {/*<ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback} userList = {userList}/>*/}
-        if(userID !== undefined && groupID !== undefined) {
+        if(userID && username && groupName && groupID) {
             return (
-                <GetStream newHeight = {newHeight} groupName = {groupName} userList = {userList} groupPicture = {groupPicture}/>
+                <GetStream userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
             );
         }
     }
 
     return (
         <div className = "groupComponent">
-            <div className = "centerSection" style ={{width: '85%', height: '100%'}}>
-                {/* {renderChat()} */}
-								<GetStream userID = {userID} username = {username} groupID = {groupID} groupName = {groupName}/>
+            <div className = "centerSection" style ={{width: '85%', height: '800px'}}>
+                {renderChat()}
+								{/* <GetStream userID = {userID} username = {username} groupID = {groupID} groupName = {groupName}/> */}
             </div>
             <div className = "rightSection" style ={{width: '20%', height: '100%'}}>
                 {renderTasks()}

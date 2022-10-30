@@ -44,16 +44,16 @@ export default function Chatbox(props)  {
 	const {userID,username,groupID,groupName} = props;
 	const [flag, setFlag] = useState(false);
 	const render = username && userID && username && groupID && groupName;
-
+	let renderOnce = true;
+	
 
 	useEffect(()=> {
 		const setupChat = async() => {
 			// await chatDAO.createUser(userID, username); // DO NOT DELETE THIS LINE! THIS LINE WORKS AND 
 			// ACTS AS AN EXAMPLE OF HOW WE CAN DO STUFF WITHOUT INTRODUCING MULTIPLE RENDERS. THIS FUNCTIONALITY IS ALREADY ACHIEVED IN USERDAO addUser(). 
 
-			// first, logging in as global_moderator so the global_moderator
-			// can add the userID to the group.
-			// global_moderator has permissions to do this, so we need global_moderator
+		
+			//log in as global_moderato, add the userID to the group
 				await chatClient.connectUser( //create new user or connect to existing user
 			{
 				id: "global_moderator108438945109697465891073291325065231",
@@ -84,15 +84,14 @@ export default function Chatbox(props)  {
 			setFlag(true);	
 		}
 
-		// if (flag == false){
-		// 	setupChat();		
-		// }
-		setupChat();
-	},[username]);
+		if (username && groupName && renderOnce){
+			renderOnce = false;
+			setupChat();		
+		}
+	},[username, groupName]);
 
-	// console.log(channel);
 
-	if (flag){
+	if (flag ){
 		return (
 		<GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName}/>		
 	);

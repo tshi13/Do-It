@@ -46,6 +46,9 @@ export default function SearchGroupCard(props) {
     }
     groupDao.addToGroup(data);*/
 
+		console.log(userID);
+		console.log(e.target.value);
+
 
 
     if(groupType == "public") {
