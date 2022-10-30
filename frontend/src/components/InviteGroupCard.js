@@ -45,66 +45,64 @@ export default function SearchGroupCard(props) {
   
   }, []);
 
-
- 
-  function handleSubmit (e) {
-    /*e.preventDefault();
+  const handleJoinGroup = (input) => {
     const data = {
       userID: userID,
-      groupID: e.target.value
+      groupID: item._id,
     }
-    groupDao.addToGroup(data);*/
-
     if(groupType == "public") {
-      let val = window.confirm ("Are you sure you want to join this group?");
-      if(val) {
-        const data = {
-          userID: userID,
-          groupID: e.target.value
+      groupDao.addToGroup(data);
+      setJoined(true);
+    } else 
+    if(groupType == "cost") {
+      userDAO.getUserData(userID).then((res) => {
+        if(res.coins >= item.costToJoin) {
+          groupDao.addToGroup(data);
+          setJoined(true);
+        } else {
+          setTitle("Insufficient Funds");
+          setMessage("You do not have enough funds to join this group. Please add funds to your account and try again.");
+          setShowMessage(true);
         }
-        groupDao.addToGroup(data);
-        setJoined(true);
-      } else {
-        return;
-      }
+      })        
     } else if(groupType == "password") {
-      let val = window.prompt("Please enter the password for this group");
-      if(val == item.password) {
-        const data = {
-          userID: userID,
-          groupID: e.target.value
-        }
+      if(input == item.password) {
         groupDao.addToGroup(data);
         setJoined(true);
       } else {
-        alert("Incorrect password");
-        return;
-      }
-    } else if(groupType == "cost") {
-      let val = window.confirm("Are you sure you want to join this group? It costs " + item.costToJoin + " to join");
-      if(val) {
-        userDAO.getUserData(userID).then((user) => {
-          if(user.coins >= item.costToJoin) {
-            const data = {
-              userID: userID,
-              groupID: e.target.value
-            }
-            groupDao.addToGroup(data);
-            setJoined(true);
-          } else {
-            alert("You do not have enough coins to join this group");
-            return;
-          }
-        });
-      } else {
-        return;
+        setMessage("Incorrect Password");
+        setTitle("Error");
+        setShowMessage(true);
       }
     }
-
-
+    setShowPrompt(false);
+    setShowConfirm(false);
   }
-  
 
+  const handleClose = () => {
+    setShowPrompt(false);
+    setShowConfirm(false);
+    setShowMessage(false);
+  }
+
+
+
+  function handleSubmit (e) {
+      if(groupType == "public") {
+        setMessage("Are you sure you want to join this group?");
+        setTitle("Join Group");
+        setShowConfirm(true);
+      } else if(groupType == "password") {
+        setMessage("Please enter the password for this group");
+        setTitle("Password Protected Group");
+        setShowPrompt(true);
+      } else if(groupType == "cost") {
+        setMessage("Are you sure you want to join this group?");
+        setTitle("Join Group");
+        setShowConfirm(true);
+      }
+    }
+  
   const joinedButton = (
 	  <Button size="small" disabled>Joined</Button>
     );
@@ -130,7 +128,9 @@ export default function SearchGroupCard(props) {
           </div>
         </div>
       </div>
-       
+      <PromptBox show={showPrompt} title={title} message={message} onConfirm = {(input) => {handleJoinGroup(input)}} onCancel = {() => handleClose()} />
+      <ConfirmBox show={showConfirm} title={title} message={message} groupID={item._id} onConfirm = {() => {handleJoinGroup()}} onCancel = {() => handleClose()} />
+      <MessageBox show={showMessage} title={title} message={message} onConfirm = {() => handleClose()} />
     </div>
   );
 }
