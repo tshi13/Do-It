@@ -81,7 +81,7 @@ export default function Chatbox(props)  {
 			setFlag(true);	
 		}
 
-		if (username && groupName && !flag){
+		if (username && groupName){
 			setupChat();		
 		}
 	},[username, groupName]);

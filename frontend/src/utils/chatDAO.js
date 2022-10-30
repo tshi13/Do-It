@@ -19,7 +19,7 @@ async function createUser(userID, username) {
 }
 
 //ADD A USER TO EXISTING CHANNEL
-async function moderatorAddUser(userID, username, groupID) {
+async function moderatorAddUser(userID, username, groupID, groupName) {
 	await chatClient.connectUser( //create new user or connect to existing user
 	{
 		id: "global_moderator108438945109697465891073291325065231",
