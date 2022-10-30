@@ -5,7 +5,10 @@ const TaskSchema = new mongoose.Schema({
 	taskName: {type: String, required: true},
 	time: {type: Number, required: true},
 	coinsEntered: {type: Number, required: true},
-	groupID: {type: String, required: true}
+	groupID: {type: String, required: true},
+	username: {type: String, required: false},
+	completed: {type: Boolean, required: true},
+	completedList: {type: Array, required: true},
 });
 
 const Task = mongoose.model("Task",TaskSchema);

@@ -2,12 +2,14 @@ import {Navigation} from './components/Navigation';
 import './App.css';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Home from './containers/Home';
-import Login from './components/LoginForm';
-import Register from './components/RegisterForm';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import useUser from './utils/useUser';
 import SearchGroup from './containers/searchGroupPage';
 import Profile from './containers/Profile';
+import InvitePage from './containers/InvitePage';
+import IntroPage from './components/IntroPage';
+import RegisterForm from './components/RegisterForm';
+import NotFound from './components/NotFound';
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);
@@ -37,22 +39,35 @@ function App() {
 
   const [width, height] = useWindowSize();
 
-  let newHeight = height - 75;
-
+  let newHeight = height - 72;
 
   return (    
     <div>
-      <Navigation  backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} setUser = {setUser} username = {user} userID = {userID} searchString = {searchString} setSearchString = {setSearchString}/>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home username = {user} userID = {userID} backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} newHeight = {newHeight}/>}/>
-          <Route path="/login" element={<Login user = {user} setUser = {setUser} />}/>
-          <Route path="/Register" element={<Register user = {user} setUser = {setUser} />}/>
-          <Route path="/SearchGroup" element={<SearchGroup user = {user} setUser = {setUser} searchString = {searchString} setSearchString = {setSearchString}  userID = {userID} />}/>
-          <Route path="/Profile" element={<Profile user = {user} setUser = {setUser} searchString = {searchString} setSearchString = {setSearchString}  userID = {userID}  />}/>
-
-        </Routes>
-      </BrowserRouter>
+      {isLoggedIn ? 
+        <div>
+          <BrowserRouter>
+          <Navigation  backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} setUser = {setUser} username = {user} userID = {userID} searchString = {searchString} setSearchString = {setSearchString}/>
+            <Routes>
+              <Route path="/" element={<Home userID={userID} newHeight={newHeight} />} />
+              <Route path="/searchGroup" element={<SearchGroup searchString={searchString} userID = {userID} />} />
+              <Route path="/profile" element={<Profile userID={userID} />} />
+              <Route path="/invite/*" element={<InvitePage userID={userID} />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+        :
+        <div>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<IntroPage user = {user} setUser = {setUser}/>} />
+              <Route path="/register" element={<RegisterForm  user = {user} setUser = {setUser} />} />
+              <Route path="/invite/*" element={<InvitePage userID={userID} />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </div>
+      }
     </div>
   );
 }

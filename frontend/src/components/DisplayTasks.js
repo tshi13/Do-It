@@ -22,9 +22,18 @@ export default function DisplayTasks(props){
             <Grid container spacing={1}>
                 {
                     tasks.map((task, index) => {
+                        let taskData = {
+                            taskName: task.taskName,
+                            coinsEntered: task.coinsEntered,
+                            time: task.time,
+                            id: task._id,
+                            completed: task.completed,
+                            type: "private",
+                            userID: props.userID,
+                        }
                         return (
                             <Grid item xs={2.2} key={index}>
-                                <TaskCard key={index} task={task}/>
+                                <TaskCard key={index} task={taskData}/>
                             </Grid>
                         );
                     })

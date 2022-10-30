@@ -15,45 +15,55 @@ export default function GroupComponent(props)  {
     const username = props.username;
     const [tasks, setTasks] = useState([]);
     const [groupName, setGroupName] = useState("");
-    const [profilePicture, setProfilePicture] = useState(null);
+    const [inviteID, setInviteID] = useState("");
+    const [userList, setUserList] = useState([]);
+    const groupPicture = props.groupPicture;
+
+    
 
     const newHeight = props.newHeight;
+
+    async function getGroupTasks() {
+        let taskList = [];
+        groupDAO.getTasks(groupID).then((tasks) => {
+            taskList = tasks;
+        }).then(() => {
+            setTasks(taskList);
+        });
+    }
 
     useEffect(() => {
         //grab tasks from database for groupID
         //set tasks to the tasks from the database
-        groupDAO.getTasks(groupID).then((tasks) => {
-            let taskList = [];
-            for(let i = 0; i < tasks.length; i++) {
-                let taskData = {
-                    id: tasks[i]._id,
-                    taskName: tasks[i].taskName,
-                    taskDescription: tasks[i].taskDescription,
-                    coinsEntered: tasks[i].coinsEntered,
-                    completed: tasks[i].completed,
-                    time: tasks[i].time,
-                }
-                taskList.push(taskData);
-            }
-            setTasks(taskList);
-        });
-
+        setTasks([]);
+        getGroupTasks();
         groupDAO.getGroup(groupID).then((group) => {
             setGroupName(group.groupName);
+            setInviteID(group.inviteID);
+            let userListIDs = group.idList;
+            let userList = [];
+            for(let i = 0; i < userListIDs.length; i++) {
+                if(userListIDs[i] !== null) {
+                    userDAO.getUserData(userListIDs[i]).then((user) => {
+                        let userData = {
+                            id: user._id,
+                            name: user.name,
+                            profilePicture: user.profilePicture,
+                        }
+                        userList.push(userData);
+                    });
+                }
+            }
+            setUserList(userList);
         });
 
     }, [groupID]);
 
-    useEffect(() => {
-        userDAO.getUserData(userID).then((user) => {
-            {user.profilePicture ? setProfilePicture(Buffer.from(user.profilePicture).toString('base64')) : setProfilePicture(null)}
-        });
-    }, [userID]);
-
+  
     
     const renderTasks = () => {
         return (
-            <GroupTaskBar tasks={tasks} style ={{width: '100%'}} newHeight = {newHeight} />
+            <GroupTaskBar tasks={tasks} style ={{width: '100%'}}  groupID = {groupID}  newHeight = {newHeight} inviteID = {inviteID} userID = {userID} userList = {userList} leaveGroupCallback = {leaveGroupCallback} taskCallback = {taskCallback} />
         );
     }
 
@@ -69,16 +79,17 @@ export default function GroupComponent(props)  {
     
 
    const renderChat = () => {
+        {/*<ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback} userList = {userList}/>*/}
         if(userID !== undefined && groupID !== undefined) {
             return (
-                <ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback}/>
+                <GetStream newHeight = {newHeight} groupName = {groupName} userList = {userList} groupPicture = {groupPicture}/>
             );
         }
     }
 
     return (
         <div className = "groupComponent">
-            <div className = "centerSection" style ={{width: '85%', height: '800px'}}>
+            <div className = "centerSection" style ={{width: '85%', height: '100%'}}>
                 {/* {renderChat()} */}
 								<GetStream userID = {userID} username = {username} groupID = {groupID} groupName = {groupName}/>
             </div>

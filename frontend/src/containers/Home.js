@@ -18,8 +18,10 @@ export default function Home(props) {
 	const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setCoins] = useState(0);
     const [selectedGroupID, setSelectedGroupID] = useState(null);
+    const [selectedGroupPicture, setSelectedGroupPicture] = useState(null);
     const userID = props.userID;
-    const [profilePicture, setProfilePicture] = useState(null);
+
+
 
     const newHeight = props.newHeight;
     
@@ -58,22 +60,22 @@ export default function Home(props) {
 		// }, []);
 
     
-		const groupCallback = (group) => {
-            let newGroup = {
-                id: group._id,
-                groupName: group.groupName,
-                groupPicture: group.groupPicture ? Buffer.from(group.groupPicture).toString('base64') : null,
-            }
-			setGroups([...groups, newGroup]);
-		}
-
-        const leaveGroupCallback = (groupID) => {
-            let newGroups = groups.filter((group) => {
-                return group.id !== groupID;
-            });
-            setGroups(newGroups);
-            setSelectedGroupID(null);
+    const groupCallback = (group) => {
+        let newGroup = {
+            id: group._id,
+            groupName: group.groupName,
+            groupPicture: group.groupPicture ? Buffer.from(group.groupPicture).toString('base64') : null,
         }
+        setGroups([...groups, newGroup]);
+    }
+
+    const leaveGroupCallback = (groupID) => {
+        let newGroups = groups.filter((group) => {
+            return group.id !== groupID;
+        });
+        setGroups(newGroups);
+        setSelectedGroupID(null);
+    }
 
     const taskCallback = (task) => {
         setPrivateTasks([...privateTasks, task]);
@@ -81,62 +83,52 @@ export default function Home(props) {
 
     const setSelectedID = (groupID) => {
         setSelectedGroupID(groupID);
+
+        let groupPicture = groups.filter((group) => {
+            return group.id === groupID;
+        });
+
+        let groupPictureString = groupPicture[0].groupPicture;
+        setSelectedGroupPicture(groupPictureString);
+
     }
 
     const renderGroup = () => {
         if(selectedGroupID !== null) {
             return (
-                <GroupComponent groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight} />
+                <GroupComponent groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight} />
             );
         }
         else {
             return (
                 <>
                     <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
-                    <DisplayTasks userID={props.userID} privateTasks = {privateTasks} />
+                    <DisplayTasks userID={userID} privateTasks = {privateTasks} />
                 </>
             );
         }
     }
 
 
-    const loggedInPage = (
-        
-        <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
-            <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px'}}>
-                <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                    <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
-                    <CreateGroup userID = {props.userID} groupCallback = {groupCallback}/>
-                </div>
-            </div>
-            <div style = {{width: '100%'}}>
-                {/* <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
-                <DisplayTasks userID={props.userID} privateTasks = {privateTasks} /> */}
-                {/* <TaskModal ></TaskModal> */}
-                {renderGroup()}
-            </div>
-        </div>
-    );
-
-    const homePage = (
-        <div className="home" style ={{height: {newHeight}}}>
-            <div className="home__container">
-                    <div className="customContainer" style = {{backgroundColor: props.backgroundColor}}>
-                        <div style ={{float: 'left', width: '50%', marginTop: '10%', marginLeft: '10%'}}>
-                            <h1 className="h1" style ={{color: 'black', width: '25%'}}>Achieve Dreams!</h1>
-                            <h2 className="h2" style ={{color: 'black', width: '25%'}}>Please login to get started!</h2>
-                        </div>
-                        <div className="home__container__right" style ={{float: 'right', marginTop: '2%', marginRight: '2%'}}>
-                                <img src= {frontpage} alt="frontPicture" />
-                        </div>
-                </div>
-            </div>
-        </div>
-    );
+   
     return (
         <div>
-            {props.isLoggedIn ? loggedInPage : homePage}
+            <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
+                <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px'}}>
+                    <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
+                        <CreateGroup userID = {props.userID} groupCallback = {groupCallback}/>
+                    </div>
+                </div>
+                <div style = {{width: '100%'}}>
+                    {/* <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
+                    <DisplayTasks userID={props.userID} privateTasks = {privateTasks} /> */}
+                    {/* <TaskModal ></TaskModal> */}
+                    {renderGroup()}
+                </div>
+            </div>
         </div>
+
     );
 
 }

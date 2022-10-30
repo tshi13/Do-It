@@ -26,7 +26,7 @@ async function addTasks(groupID, data) {
     
     let updatedData = {
         groupID: groupID,
-        userID: "Group Task",
+        userID: data.userID,
         taskName: data.taskName,
         time: data.time,
         coinsEntered: data.coinsEntered
@@ -41,9 +41,14 @@ async function getGroup(groupID) {
     return res["data"];
 }
 
-async function searchGroup(groupName) {
-    let res = await axios.get('/searchGroup/' + groupName).then(data => data);
-    return res["data"];
+async function searchGroup(query, type) {
+    if(type === "name") {
+        let res = await axios.get('/searchGroup/' + query).then(data => data);
+        return res["data"];
+    } else if(type === "ID") {
+        let res = await axios.get('/searchGroupID/' + query).then(data => data);
+        return res["data"];
+    }
 }
 
 async function addToGroup(data) {
@@ -89,8 +94,8 @@ export default class groupDAO {
         return getGroup(groupID);
     }
 
-    static searchGroup(groupName) {
-        return searchGroup(groupName);
+    static searchGroup(query, type) {
+        return searchGroup(query, type);
     }
 
     static addToGroup(data) {
