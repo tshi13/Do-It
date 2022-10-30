@@ -10,6 +10,7 @@ import userDAO from "../utils/userDAO";
 import DisplayTasks from "../components/DisplayTasks";
 import TaskModalUser from "../components/TaskModalUser";
 import {Buffer} from 'buffer';
+import chatDAO from "../utils/chatDAO";
 
 
 export default function Home(props) {
@@ -47,6 +48,14 @@ export default function Home(props) {
                 }
             })
     }, []);
+
+		// useEffect(() => {
+		// 		const createChatUser = async() => {
+		// 			console.log("here111");
+		// 			await chatDAO.createUser(userID,props.username);
+		// 		}
+		// 		createChatUser();
+		// }, []);
 
     
 		const groupCallback = (group) => {

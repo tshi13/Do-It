@@ -77,7 +77,7 @@ export default function Chatbox2(props)  {
 		setupChat();		
 	},[groupName]);
 
-	console.log(channel);
+	// console.log(channel);
 	return (
     // actually rendering the chat since the user has been added to the
     // group already
