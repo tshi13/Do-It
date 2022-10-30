@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import groupDAO from '../utils/groupDAO';
-import userDAO from '../utils/userDAO';
+import groupDAO from '../../utils/groupDAO';
+import userDAO from '../../utils/userDAO';
 import Autocomplete from '@mui/material/Autocomplete';
 
-import '../styles/taskModal.css'; 
+import '../../styles/taskModal.css'; 
 
 export default function TaskModal(props) {
 

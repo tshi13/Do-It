@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import  '../styles/chatBoxv2.css';
-import gearIcon from '../assets/gear.ico';
+import  '../../styles/chatBoxv2.css';
+import gearIcon from '../../assets/gear.ico';
 import GroupModal from './GroupModal';
 
 export default function GroupSettings(props) {
