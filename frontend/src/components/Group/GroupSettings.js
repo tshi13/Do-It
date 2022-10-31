@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import  '../../styles/chatBoxv2.css';
 import gearIcon from '../../assets/gear.ico';
 import GroupModal from './GroupModal';
-
+import ConfirmBox from '../ConfirmBox';
 export default function GroupSettings(props) {
 
     const [showModal, setShowModal] = useState(false);

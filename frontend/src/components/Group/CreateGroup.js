@@ -27,7 +27,7 @@ export default function CreateGroup(props) {
                 <div>
                     <Modal.Body className = "scrollWrapper">
                         <span style = {{width: '100%'}}>
-                            <GroupModal userID = {userID} close = {handleCardClose()} groupCallback = {props.groupCallback} createGroup = "true" />
+                            <GroupModal userID = {userID} close = {handleCardClose} groupCallback = {props.groupCallback} createGroup = "true" />
                         </span>                     
                     </Modal.Body>
                 </div>
