@@ -1,4 +1,6 @@
 import axios from 'axios';
+import chatDAO from './chatDAO';
+
 
 axios.defaults.baseURL = 'http://localhost:5000';
 
@@ -9,6 +11,8 @@ async function getUser(data) {
 
 async function addUser(data) {
     let res = await axios.post('/createUser', data).then(data => data);
+		await chatDAO.createUser(res["data"]._id, res["data"].name);
+		console.log("chat created");
     return res["data"];
 }
 

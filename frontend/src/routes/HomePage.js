@@ -11,7 +11,6 @@ import DisplayTasks from "../components/DisplayTasks";
 import TaskModalUser from "../components/Task/TaskModalUser";
 import {Buffer} from 'buffer';
 
-
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
 	const [privateTasks, setPrivateTasks] = useState([]);
@@ -50,6 +49,14 @@ export default function Home(props) {
             })
     }, []);
 
+		// useEffect(() => {
+		// 		const createChatUser = async() => {
+		// 			console.log("here111");
+		// 			await chatDAO.createUser(userID,props.username);
+		// 		}
+		// 		createChatUser();
+		// }, []);
+
     
     const groupCallback = (group) => {
         let newGroup = {
@@ -81,7 +88,6 @@ export default function Home(props) {
 
         let groupPictureString = groupPicture[0].groupPicture;
         setSelectedGroupPicture(groupPictureString);
-
     }
 
     const renderGroup = () => {
@@ -100,12 +106,10 @@ export default function Home(props) {
         }
     }
 
-
-   
     return (
         <div>
             <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
-                <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px'}}>
+                <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px', height: newHeight}}>
                     <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
                         <CreateGroup userID = {props.userID} groupCallback = {groupCallback}/>

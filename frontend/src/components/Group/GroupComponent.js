@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ChatBox from "../ChatBox";
 import GroupTaskBar from "./GroupTaskBar";
 import groupDAO from '../../utils/groupDAO';
-import GetStream from '../GetStreamChat/GetStream';
+import GetStream2 from '../GetStreamChat/GetStream2';
 
 import '../../styles/groupComponent.css';
 import userDAO from '../../utils/userDAO';
@@ -13,6 +13,7 @@ export default function GroupComponent(props)  {
     const groupID = props.groupID;
     const userID = props.userID;
     const username = props.username;
+		console.log(username);
     const [tasks, setTasks] = useState([]);
     const [groupName, setGroupName] = useState("");
     const [inviteID, setInviteID] = useState("");
@@ -80,19 +81,22 @@ export default function GroupComponent(props)  {
 
    const renderChat = () => {
         {/*<ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback} userList = {userList}/>*/}
-        if(userID !== undefined && groupID !== undefined) {
+        if(userID && username && groupName && groupID) {
             return (
-                <GetStream newHeight = {newHeight} groupName = {groupName} userList = {userList} groupPicture = {groupPicture}/>
+                <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
             );
         }
     }
 
     return (
         <div className = "groupComponent">
-            <div className = "centerSection" style ={{width: '85%', height: '100%'}}>
-                {renderChat()}
+            <div className = "centerSection" style = {{width: '100%', height: newHeight}}>
+                {userID && username && groupName && groupID ? 
+                <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
+                : null}
+
             </div>
-            <div className = "rightSection" style ={{width: '20%', height: '100%'}}>
+            <div className = "rightSection" style = {{width: '20%',  height: newHeight}}>
                 {renderTasks()}
             </div>
         </div>

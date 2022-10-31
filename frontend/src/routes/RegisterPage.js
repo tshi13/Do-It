@@ -8,6 +8,7 @@ function RegisterForm(props) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState("");
   let user = props.user;
+  let isLoggedIn = props.isLoggedIn;
 
     // useEffect hook to redirect to home page after login
 
@@ -36,6 +37,7 @@ function RegisterForm(props) {
         userDAO.addUser(data)
           .then((res) => 
           {
+            setIsSubmitted(true);
             props.setUser(data.name, res._id );
             window.location.href = "/";
           })
@@ -80,7 +82,9 @@ function RegisterForm(props) {
     <div className="app">
       <div className="login-form">
         <div className="title">Registration </div>
-        {isSubmitted ? <div>Register successfully<br></br> <p>Redirecting to Main Page</p></div> : renderForm}
+        {!isSubmitted && !isLoggedIn ? renderForm : null}
+        {isLoggedIn && <div>Login Successful</div>}
+
       </div>
     </div>
   );

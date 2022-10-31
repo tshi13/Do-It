@@ -62,7 +62,7 @@ export const Navigation = (props) => {
 					<div id = "searchDropDown" className="searchButton" style ={{position: 'absolute', display: 'none', zIndex: '10', width: '20%'}}>
 						<button className="form-control me-2" type="submit" onClick={e => {handleSubmit(e, "name")}}>Search by Name</button>
 						<Dropdown.Divider />
-						<button className="form-control me-2" type="submit" onClick={e => {handleSubmit(e, "ID")}}>Search by ID</button>
+						<button className="form-control me-2" type="submit" onClick={e => {handleSubmit(e, "ID")}}>Search by Invite Code</button>
 					</div>
 			</div>
 

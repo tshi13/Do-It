@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import groupDAO from '../utils/groupDAO';
-import InviteGroupCard from '../components/InviteGroupCard';
 import '../styles/IntroPage.css';
+import AnimatedGroupCard from '../components/AnimatedGroupCard';
 
 
 export default function InvitePage(props) {
@@ -37,7 +37,7 @@ export default function InvitePage(props) {
                 {
                 inviteID ? 
                 <div> 
-                    {group.length !== 0 ? <InviteGroupCard item = {group} userID={userID}  /> : <h2>Group not found</h2>}
+                    {group.length !== 0 ? <AnimatedGroupCard style = {{width: '500px', height: '500px'}} item = {group} userID={userID}  /> : <h2>Group not found</h2>}
                 </div>
                 : <div>
                     <h2>{error}</h2>

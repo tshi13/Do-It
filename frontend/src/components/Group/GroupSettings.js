@@ -6,12 +6,18 @@ import GroupModal from './GroupModal';
 export default function GroupSettings(props) {
 
     const [showModal, setShowModal] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
+
 
     const toggleLogoutModal = () => {
-        let leave = window.confirm("Are you sure you want to leave this group?");
-        if(leave) {
-            props.leaveGroup();
-        }
+        setShowModal(!showModal);
+        setShowConfirm(!showConfirm);
+    }
+
+    const handleLogout = () => {
+        setShowModal(!showModal);
+        setShowConfirm(!showConfirm);
+        props.leaveGroup();
     }
     
     return (
@@ -24,7 +30,9 @@ export default function GroupSettings(props) {
                 <button onClick = {() => {props.setShow(true)}}>Create Task</button>
                 <button onClick = {() => {toggleLogoutModal()}}>Leave Group</button>
             </div>
-
+            <div>
+                <ConfirmBox title = "Leave Group" message = "Are you sure you want to leave this group?" onConfirm = {() => {handleLogout()}} onCancel = {() => {setShowConfirm(false)}} show = {showConfirm}/>
+            </div>
         </div>
     )
 
