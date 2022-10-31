@@ -49,13 +49,7 @@ export default function Home(props) {
             })
     }, []);
 
-		// useEffect(() => {
-		// 		const createChatUser = async() => {
-		// 			console.log("here111");
-		// 			await chatDAO.createUser(userID,props.username);
-		// 		}
-		// 		createChatUser();
-		// }, []);
+		
 
     
     const groupCallback = (group) => {

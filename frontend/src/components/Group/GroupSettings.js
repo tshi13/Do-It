@@ -26,7 +26,7 @@ export default function GroupSettings(props) {
                 <img src={gearIcon} className = "imgAsButton" alt="gearIcon" onClick ={() => setShowModal(!showModal)} />
             </div>
             <div className="dropdown-content" style = {{display: showModal ? 'flex' : 'none', flexDirection: 'column'}}>
-                <button onClick = {() => {console.log("settings")}}>Settings</button>
+                <button onClick = {() => {}}>Settings</button>
                 <button onClick = {() => {props.setShow(true)}}>Create Task</button>
                 <button onClick = {() => {toggleLogoutModal()}}>Leave Group</button>
             </div>
