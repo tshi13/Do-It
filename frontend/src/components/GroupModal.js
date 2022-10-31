@@ -33,7 +33,7 @@ export default function GroupModal(props) {
   const handleSubmit = () => {
     // preventDefault();
     // const { user, setUser, userID} = useUser();
-
+		let groupID;
     // checks if the user inputs are valid and exist
     if(createGroup) {
       if(groupName === "") {
@@ -56,10 +56,27 @@ export default function GroupModal(props) {
           password: pass,
           inviteID: generateRandomInviteCode(10),
         }
-        groupDAO.createGroup(group).then((group) => {
-          props.groupCallback({_id: group._id, groupName: group.groupName, groupPicture: image, idList: group.idList, taskIDList: group.taskIDList, typeOfGroup: group.typeOfGroup, owner: group.owner, costToJoin: group.costToJoin, password: group.password, inviteID: group.inviteID});
-        });
-        chatDAO.createChannel(group.owner, sessionStorage.getItem("user"), group._id, group.groupName);
+        groupDAO.createGroup(group)
+					.then((group) => {
+						console.log(group);
+						props.groupCallback(
+							{_id: group._id,
+							 groupName: group.groupName,
+							 groupPicture: image,
+							 idList: group.idList, 
+							 taskIDList: group.taskIDList, 
+							 typeOfGroup: group.typeOfGroup, 
+							 owner: group.owner, 
+							 costToJoin: group.costToJoin, 
+							 password: group.password, 
+							 inviteID: group.inviteID});
+						groupID = group._id;
+						return group.groupName;
+					})
+					.then((name) => {
+						console.log("name is" + name);
+						chatDAO.createChannel(group.owner, sessionStorage.getItem("user"), groupID, name);
+					})
         props.close();
       }
     } else {

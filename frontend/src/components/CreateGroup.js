@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
 import GroupModal from './GroupModal';
 import "../styles/GroupList.css"
-import chatDAO from "../utils/chatDAO";
 
 export default class CreateGroup extends Component {
     constructor(props) {

@@ -10,8 +10,6 @@ import userDAO from "../utils/userDAO";
 import DisplayTasks from "../components/DisplayTasks";
 import TaskModalUser from "../components/TaskModalUser";
 import {Buffer} from 'buffer';
-import chatDAO from "../utils/chatDAO";
-
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
