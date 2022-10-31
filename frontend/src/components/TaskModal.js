@@ -56,9 +56,9 @@ export default function TaskModal(props) {
         alert("Please enter a valid number for time and coins");
       } else {
         // add task to database
-        userDAO.getUserData(userID).then((res) => {
-          if(res) {
-            if(res.coins < coinsEnteredInt) {
+        userDAO.getUserData(userID).then((userRes) => {
+          if(userRes) {
+            if(userRes.coins < coinsEnteredInt) {
               alert("You do not have enough coins to enter this task");
             } else {
               let data = {
@@ -71,7 +71,7 @@ export default function TaskModal(props) {
                 if(res) {
                   props.taskCallback({_id: res._id, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt, userID: TaskForUser, completed: false, completedList: [], groupID: groupID, userList: userList});
                   setShow(false);
-                  userDAO.updateUser(userID, {coins: res.coins - coinsEnteredInt});
+                  userDAO.updateUser(userID, {coins: userRes.coins - coinsEnteredInt});
                   setType("group");       
                 }
               });
