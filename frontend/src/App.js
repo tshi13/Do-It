@@ -7,7 +7,7 @@ import useUser from './utils/useUser';
 import SearchGroup from './containers/searchGroupPage';
 import Profile from './containers/Profile';
 import InvitePage from './containers/InvitePage';
-import IntroPage from './components/IntroPage';
+import IntroPage from './containers/IntroPage';
 import RegisterForm from './components/RegisterForm';
 import NotFound from './components/NotFound';
 
