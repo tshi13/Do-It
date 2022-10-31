@@ -59,20 +59,22 @@ export default function Chatbox(props)  {
 			},
 			chatClient.devToken("global_moderator108438945109697465891073291325065231"), //use devtoken as usertoken for now
 		);
+		// chatDAO.createChannel(userID, username, groupID, groupName);
+		// chatDAO.moderatorAddUser(userID, username, groupID, groupName);
 				
 		// getting the group
-			let tempChannel = await chatClient.channel('messaging', groupID, {  //make channel
-				// add as many custom fields as you'd like
-				image: 'https://www.drupal.org/files/project-images/react.png',
-				name: groupName
-			});
+			// let tempChannel = await chatClient.channel('messaging', groupID, {  //make channel
+			// 	// add as many custom fields as you'd like
+			// 	image: 'https://www.drupal.org/files/project-images/react.png',
+			// 	name: groupName
+			// });
 
 			
 			// using the global_moderator logged in to create or recreate the channel
 			// and add the userID to become a member of the group 
-			await tempChannel.create(); // create channel
-			await tempChannel.addMembers([{user_id:userID}],{ text: `${username} joined the channel.` }); // add someone to channel
-			setChannel(tempChannel);
+			// await tempChannel.create(); // create channel
+			// await tempChannel.addMembers([{user_id:userID}],{ text: `${username} joined the channel.` }); // add someone to channel
+			// setChannel(tempChannel);
 			console.log("chat setup completed 1");
 			console.log(groupName, username);
 

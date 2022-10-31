@@ -7,10 +7,12 @@ import userDAO from '../utils/userDAO';
 import PromptBox from '../components/PromptBox';
 import ConfirmBox from './ConfirmBox';
 import MessageBox from './MessageBox';
+import chatDAO from '../utils/chatDAO';
+
 
 
 export default function SearchGroupCard(props) {
-  const { item, userID } = props;
+  const { item, userID, username, groupID, groupName } = props;
   const groupPicture = item.groupPicture ? Buffer.from(item.groupPicture).toString('base64'): null;
   const [groupTypeText, setgroupTypeText] = useState("");
   const [groupStatus, setGroupStatus] = useState("");
@@ -53,6 +55,8 @@ export default function SearchGroupCard(props) {
     }
     if(groupType == "public") {
       groupDao.addToGroup(data);
+      console.log(item);
+      chatDAO.moderatorAddUser(userID, sessionStorage.getItem("user"), item._id, item.groupName);
       setJoined(true);
     } else 
     if(groupType == "cost") {
