@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import ChatBox from "../ChatBox";
 import GroupTaskBar from "./GroupTaskBar";
 import groupDAO from '../../utils/groupDAO';
-import GetStream from '../GetStreamChat/GetStream';
+import GetStream2 from '../GetStreamChat/GetStream2';
 
 import '../../styles/groupComponent.css';
 import userDAO from '../../utils/userDAO';
@@ -83,7 +83,7 @@ export default function GroupComponent(props)  {
         {/*<ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback} userList = {userList}/>*/}
         if(userID && username && groupName && groupID) {
             return (
-                <GetStream userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
+                <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
             );
         }
     }
@@ -92,7 +92,7 @@ export default function GroupComponent(props)  {
         <div className = "groupComponent">
             <div className = "centerSection" style ={{width: '80%', height: '800px'}}>
                 {userID && username && groupName && groupID ? 
-                <GetStream userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
+                <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
                 : null}
 
             </div>
