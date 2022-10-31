@@ -53,6 +53,7 @@ function App() {
               <Route path="/profile" element={<Profile userID={userID} />} />
               <Route path="/invite/*" element={<InvitePage userID={userID} />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/register" element={<RegisterForm  user = {user} setUser = {setUser} />} />
             </Routes>
           </BrowserRouter>
         </div>
