@@ -118,6 +118,7 @@ Here are major frameworks/libraries we used to build our project.
 * [![MongoDB][MongoDB.com]][MongoDB-url]
 * [![MaterialUI][mui.com]][mui-url]
 * [![Axios][axios-http.com]][axios-http-url]
+* [![getstream][getstream-http.com]][getstream-http-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -129,13 +130,13 @@ Here are major frameworks/libraries we used to build our project.
 
 ### Installation
 
-1. Navigate to the ```server``` folder and run ```npm i``` to install all dependencies. 
+1. Navigate to the ```server``` folder and run ```npm i -- force``` to install all dependencies. 
 
 2. Next run the following code to start the server
 ```sh
 node index.js
 ```
-3. Navigate to the ```frontend``` folder and run ```npm i``` to install all dependencies. 
+3. Navigate to the ```frontend``` folder and run ```npm i -- force``` to install all dependencies. 
    
 4. Run the following code to start the frontend
   ```sh
@@ -221,6 +222,10 @@ _For more examples and documentation, please refer to the [doc folder in this re
 - [x] Private task cards will render for the user on their homepage in a grid with a better looking frontend
 - [x] Search bar works to display searched group and has button to join
 - [x] "Create Group" button on homepage to create new group
+
+### Iteration 3
+
+#### Iteration 3 User Stories Completed (original)
 
 Please see the [Team DoIt Project Backlog](https://github.com/orgs/jhu-oose-f22/projects/8/views/1) for a full list of user stories for current and upcoming iterations.
 
@@ -319,4 +324,7 @@ We are thankful for these resources which have helped us on our development jour
 [mui-url]: https://mui.com
 [axios-http.com]: https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white
 [axios-http-url]: https://axios-http.com/docs/intro
+[getstream-http.com]: https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white
+[getstream-http-url]: https://getstream.io/
+
 
