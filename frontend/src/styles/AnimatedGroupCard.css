@@ -33,25 +33,26 @@
   right: 0;
   z-index: 1;      
   background-color: var(--surface-color);      
-  transform: translateY(100%);
+  //transform: translateY(100%);
   transition: .2s ease-in-out;
 }
 
 .card:hover .card__overlay {
-  transform: translateY(0);
-  border-radius: calc(var(--curve) * 1px) 0 0 0;    
+  //transform: translateY(0);
+  //border-radius: calc(var(--curve) * 1px) 0 0 0;    
 }
+
 
 .card__header {
   position: relative;
   display: flex;
   gap: 2em;
-  padding: 2em;
   border-radius: calc(var(--curve) * 1px) 0 0 0;    
   background-color: var(--surface-color);
-  transform: translateY(-100%);
+  //transform: translateY(-100%);
   transition: .2s ease-in-out;
-  justify-content: center;
+  //justify-content: center;
+  margin-left: 10px;
 }
 
 .card__arc {
@@ -69,7 +70,7 @@
 }       
 
 .card:hover .card__header {
-  transform: translateY(0);
+  //transform: translateY(0);
 }
 
 .card__thumb {

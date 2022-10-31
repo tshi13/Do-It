@@ -10,7 +10,6 @@ import MessageBox from './MessageBox';
 import chatDAO from '../utils/chatDAO';
 
 
-
 export default function AnimatedGroupCard(props) {
   const { item, userID, username, groupID, groupName } = props;
   const groupPicture = item.groupPicture ? Buffer.from(item.groupPicture).toString('base64'): null;
@@ -57,7 +56,6 @@ export default function AnimatedGroupCard(props) {
     }
     if(groupType == "public") {
       groupDao.addToGroup(data);
-      console.log(item);
       chatDAO.moderatorAddUser(userID, sessionStorage.getItem("user"), item._id, item.groupName);
       setJoined(true);
     } else 
@@ -65,6 +63,7 @@ export default function AnimatedGroupCard(props) {
       userDAO.getUserData(userID).then((res) => {
         if(res.coins >= item.costToJoin) {
           groupDao.addToGroup(data);
+          chatDAO.moderatorAddUser(userID, sessionStorage.getItem("user"), item._id, item.groupName);
           setJoined(true);
         } else {
           setTitle("Insufficient Funds");
@@ -75,6 +74,7 @@ export default function AnimatedGroupCard(props) {
     } else if(groupType == "password") {
       if(input == item.password) {
         groupDao.addToGroup(data);
+        chatDAO.moderatorAddUser(userID, sessionStorage.getItem("user"), item._id, item.groupName);
         setJoined(true);
       } else {
         setMessage("Incorrect Password");

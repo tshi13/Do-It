@@ -105,7 +105,6 @@ export default class groupDAO {
     static leaveGroup(groupID, userID) {
         return leaveGroup(groupID, userID);
     }
-
 }
 
 
