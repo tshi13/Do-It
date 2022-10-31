@@ -16,6 +16,7 @@ export default function Chatbox2(props)  {
 	const [channelName, setChannelName] = useState();
 	const {userID,username,groupID,groupName} = props;
 	const [flag, setFlag] = useState(false);
+	const newHeight = props.newHeight;
 
 	useEffect(()=> {
 		const setupChat = async() => {
@@ -53,16 +54,19 @@ export default function Chatbox2(props)  {
 		return (
     // actually rendering the chat since the user has been added to the
     // group already
-		<Chat client={chatClient} theme='str-chat__theme-light'>
-      <Channel channel={channel}>
-        <Window>
-          <ChannelHeader />
-          <MessageList />
-          <MessageInput />
-        </Window>
-        <Thread />
-      </Channel>
-    </Chat>
+	<div className="chatbox2" style={{height: newHeight}}>
+	
+			<Chat client={chatClient} theme='str-chat__theme-light'>
+		<Channel channel={channel}>
+			<Window>
+			<ChannelHeader />
+			<MessageList />
+			<MessageInput />
+			</Window>
+			<Thread />
+		</Channel>
+		</Chat>
+	</div>
 	);
 	}
 	
