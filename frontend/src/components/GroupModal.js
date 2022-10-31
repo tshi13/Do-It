@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Database from '../utils/database';
 import groupDAO from '../utils/groupDAO';
 import ProfileImage from './imageEditor';
+import chatDAO from "../utils/chatDAO";
+import useUser from "../utils/useUser";
 
 import '../styles/groupModal.css';
 
@@ -30,6 +32,7 @@ export default function GroupModal(props) {
 
   const handleSubmit = () => {
     // preventDefault();
+    // const { user, setUser, userID} = useUser();
 
     // checks if the user inputs are valid and exist
     if(createGroup) {
@@ -56,6 +59,7 @@ export default function GroupModal(props) {
         groupDAO.createGroup(group).then((group) => {
           props.groupCallback({_id: group._id, groupName: group.groupName, groupPicture: image, idList: group.idList, taskIDList: group.taskIDList, typeOfGroup: group.typeOfGroup, owner: group.owner, costToJoin: group.costToJoin, password: group.password, inviteID: group.inviteID});
         });
+        chatDAO.createChannel(group.owner, sessionStorage.getItem("user"), group._id, group.groupName);
         props.close();
       }
     } else {
