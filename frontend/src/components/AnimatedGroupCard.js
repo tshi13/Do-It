@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import groupDao from "../utils/groupDAO";
-import '../styles/searchGroupCard.css';
+import '../styles/AnimatedGroupCard.css';
 import {Buffer} from 'buffer';
 import userDAO from '../utils/userDAO';
 import PromptBox from './PromptBox';
