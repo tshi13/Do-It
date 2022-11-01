@@ -25,10 +25,12 @@ export const Navigation = (props) => {
 				catch (err) {
 					
 				}
-				setCoins(res.coins)
 			});
+			setCoins(props.coins);
 		}
-	}, [props.username, props.userID]);
+	}, [props.username, props.userID, props.coins]);
+
+
 	
 	function logOut(e) {
 		e.preventDefault();
@@ -73,7 +75,7 @@ export const Navigation = (props) => {
 				}</button>
 				<div className="dropdown-content">
 				<p>{props.isLoggedIn ? "Username: "  + username : "Guest"}</p>
-				<p>{props.isLoggedIn ? "Coins: " + coins : ""}</p>
+				<p>{props.isLoggedIn ? "Coins: " + props.coins : ""}</p>
 				<div className="dividerCustom"></div>
 				 <a href="/profile">Profile</a>
 				 <a href="/settings">Settings</a>
