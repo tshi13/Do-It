@@ -247,7 +247,12 @@ _For more examples and documentation, please refer to the [doc folder in this re
 - [x] As a user, I want to be able to have a separate chat when I create group or join group
 - [x] As a user, a random invitation code will be generate when I try to create a group and my friend can use that code to join the group as well.
 - [x] As a user, we hope to have the option of a group invitation code for joining groups so that friends can join the group through invitation code.
-- [x] As a user, I want to be able to interact with task cards so that coin values can be redeemed upon task completion and checkboxes for “Task Done” can be selected by users
+- [x] As a user, I want to set my profile picture (with scaling and rotating image options) so that other users can identify me easily
+- [x] As a user, I want to set the picture of the group so that the group is easily identifiable in the sidebar of groups
+- [x] As a user, I want to be able to create private groups that are password-protected so that only my friends who know the password can join
+- [x] As a user, I want to be able to create private groups that are cost-protected, meaning only users with above a certain threshold of coins can join, so that I can form a group with experienced members with more coins
+- [x] As a user, I want to be able to leave a group so that I am not in the group anymore
+- [x] As a user, I want to be able to interact with task cards so that coin values can be redeemed upon task completion and checkboxes for “Task Done” or "Submit" can be selected by users
 - [x] Refactor all class components into function components
 
 Please see the [Team DoIt Project Backlog](https://github.com/orgs/jhu-oose-f22/projects/8/views/1) for a full list of user stories for current and upcoming iterations.
