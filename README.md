@@ -173,6 +173,16 @@ This section shows how to use the DoIt web app. How-to instructions, screenshots
 1. If you are currently viewing a group and want to return to the home view, please press the "Close Chat" button on the left sidebar. Your personal tasks will appear again, and you can press the blue plus button to add more personal tasks for yourself (unrelated to any group).
 ![Personal Tasks Page](https://i.imgur.com/TKdJ8bR.png)
 
+### Iteration 3 - Usage
+1. After logging in and registering, you can see a create group botton on the left bottom.
+2. As user create a new group, the chat will automatically create. In the chat, you will see the chat history for the group and notification when a new member join the chat. At the same time, user can also send the image to the chat and share progress of the task![Chat Page](https://i.imgur.com/MbGas4W.png)
+3. Also, when user create a new group, the invitation code will generate on the right top side of the page. ![invitation code](https://i.imgur.com/d1VV0MT.png)
+User can click "COPY INVITE LINK TO CLIPBOARD" to copy the invitation code.
+![search invitation code](https://i.imgur.com/uXfndq2.png)
+And user's friends can put the invitation code to the search bar on the top and join the group.
+4. when user create a group task, the task card show the percentage of the group member that complete the task. And when a user in the group complete the task, they can click submit and the progress bar will change automatically.
+![Task Progress Bar](https://i.imgur.com/pikMb4O.png)
+
 
 _For more examples and documentation, please refer to the [doc folder in this repo](https://github.com/jhu-oose-f22/team-doit-project-repo/tree/main/doc) which contains the SRS and the UML diagram._
 
@@ -226,6 +236,19 @@ _For more examples and documentation, please refer to the [doc folder in this re
 ### Iteration 3
 
 #### Iteration 3 User Stories Completed (original)
+- [x] As a user, I want to be able to create or join private groups with my friends so we can have fun while holding each other accountable for the tasks
+- [x] As a user, I want to be able to send messages and post pictures in the group chat so I can talk with my friends and verify I have completed tasks
+- [x] As a user, I want to be able to invite a user to a group so they can join the group using the invite
+
+#### Iteration 3 User Stories Completed (more specific)
+- [x] As a user, I want to be able to send messages to others in the group chat so that we can discuss each others' progress
+- [x] As a user, I want to be able to see chat history when I log in so that we can see what happened
+- [x] As a user, I want to be able to upload pictures to group chat so that we can share progress
+- [x] As a user, I want to be able to have a separate chat when I create group or join group
+- [x] As a user, a random invitation code will be generate when I try to create a group and my friend can use that code to join the group as well.
+- [x] As a user, we hope to have the option of a group invitation code for joining groups so that friends can join the group through invitation code.
+- [x] As a user, I want to be able to interact with task cards so that coin values can be redeemed upon task completion and checkboxes for “Task Done” can be selected by users
+- [x] Refactor all class components into function components
 
 Please see the [Team DoIt Project Backlog](https://github.com/orgs/jhu-oose-f22/projects/8/views/1) for a full list of user stories for current and upcoming iterations.
 
