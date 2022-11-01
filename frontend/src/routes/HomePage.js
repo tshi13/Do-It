@@ -71,6 +71,7 @@ export default function Home(props) {
 
     const taskCallback = (task) => {
         setPrivateTasks([...privateTasks, task]);
+        props.setNavCoins(sessionStorage.getItem("coins"));
     }
 
     const setSelectedID = (groupID) => {
@@ -87,7 +88,7 @@ export default function Home(props) {
     const renderGroup = () => {
         if(selectedGroupID !== null) {
             return (
-                <GroupComponent groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight} />
+                <GroupComponent groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight}  setNavCoins={props.setNavCoins}/>
             );
         }
         else {

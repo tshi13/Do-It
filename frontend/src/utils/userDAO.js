@@ -12,7 +12,6 @@ async function getUser(data) {
 async function addUser(data) {
     let res = await axios.post('/createUser', data).then(data => data);
 		await chatDAO.createUser(res["data"]._id, res["data"].name);
-		console.log("chat created");
     return res["data"];
 }
 

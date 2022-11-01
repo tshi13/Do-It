@@ -68,6 +68,7 @@ export default function GroupComponent(props)  {
     }
 
     const taskCallback = (newTask) => {
+        props.setNavCoins(sessionStorage.getItem("coins"));
         setTasks([...tasks, newTask]);
     }
 

@@ -20,6 +20,7 @@ export default function useUser() {
   const saveUser = (userUser, userUserID) => {
     sessionStorage.setItem("user", JSON.stringify(userUser));
     sessionStorage.setItem("userID", JSON.stringify(userUserID));
+    sessionStorage.setItem("coins", 6);
     setUser(userUser);
     if (userUser === "") {
       sessionStorage.removeItem("user");
