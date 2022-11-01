@@ -174,13 +174,13 @@ This section shows how to use the DoIt web app. How-to instructions, screenshots
 ![Personal Tasks Page](https://i.imgur.com/TKdJ8bR.png)
 
 ### Iteration 3 - Usage
-1. After logging in and registering, you can see a create group botton on the left bottom.
-2. As user create a new group, the chat will automatically create. In the chat, you will see the chat history for the group and notification when a new member join the chat. At the same time, user can also send the image to the chat and share progress of the task![Chat Page](https://i.imgur.com/MbGas4W.png)
-3. Also, when user create a new group, the invitation code will generate on the right top side of the page. ![invitation code](https://i.imgur.com/d1VV0MT.png)
+1. After logging in and registering, you can see a create group botton on the bottom left.
+2. As a user creates a new group, the chat will automatically create. In the chat, you will see the chat history for the group and you will receive notifications when a new member join the chat. At the same time, users can also send images to the chat and share progress of the task![Chat Page](https://i.imgur.com/MbGas4W.png)
+3. Also, when users create a new group, the invitation code will generate on the top right side of the page. ![invitation code](https://i.imgur.com/d1VV0MT.png)
 User can click "COPY INVITE LINK TO CLIPBOARD" to copy the invitation code.
 ![search invitation code](https://i.imgur.com/uXfndq2.png)
-And user's friends can put the invitation code to the search bar on the top and join the group.
-4. when user create a group task, the task card show the percentage of the group member that complete the task. And when a user in the group complete the task, they can click submit and the progress bar will change automatically.
+And a user's friends can put the invitation code into the search bar on the top and join the group.
+4. When a user creates a group task, the task card shows the percentage of group members that have completed the task. And when a user in the group completes the task, they can click submit and the progress bar will change automatically.
 ![Task Progress Bar](https://i.imgur.com/pikMb4O.png)
 
 
