@@ -130,13 +130,13 @@ Here are major frameworks/libraries we used to build our project.
 
 ### Installation
 
-1. Navigate to the ```server``` folder and run ```npm i -- force``` to install all dependencies. 
+1. Navigate to the ```server``` folder and run ```npm i --force``` to install all dependencies. 
 
 2. Next run the following code to start the server
 ```sh
 node index.js
 ```
-3. Navigate to the ```frontend``` folder and run ```npm i -- force``` to install all dependencies. 
+3. Navigate to the ```frontend``` folder and run ```npm i --force``` to install all dependencies. 
    
 4. Run the following code to start the frontend
   ```sh
