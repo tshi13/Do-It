@@ -72,6 +72,8 @@ In addition to CRUD functionality, the DoIt web application will include user in
 
 Specifically, we used MaterialUI to style the front end, and we used Axios in our DAOs (Data Access Objects) to communicate with the database backend. Lastly, for the chat, we used the Stream API to include a functional and quality chat in the app.
 
+GetStream acts a self-contained application with its own database, meaning that it is modularized and separate from the rest of our program. GetStream has its own database which stores all users, groups, and chat messages. MongoDB also stores users and groups, but not chat messages. This point is relevant for our software architecture because our application simulataneously maintains identical records in MongoDB and the GetStream database for users and groups (similar to a foreign key linked across two tables), so that the correct chat messages can be retrieved and rendered for any group in MongoDB.
+
 ### Built With
 
 Here are major frameworks/libraries we used to build our project.
