@@ -1,13 +1,11 @@
 import { Divider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Database from '../utils/database';
-import groupDAO from '../utils/groupDAO';
-import ProfileImage from './imageEditor';
-import chatDAO from "../utils/chatDAO";
-import useUser from "../utils/useUser";
-
-import '../styles/groupModal.css';
+import Database from '../../utils/database';
+import groupDAO from '../../utils/groupDAO';
+import ProfileImage from '../imageEditor';
+import chatDAO from '../../utils/chatDAO';
+import '../../styles/groupModal.css';
 
 export default function GroupModal(props) {
 
@@ -58,7 +56,7 @@ export default function GroupModal(props) {
         }
         groupDAO.createGroup(group)
 					.then((group) => {
-						console.log(group);
+            
 						props.groupCallback(
 							{_id: group._id,
 							 groupName: group.groupName,
@@ -74,7 +72,7 @@ export default function GroupModal(props) {
 						return group.groupName;
 					})
 					.then((name) => {
-						console.log("name is" + name);
+            
 						chatDAO.createChannel(group.owner, sessionStorage.getItem("user"), groupID, name);
 					})
         props.close();

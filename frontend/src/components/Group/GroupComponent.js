@@ -13,7 +13,6 @@ export default function GroupComponent(props)  {
     const groupID = props.groupID;
     const userID = props.userID;
     const username = props.username;
-		console.log(username);
     const [tasks, setTasks] = useState([]);
     const [groupName, setGroupName] = useState("");
     const [inviteID, setInviteID] = useState("");

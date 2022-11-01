@@ -41,8 +41,7 @@ export default function Chatbox2(props)  {
 			// await tempChannel.addMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' }); // add someone to channel
 			setChannel(tempChannel);
 			setFlag(true);
-			console.log("chat setup completed");
-			console.log(groupName, username);
+			
 		}
 		
 			setupChat();		

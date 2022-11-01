@@ -1,15 +1,16 @@
-import {Navigation} from './components/Navigation';
 import './App.css';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import Home from './containers/Home';
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import useUser from './utils/useUser';
-import SearchGroup from './containers/searchGroupPage';
-import Profile from './containers/Profile';
-import InvitePage from './containers/InvitePage';
-import IntroPage from './containers/IntroPage';
-import RegisterForm from './components/RegisterForm';
-import NotFound from './components/NotFound';
+import {Navigation} from './layouts/Navigation';
+import Home from './routes/HomePage';
+import SearchGroup from './routes/searchGroupPage';
+import Profile from './routes/ProfilePage';
+import InvitePage from './routes/InvitePage';
+import IntroPage from './routes/IntroPage';
+import RegisterForm from './routes/RegisterPage';
+import NotFound from './routes/NotFoundPage';
+
 
 function useWindowSize() {
   const [size, setSize] = useState([0, 0]);

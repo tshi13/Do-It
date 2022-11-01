@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import userDAO from '../utils/userDAO';
+import userDAO from '../../utils/userDAO';
 
-import '../styles/taskModal.css';
+import '../../styles/taskModal.css';
 
 export default function TaskModalUser(props) {
 

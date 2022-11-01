@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import MessageChat from './MessageChat';
-import TaskModal from "../components/TaskModal";
-import GroupSettings from './GroupSettings';
+import TaskModal from "./Task/TaskModal";
+import GroupSettings from './Group/GroupSettings';
 
 
 import  '../styles/chatBoxv2.css';

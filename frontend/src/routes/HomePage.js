@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import '../styles/Home.css';
 import frontpage from ".././assets/frontpage.png";
-import CreateGroup from "../components/CreateGroup";
-import GroupComponent from "../components/GroupClasses/GroupComponent";
-import GroupList from "../components/GroupClasses/GroupList";
+import CreateGroup from "../components/Group/CreateGroup";
+import GroupComponent from "../components/Group/GroupComponent";
+import GroupList from "../components/Group/GroupList";
 import groupDAO from '../utils/groupDAO';
 import taskDAO from "../utils/taskDAO";
 import userDAO from "../utils/userDAO";
 import DisplayTasks from "../components/DisplayTasks";
-import TaskModalUser from "../components/TaskModalUser";
+import TaskModalUser from "../components/Task/TaskModalUser";
 import {Buffer} from 'buffer';
 
 export default function Home(props) {
@@ -49,13 +49,7 @@ export default function Home(props) {
             })
     }, []);
 
-		// useEffect(() => {
-		// 		const createChatUser = async() => {
-		// 			console.log("here111");
-		// 			await chatDAO.createUser(userID,props.username);
-		// 		}
-		// 		createChatUser();
-		// }, []);
+		
 
     
     const groupCallback = (group) => {

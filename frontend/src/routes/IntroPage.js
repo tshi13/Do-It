@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import RegisterForm from '../components/RegisterForm';
+import RegisterForm from './RegisterPage';
 import LoginForm from '../components/LoginForm';
 
 import '../styles/IntroPage.css';
