@@ -118,6 +118,7 @@ Here are major frameworks/libraries we used to build our project.
 * [![MongoDB][MongoDB.com]][MongoDB-url]
 * [![MaterialUI][mui.com]][mui-url]
 * [![Axios][axios-http.com]][axios-http-url]
+* [![getstream][getstream-http.com]][getstream-http-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -129,13 +130,13 @@ Here are major frameworks/libraries we used to build our project.
 
 ### Installation
 
-1. Navigate to the ```server``` folder and run ```npm i``` to install all dependencies. 
+1. Navigate to the ```server``` folder and run ```npm i -- force``` to install all dependencies. 
 
 2. Next run the following code to start the server
 ```sh
 node index.js
 ```
-3. Navigate to the ```frontend``` folder and run ```npm i``` to install all dependencies. 
+3. Navigate to the ```frontend``` folder and run ```npm i -- force``` to install all dependencies. 
    
 4. Run the following code to start the frontend
   ```sh
@@ -171,6 +172,16 @@ This section shows how to use the DoIt web app. How-to instructions, screenshots
 ![Adding Group Task Page](https://i.imgur.com/oAjYF5x.png)
 1. If you are currently viewing a group and want to return to the home view, please press the "Close Chat" button on the left sidebar. Your personal tasks will appear again, and you can press the blue plus button to add more personal tasks for yourself (unrelated to any group).
 ![Personal Tasks Page](https://i.imgur.com/TKdJ8bR.png)
+
+### Iteration 3 - Usage
+1. After logging in and registering, you can see a create group botton on the bottom left.
+2. As a user creates a new group, the chat will automatically create. In the chat, you will see the chat history for the group and you will receive notifications when a new member join the chat. At the same time, users can also send images to the chat and share progress of the task![Chat Page](https://i.imgur.com/MbGas4W.png)
+3. Also, when users create a new group, the invitation code will generate on the top right side of the page. ![invitation code](https://i.imgur.com/d1VV0MT.png)
+User can click "COPY INVITE LINK TO CLIPBOARD" to copy the invitation code.
+![search invitation code](https://i.imgur.com/uXfndq2.png)
+And a user's friends can put the invitation code into the search bar on the top and join the group.
+4. When a user creates a group task, the task card shows the percentage of group members that have completed the task. And when a user in the group completes the task, they can click submit and the progress bar will change automatically.
+![Task Progress Bar](https://i.imgur.com/pikMb4O.png)
 
 
 _For more examples and documentation, please refer to the [doc folder in this repo](https://github.com/jhu-oose-f22/team-doit-project-repo/tree/main/doc) which contains the SRS and the UML diagram._
@@ -221,6 +232,23 @@ _For more examples and documentation, please refer to the [doc folder in this re
 - [x] Private task cards will render for the user on their homepage in a grid with a better looking frontend
 - [x] Search bar works to display searched group and has button to join
 - [x] "Create Group" button on homepage to create new group
+
+### Iteration 3
+
+#### Iteration 3 User Stories Completed (original)
+- [x] As a user, I want to be able to create or join private groups with my friends so we can have fun while holding each other accountable for the tasks
+- [x] As a user, I want to be able to send messages and post pictures in the group chat so I can talk with my friends and verify I have completed tasks
+- [x] As a user, I want to be able to invite a user to a group so they can join the group using the invite
+
+#### Iteration 3 User Stories Completed (more specific)
+- [x] As a user, I want to be able to send messages to others in the group chat so that we can discuss each others' progress
+- [x] As a user, I want to be able to see chat history when I log in so that we can see what happened
+- [x] As a user, I want to be able to upload pictures to group chat so that we can share progress
+- [x] As a user, I want to be able to have a separate chat when I create group or join group
+- [x] As a user, a random invitation code will be generate when I try to create a group and my friend can use that code to join the group as well.
+- [x] As a user, we hope to have the option of a group invitation code for joining groups so that friends can join the group through invitation code.
+- [x] As a user, I want to be able to interact with task cards so that coin values can be redeemed upon task completion and checkboxes for “Task Done” can be selected by users
+- [x] Refactor all class components into function components
 
 Please see the [Team DoIt Project Backlog](https://github.com/orgs/jhu-oose-f22/projects/8/views/1) for a full list of user stories for current and upcoming iterations.
 
@@ -319,4 +347,7 @@ We are thankful for these resources which have helped us on our development jour
 [mui-url]: https://mui.com
 [axios-http.com]: https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white
 [axios-http-url]: https://axios-http.com/docs/intro
+[getstream-http.com]: https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white
+[getstream-http-url]: https://getstream.io/
+
 
