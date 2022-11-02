@@ -67,8 +67,7 @@ export default function TaskCard(props) {
   };
 
   React.useEffect(() => {
-    console.log("task", task);
-    if(task.completedList) {
+    if(task.completedList || task.userID === userID) {
       if(task.completedList.includes(task.userID) || task.userID === userID ) {
         setUserCompleted(true);
       }

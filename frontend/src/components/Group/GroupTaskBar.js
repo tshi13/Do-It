@@ -70,7 +70,7 @@ export default function GroupTaskBar(props) {
                                         id: item._id,
                                         completed: item.completed,
                                         type: "group",
-                                        userID: userID,
+                                        userID: null,
                                         completedList: item.completedList,
                                         groupSize: userList.length,
                                     }
