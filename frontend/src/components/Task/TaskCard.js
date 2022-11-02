@@ -15,12 +15,13 @@ export default function TaskCard(props) {
   const [list, setList] = React.useState(task.completedList ? task.completedList : []); // list of users who have completed the task 
   const [progress, setProgress] = React.useState(0);
   const groupSize = task.groupSize ? task.groupSize : 1;
+  const userID = props.userID;
 
 
 
   const handleSubmit = () => {
     let newCompletedList = task.completedList ? task.completedList : [];
-    newCompletedList.push(task.userID);
+    newCompletedList.push(userID);
 
     let newTask = {
       taskID: task.id,
@@ -32,7 +33,7 @@ export default function TaskCard(props) {
     if(task.type === "private") {
       newTask.data.completed = true;
     } else if(task.type === "groupIndividual") {
-      let maxSize = Math.ceil(groupSize * 0.20);
+      let maxSize = Math.ceil(groupSize * 0.75);
       if(list.length + 1 >= maxSize) {
         newTask.data.completed = true;
       }
@@ -54,7 +55,7 @@ export default function TaskCard(props) {
       if(task.type === "group") {
         localProgress = compareList.length / groupSize * 100;
       } else if(task.type === "groupIndividual") {
-        let maxSize = Math.ceil(groupSize * 0.20);
+        let maxSize = Math.ceil(groupSize * 0.75);
         if(compareList.length >= maxSize) {
           localProgress = 100;
         } else {
@@ -66,8 +67,9 @@ export default function TaskCard(props) {
   };
 
   React.useEffect(() => {
+    console.log("task", task);
     if(task.completedList) {
-      if(task.completedList.includes(task.userID)) {
+      if(task.completedList.includes(task.userID) || task.userID === userID ) {
         setUserCompleted(true);
       }
     }

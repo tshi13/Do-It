@@ -68,9 +68,10 @@ export default function TaskModal(props) {
                 coinsEntered: coinsEnteredInt,
               }
               groupDAO.addTasks(groupID, data).then((res) => {
+                console.log(TaskForUser);
                 if(res) {
                   sessionStorage.setItem("coins",  sessionStorage.getItem("coins") - coinsEnteredInt);
-                  props.taskCallback({_id: res._id, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt, userID: TaskForUser, completed: false, completedList: [], groupID: groupID, userList: userList});
+                  props.taskCallback({_id: res._id, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt, userID: TaskForUser.id, completed: false, completedList: [], groupID: groupID, userList: userList});
                   setShow(false);
                   userDAO.updateUser(userID, {coins: userRes.coins - coinsEnteredInt});
                   setType("group");       

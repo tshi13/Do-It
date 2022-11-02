@@ -46,8 +46,7 @@ export default function GroupTaskBar(props) {
         
     
     }, [tasks]);
-            
-            
+                        
     
     const renderTasks = () => {
         if(tasks.length > 0 && sorted ) {
@@ -95,12 +94,13 @@ export default function GroupTaskBar(props) {
                                         id: item._id,
                                         completed: item.completed,
                                         type: "groupIndividual",
-                                        userID: userID,
+                                        userID: item.userID,
                                         completedList: item.completedList,
                                         groupSize: userList.length,
+                                        username: userList.find(user => user.id === item.userID) ? userList.find(user => user.id === item.userID).name : "User"
                                     }
                                     return (
-                                        <TaskCard task = {taskData} key = {index} taskCallback = {taskCallback} />
+                                        <TaskCard task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} />
                                     )
                                 })}
                             </div>

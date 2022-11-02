@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { StreamChat } from 'stream-chat';
 import { Chat, Channel, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
+import {Buffer} from 'buffer';
+
 
 import 'stream-chat-react/dist/css/v2/index.css';
 
@@ -17,8 +19,15 @@ export default function Chatbox2(props)  {
 	const {userID,username,groupID,groupName} = props;
 	const [flag, setFlag] = useState(false);
 	const newHeight = props.newHeight;
+	const [userImage, setUserImage] = useState(props.userImage);
+	const [groupImage, setGroupImage] = useState(props.groupPicture);
+
+	
 
 	useEffect(()=> {
+		//let imgFile = Buffer.from(groupImage, 'base64');
+		//let imgURL = URL.createObjectURL(imgFile);
+		//setGroupImage(imgURL);
 		const setupChat = async() => {
 	
       // connecting the actual user with userID
@@ -26,7 +35,7 @@ export default function Chatbox2(props)  {
 			{
 				id: userID,
 				name: username,
-				image: 'https://getstream.io/random_png/?id=mute-darkness-4&name=mute-darkness-4',
+				//image: '<img src={`data:image/png;base64,${userImage}`}>',
 			},
 			chatClient.devToken(userID), //use devtoken as usertoken for now
 		)	;
@@ -35,7 +44,9 @@ export default function Chatbox2(props)  {
 			let tempChannel = await chatClient.channel('messaging', groupID, {  //make channel
 				// add as many custom fields as you'd like
 				image: 'https://www.drupal.org/files/project-images/react.png',
-				name: groupName
+				name: groupName,
+				//image: imgURL,
+
 			});
 
 			// await tempChannel.addMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' }); // add someone to channel

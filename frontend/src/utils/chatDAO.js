@@ -45,13 +45,11 @@ async function createChannel(userID,username,groupID,groupName) {
 			{
 				id: userID,
 				name: username,
-				image: 'https://getstream.io/random_png/?id=mute-darkness-4&name=mute-darkness-4',
 			},
 			chatClient.devToken(userID) //use devtoken as usertoken for now
 		);
 
 	let tempChannel = await chatClient.channel('messaging', groupID, { 
-		image: 'https://www.drupal.org/files/project-images/react.png',
 		name: groupName
 	});
 
