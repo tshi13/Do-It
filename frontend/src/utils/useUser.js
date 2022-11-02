@@ -1,4 +1,5 @@
 import { useState } from "react";
+import userDAO from './userDAO';
 
 export default function useUser() {
   const getUser = () => {
@@ -17,10 +18,11 @@ export default function useUser() {
 
   const [userID] = useState(getUserID());
 
-  const saveUser = (userUser, userUserID) => {
+  const saveUser = (userUser, userUserID, coins) => {
+    sessionStorage.setItem("coins", parseInt(JSON.stringify(coins)));
     sessionStorage.setItem("user", JSON.stringify(userUser));
     sessionStorage.setItem("userID", JSON.stringify(userUserID));
-    sessionStorage.setItem("coins", 6);
+    
     setUser(userUser);
     if (userUser === "") {
       sessionStorage.removeItem("user");

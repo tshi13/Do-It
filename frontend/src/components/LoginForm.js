@@ -26,10 +26,12 @@ function LoginForm(props) {
     userDAO.getUser(data).then((response) => {
       
       if (response !== "User not found") {
-        setIsSubmitted(true);
-        window.location.href = "/";
-
-        props.setUser(data.name, response._id);
+        userDAO.getUserData(response._id).then((res) => {
+          props.setUser(data.name, res._id, res.coins);
+          setIsSubmitted(true);
+          window.location.href = "/";
+        });
+        
       } else {
         setIsSubmitted(false);
         setErrorMessages({ name: "uname", message: errors.uname });

@@ -38,7 +38,7 @@ function RegisterForm(props) {
           .then((res) => 
           {
             setIsSubmitted(true);
-            props.setUser(data.name, res._id );
+            props.setUser(data.name, res._id, 6);
             window.location.href = "/";
           })
           .catch(err => console.log(err));
