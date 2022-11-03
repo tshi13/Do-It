@@ -68,6 +68,11 @@ async function leaveGroup(groupID, userID) {
     return res["data"];
 }
 
+async function deleteTask(groupID, taskID) {
+    let res = await axios.delete('/deleteTask/group/' + groupID + "/" + taskID).then(data => data);
+    return res["data"];
+}
+
 
 export default class groupDAO {
     static getGroups(userID) {
@@ -104,6 +109,10 @@ export default class groupDAO {
 
     static leaveGroup(groupID, userID) {
         return leaveGroup(groupID, userID);
+    }
+
+    static deleteTask(groupID, taskID) {
+        return deleteTask(groupID, taskID);
     }
 }
 

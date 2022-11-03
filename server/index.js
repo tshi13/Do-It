@@ -206,10 +206,11 @@ app.put("/leaveGroup", (req,res) => {
 		newTaskIDList = newTaskIDList.filter((id) => !newGroupTaskIDList.includes(id));
 		newUserList = group.idList.filter((id) => id != userID);
 		return User.findOneAndUpdate({_id:userID},{groupIDList:newGroupList, taskIDList:newTaskIDList}); //remove groupID from User groupIDList
-
-
 	}).then(() => {
 		if(newUserList.length == 0){
+			for(let i = 0; i < newGroupTaskIDList.length; i++){
+				Task.findByIdAndDelete(newGroupTaskIDList[i]);
+			}
 			return Group.findOneAndDelete({_id:groupID});
 		} else {
 			return Group.findOneAndUpdate({_id:groupID},{idList:newUserList});
@@ -404,6 +405,25 @@ app.get("/userdata/:_id",(req,res) => { //gets the details of a user
 			res
 			.status(500)
 			.send({ message: "Error retrieving user with id: " + _id });
+		});
+})
+
+app.delete("/deleteTask/group/:groupID/:taskID",(req,res) => { //deletes a task from a group
+	const grouPID = req.params.groupID;
+	const taskID = req.params.taskID;
+	Group.updateOne({ _id: grouPID },{ $pull: { taskIDList : taskID } })
+		.then(() => {
+			return Task.deleteOne({ _id: taskID});
+		}
+		)
+		.then(() => {
+			res.send("Task deleted");
+		}
+		)
+		.catch(err => {
+			res
+			.status(500)
+			.send({ message: "Error deleting task with id: " + taskID });
 		});
 })
 

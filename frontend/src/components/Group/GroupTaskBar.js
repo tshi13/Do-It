@@ -12,6 +12,8 @@ export default function GroupTaskBar(props) {
     const userID = props.userID;
     const userList = props.userList;
     const [sorted, setSorted] = useState(false);
+    const [localList, setLocalList] = useState(userList);
+    const owner = props.owner;
 
     const firstPartOfURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
 
@@ -42,17 +44,34 @@ export default function GroupTaskBar(props) {
         });
         setIndividualTask(individualTask);
         setGroupTask(groupTask);
-        setSorted(true);
-        
-    
+        setSorted(true);        
     }, [tasks]);
-                        
+
+    useEffect(() => {
+        setLocalList(userList);
+    }, [userList]);
+
+    const deleteTask = (taskID) => {
+        props.deleteTaskCallback(taskID);
+    }
+
+          
     
     const renderTasks = () => {
         if(tasks.length > 0 && sorted ) {
             return (
             <div style = {{height: newHeight}} className = "taskList">
                 <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
+                {/*<div className = "UsersinGroup">
+                    <h3>Users in Group</h3>
+                    {localList.map((item, index) => {
+                        return (
+                            <div key = {index}>
+                                <p>{item.name}</p>
+                            </div>
+                        )
+                    })}
+                </div>*/}
                 <h1 style ={{textAlign: 'center'}}>Task List</h1>
                 <p style = {{textAlign: 'center'}}>Group Invite: {props.inviteID}</p>
                  <button className = "button" onClick = {() => {navigator.clipboard.writeText(firstPartOfURL +"/invite/ID=" + props.inviteID)}}>Copy Invite Link To Clipboard</button>
@@ -75,7 +94,7 @@ export default function GroupTaskBar(props) {
                                         groupSize: userList.length,
                                     }
                                     return (
-                                        <TaskCard task = {taskData} key = {index} taskCallback = {taskCallback} />
+                                        <TaskCard deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
                                     )
                                 })}
                             </div>
@@ -100,7 +119,7 @@ export default function GroupTaskBar(props) {
                                         username: userList.find(user => user.id === item.userID) ? userList.find(user => user.id === item.userID).name : "User"
                                     }
                                     return (
-                                        <TaskCard task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} />
+                                        <TaskCard deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
                                     )
                                 })}
                             </div>

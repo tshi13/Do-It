@@ -19,7 +19,7 @@ export default function GroupComponent(props)  {
     const [userList, setUserList] = useState([]);
     const groupPicture = props.groupPicture;
 
-    
+    const [owner, setOwner] = useState(null);
 
     const newHeight = props.newHeight;
 
@@ -32,6 +32,12 @@ export default function GroupComponent(props)  {
         });
     }
 
+    const deleteTaskCallback = (taskID) => {
+        groupDAO.deleteTask(groupID, taskID).then(() => {
+            setTasks(tasks.filter((task) => task._id !== taskID));
+        });
+    }
+
     useEffect(() => {
         //grab tasks from database for groupID
         //set tasks to the tasks from the database
@@ -40,6 +46,7 @@ export default function GroupComponent(props)  {
         groupDAO.getGroup(groupID).then((group) => {
             setGroupName(group.groupName);
             setInviteID(group.inviteID);
+            setOwner(group.owner);
             let userListIDs = group.idList;
             let userList = [];
             for(let i = 0; i < userListIDs.length; i++) {
@@ -63,7 +70,7 @@ export default function GroupComponent(props)  {
     
     const renderTasks = () => {
         return (
-            <GroupTaskBar tasks={tasks} style ={{width: '100%'}}  groupID = {groupID}  newHeight = {newHeight} inviteID = {inviteID} userID = {userID} userList = {userList} leaveGroupCallback = {leaveGroupCallback} taskCallback = {taskCallback} />
+            <GroupTaskBar  deleteTaskCallback = {deleteTaskCallback} owner = {owner} tasks={tasks} style ={{width: '100%'}}  groupID = {groupID}  newHeight = {newHeight} inviteID = {inviteID} userID = {userID} userList = {userList} leaveGroupCallback = {leaveGroupCallback} taskCallback = {taskCallback} />
         );
     }
 
