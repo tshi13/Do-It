@@ -49,9 +49,12 @@ export default function Home(props) {
             })
     }, []);
 
-		
+    const deleteTaskCallback = (taskID) => {
+        taskDAO.deleteTask(userID, taskID).then(() => {
+            setPrivateTasks(privateTasks.filter((task) => task._id !== taskID));
+        });
+    }
 
-    
     const groupCallback = (group) => {
         let newGroup = {
             id: group._id,
@@ -95,7 +98,7 @@ export default function Home(props) {
             return (
                 <>
                     <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
-                    <DisplayTasks userID={userID} privateTasks = {privateTasks} />
+                    <DisplayTasks userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
                 </>
             );
         }

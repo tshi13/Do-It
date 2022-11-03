@@ -18,6 +18,11 @@ async function updateTask(data) {
     return res["data"];
 }
 
+async function deleteTask(userID, taskID) {
+    let res = await axios.delete('/deleteTask/user/' + userID + "/" + taskID).then(data => data);
+    return res["data"];
+}
+
 export default class taskDAO {
     static getTasks(data) {
         return getTasks(data);
@@ -29,6 +34,10 @@ export default class taskDAO {
 
     static updateTask(data) {
         return updateTask(data);
+    }
+
+    static deleteTask(userID, taskID) {
+        return deleteTask(userID, taskID);
     }
 }
 

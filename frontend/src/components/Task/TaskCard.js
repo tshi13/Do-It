@@ -96,8 +96,6 @@ export default function TaskCard(props) {
           userDAO.updateUser(completedUsers[i], {coins: coins});
           if(completedUsers[i] === userID) {
             sessionStorage.setItem("coins", coins);
-          } else {
-            console.log("error");
           }
         }
       });
@@ -210,8 +208,7 @@ export default function TaskCard(props) {
           }
         </Card>
       </ListItem>
-      <ConfirmBox show={showPrompt} setShow={setShowPrompt} onConfirm ={() => {handleFinishTask()}} onCancel = {() => {setShowPrompt(false)}} message = {"Are you sure you want to finish this task? This will pay out to everyone and delete the task. "} />
-      
+      <ConfirmBox show={showPrompt} setShow={setShowPrompt} onConfirm ={() => {handleFinishTask()}} onCancel = {() => {setShowPrompt(false)}} message = {"Are you sure you want to finish this task? This will pay out to everyone and delete the task. Please make to have everyone hit 'Submit' before Clicking confirm."} />
     </div>
   );
 }

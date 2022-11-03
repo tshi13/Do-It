@@ -427,6 +427,27 @@ app.delete("/deleteTask/group/:groupID/:taskID",(req,res) => { //deletes a task 
 		});
 })
 
+app.delete("/deleteTask/user/:userID/:taskID",(req,res) => { //deletes a task from a user
+	const userID = req.params.userID;
+	const taskID = req.params.taskID;
+	User.updateOne({ _id: userID },{ $pull: { taskIDList : taskID } })
+		.then(() => {
+			return Task.deleteOne({ _id: taskID});
+		}
+		)
+		.then(() => {
+			res.send("Task deleted");
+		}
+		)
+		.catch(err => {
+			res
+			.status(500)
+			.send({ message: "Error deleting task with id: " + taskID });
+		});
+})
+
+
+
 /**
  * req.params: 
  * 	name: name of user 

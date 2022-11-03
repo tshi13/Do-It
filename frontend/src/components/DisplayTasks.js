@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 export default function DisplayTasks(props){
 
     const tasks = props.privateTasks;
+    const userID = props.userID;
+    const deleteTask = props.deleteTask;
 
     return (
         <>
@@ -22,13 +24,13 @@ export default function DisplayTasks(props){
                             coinsEntered: task.coinsEntered,
                             time: task.time,
                             id: task._id,
-                            completed: task.completed,
+                            completedList: task.completedList,
                             type: "private",
-                            userID: props.userID,
+                            userID: null,
                         }
                         return (
                             <Grid item xs={2.2} key={index}>
-                                <TaskCard key={index} task={taskData}/>
+                                <TaskCard deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
                             </Grid>
                         );
                     })
