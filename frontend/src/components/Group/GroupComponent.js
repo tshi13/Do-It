@@ -11,7 +11,7 @@ import {Buffer} from 'buffer';
 
 export default function GroupComponent(props)  {
     const groupID = props.groupID;
-    const userID = props.userID;
+    const userID = props.userID ? props.userID : null;
     const username = props.username;
     const [tasks, setTasks] = useState([]);
     const [groupName, setGroupName] = useState("");
@@ -79,7 +79,7 @@ export default function GroupComponent(props)  {
         setTasks([...tasks, newTask]);
     }
 
-    const leaveGroupCallback = (groupID, userID) => {
+    const leaveGroupCallback = (groupID) => {
         groupDAO.leaveGroup(groupID, userID).then(() => {
             props.leaveGroupCallback(groupID);
         });

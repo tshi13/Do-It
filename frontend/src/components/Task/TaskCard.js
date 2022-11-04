@@ -87,7 +87,7 @@ export default function TaskCard(props) {
   //coins don't update in real time yet
   const handleFinishTask = () => {
     let completedUsers = task.completedList ? task.completedList : [];
-    if(task.type === "private" || task.type === "group") {
+    if(task.type === "group") {
     for(let i = 0; i < completedUsers.length; i++) {
       userDAO.getUserData(completedUsers[i]).then((res) => {
         if(res) {
@@ -111,7 +111,18 @@ export default function TaskCard(props) {
         }
       }
     });
+  } else if(task.type === "private") {
+    let userData = userID;
+    userDAO.getUserData(userData).then((res) => {
+      if(res) {
+        let coins = res.coins ? res.coins : 0;
+        coins += task.coinsEntered;
+        userDAO.updateUser(userData, {coins: coins});
+          sessionStorage.setItem("coins", coins);
+      }
+    });
   }
+
     deleteTask(task.id);
     setShowPrompt(false);
   };
@@ -191,12 +202,14 @@ export default function TaskCard(props) {
           </CardContent>
           {!showList ? 
           <CardActions>
-            {
-              completed || userCompleted ?
+            
+            { task.type !== "private" ?
+             completed || userCompleted ?
               <Button size="small" disabled>Completed</Button>
               :
               <Button size="small" onClick={handleSubmit}>Submit</Button>
-            }
+              : null
+             }
             { owner == userID ?
               <Button size="small" onClick={() => setShowPrompt(true)}>Finish</Button>
               :

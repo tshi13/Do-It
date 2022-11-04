@@ -9,7 +9,7 @@ export default function GroupTaskBar(props) {
     const tasks = props.tasks ? props.tasks : [];
     const style = props.style ? props.style : {};
     const newHeight = props.newHeight;
-    const userID = props.userID;
+    const userID = props.userID ? props.userID : null;
     const userList = props.userList;
     const [sorted, setSorted] = useState(false);
     const [localList, setLocalList] = useState(userList);
@@ -36,10 +36,12 @@ export default function GroupTaskBar(props) {
         let individualTask = [];
         let groupTask = [];
         tasks.map((item, index) => {
-            if(item.userID !== "Group Task") {
-                individualTask.push(item);
-            } else {
-                groupTask.push(item);
+            if(item !== null) {
+                if(item.userID !== "Group Task") {
+                    individualTask.push(item);
+                } else {
+                    groupTask.push(item);
+                }
             }
         });
         setIndividualTask(individualTask);
@@ -54,8 +56,6 @@ export default function GroupTaskBar(props) {
     const deleteTask = (taskID) => {
         props.deleteTaskCallback(taskID);
     }
-
-          
     
     const renderTasks = () => {
         if(tasks.length > 0 && sorted ) {
