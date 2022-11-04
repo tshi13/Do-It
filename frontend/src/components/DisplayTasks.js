@@ -10,6 +10,7 @@ export default function DisplayTasks(props){
     const tasks = props.privateTasks;
     const userID = props.userID;
     const deleteTask = props.deleteTask;
+    const setCoins = props.setCoins;
 
     return (
         <>
@@ -30,7 +31,7 @@ export default function DisplayTasks(props){
                         }
                         return (
                             <Grid item xs={2.2} key={index}>
-                                <TaskCard deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
+                                <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
                             </Grid>
                         );
                     })

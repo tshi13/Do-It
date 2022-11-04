@@ -21,6 +21,7 @@ export default function GroupTaskBar(props) {
 
     const [individualTask, setIndividualTask] = useState({});
     const [groupTask, setGroupTask] = useState({});
+    const setCoins = props.setCoins;
 
 
     const leaveGroup = () => {
@@ -94,7 +95,7 @@ export default function GroupTaskBar(props) {
                                         groupSize: userList.length,
                                     }
                                     return (
-                                        <TaskCard deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
+                                        <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
                                     )
                                 })}
                             </div>
@@ -119,7 +120,7 @@ export default function GroupTaskBar(props) {
                                         username: userList.find(user => user.id === item.userID) ? userList.find(user => user.id === item.userID).name : "User"
                                     }
                                     return (
-                                        <TaskCard deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
+                                        <TaskCard  setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
                                     )
                                 })}
                             </div>

@@ -14,10 +14,11 @@ import {Buffer} from 'buffer';
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
 	const [privateTasks, setPrivateTasks] = useState([]);
-    const [coins, setCoins] = useState(0);
+    const setCoins = props.setNavCoins;
     const [selectedGroupID, setSelectedGroupID] = useState(null);
     const [selectedGroupPicture, setSelectedGroupPicture] = useState(null);
     const userID = props.userID;
+
 
 
 
@@ -91,14 +92,14 @@ export default function Home(props) {
     const renderGroup = () => {
         if(selectedGroupID !== null) {
             return (
-                <GroupComponent groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight}  setNavCoins={props.setNavCoins}/>
+                <GroupComponent setCoins = {setCoins} groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight}  setNavCoins={props.setNavCoins}/>
             );
         }
         else {
             return (
                 <>
                     <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
-                    <DisplayTasks userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
+                    <DisplayTasks setCoins = {setCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
                 </>
             );
         }

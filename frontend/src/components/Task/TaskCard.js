@@ -26,6 +26,7 @@ export default function TaskCard(props) {
   const [showPrompt, setShowPrompt] = React.useState(false);
   const [showList, setShowList] = React.useState(false);
   const owner = props.owner;
+  const setCoins = props.setCoins;
 
 
   const handleSubmit = () => {
@@ -96,6 +97,7 @@ export default function TaskCard(props) {
           userDAO.updateUser(completedUsers[i], {coins: coins});
           if(completedUsers[i] === userID) {
             sessionStorage.setItem("coins", coins);
+            setCoins(coins);
           }
         }
       });
@@ -108,6 +110,7 @@ export default function TaskCard(props) {
         userDAO.updateUser(userData, {coins: coins});
         if(userData === userID) {
           sessionStorage.setItem("coins", coins);
+          setCoins(coins);
         }
       }
     });
@@ -119,6 +122,7 @@ export default function TaskCard(props) {
         coins += task.coinsEntered;
         userDAO.updateUser(userData, {coins: coins});
           sessionStorage.setItem("coins", coins);
+          setCoins(coins);
       }
     });
   }
@@ -221,7 +225,7 @@ export default function TaskCard(props) {
           }
         </Card>
       </ListItem>
-      <ConfirmBox show={showPrompt} setShow={setShowPrompt} onConfirm ={() => {handleFinishTask()}} onCancel = {() => {setShowPrompt(false)}} message = {"Are you sure you want to finish this task? This will pay out to everyone and delete the task. Please make to have everyone hit 'Submit' before Clicking confirm."} />
+      <ConfirmBox show={showPrompt} setShow={setShowPrompt} onConfirm ={() => {handleFinishTask()}} onCancel = {() => {setShowPrompt(false)}} message = {"Are you sure you want to finish this task? This will pay out to everyone and delete the task. Please make sure to have everyone (INCLUDING YOURSELF) hit 'Submit' before Clicking confirm."} />
     </div>
   );
 }
