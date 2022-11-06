@@ -23,6 +23,7 @@ export default function Home(props) {
 
 
 
+
     const newHeight = props.newHeight;
     
     useEffect(() => {
@@ -90,8 +91,22 @@ export default function Home(props) {
         setSelectedGroupPicture(groupPictureString);
     }
 
+    const checkUserStillInGroup = (groupID) => {
+        if(groupID !== null) {
+            let group = groups.filter((group) => {
+                return group.id === groupID;
+            });
+            if (group.length === 0) {
+                setSelectedGroupID(null);
+            }
+            return group.length !== 0;
+        } else {
+            return false;
+        }
+    }
+
     const renderGroup = () => {
-        if(selectedGroupID !== null) {
+        if(selectedGroupID !== null && checkUserStillInGroup(selectedGroupID))  {
             return (
                 <GroupComponent setNotifications = {setNotifications} setCoins = {setCoins} groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight}  setNavCoins={props.setNavCoins}/>
             );
@@ -109,6 +124,7 @@ export default function Home(props) {
     return (
         <div>
             <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
+
                 <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px', height: newHeight}}>
                     <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
