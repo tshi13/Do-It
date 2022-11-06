@@ -23,6 +23,8 @@ export default function GroupTaskBar(props) {
     const [groupTask, setGroupTask] = useState({});
     const setCoins = props.setCoins;
 
+    const setNotifications = props.setNotifications;
+
 
     const leaveGroup = () => {
         props.leaveGroupCallback(props.groupID, userID);
@@ -93,6 +95,7 @@ export default function GroupTaskBar(props) {
                                         userID: null,
                                         completedList: item.completedList,
                                         groupSize: userList.length,
+                                        joinedList: item.joinedList ? item.joinedList : [],
                                     }
                                     return (
                                         <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
@@ -120,7 +123,7 @@ export default function GroupTaskBar(props) {
                                         username: userList.find(user => user.id === item.userID) ? userList.find(user => user.id === item.userID).name : "User"
                                     }
                                     return (
-                                        <TaskCard  setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
+                                        <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
                                     )
                                 })}
                             </div>
@@ -148,7 +151,7 @@ export default function GroupTaskBar(props) {
 
     return (
         <div>
-            <TaskModal style ={{float: 'right', marginRight: '1%', marginLeft: '2%', zIndex: "5000"}} show = {showTaskModal} setShow = {setShowTaskModal} groupID = {props.groupID} taskCallback = {taskCallback} userID = {userID} userList = {userList}/>
+            <TaskModal setNotifications = {setNotifications} style ={{float: 'right', marginRight: '1%', marginLeft: '2%', zIndex: "5000"}} show = {showTaskModal} setShow = {setShowTaskModal} groupID = {props.groupID} taskCallback = {taskCallback} userID = {userID} userList = {userList}/>
             {renderTasks()}
         </div>
     );

@@ -5,7 +5,8 @@ const UserSchema = new mongoose.Schema({
 	coins: {type: Number, required: true},
 	taskIDList: {type: [String], required: true},
 	groupIDList: {type: [String], required:true},
-	profilePicture: {type: Buffer, required: false}
+	profilePicture: {type: Buffer, required: false},
+	notifications: {type: Object, required: false},
 });
 
 const User = mongoose.model("User", UserSchema);

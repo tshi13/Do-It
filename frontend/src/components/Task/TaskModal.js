@@ -20,7 +20,49 @@ export default function TaskModal(props) {
     const [TaskForUser, setTaskForUser] = useState("Group Task");
     const userID = props.userID;
     const userList = props.userList;
+    const setNotifications = props.setNotifications;
+    
 
+    const informUsers = (taskID) => {
+      if(type === "group") {
+        for (let i = 0; i < userList.length; i++) {
+            userDAO.getUserData(userList[i].id).then((user) => {
+                let newTask = {
+                    taskID: taskID,
+                    taskName: taskName,
+                    groupID : groupID,
+                    createdBy: userID,
+                    type: type,
+                    messageType: "task",
+                    time: time,
+                    coinsEntered: coinsEntered,
+                }
+                user.notifications = user.notifications ? user.notifications : [];
+                user.notifications.push(newTask);
+                userDAO.updateUser(user._id, user);
+                setNotifications(newTask);
+            });
+        }
+      }
+      else {
+        userDAO.getUserData(TaskForUser.id).then((user) => {
+            let newTask = {
+              taskID: taskID,
+              taskName: taskName,
+              groupID : groupID,
+              createdBy: userID,
+              type: type,
+              messageType: "task",
+              time: time,
+              coinsEntered: coinsEntered,
+            } 
+            user.notifications = user.notifications ? user.notifications : [];
+            user.notifications.push(newTask);
+            userDAO.updateUser(user._id, user);
+            setNotifications(newTask);
+        });
+      }
+    }
 
 
   const handleSubmit = () => {
@@ -74,10 +116,10 @@ export default function TaskModal(props) {
                   props.taskCallback({_id: res._id, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt, userID: taskID, completed: false, completedList: [], groupID: groupID, userList: userList});
                   setShow(false);
                   userDAO.updateUser(userID, {coins: userRes.coins - coinsEnteredInt});
+                  informUsers(res._id);
                   setType("group");       
                 }
               });
-             
             }
           }
         });
@@ -85,6 +127,9 @@ export default function TaskModal(props) {
     }
   }
   
+
+
+
   
   const flipModal = () => {
     let personal = document.getElementById("individual");

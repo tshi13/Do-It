@@ -19,6 +19,7 @@ export default function GroupComponent(props)  {
     const [userList, setUserList] = useState([]);
     const groupPicture = props.groupPicture;
     const setCoins = props.setCoins;
+    const setNotifications = props.setNotifications;
 
     const [owner, setOwner] = useState(null);
 
@@ -71,7 +72,7 @@ export default function GroupComponent(props)  {
     
     const renderTasks = () => {
         return (
-            <GroupTaskBar  setCoins = {setCoins} deleteTaskCallback = {deleteTaskCallback} owner = {owner} tasks={tasks} style ={{width: '100%'}}  groupID = {groupID}  newHeight = {newHeight} inviteID = {inviteID} userID = {userID} userList = {userList} leaveGroupCallback = {leaveGroupCallback} taskCallback = {taskCallback} />
+            <GroupTaskBar setNotifications = {setNotifications} setCoins = {setCoins} deleteTaskCallback = {deleteTaskCallback} owner = {owner} tasks={tasks} style ={{width: '100%'}}  groupID = {groupID}  newHeight = {newHeight} inviteID = {inviteID} userID = {userID} userList = {userList} leaveGroupCallback = {leaveGroupCallback} taskCallback = {taskCallback} />
         );
     }
 

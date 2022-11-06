@@ -91,5 +91,30 @@
   .dropdown:hover .dropdown-content {
     display: block;
   }
+
+  .scrollable-menu {
+    height: auto;
+    max-height: 90vh;
+    overflow-x: hidden;
+  }
+
+  .scrollable-menu::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  .scrollable-menu::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  }
+
+  .scrollable-menu::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  }
+
+  .badge {
+    background-color: peachpuff;
+  }
+
+
   
 

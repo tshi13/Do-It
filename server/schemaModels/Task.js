@@ -9,6 +9,7 @@ const TaskSchema = new mongoose.Schema({
 	username: {type: String, required: false},
 	completed: {type: Boolean, required: true},
 	completedList: {type: Array, required: true},
+	joinedList: {type: Array, required: false},
 });
 
 const Task = mongoose.model("Task",TaskSchema);

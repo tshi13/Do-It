@@ -15,10 +15,11 @@ export default function Home(props) {
     const [groups, setGroups] = useState([]);
 	const [privateTasks, setPrivateTasks] = useState([]);
     const setCoins = props.setNavCoins;
-    const [selectedGroupID, setSelectedGroupID] = useState(null);
+    const setSelectedGroupID = props.setSelectedGroup;
+    const selectedGroupID = props.selectedGroup;
     const [selectedGroupPicture, setSelectedGroupPicture] = useState(null);
     const userID = props.userID;
-
+    const setNotifications = props.setNotifications;
 
 
 
@@ -92,7 +93,7 @@ export default function Home(props) {
     const renderGroup = () => {
         if(selectedGroupID !== null) {
             return (
-                <GroupComponent setCoins = {setCoins} groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight}  setNavCoins={props.setNavCoins}/>
+                <GroupComponent setNotifications = {setNotifications} setCoins = {setCoins} groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight}  setNavCoins={props.setNavCoins}/>
             );
         }
         else {
