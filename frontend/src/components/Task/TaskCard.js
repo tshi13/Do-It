@@ -29,6 +29,7 @@ export default function TaskCard(props) {
   const setCoins = props.setCoins;
   const [joinedList, setJoinedList] = React.useState(task.joinedList ? task.joinedList : []);
   const [joined, setJoined] = React.useState(false);
+  const [coinPool, setCoinPool] = React.useState(task.coinPool ? task.coinPool : 0);
 
 
   
@@ -102,10 +103,12 @@ export default function TaskCard(props) {
     let completedUsers = task.completedList ? task.completedList : [];
     if(task.type === "group") {
     for(let i = 0; i < completedUsers.length; i++) {
+      let coinsToAdd = Math.ceil(coinPool / completedUsers.length);
       userDAO.getUserData(completedUsers[i]).then((res) => {
+
         if(res) {
           let coins = res.coins ? res.coins : 0;
-          coins += task.coinsEntered;
+          coins += coinsToAdd;
           userDAO.updateUser(completedUsers[i], {coins: coins});
           if(completedUsers[i] === userID) {
             sessionStorage.setItem("coins", coins);
@@ -150,23 +153,35 @@ export default function TaskCard(props) {
         let coins = res.coins ? res.coins : 0;
         coins -= task.coinsEntered;
         if(coins >= 0) {
-          userDAO.updateUser(userID, {coins: coins});
-          sessionStorage.setItem("coins", coins);
-          setCoins(coins);
-          let newTask = {
-            taskID: task.id,
-            data: {
-              joinedList: newJoinedList,
-            },
-          };
-          taskDAO.updateTask(newTask).then((res) => {
-            setJoinedList(newJoinedList);
-            setJoined(true);
+          taskDAO.getTask(task.id).then((res) => {
+            if(res) {
+              userDAO.updateUser(userID, {coins: coins});
+              sessionStorage.setItem("coins", coins);
+              setCoins(coins);
+              let newTask = {
+                taskID: task.id,
+                data: {
+                  joinedList: newJoinedList,
+                },
+              };
+              let coinPool = res.coinPool ? res.coinPool : 0;
+              coinPool += task.coinsEntered;
+              newTask.data.coinPool = coinPool;
+              taskDAO.updateTask(newTask).then((res) => {
+                if(res) {
+                  console.log("Task joined!");
+                setJoined(true);
+                setJoinedList(newJoinedList);
+                setCoinPool(coinPool);
+                }
+              });
+            }  
           });
         } else {
           alert("You don't have enough coins to join this task!");
         }
       }
+
     });
   };
 
@@ -197,12 +212,8 @@ export default function TaskCard(props) {
             ) : null}
             {!showList ? 
                 <div>
-                  <Typography variant="h5" component="div" className="title" style={{color: 'black', textOverflow: 'ellipsis'}} noWrap>
+                  <Typography variant="h5" component="div" className="title" style={{color: 'black', textOverflow: 'ellipsis'}}>
                     {task.taskName}
-                  </Typography>
-
-                  <Typography sx={{ mb: 1 }} color="text.secondary">
-                    Coins entered: {task.coinsEntered}
                   </Typography>
                   <Typography sx={{ mb: 1 }} color="text.secondary">
                     Time: {task.time}
@@ -210,6 +221,9 @@ export default function TaskCard(props) {
                   {
                     task.type == "groupIndividual" ?
                     <div>
+                      <Typography sx={{ mb: 1 }} color="text.secondary">
+                      Coins for Completion: {task.coinsEntered}
+                      </Typography>
                       <Typography sx={{ mb: 1 }} color="text.secondary">
                         Username: {task.username}
                       </Typography>
@@ -225,6 +239,12 @@ export default function TaskCard(props) {
                   task.type == "group" ?
                   <div>
                     <Typography sx={{ mb: 1 }} color="text.secondary">
+                      Cost To Join: {task.coinsEntered}
+                    </Typography>
+                    <Typography sx={{ mb: 1 }} color="text.secondary">
+                      Coin Pool: {coinPool}
+                    </Typography>
+                    <Typography sx={{ mb: 1 }} color="text.secondary">
                       Completed by: {Array.isArray(list) ? list.length : 0} Person(s)
                     </Typography>
                     <ProgressBar bgcolor="#6a1b9a" progress={progress} style ={{width: '100%'}}/>
@@ -236,7 +256,7 @@ export default function TaskCard(props) {
             :
             <div className = "userList" style ={{marginTop: '5%', width: '100%'}}>
               <div className = "completedByList" >
-                <p component="div" style={{color: 'black', textOverflow: 'ellipsis'}} noWrap>
+                <p component="div" style={{color: 'black', textOverflow: 'ellipsis'}} >
                   {task.type === "groupIndividual" ? "Checked off" : "Completed"}
                 </p>
                 <Grid container direction = "column">
@@ -252,8 +272,9 @@ export default function TaskCard(props) {
                   }) : <></>}
                 </Grid>
               </div>
+              {task.type === "group" ?
               <div className = "joinedByList">
-                <p component="div" style={{color: 'black', textOverflow: 'ellipsis'}} noWrap>
+                <p component="div" style={{color: 'black', textOverflow: 'ellipsis'}} >
                   Joined
                 </p>
                 <Grid container direction = "column">
@@ -267,7 +288,7 @@ export default function TaskCard(props) {
                     )
                   }) : <></>}
                 </Grid>
-              </div>
+              </div> : <></>}
             </div>
             }
           </CardContent>

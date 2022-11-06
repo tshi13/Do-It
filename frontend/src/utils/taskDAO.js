@@ -8,6 +8,11 @@ async function getTasks(data) {
     return res["data"];
 }
 
+async function getTask(taskID) {
+    let res = await axios.get('/getTask/' + taskID).then(data => data);
+    return res["data"];
+}
+
 async function addTask(data) {
     let res = await axios.put('/createTask', data).then(data => data);
     return res["data"];
@@ -38,6 +43,10 @@ export default class taskDAO {
 
     static deleteTask(userID, taskID) {
         return deleteTask(userID, taskID);
+    }
+
+    static getTask(taskID) {
+        return getTask(taskID);
     }
 }
 

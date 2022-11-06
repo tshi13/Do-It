@@ -79,6 +79,21 @@ app.put("/updateTask", (req,res) =>{ //updates task"
 		})
 })
 
+app.get("/getTask/:taskID", (req,res) => { //gets task
+	const {taskID} = req.params;
+	Task.findById(taskID)
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res
+			.status(500)
+			.send({ message: "Error getting task with id: " + taskID })
+
+		})
+})
+
+
 
 
 /**

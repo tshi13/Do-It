@@ -96,6 +96,7 @@ export default function GroupTaskBar(props) {
                                         completedList: item.completedList,
                                         groupSize: userList.length,
                                         joinedList: item.joinedList ? item.joinedList : [],
+                                        coinPool: item.coinPool ? item.coinPool : 0,
                                     }
                                     return (
                                         <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
