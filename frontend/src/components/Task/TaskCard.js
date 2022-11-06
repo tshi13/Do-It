@@ -219,7 +219,7 @@ export default function TaskCard(props) {
                     Time: {task.time}
                   </Typography>
                   {
-                    task.type == "groupIndividual" ?
+                    task.type === "groupIndividual" ?
                     <div>
                       <Typography sx={{ mb: 1 }} color="text.secondary">
                       Coins for Completion: {task.coinsEntered}
@@ -236,7 +236,7 @@ export default function TaskCard(props) {
                     <></>
                 }
                 {
-                  task.type == "group" ?
+                  task.type === "group" ?
                   <div>
                     <Typography sx={{ mb: 1 }} color="text.secondary">
                       Cost To Join: {task.coinsEntered}
@@ -251,6 +251,16 @@ export default function TaskCard(props) {
                   </div>
                   :
                   <></>
+                } 
+                {
+                  task.type === "private" ?
+                  <div>
+                    <Typography sx={{ mb: 1 }} color="text.secondary">
+                      Coins for Completion: {task.coinsEntered}
+                    </Typography>
+                  </div>
+                    :
+                    <></>
                 }
             </div>
             :
