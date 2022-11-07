@@ -5,33 +5,34 @@ import chatDAO from './chatDAO';
 axios.defaults.baseURL = 'http://localhost:5000';
 
 async function getUser(data) {
-    let res = await axios.get('/user/' + data.name).then(data => data);
+    let res = await axios.get('/users/' + data.name).then(data => data);
     return res["data"];
 }
 
 async function addUser(data) {
-    let res = await axios.post('/createUser', data).then(data => data);
+    let res = await axios.post('/users/createUser', data).then(data => data);
 		await chatDAO.createUser(res["data"]._id, res["data"].name);
     return res["data"];
 }
 
 async function getGroups(userID) {
-    let res = await axios.get('/groups/' + userID).then(data => data);
+    let res = await axios.get('/users/getGroups/' + userID).then(data => data);
     return res["data"];
 }
 
 async function getTasks(userID) {
-    let res = await axios.get('/tasks/' + userID).then(data => data);
+    let res = await axios.get('/users/getTasks/' + userID).then(data => data);
     return res["data"];
 }
 
 async function updateUser(userID, data) {
-    let res = await axios.put('/updateUser', {userID: userID, data: data}).then(data => data);
+    let res = await axios.put('/users/updateUser', {userID: userID, data: data}).then(data => data);
     return res["data"];
 }
 
+//This is replicate
 async function getUserData(userID) {
-    let res = await axios.get('/userdata/' + userID).then(data => data);
+    let res = await axios.get('/users/getUserdata/' + userID).then(data => data);
     return res["data"];
 }
 
@@ -45,10 +46,11 @@ async function addTasks(userID, data) {
         coinsEntered: data.coinsEntered
     }
 
-    let res = await axios.put('/createTask/user', updatedData).then(data => data);
+    let res = await axios.put('/users/createTask', updatedData).then(data => data);
     return res["data"];
 }
 
+//No definition in the backend
 async function joinGroup(userID, groupID) {
     let res = await axios.post('/joingroup', {userID: userID, groupID: groupID}).then(data => data);
     return res["data"];
