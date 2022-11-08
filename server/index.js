@@ -111,7 +111,7 @@ app.put("/createTask/user", (req,res) => { //creates a new task and adds the cor
 	let taskID;
 	let newTaskIDList;
 	let newCoinBalance;
-	Task.create({userID, taskName,time,coinsEntered,groupID, completed: false, completedList: []})
+	Task.create({userID, taskName,time,coinsEntered,groupID, completedList: []})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);
@@ -137,7 +137,7 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
 	let taskID;
 	let newTaskIDList;
 	// let newCoinBalance;
-	Task.create({userID, taskName, time, coinsEntered, groupID, completed: false, completedList: []})
+	Task.create({userID, taskName, time, coinsEntered, groupID, completedList: []})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);

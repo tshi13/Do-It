@@ -1,7 +1,15 @@
 import { textAlign } from "@mui/system";
+import React, { useState, useEffect } from 'react';
 
 const ProgressBar = (props) => {
-    const { bgcolor, progress } = props;
+    const { bgcolor, base, compare } = props;
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        setProgress((compare / base) * 100 >= 100 ? 100 : (compare / base) * 100);
+        console.log(compare/base, compare, base);
+    }, [props]);
+
 
     const containerStyles = {
       height: 20,
@@ -27,6 +35,8 @@ const ProgressBar = (props) => {
       allignItems: 'center',
       width: '100%',
     }
+
+    console.log(progress);
   
     return (
       <div style={containerStyles}>

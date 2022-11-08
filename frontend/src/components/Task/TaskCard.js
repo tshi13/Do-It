@@ -14,11 +14,9 @@ import userDAO from '../../utils/userDAO';
 
 export default function TaskCard(props) {
   const { task } = props;
-  const [completed, setCompleted] = React.useState(task.completed);
   const [userCompleted, setUserCompleted] = React.useState();
   const [list, setList] = React.useState(task.completedList ? task.completedList : []); // list of users who have completed the task 
-  const [progress, setProgress] = React.useState(0);
-  const groupSize = task.groupSize ? task.groupSize : 1;
+  const groupSize = props.groupSize ? props.groupSize : 1;
   const userList = props.userList;
   const userID = props.userID;
   const deleteTask = props.deleteTask;
@@ -32,8 +30,6 @@ export default function TaskCard(props) {
   const [coinPool, setCoinPool] = React.useState(task.coinPool ? task.coinPool : 0);
 
 
-  
-
   const handleSubmit = () => {
     if(task.type !== "group" || (task.type === "group" && joined)) {
       let newCompletedList = task.completedList ? task.completedList : [];
@@ -45,46 +41,16 @@ export default function TaskCard(props) {
           completedList: newCompletedList,
         },
       };
-
-      if(task.type === "private") {
-        newTask.data.completed = true;
-      } else if(task.type === "groupIndividual") {
-        let maxSize = Math.ceil(groupSize * 0.75);
-        if(list.length + 1 >= maxSize) {
-          newTask.data.completed = true;
-        }
-      }
-
       taskDAO.updateTask(newTask).then((res) => {
-        setCompleted(res.completed);
         setUserCompleted(true);
         setList(newCompletedList);
-        handleProgress(newCompletedList);
       });
     } else if(task.type === "group" && !joined) {
       alert ("You must join the task to complete it!");
     }
   };
 
-  const handleProgress = (newCompletedList) => {
-    let compareList = newCompletedList ? newCompletedList : list;
   
-    if(Array.isArray(compareList)) {
-      let localProgress = 0;
-      if(task.type === "group") {
-        localProgress = compareList.length / groupSize * 100;
-      } else if(task.type === "groupIndividual") {
-        let maxSize = Math.ceil(groupSize * 0.75);
-        if(compareList.length >= maxSize) {
-          localProgress = 100;
-        } else {
-          localProgress = compareList.length / maxSize * 100;
-        }
-      }
-      setProgress(localProgress);
-    }
-  };
-
   React.useEffect(() => {
     if(task.completedList || task.userID === userID) {
       if(task.completedList.includes(userID) || task.userID === userID ) {
@@ -96,7 +62,6 @@ export default function TaskCard(props) {
         setJoined(true);
       }
     }
-    handleProgress();
   }, []);
 
   const handleFinishTask = () => {
@@ -230,7 +195,7 @@ export default function TaskCard(props) {
                       <Typography sx={{ mb: 1 }} color="text.secondary">
                         Checked off by: {Array.isArray(list) ? list.length : 0} Person(s)
                       </Typography>
-                      <ProgressBar bgcolor="#6a1b9a" progress={progress} style ={{width: '100%'}}/>
+                      <ProgressBar bgcolor="#6a1b9a"  base = {groupSize} compare = {list.length} style ={{width: '100%'}}/>
                     </div>
                     :
                     <></>
@@ -247,7 +212,7 @@ export default function TaskCard(props) {
                     <Typography sx={{ mb: 1 }} color="text.secondary">
                       Completed by: {Array.isArray(list) ? list.length : 0} Person(s)
                     </Typography>
-                    <ProgressBar bgcolor="#6a1b9a" progress={progress} style ={{width: '100%'}}/>
+                    <ProgressBar bgcolor="#6a1b9a" base = {joinedList.length} compare = {list.length} style ={{width: '100%'}}/>
                   </div>
                   :
                   <></>
@@ -306,7 +271,7 @@ export default function TaskCard(props) {
           <CardActions>
             
             { task.type !== "private" ?
-             completed || userCompleted ?
+             userCompleted ?
               <Button size="small" disabled>Completed</Button>
               :
               <Button size="small" onClick={handleSubmit}>Submit</Button>
