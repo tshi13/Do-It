@@ -11,6 +11,7 @@ const Group = require("./schemaModels/Group");
 var ObjectId = require('mongodb').ObjectId;
 var mongoose = require('mongoose');
 
+const { hashPassword } = require("./utils/hash");
 
 db.connect(); 
 
@@ -38,17 +39,26 @@ app.get("/", (req, res) => {
  * 
  * 	res: Copy of created User object in database 
  *  */ 
- app.post("/createUser", (req,res) =>{ //creates new user
-	const {name,coins,taskIDList = [],groupIDList = []} = req.body;
-		User.create({name,coins,taskIDList, groupIDList, profilePicture: null})
-			.then((data) => {
-			res.send(data);
-			})
-			.catch((err) => {
-				res
-				.status(500)
-				.send({ message: "Error creating user with name: " + name })
-			})
+ app.post("/createUser", async (req,res) =>{ //creates new user
+	const {name,password,coins,taskIDList = [],groupIDList = []} = req.body;
+		try {
+			const hash = await hashPassword(password);
+			const user = await User.create({name,password: hash,coins,taskIDList, groupIDList, profilePicture: null});
+			
+			res.send(user);
+		} catch (err) {
+			res.status(500).send({ message: "Error creating user with name: " + name })
+		}
+		// User.create({name,password,coins,taskIDList, groupIDList, profilePicture: null})
+		// 	.then((data) => {
+		// 	const hash = await hashPassword(password);
+		// 	res.send(data);
+		// 	})
+		// 	.catch((err) => {
+		// 		res
+		// 		.status(500)
+		// 		.send({ message: "Error creating user with name: " + name })
+		// 	})
 })
 
 app.put("/updateUser", (req,res) =>{ //updates user
@@ -421,6 +431,35 @@ app.get("/userdata/:_id",(req,res) => { //gets the details of a user
 			.status(500)
 			.send({ message: "Error retrieving user with id: " + _id });
 		});
+})
+
+
+app.post("/authenticate",async(req,res) => { // authenticate the user
+	const body = req.body;
+	const user = await User.find({name:body.name});
+	const isAuthenticated = await verifyPassword(body.password, user ? user.password : "");
+	if (isAuthenticated) {
+		return res.status(201).json({
+			message: "Authentication successful!",
+		});
+	} else {
+		return res.status(403).json({
+			message: "Wrong username or password!",
+		  });
+	}
+// 	.then((data) => {
+// 		const isAuthenticated = await verifyPassword(password, user ? user.password : "");
+// 	})
+// 	User.findById(_id)
+// 		.then((data) => {
+// 			res.send(data);
+// 		})
+// 		.catch(err => {
+// 			res
+// 			.status(500)
+// 			.send({ message: "Error retrieving user with id: " + _id });
+// 		});
+// })
 })
 
 app.delete("/deleteTask/group/:groupID/:taskID",(req,res) => { //deletes a task from a group

@@ -8,6 +8,7 @@ function LoginForm(props) {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
   // User Login info
 
@@ -21,16 +22,25 @@ function LoginForm(props) {
     event.preventDefault();
     const data = {
       name : userName,
+      password: password
     }  
     
     userDAO.getUser(data).then((response) => {
       
       if (response !== "User not found") {
-        userDAO.getUserData(response._id).then((res) => {
-          props.setUser(data.name, res._id, res.coins);
-          setIsSubmitted(true);
-          window.location.href = "/";
+        userDAO.authenticate(data).then((msg) => {
+          if (msg.message == "Authentication successful!") {
+            userDAO.getUserData(response._id).then((res) => {
+              props.setUser(data.name, res._id, res.coins);
+              setIsSubmitted(true);
+              window.location.href = "/";
+            });
+          } else {
+            setIsSubmitted(false);
+            setErrorMessages({ name: "pass", message: errors.pass });
+          }
         });
+        
         
       } else {
         setIsSubmitted(false);
@@ -79,7 +89,7 @@ function LoginForm(props) {
               {renderErrorMessage("uname")}
             </div>
             <div className="input">
-              <input type="password" name="password" placeholder="Password" className = "inputLogin" />
+              <input type="password" name="password" placeholder="Password" className = "inputLogin" onChange={(e) => setPassword(e.target.value)}/>
               {renderErrorMessage("pass")}
             </div>
             <div className="input">

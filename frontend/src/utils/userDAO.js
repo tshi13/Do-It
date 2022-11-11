@@ -2,6 +2,7 @@ import axios from 'axios';
 import chatDAO from './chatDAO';
 
 
+
 axios.defaults.baseURL = 'http://localhost:5000';
 
 async function getUser(data) {
@@ -32,6 +33,12 @@ async function updateUser(userID, data) {
 
 async function getUserData(userID) {
     let res = await axios.get('/userdata/' + userID).then(data => data);
+    return res["data"];
+}
+
+
+async function authenticate(data) {
+    let res = await axios.post('/authenticate', data).then(data => data);
     return res["data"];
 }
 
@@ -85,6 +92,10 @@ export default class userDAO {
 
     static getUserData(userID) {
         return getUserData(userID);
+    }
+
+    static authenticate(userID) {
+        return authenticate(userID);
     }
 }
 
