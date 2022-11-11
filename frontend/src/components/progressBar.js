@@ -2,12 +2,22 @@ import { textAlign } from "@mui/system";
 import React, { useState, useEffect } from 'react';
 
 const ProgressBar = (props) => {
-    const { bgcolor, base, compare } = props;
+    const { bgcolor } = props;
     const [progress, setProgress] = useState(0);
 
+
+
     useEffect(() => {
-        setProgress((compare / base) * 100 >= 100 ? 100 : (compare / base) * 100);
-        console.log(compare/base, compare, base);
+      let compare = props.compare ? props.compare : 0;
+      let base = props.base ? props.base : 0;
+      let progress = compare/base * 100;
+      if(progress > 100) {
+        progress = 100;
+      } else if(progress === NaN || progress === null || base === 0) {
+        progress = 0;
+      }
+      setProgress(progress);
+        
     }, [props]);
 
 
@@ -35,8 +45,6 @@ const ProgressBar = (props) => {
       allignItems: 'center',
       width: '100%',
     }
-
-    console.log(progress);
   
     return (
       <div style={containerStyles}>
