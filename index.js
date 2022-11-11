@@ -26,7 +26,6 @@ app.use(express.static(path.resolve(__dirname, 'frontend/build')));
 
 
 		
-
 app.listen(port, () => {
   console.log(`Express app listening at port: http://localhost:${port}/`);
 });
