@@ -22,9 +22,6 @@ app.use(function(req, res, next) {
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 
 app.use(express.static(path.resolve(__dirname, 'frontend/build')));
-
-
-
 		
 app.listen(port, () => {
   console.log(`Express app listening at port: http://localhost:${port}/`);
