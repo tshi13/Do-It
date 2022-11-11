@@ -1,7 +1,9 @@
 import React, {useEffect, useState } from "react";
 import userDAO from "../utils/userDAO";
+import GoogleAuth from "./GoogleAuth";
 
 import '../styles/LoginForm.css';
+
 
 function LoginForm(props) {
   // React States
@@ -93,8 +95,9 @@ function LoginForm(props) {
                 <p>Don't have an account?</p>
                 <input type="submit" value="Register" className = "inputButton"/>
               </form>
-            </div>
-      </div>
+          </div>
+					<GoogleAuth/>
+      	</div>
     }
     </div>
   );
