@@ -11,7 +11,7 @@ const Group = require("./schemaModels/Group");
 var ObjectId = require('mongodb').ObjectId;
 var mongoose = require('mongoose');
 
-const { hashPassword } = require("./utils/hash");
+const { hashPassword, verifyPassword } = require("./utils/hash");
 
 db.connect(); 
 
@@ -437,15 +437,17 @@ app.get("/userdata/:_id",(req,res) => { //gets the details of a user
 app.post("/authenticate",async(req,res) => { // authenticate the user
 	const body = req.body;
 	const user = await User.find({name:body.name});
-	const isAuthenticated = await verifyPassword(body.password, user ? user.password : "");
+	const isAuthenticated = await verifyPassword(body.password, user[0] ? user[0].password : "");
 	if (isAuthenticated) {
-		return res.status(201).json({
-			message: "Authentication successful!",
-		});
+		// return res.status(201).json({
+		// 	message: "Authentication successful!",
+		// });
+		res.status(201).send({ message: "Authentication successful!" })
 	} else {
-		return res.status(403).json({
-			message: "Wrong username or password!",
-		  });
+		// return res.status(403).json({
+		// 	message: "Wrong username or password!",
+		//   });
+		res.status(201).send({ message: "Wrong username or password!" })
 	}
 // 	.then((data) => {
 // 		const isAuthenticated = await verifyPassword(password, user ? user.password : "");

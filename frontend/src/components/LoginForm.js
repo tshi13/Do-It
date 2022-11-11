@@ -29,6 +29,7 @@ function LoginForm(props) {
       
       if (response !== "User not found") {
         userDAO.authenticate(data).then((msg) => {
+          console.log(msg);
           if (msg.message == "Authentication successful!") {
             userDAO.getUserData(response._id).then((res) => {
               props.setUser(data.name, res._id, res.coins);
@@ -37,6 +38,7 @@ function LoginForm(props) {
             });
           } else {
             setIsSubmitted(false);
+            setErrorMessages({ name: "uname", message: errors.uname });
             setErrorMessages({ name: "pass", message: errors.pass });
           }
         });
