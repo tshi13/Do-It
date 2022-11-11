@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import TaskCard from '../Task/TaskCard';
 import TaskModal from '../Task/TaskModal';
 import GroupSettings from './GroupSettings';
+import userDAO from '../../utils/userDAO';
 
 import '../../styles/GroupTaskBar.css';
 
@@ -65,16 +66,6 @@ export default function GroupTaskBar(props) {
             return (
             <div style = {{height: newHeight}} className = "taskList">
                 <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
-                {/*<div className = "UsersinGroup">
-                    <h3>Users in Group</h3>
-                    {localList.map((item, index) => {
-                        return (
-                            <div key = {index}>
-                                <p>{item.name}</p>
-                            </div>
-                        )
-                    })}
-                </div>*/}
                 <h1 style ={{textAlign: 'center'}}>Task List</h1>
                 <p style = {{textAlign: 'center'}}>Group Invite: {props.inviteID}</p>
                  <button className = "button" onClick = {() => {navigator.clipboard.writeText(firstPartOfURL +"/invite/ID=" + props.inviteID)}}>Copy Invite Link To Clipboard</button>
@@ -90,11 +81,9 @@ export default function GroupTaskBar(props) {
                                         coinsEntered: item.coinsEntered,
                                         time: item.time,
                                         id: item._id,
-                                        completed: item.completed,
                                         type: "group",
                                         userID: null,
                                         completedList: item.completedList,
-                                        groupSize: userList.length,
                                         joinedList: item.joinedList ? item.joinedList : [],
                                         coinPool: item.coinPool ? item.coinPool : 0,
                                     }
@@ -116,15 +105,12 @@ export default function GroupTaskBar(props) {
                                         coinsEntered: item.coinsEntered,
                                         time: item.time,
                                         id: item._id,
-                                        completed: item.completed,
                                         type: "groupIndividual",
                                         userID: item.userID,
                                         completedList: item.completedList,
-                                        groupSize: userList.length,
-                                        username: userList.find(user => user.id === item.userID) ? userList.find(user => user.id === item.userID).name : "User"
                                     }
                                     return (
-                                        <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
+                                        <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} groupSize = {userList.length} />
                                     )
                                 })}
                             </div>
