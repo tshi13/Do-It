@@ -54,6 +54,30 @@ async function joinGroup(userID, groupID) {
     return res["data"];
 }
 
+async function login(data) {
+
+    /*
+     data schema:
+     data = {
+            loginType: "google" or "facebook" or "password",
+            (if loginType is google or facebook fill out the following)
+            key: token,
+            (if loginType is password fill out the following)
+            username: username,
+            password: password
+        }
+    */
+
+    let loginType = data.loginType;
+    if(loginType === "password") {
+        let res = await axios.get('/user/login/' + data.name + '/' + data.password).then(data => data);
+        return res["data"];
+    } else {
+        let res = await axios.get('/user/authLogin/' + data.name + '/' + data.loginType).then(data => data);
+        return res["data"];
+    } 
+}
+
 export default class userDAO {
     static getUser(data) {
         return getUser(data);
@@ -86,6 +110,11 @@ export default class userDAO {
     static getUserData(userID) {
         return getUserData(userID);
     }
+
+    static login(data) {
+        return login(data);
+    }
+
 }
 
 

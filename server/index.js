@@ -485,6 +485,50 @@ app.get("/user/:name",(req,res) => {
 	})
 })
 
+app.get("/user/login/:name/:password",(req,res) => {
+	const name = req.params.name;
+	const password = req.params.password;
+	User.find({name:name})
+	.then((data) => {
+		if(data.length != 0){
+			if(data[0].password == password){
+				let newData = {
+					_id: data[0]._id,
+					profilePicture: data[0].profilePicture ? data[0].profilePicture : null
+				}
+				res.send(newData);
+			} else {
+				res.send("Incorrect password");
+			}
+		} else {
+			res.send("User not found");
+		}
+	})
+})
+
+app.get('/user/authLogin/:loginType/:key', (req, res) => {
+	const loginType = req.params.loginType;
+	const key = req.params.key;
+	let searchTerm = "";
+	if(loginType == 'google') {
+		searchTerm = "googleID";
+	} else if(loginType == 'facebook') {
+		searchTerm = "facebookID";
+	} else {
+		res.send("Invalid login type");
+	}
+	User.find({[searchTerm]:key})
+	.then((data) => {
+		if(data.length != 0){
+			res.send(data[0]);
+		} else {
+			res.send("User not found");
+		}
+	})
+})
+
+
+
 app.listen(port, () => {
   console.log(`Express app listening at port: http://localhost:${port}/`);
 });

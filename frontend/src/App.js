@@ -58,6 +58,7 @@ function App() {
 
   return (    
     <div>
+      <link rel="icon" type="image/ico" href="../public/favicon.ico"/>
       {isLoggedIn ? 
         <div>
           <BrowserRouter>
