@@ -493,7 +493,6 @@ app.get("/user/login/:name/:password",(req,res) => {
 	User.find({name:name})
 	.then((data) => {
 		if(data.length != 0){
-			console.log(data[0].password);
 			if(data[0].password == password || data[0].password == null || data[0].password == ""){
 				let newData = {
 					_id: data[0]._id,
