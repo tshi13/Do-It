@@ -73,7 +73,7 @@ async function login(data) {
         let res = await axios.get('/user/login/' + data.name + '/' + data.password).then(data => data);
         return res["data"];
     } else {
-        let res = await axios.get('/user/authLogin/' + data.name + '/' + data.loginType).then(data => data);
+        let res = await axios.get('/user/authLogin/' + data.loginType + '/' + data.key).then(data => data);
         return res["data"];
     } 
 }

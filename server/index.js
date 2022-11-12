@@ -486,19 +486,22 @@ app.get("/user/:name",(req,res) => {
 })
 
 app.get("/user/login/:name/:password",(req,res) => {
+	
 	const name = req.params.name;
 	const password = req.params.password;
+	
 	User.find({name:name})
 	.then((data) => {
 		if(data.length != 0){
-			if(data[0].password == password){
+			console.log(data[0].password);
+			if(data[0].password == password || data[0].password == null || data[0].password == ""){
 				let newData = {
 					_id: data[0]._id,
 					profilePicture: data[0].profilePicture ? data[0].profilePicture : null
 				}
 				res.send(newData);
 			} else {
-				res.send("Incorrect password");
+				res.send("Incorrect password" + data[0].password + " " + password);
 			}
 		} else {
 			res.send("User not found");
