@@ -6,6 +6,7 @@ import { useEffect } from "react";
 export default function GoogleAuth(props) {
 
 	const clientId = '311523881473-odufi85njfn04idsir7pr8ckmarl9hak.apps.googleusercontent.com';
+	
 
 	useEffect(() => {
 		const initClient = () => {
@@ -19,20 +20,22 @@ export default function GoogleAuth(props) {
 
 	
 	const onSuccess = (res) => {
-		console.log('success:', res);
-};
-const onFailure = (err) => {
-		console.log('failed:', err);
-};
-return (
-	 <GoogleLogin
-			clientId={clientId}
-			buttonText="Sign in with Google"
-			onSuccess={onSuccess}
-			onFailure={onFailure}
-			cookiePolicy={'single_host_origin'}
-			isSignedIn={true}
-	/>
-);
+		const data = res.profileObj;
+		props.handleGoogle(data);
+	};
+	
+	const onFailure = (err) => {
+			console.log('failed:', err);
+	};
+	return (
+		<GoogleLogin
+				clientId={clientId}
+				buttonText="Sign in with Google"
+				onSuccess={onSuccess}
+				onFailure={onFailure}
+				cookiePolicy={'single_host_origin'}
+				isSignedIn={true}
+		/>
+	);
 
 }

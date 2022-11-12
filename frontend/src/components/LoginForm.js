@@ -53,6 +53,11 @@ function LoginForm(props) {
     // }
   })};
 
+	const handleGoogle = (data) => {
+		const googleID = data.googleId;
+		const name = data.name;
+	}
+
   // useEffect hook to redirect to home page after login
 
 
@@ -96,7 +101,9 @@ function LoginForm(props) {
                 <input type="submit" value="Register" className = "inputButton"/>
               </form>
           </div>
-					<GoogleAuth/>
+					<div style = {{marginTop: '10%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+						<GoogleAuth handleGoogle = {handleGoogle}/>
+					</div>
       	</div>
     }
     </div>
