@@ -95,7 +95,6 @@ app.get("/getTask/:taskID", (req,res) => { //gets task
 
 
 
-
 /**
  * req.body: 
  * 	userID: String, ObjectId of user associated to this task
@@ -500,7 +499,7 @@ app.get("/user/login/:name/:password",(req,res) => {
 				}
 				res.send(newData);
 			} else {
-				res.send("Incorrect password" + data[0].password + " " + password);
+				res.send("Incorrect password");
 			}
 		} else {
 			res.send("User not found");
