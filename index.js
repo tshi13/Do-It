@@ -8,9 +8,33 @@ var cors = require('cors');
 app.use(cors());
 
 
-app.get('/'), (req, res) => {
-	res.send('Hello World!');
-}
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
+  })
+
+  app.get('/register', (req, res) => {
+	res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
+	})
+
+	app.get('/NotFound', (req, res) => {
+		res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
+	})
+
+	app.get('/invite/*', (req, res) => {
+		res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
+	})
+
+	app.get('/profile', (req, res) => {
+		res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
+	})
+
+	app.get('/searchGroup', (req, res) => {
+		res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
+	})
+
+	app.get('*', (req, res) => {
+		res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
+	})
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
