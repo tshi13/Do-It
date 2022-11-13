@@ -9,49 +9,41 @@ function LoginForm(props) {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   // User Login info
 
-  const errors = {
-    uname: "User Doesn't Exist",
-    pass: "invalid password"
-  };
+
 
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
     const data = {
-      name : userName,
+      loginType: "password",
+      name : username,
+      password: password
     }  
-    
-    userDAO.getUser(data).then((response) => {
-      
-      if (response !== "User not found") {
-        userDAO.getUserData(response._id).then((res) => {
-          props.setUser(data.name, res._id, res.coins);
-          setIsSubmitted(true);
-          window.location.href = "/";
-        });
-        
-      } else {
-        setIsSubmitted(false);
-        setErrorMessages({ name: "uname", message: errors.uname });
-      }
 
-    // // Compare user info
-    // if (userData) {
-    //   if (userData.password !== pass.value) {
-    //     // Invalid password
-    //     setErrorMessages({ name: "pass", message: errors.pass });
-    //   } else {
-    //     setIsSubmitted(true);
-    //   }
-    // } else {
-    //   // Username not found
-    //   setErrorMessages({ name: "uname", message: errors.uname });
-    // }
-  })};
+    if(password === "" || username === ""){
+      setErrorMessages({name: "pass", message: "Please fill out all fields"});
+    } else {
+      userDAO.login(data).then((response) => {
+        
+        if (typeof response !== "string") {
+          userDAO.getUserData(response._id).then((res) => {
+            props.setUser(data.name, res._id, res.coins);
+            setIsSubmitted(true);
+            window.location.href = "/";
+          });
+          
+        } else {
+          setIsSubmitted(false);
+          setErrorMessages({ name: "pass", message: response });
+        }
+    })
+  }
+};
 
 	const handleGoogle = (data) => {
 		const googleID = data.googleId;
@@ -81,12 +73,12 @@ function LoginForm(props) {
                 name="name"
                 placeholder="Username"
                 className = "inputLogin"
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
               />
               {renderErrorMessage("uname")}
             </div>
             <div className="input">
-              <input type="password" name="password" placeholder="Password" className = "inputLogin" />
+              <input type="password" name="password" placeholder="Password" className = "inputLogin" onChange={(e) => setPassword(e.target.value)} />
               {renderErrorMessage("pass")}
             </div>
             <div className="input">

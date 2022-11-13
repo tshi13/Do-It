@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import groupDAO from '../../utils/groupDAO';
@@ -20,9 +20,10 @@ export default function TaskModal(props) {
     const [TaskForUser, setTaskForUser] = useState("Group Task");
     const userID = props.userID;
     const userList = props.userList;
+    const userMap = props.userMap;
     const setNotifications = props.setNotifications;
-    
 
+   
     const informUsers = (taskID) => {
       if(type === "group") {
         for (let i = 0; i < userList.length; i++) {
@@ -66,6 +67,7 @@ export default function TaskModal(props) {
 
 
   const handleSubmit = () => {
+
     // checks if the user inputs are valid and exist
     if(taskName === "" || time === 0 || coinsEntered === 0 || TaskForUser === "") {
       if(taskName === "") {
@@ -149,7 +151,6 @@ export default function TaskModal(props) {
       setTaskForUser("")
     }
   }
-
    // JSX code for taskModal form
   return (
     <div style ={props.style}>
@@ -175,8 +176,8 @@ export default function TaskModal(props) {
                 { userList && type !== "group" ?
                   <Autocomplete 
                   onChange={(event, value) => {setTaskForUser(value)}}
-                  options = {userList}
-                  getOptionLabel={(userList) => userList.name}
+                  options = {userMap ? userMap : []}
+                  getOptionLabel={(option) => option.name}
                   renderInput={(params) => (
                     <div ref={params.InputProps.ref}>
                       <input type="text" {...params.inputProps} className = "taskBox2" placeholder = "Select User"/>
