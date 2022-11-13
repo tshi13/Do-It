@@ -3,11 +3,25 @@ import userDAO from "../utils/userDAO";
 
 import '../styles/LoginForm.css';
 
+import FacebookLogin from 'react-facebook-login';
+
 function LoginForm(props) {
+  
+  
+  // window.fbAsyncInit = function() {
+  //   FB.init({
+  //     appId            : '865292997959919',
+  //     autoLogAppEvents : true,
+  //     xfbml            : true,
+  //     version          : 'v15.0'
+  //   });
+  // };
+
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState("");
+
 
   // User Login info
 
@@ -60,7 +74,72 @@ function LoginForm(props) {
       <div className="error">{errorMessages.message}</div>
     );
 
+  const fbContent = () => {
+    // let content = ();
+    // return content;
+  }
 
+  const componentClicked = (event) => {
+    console.log("clicked");
+    // handleFacebookSubmit(event);
+  }
+
+  const responseFacebook = response => {
+    if (response.id == null) {
+      
+    }
+    console.log(response);
+    // make a user with a facebook id
+    // if the user in the mongodb with a matching facebook id
+    // log that user in
+    // otherwise / else go to
+    // go to register page with value true add user to database
+    // other than that, the register
+    
+    // this line below needs to be fixed
+    // handleFacebookSubmit(event, response);
+  }
+
+  const handleFacebookSubmit = (event, response) => {
+    // return;
+    //Prevent page reload
+    event.preventDefault();
+    const data = {
+      name : userName,
+    }  
+    
+    userDAO.getUser(data).then((response) => {
+      
+      if (response !== "User not found") {
+        userDAO.getUserData(response._id).then((res) => {
+          props.setUser(data.name, res._id, res.coins);
+          setIsSubmitted(true);
+          window.location.href = "/";
+        });
+        
+      } else {
+        setIsSubmitted(false);
+        setErrorMessages({ name: "uname", message: errors.uname });
+      }
+
+    // // Compare user info
+    // if (userData) {
+    //   if (userData.password !== pass.value) {
+    //     // Invalid password
+    //     setErrorMessages({ name: "pass", message: errors.pass });
+    //   } else {
+    //     setIsSubmitted(true);
+    //   }
+    // } else {
+    //   // Username not found
+    //   setErrorMessages({ name: "uname", message: errors.uname });
+    // }
+  })};
+
+  // FB.getLoginStatus(function(response) {
+  //   statusChangeCallback(response);
+  // });
+  
   return (
     <div className="app" style = {{width: '100%'}}>
       {isSubmitted ? <div>User is successfully logged in <br></br> <p>Redirecting to Main Page</p></div> : 
@@ -85,6 +164,38 @@ function LoginForm(props) {
             <div className="input">
               <input type="submit" value="Login" className = "inputButton"/>
             </div>
+            {/* <FacebookLogin
+    appId="865292997959919"
+    autoLoad={false}
+    fields="name,email,picture"
+    onClick={() => {componentClicked();}}
+    callback={(res) => {responseFacebook(res);}} /> */}
+            <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
+            <FacebookLogin
+    appId="865292997959919"
+    autoLoad={false}
+    fields="name,email,picture"
+    onClick={(event) => {componentClicked(event);}}
+    callback={(res) => {responseFacebook(res);}} />
+            </div>
+            
+    
+    {/* <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  
+    <script>
+      
+ {window.fbAsyncInit = function() {
+    FB.init({
+      appId            : 'your-app-id',
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v15.0'
+    });
+  }}
+  {window.fbAsyncInit()}
+</script>
+  
+    <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div> */}
           </form>
 
         </div>
@@ -94,7 +205,10 @@ function LoginForm(props) {
                 <input type="submit" value="Register" className = "inputButton"/>
               </form>
             </div>
+            {fbContent()}
+            
       </div>
+      
     }
     </div>
   );
