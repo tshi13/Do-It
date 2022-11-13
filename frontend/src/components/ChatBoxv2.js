@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Modal, Form} from 'react-bootstrap';
 import TaskModal from "../components/TaskModal";
-import Database from '../utils/database';
 import ChatFeed from './chatcomponents/ChatFeed';
 
 import  '../styles/chatBoxv2.css';

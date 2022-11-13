@@ -50,20 +50,7 @@ export default function GroupComponent(props)  {
             setInviteID(group.inviteID);
             setOwner(group.owner);
             let userListIDs = group.idList;
-            let userList = [];
-            for(let i = 0; i < userListIDs.length; i++) {
-                if(userListIDs[i] !== null) {
-                    userDAO.getUserData(userListIDs[i]).then((user) => {
-                        let userData = {
-                            id: user._id,
-                            name: user.name,
-                            profilePicture: user.profilePicture,
-                        }
-                        userList.push(userData);
-                    });
-                }
-            }
-            setUserList(userList);
+            setUserList(userListIDs);
         });
 
     }, [groupID]);
@@ -88,20 +75,12 @@ export default function GroupComponent(props)  {
     }
     
 
-   const renderChat = () => {
-        {/*<ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback} userList = {userList}/>*/}
-        if(userID && username && groupName && groupID) {
-            return (
-                <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
-            );
-        }
-    }
 
     return (
         <div className = "groupComponent">
             <div className = "centerSection" style = {{width: '100%', height: newHeight}}>
                 {userID && username && groupName && groupID ? 
-                <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
+                <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} groupPicture = {groupPicture} />
                 : null}
 
             </div>

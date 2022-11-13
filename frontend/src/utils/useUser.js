@@ -14,7 +14,7 @@ export default function useUser() {
     return userUser;
   };
 
-  const [user, setUser] = useState(getUser());
+  const [user, setUser] = useState(getUser()); 
 
   const [userID] = useState(getUserID());
 
