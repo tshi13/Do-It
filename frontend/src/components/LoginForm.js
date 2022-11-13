@@ -89,30 +89,42 @@ function LoginForm(props) {
     // other than that, the register
     
     // this line below needs to be fixed
-    // handleFacebookSubmit(event, response);
+    handleFacebookSubmit(response);
   }
 
-  const handleFacebookSubmit = (event, response) => {
-    // return;
-    //Prevent page reload
-    event.preventDefault();
+  const handleFacebookSubmit = facebookResponse => {
+    // this is the id associated with a user
+    // on facebook.com
+    const facebookID = facebookResponse.id;
+
+    // preparing to send data to login function
     const data = {
-      name : userName,
-    }  
+      loginType: "facebook",
+      key: facebookID
+    }
+
+    const doItloginResponse = userDAO.login(data);
+
+    console.log(doItloginResponse);
+    //Prevent page reload
+    // event.preventDefault();
+    // const data = {
+    //   name : userName,
+    // }  
     
-    userDAO.getUser(data).then((response) => {
+    // userDAO.getUser(data).then((response) => {
       
-      if (response !== "User not found") {
-        userDAO.getUserData(response._id).then((res) => {
-          props.setUser(data.name, res._id, res.coins);
-          setIsSubmitted(true);
-          window.location.href = "/";
-        });
+    //   if (response !== "User not found") {
+    //     userDAO.getUserData(response._id).then((res) => {
+    //       props.setUser(data.name, res._id, res.coins);
+    //       setIsSubmitted(true);
+    //       window.location.href = "/";
+    //     });
         
-      } else {
-        setIsSubmitted(false);
-        setErrorMessages({ name: "uname", message: errors.uname });
-      }
+    //   } else {
+    //     setIsSubmitted(false);
+    //     setErrorMessages({ name: "uname", message: errors.uname });
+    //   }
 
     // // Compare user info
     // if (userData) {
@@ -126,7 +138,8 @@ function LoginForm(props) {
     //   // Username not found
     //   setErrorMessages({ name: "uname", message: errors.uname });
     // }
-  })};
+  // })
+};
 
   // FB.getLoginStatus(function(response) {
   //   statusChangeCallback(response);
