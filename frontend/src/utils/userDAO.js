@@ -1,8 +1,8 @@
 import axios from 'axios';
 import chatDAO from './chatDAO';
 
-
-axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
+axios.defaults.baseURL = 'http://localhost:5000';
+// axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
 
 async function getUser(data) {
     let res = await axios.get('/user/' + data.name).then(data => data);
@@ -74,8 +74,9 @@ async function login(data) {
         return res["data"];
     } else {
         let res = await axios.get('/user/authLogin/' + data.loginType + '/' + data.key).then(data => data);
-        return res["data"];
-    } 
+				return res["data"];
+		}
+     
 }
 
 export default class userDAO {

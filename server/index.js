@@ -39,8 +39,8 @@ app.get("/", (req, res) => {
  * 	res: Copy of created User object in database 
  *  */ 
  app.post("/createUser", (req,res) =>{ //creates new user
-	const {name,coins,taskIDList = [],groupIDList = []} = req.body;
-		User.create({name,coins,taskIDList, groupIDList, profilePicture: null})
+	const {name,coins,taskIDList = [],groupIDList = [],googleID = "", facebookID = "", email = ""} = req.body;
+		User.create({name,coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email})
 			.then((data) => {
 			res.send(data);
 			})
@@ -512,6 +512,7 @@ app.get("/user/login/:name/:password",(req,res) => {
 app.get('/user/authLogin/:loginType/:key', (req, res) => {
 	const loginType = req.params.loginType;
 	const key = req.params.key;
+	console.log(loginType, key);
 	let searchTerm = "";
 	if(loginType == 'google') {
 		searchTerm = "googleID";

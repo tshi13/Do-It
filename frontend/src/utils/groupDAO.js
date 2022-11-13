@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
+axios.defaults.baseURL = 'http://localhost:5000';
+// axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
 
 async function getGroups(userID) {
     let res = await axios.get('/groups/' + userID).then(data => data);

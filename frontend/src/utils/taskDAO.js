@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
+axios.defaults.baseURL = 'http://localhost:5000';
+// axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
 
 // getting tasks for a user only
 async function getTasks(data) {

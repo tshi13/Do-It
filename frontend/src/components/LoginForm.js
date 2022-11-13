@@ -45,9 +45,33 @@ function LoginForm(props) {
   }
 };
 
-	const handleGoogle = (data) => {
-		const googleID = data.googleId;
-		const name = data.name;
+	const handleGoogle = async (event) => {
+		const googleID = event.googleId;
+		const name = event.name;
+		console.log(event);
+		const loginData = {
+			loginType: "google",
+			key: googleID
+		};
+
+		const data = {
+      name : name,
+      coins : 6,
+      taskIDList : [],
+      groupIDList : [],
+			googleID: googleID,
+			email: event.email
+    }
+
+		let response = await userDAO.login(loginData);
+		if (typeof response === "string") {
+			await userDAO.addUser(data);
+		}
+		userDAO.getUserData(response._id).then((res) => {
+			props.setUser(data.name, res._id, res.coins);
+			setIsSubmitted(true);
+			window.location.href = "/";
+		});
 	}
 
   // useEffect hook to redirect to home page after login
