@@ -64,14 +64,15 @@ function LoginForm(props) {
     }
 
 		let response = await userDAO.login(loginData);
+		let id = response._id;
 		if (typeof response === "string") {
-			await userDAO.addUser(data);
+			let newUser = await userDAO.addUser(data);
+			id = newUser._id;
 		}
-		userDAO.getUserData(response._id).then((res) => {
-			props.setUser(data.name, res._id, res.coins);
-			setIsSubmitted(true);
-			window.location.href = "/";
-		});
+		
+		props.setUser(data.name, id, 6);
+		setIsSubmitted(true);
+		window.location.href = "/";	
 	}
 
   // useEffect hook to redirect to home page after login

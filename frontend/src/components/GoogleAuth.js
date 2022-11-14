@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin,GoogleLogout } from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { useEffect } from "react";
 
@@ -28,7 +28,8 @@ export default function GoogleAuth(props) {
 			console.log('failed:', err);
 	};
 	return (
-		<GoogleLogin
+		<div>
+			<GoogleLogin
 				clientId={clientId}
 				buttonText="Sign in with Google"
 				onSuccess={onSuccess}
@@ -36,6 +37,10 @@ export default function GoogleAuth(props) {
 				cookiePolicy={'single_host_origin'}
 				isSignedIn={true}
 		/>
+		</div>
+		
+
+		
 	);
 
 }
