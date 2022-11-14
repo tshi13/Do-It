@@ -109,6 +109,7 @@ function LoginForm(props) {
     if (response.id == null) {
       
     }
+    // 
     console.log(response);
     // make a user with a facebook id
     // if the user in the mongodb with a matching facebook id
@@ -121,53 +122,44 @@ function LoginForm(props) {
     handleFacebookSubmit(response);
   }
 
-  const handleFacebookSubmit = facebookResponse => {
+  const handleFacebookSubmit = async (facebookResponse) => {
     // this is the id associated with a user
     // on facebook.com
     const facebookID = facebookResponse.id;
-
+    const name = facebookResponse.name;
+    const email = facebookResponse.email;
+		
     // preparing to send data to login function
-    const data = {
-      loginType: "facebook",
-      key: facebookID
+    const loginData = {
+			loginType: "facebook",
+			key: facebookID
+		};
+
+		const data = {
+      name : name,
+      coins : 6,
+      taskIDList : [],
+      groupIDList : [],
+			facebookID: facebookID,
+			email: email
     }
 
-    const doItloginResponse = userDAO.login(data);
-
-    console.log(doItloginResponse);
-    //Prevent page reload
-    // event.preventDefault();
-    // const data = {
-    //   name : userName,
-    // }  
+		let response = await userDAO.login(loginData);
+		let id = response._id;
+		let coins = response.coins;
+		if (typeof response === "string") {
+			let newUser = await userDAO.addUser(data);
+			id = newUser._id;
+			coins = newUser.coins;
+		}
+		
+		props.setUser(data.name, id, coins);
+		setIsSubmitted(true);
+		window.location.href = "/";	
     
-    // userDAO.getUser(data).then((response) => {
-      
-    //   if (response !== "User not found") {
-    //     userDAO.getUserData(response._id).then((res) => {
-    //       props.setUser(data.name, res._id, res.coins);
-    //       setIsSubmitted(true);
-    //       window.location.href = "/";
-    //     });
-        
-    //   } else {
-    //     setIsSubmitted(false);
-    //     setErrorMessages({ name: "uname", message: errors.uname });
-    //   }
-
-    // // Compare user info
-    // if (userData) {
-    //   if (userData.password !== pass.value) {
-    //     // Invalid password
-    //     setErrorMessages({ name: "pass", message: errors.pass });
-    //   } else {
-    //     setIsSubmitted(true);
-    //   }
-    // } else {
-    //   // Username not found
-    //   setErrorMessages({ name: "uname", message: errors.uname });
-    // }
-  // })
+    // const doItloginResponse = userDAO.login(data);
+    // console.log(doItloginResponse);
+    
 };
 
   // FB.getLoginStatus(function(response) {
