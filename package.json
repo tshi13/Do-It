@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server",
-    "start": "cd server && node index.js"
+    "start": "cd server && node index.js",
+    "heroku-postbuild": "cd server && npm install"
   },
   "repository": {
     "type": "git",
