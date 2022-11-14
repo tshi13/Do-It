@@ -109,7 +109,10 @@ function LoginForm(props) {
             <div className="input">
               <input type="submit" value="Login" className = "inputButton"/>
             </div>
-						<div style = {{marginTop: '10%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+						<div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+							Or login with
+						</div>
+						<div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
 							<GoogleAuth handleGoogle = {handleGoogle}/>
 						</div>
           </form>
