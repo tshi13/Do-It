@@ -40,11 +40,11 @@ app.get("/", (req, res) => {
  * 	res: Copy of created User object in database 
  *  */ 
  app.post("/createUser", async (req,res) =>{ //creates new user
-	const {name,password,coins,taskIDList = [],groupIDList = []} = req.body;
+	const {name,password,coins,taskIDList = [],groupIDList = [], googleID = "", facebookID = "", email = ""} = req.body;
+	if(password == undefined || password == "") {
 		try {
 			const hash = await hashPassword(password);
-			const user = await User.create({name,password: hash,coins,taskIDList, groupIDList, profilePicture: null});
-			
+			const user = await User.create({name, password: hash, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
 			res.send(user);
 		} catch (err) {
 			res.status(500).send({ message: "Error creating user with name: " + name })
@@ -59,6 +59,16 @@ app.get("/", (req, res) => {
 		// 		.status(500)
 		// 		.send({ message: "Error creating user with name: " + name })
 		// 	})
+	} else if(googleID != "" || facebookID != "") {
+		try {
+			const user = await User.create({name, password: null, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			res.send(user);
+		} catch (err) {
+			res.status(500).send({ message: "Error creating user with name: " + name });
+		}
+	} else {
+		res.status(500).send({ message: "Error creating user with name: " + name });
+	}
 })
 
 app.put("/updateUser", (req,res) =>{ //updates user
