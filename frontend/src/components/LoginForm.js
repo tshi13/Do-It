@@ -31,12 +31,9 @@ function LoginForm(props) {
       userDAO.login(data).then((response) => {
         
         if (typeof response !== "string") {
-          userDAO.getUserData(response._id).then((res) => {
-            props.setUser(data.name, res._id, res.coins);
-            setIsSubmitted(true);
-            window.location.href = "/";
-          });
-          
+					props.setUser(data.name, response._id, response.coins);
+					setIsSubmitted(true);
+					window.location.href = "/";
         } else {
           setIsSubmitted(false);
           setErrorMessages({ name: "pass", message: response });
