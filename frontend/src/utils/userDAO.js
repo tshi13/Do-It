@@ -69,6 +69,7 @@ async function login(data) {
     */
 
     let loginType = data.loginType;
+		sessionStorage.setItem("loginType",loginType);
     if(loginType === "password") {
         let res = await axios.get('/user/login/' + data.name + '/' + data.password).then(data => data);
         return res["data"];

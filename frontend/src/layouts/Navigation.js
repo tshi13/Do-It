@@ -111,8 +111,9 @@ export const Navigation = (props) => {
 					<div className="dividerCustom"></div>
 					<a href="/profile">Profile</a>
 					<a href="/settings">Settings</a>
-					<a href="/login" onClick={e => {logOut(e)}}>Log Out</a>
-					<GoogleLogout clientId={clientId} buttonText="Log out" onLogoutSuccess={googleLogOut} />
+					{sessionStorage.getItem("loginType") === "password" ? 
+					<a href="/login" onClick={e => {logOut(e)}}>Log Out</a>  
+					:	<GoogleLogout clientId={clientId} buttonText="Log out" onLogoutSuccess={googleLogOut} /> }
 				</div>
 			</div>
 		</nav>		
