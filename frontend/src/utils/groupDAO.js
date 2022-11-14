@@ -6,13 +6,13 @@ import axios from 'axios';
 //Enable this for heroku production app
 axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
 
-async function getGroups(userID) {
-    let res = await axios.get('/groups/' + userID).then(data => data);
+async function getGroups(userID) {//This should not be here
+    let res = await axios.get('/group/groups/' + userID).then(data => data);
     return res["data"];
 }
 
-async function createGroup(data) {
-    let res = await axios.post('/creategroup', data).then(data => data);
+async function createGroup(data) {//
+    let res = await axios.post('/group/creategroup', data).then(data => data);
     return res["data"];
 }
 
@@ -21,12 +21,12 @@ async function getUser(groupID) {
     return res["data"];
 }
 
-async function getTasks(groupID) {
-    let res = await axios.get('/tasks/group/' + groupID).then(data => data);
+async function getTasks(groupID) {//
+    let res = await axios.get('/group/tasks/' + groupID).then(data => data);
     return res["data"];
 }
 
-async function addTasks(groupID, data) {
+async function addTasks(groupID, data) {//
     
     let updatedData = {
         groupID: groupID,
@@ -36,44 +36,44 @@ async function addTasks(groupID, data) {
         coinsEntered: data.coinsEntered
     }
 
-    let res = await axios.put('/createTask/group', updatedData).then(data => data);
+    let res = await axios.put('/group/createTask', updatedData).then(data => data);
     return res["data"];
 }
 
-async function getGroup(groupID) {
+async function getGroup(groupID) {//
     let res = await axios.get('/group/' + groupID).then(data => data);
     return res["data"];
 }
 
-async function searchGroup(query, type) {
+async function searchGroup(query, type) {//
     if(type === "name") {
-        let res = await axios.get('/searchGroup/' + query).then(data => data);
+        let res = await axios.get('/group/searchGroup/' + query).then(data => data);
         return res["data"];
     } else if(type === "ID") {
-        let res = await axios.get('/searchGroupID/' + query).then(data => data);
+        let res = await axios.get('/group/searchGroupID/' + query).then(data => data);
         return res["data"];
     }
 }
 
-async function addToGroup(data) {
-    let res = await axios.post('/addToGroup', data).then(data => data);
+async function addToGroup(data) {//
+    let res = await axios.post('/group/addToGroup', data).then(data => data);
     return res["data"];
 }
 
-async function leaveGroup(groupID, userID) {
+async function leaveGroup(groupID, userID) {//
 
     let data = {
         groupID: groupID,
         userID: userID
     }
 
-    let res = await axios.put('/leaveGroup', data).then(data => data);
+    let res = await axios.put('/group/leaveGroup', data).then(data => data);
 
     return res["data"];
 }
 
-async function deleteTask(groupID, taskID) {
-    let res = await axios.delete('/deleteTask/group/' + groupID + "/" + taskID).then(data => data);
+async function deleteTask(groupID, taskID) {//
+    let res = await axios.delete('/group/deleteTask/' + groupID + "/" + taskID).then(data => data);
     return res["data"];
 }
 

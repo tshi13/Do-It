@@ -7,13 +7,13 @@ import chatDAO from './chatDAO';
 //Enable this for heroku production app
 axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
 
-async function getUser(data) {
-    let res = await axios.get('/user/' + data.name).then(data => data);
+async function getUser(data) {//
+    let res = await axios.get('/users/' + data.name).then(data => data);
     return res["data"];
 }
 
-async function addUser(data) {
-    let res = await axios.post('/createUser', data).then(data => data);
+async function addUser(data) {//
+    let res = await axios.post('/users/createUser', data).then(data => data);
 		await chatDAO.createUser(res["data"]._id, res["data"].name);
     return res["data"];
 }
@@ -28,17 +28,17 @@ async function getTasks(userID) {
     return res["data"];
 }
 
-async function updateUser(userID, data) {
-    let res = await axios.put('/updateUser', {userID: userID, data: data}).then(data => data);
+async function updateUser(userID, data) {//
+    let res = await axios.put('/users/updateUser', {userID: userID, data: data}).then(data => data);
     return res["data"];
 }
 
-async function getUserData(userID) {
-    let res = await axios.get('/userdata/' + userID).then(data => data);
+async function getUserData(userID) {//
+    let res = await axios.get('/users/userdata/' + userID).then(data => data);
     return res["data"];
 }
 
-async function addTasks(userID, data) {
+async function addTasks(userID, data) {//
     
     let updatedData = {
         userID: userID,
@@ -48,7 +48,7 @@ async function addTasks(userID, data) {
         coinsEntered: data.coinsEntered
     }
 
-    let res = await axios.put('/createTask/user', updatedData).then(data => data);
+    let res = await axios.put('/users/createTask', updatedData).then(data => data);
     return res["data"];
 }
 
@@ -57,7 +57,7 @@ async function joinGroup(userID, groupID) {
     return res["data"];
 }
 
-async function login(data) {
+async function login(data) {//
 
     /*
      data schema:
@@ -74,10 +74,10 @@ async function login(data) {
     let loginType = data.loginType;
 		sessionStorage.setItem("loginType",loginType);
     if(loginType === "password") {
-        let res = await axios.get('/user/login/' + data.name + '/' + data.password).then(data => data);
+        let res = await axios.get('/users/login/' + data.name + '/' + data.password).then(data => data);
         return res["data"];
     } else {
-        let res = await axios.get('/user/authLogin/' + data.loginType + '/' + data.key).then(data => data);
+        let res = await axios.get('/users/authLogin/' + data.loginType + '/' + data.key).then(data => data);
 				return res["data"];
 		}
      
