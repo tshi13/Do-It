@@ -48,7 +48,6 @@ function LoginForm(props) {
 	const handleGoogle = async (event) => {
 		const googleID = event.googleId;
 		const name = event.name;
-		console.log(event);
 		const loginData = {
 			loginType: "google",
 			key: googleID
@@ -65,12 +64,14 @@ function LoginForm(props) {
 
 		let response = await userDAO.login(loginData);
 		let id = response._id;
+		let coins = response.coins;
 		if (typeof response === "string") {
 			let newUser = await userDAO.addUser(data);
 			id = newUser._id;
+			coins = newUser.coins;
 		}
 		
-		props.setUser(data.name, id, 6);
+		props.setUser(data.name, id, coins);
 		setIsSubmitted(true);
 		window.location.href = "/";	
 	}

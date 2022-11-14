@@ -497,7 +497,8 @@ app.get("/user/login/:name/:password",(req,res) => {
 			if(data[0].password == password || data[0].password == null || data[0].password == ""){
 				let newData = {
 					_id: data[0]._id,
-					profilePicture: data[0].profilePicture ? data[0].profilePicture : null
+					profilePicture: data[0].profilePicture ? data[0].profilePicture : null,
+					coins:data[0].coins
 				}
 				res.send(newData);
 			} else {
@@ -512,7 +513,6 @@ app.get("/user/login/:name/:password",(req,res) => {
 app.get('/user/authLogin/:loginType/:key', (req, res) => {
 	const loginType = req.params.loginType;
 	const key = req.params.key;
-	console.log(loginType, key);
 	let searchTerm = "";
 	if(loginType == 'google') {
 		searchTerm = "googleID";
