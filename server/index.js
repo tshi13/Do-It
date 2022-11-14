@@ -39,8 +39,8 @@ app.get("/", (req, res) => {
  * 	res: Copy of created User object in database 
  *  */ 
  app.post("/createUser", (req,res) =>{ //creates new user
-	const {name,coins,taskIDList = [],groupIDList = []} = req.body;
-		User.create({name,coins,taskIDList, groupIDList, profilePicture: null})
+	const {name,coins,taskIDList = [],groupIDList = [],googleID = "", facebookID = "", email = ""} = req.body;
+		User.create({name,coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email})
 			.then((data) => {
 			res.send(data);
 			})
@@ -497,7 +497,8 @@ app.get("/user/login/:name/:password",(req,res) => {
 			if(data[0].password == password || data[0].password == null || data[0].password == ""){
 				let newData = {
 					_id: data[0]._id,
-					profilePicture: data[0].profilePicture ? data[0].profilePicture : null
+					profilePicture: data[0].profilePicture ? data[0].profilePicture : null,
+					coins:data[0].coins
 				}
 				res.send(newData);
 			} else {

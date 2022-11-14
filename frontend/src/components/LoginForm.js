@@ -1,5 +1,6 @@
 import React, {useEffect, useState } from "react";
 import userDAO from "../utils/userDAO";
+import GoogleAuth from "./GoogleAuth";
 
 import '../styles/LoginForm.css';
 
@@ -43,12 +44,9 @@ function LoginForm(props) {
       userDAO.login(data).then((response) => {
         
         if (typeof response !== "string") {
-          userDAO.getUserData(response._id).then((res) => {
-            props.setUser(data.name, res._id, res.coins);
-            setIsSubmitted(true);
-            window.location.href = "/";
-          });
-          
+					props.setUser(data.name, response._id, response.coins);
+					setIsSubmitted(true);
+					window.location.href = "/";
         } else {
           setIsSubmitted(false);
           setErrorMessages({ name: "pass", message: response });
@@ -56,6 +54,37 @@ function LoginForm(props) {
     })
   }
 };
+
+	const handleGoogle = async (event) => {
+		const googleID = event.googleId;
+		const name = event.name;
+		const loginData = {
+			loginType: "google",
+			key: googleID
+		};
+
+		const data = {
+      name : name,
+      coins : 6,
+      taskIDList : [],
+      groupIDList : [],
+			googleID: googleID,
+			email: event.email
+    }
+
+		let response = await userDAO.login(loginData);
+		let id = response._id;
+		let coins = response.coins;
+		if (typeof response === "string") {
+			let newUser = await userDAO.addUser(data);
+			id = newUser._id;
+			coins = newUser.coins;
+		}
+		
+		props.setUser(data.name, id, coins);
+		setIsSubmitted(true);
+		window.location.href = "/";	
+	}
 
   // useEffect hook to redirect to home page after login
 
@@ -201,6 +230,12 @@ function LoginForm(props) {
 </script>
   
     <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div> */}
+						<div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+							Or login with
+						</div>
+						<div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+							<GoogleAuth handleGoogle = {handleGoogle}/>
+						</div>
           </form>
 
         </div>
@@ -209,11 +244,8 @@ function LoginForm(props) {
                 <p>Don't have an account?</p>
                 <input type="submit" value="Register" className = "inputButton"/>
               </form>
-            </div>
-            {fbContent()}
-            
-      </div>
-      
+          </div>
+      	</div>
     }
     </div>
   );
