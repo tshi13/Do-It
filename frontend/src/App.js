@@ -65,8 +65,8 @@ function App() {
           <Navigation  notifications = {notifications} setNotifications = {setNotifications} backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} setUser = {setUser} username = {user} userID = {userID} searchString = {searchString} setSearchString = {setSearchString} coins={coins} groupCallback = {setSelectedGroup}/>
             <Routes>
               <Route path="/" element={<Home setNotifications = {updateNotifications} userID={userID} username = {user} newHeight={newHeight} setNavCoins={setNavCoins} selectedGroup = {selectedGroup} setSelectedGroup = {setSelectedGroup} />} />
-              <Route path="/searchGroup" element={<SearchGroup searchString={searchString} userID = {userID} />} />
-              <Route path="/profile" element={<Profile userID={userID} />} />
+              <Route path="/searchGroup" element={<SearchGroup searchString={searchString} userID = {userID} newHeight = {newHeight} />} />
+              <Route path="/profile" element={<Profile userID={userID} setNavCoins = {setNavCoins} />} />
               <Route path="/invite/*" element={<InvitePage userID={userID} />} />
               <Route path="*" element={<NotFound />} />
               <Route path="/register" element={<RegisterForm  user = {user} setUser = {setUser}  isLoggedIn = {isLoggedIn} />} />

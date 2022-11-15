@@ -69,11 +69,9 @@ export default function TaskModal(props) {
   const handleSubmit = () => {
 
     // checks if the user inputs are valid and exist
-    if(taskName === "" || time === 0 || coinsEntered === 0 || TaskForUser === "") {
+    if(taskName === "" || coinsEntered === 0 || TaskForUser === "") {
       if(taskName === "") {
         alert("Please enter a task name");
-      } else if(time === 0) {
-        alert("Please enter a time");
       }
       else if(coinsEntered === 0) {
         alert("Please enter a coin amount");
@@ -84,11 +82,9 @@ export default function TaskModal(props) {
     } else  {
       // add task to database
       let coinsEnteredInt;
-      let timeInt;
       let taskID;
       try { // try to convert the input to an integer and catch any errors that may occur
         coinsEnteredInt = parseInt(coinsEntered);
-        timeInt = parseInt(time);
         if(type !== "group") {
           taskID = TaskForUser.id;
         } else {
@@ -97,7 +93,7 @@ export default function TaskModal(props) {
       } catch (err) {
         alert("Please enter a valid number for time and coins");
       }
-      if(isNaN(coinsEnteredInt) || isNaN(timeInt)) {
+      if(isNaN(coinsEnteredInt)) {
         alert("Please enter a valid number for time and coins");
       } else {
         // add task to database
@@ -109,7 +105,6 @@ export default function TaskModal(props) {
               let data = {
                 userID: taskID,
                 taskName: taskName,
-                time: timeInt,
                 coinsEntered: coinsEnteredInt,
               }
               groupDAO.addTasks(groupID, data).then((res) => {
@@ -118,7 +113,7 @@ export default function TaskModal(props) {
                     sessionStorage.setItem("coins",  sessionStorage.getItem("coins") - coinsEnteredInt);
                     userDAO.updateUser(userID, {coins: userRes.coins - coinsEnteredInt});
                   }
-                  props.taskCallback({_id: res._id, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt, userID: taskID, completedList: [], groupID: groupID, userList: userList});
+                  props.taskCallback({_id: res._id, taskName: taskName, coinsEntered: coinsEnteredInt, userID: taskID, completedList: [], groupID: groupID, userList: userList});
                   setShow(false);
                   
                   informUsers(res._id);
@@ -183,13 +178,14 @@ export default function TaskModal(props) {
                       <input type="text" {...params.inputProps} className = "taskBox2" placeholder = "Select User"/>
                     </div>
                   )}
-                /> : null}
+                /> 
+                : null}
 
                   </div>
                   <input type="text" placeholder="Task Name" className = "taskBox" onInput={e => setTaskName(e.target.value)} />
                   <input type="text" placeholder="Task Description" className = "taskBox"  />
-                  <input type="text" placeholder="Coins Per Task"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>
-                  <input type="text" placeholder="Task Due Date" className = "taskBox"  onInput={e => setTimeForTask(e.target.value)} />
+                  {userList && type !== "group" ? <input type="text" placeholder="Coins For Completition"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>
+                  : <input type="text" placeholder="Coins To Join Task"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>}
               </div>
               
               <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>

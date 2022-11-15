@@ -103,8 +103,7 @@ export default function TaskModalUser(props) {
                 <div className="form-group">
                     <input type="text" placeholder="Task Name" className = "taskBox" onInput={e => setTaskName(e.target.value)} />
                     <input type="text" placeholder="Task Description" className = "taskBox" />
-                    <input type="text" placeholder="Coins Per Task"  className = "taskBox" onInput={e => setCoinsEntered(e.target.value)}/>
-                    <input type="text" placeholder="Task Due Date" className = "taskBox" onInput={e => setTimeForTask(e.target.value)} />
+                    <input type="text" placeholder="Coins For Task"  className = "taskBox" onInput={e => setCoinsEntered(e.target.value)}/>
                 </div>
                 
                 <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>

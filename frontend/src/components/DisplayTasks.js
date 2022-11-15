@@ -1,8 +1,5 @@
-import {List, Grid, Typography} from '@mui/material';
+import {Grid, Typography} from '@mui/material';
 import TaskCard from './Task/TaskCard';
-import {Component} from 'react';
-import taskDAO from '../utils/taskDAO';
-import { useEffect } from 'react';
 
 
 export default function DisplayTasks(props){
@@ -14,9 +11,6 @@ export default function DisplayTasks(props){
 
     return (
         <>
-            <Typography variant="h5" component="div" style={{"color": 'black', "margin": '2vw'}}>
-                My Tasks
-            </Typography>
             <Grid container spacing={1}>
                 {
                     tasks.map((task, index) => {
