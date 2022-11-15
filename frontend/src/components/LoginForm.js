@@ -1,10 +1,13 @@
 import React, {useEffect, useState } from "react";
 import userDAO from "../utils/userDAO";
 import GoogleAuth from "./GoogleAuth";
+import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
+
 
 import '../styles/LoginForm.css';
-
+// 
 import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from '@greatsumini/react-facebook-login';
 
 function LoginForm(props) {
   
@@ -27,7 +30,7 @@ function LoginForm(props) {
 
   // User Login info
 
-
+	
 
   const handleSubmit = (event) => {
     //Prevent page reload
@@ -101,8 +104,11 @@ function LoginForm(props) {
   }
 
   const componentClicked = (event) => {
-    console.log("clicked");
-    // handleFacebookSubmit(event);
+    FacebookLoginClient.init("865292997959919");
+		FacebookLoginClient.login((res) => {
+		console.log("here");
+		console.log(res);
+	});
   }
 
   const responseFacebook = response => {
@@ -123,6 +129,12 @@ function LoginForm(props) {
   }
 
   const handleFacebookSubmit = async (facebookResponse) => {
+
+		FacebookLoginClient.init("865292997959919");
+		FacebookLoginClient.login((res) => {
+		console.log("here");
+		console.log(res);
+		});
     // this is the id associated with a user
     // on facebook.com
     const facebookID = facebookResponse.id;
@@ -197,12 +209,15 @@ function LoginForm(props) {
     onClick={() => {componentClicked();}}
     callback={(res) => {responseFacebook(res);}} /> */}
             <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
+					
             <FacebookLogin
-    appId="865292997959919"
-    autoLoad={false}
-    fields="name,email,picture"
-    onClick={(event) => {componentClicked(event);}}
-    callback={(res) => {responseFacebook(res);}} />
+							appId="865292997959919"
+							autoLoad={false}
+							fields="name,email,picture"
+							// onClick={componentClicked}
+							callback={(res) => {responseFacebook(res);}} />
+
+
             </div>
             
     

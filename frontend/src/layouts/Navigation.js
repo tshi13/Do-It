@@ -4,10 +4,12 @@ import '../styles/navigation.css';
 import ProfilePicture from './ProfilePicture';
 import {Buffer} from 'buffer';
 import {GoogleLogout } from 'react-google-login';
+import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 
 import userDAO from '../utils/userDAO';
 import Bell from '../assets/bell.png';
 import NotificationCard from '../components/NotifcationCard';
+
 
 export const Navigation = (props) => { 
 
@@ -55,6 +57,10 @@ export const Navigation = (props) => {
 	function googleLogOut() {
 		props.setUser(null, null);
 		window.location.href = '/';
+		
+		FacebookLoginClient.logout(() => {
+			console.log('logout completed!');
+		});
 	}
 
 	async function handleSubmit (e, type) {
