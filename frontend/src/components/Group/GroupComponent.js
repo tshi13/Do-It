@@ -5,9 +5,6 @@ import groupDAO from '../../utils/groupDAO';
 import GetStream2 from '../GetStreamChat/GetStream2';
 
 import '../../styles/groupComponent.css';
-import userDAO from '../../utils/userDAO';
-import {Buffer} from 'buffer';
-
 
 export default function GroupComponent(props)  {
     const groupID = props.groupID;
@@ -64,7 +61,7 @@ export default function GroupComponent(props)  {
     }
 
     const taskCallback = (newTask) => {
-        props.setNavCoins(sessionStorage.getItem("coins"));
+        setCoins(sessionStorage.getItem("coins"));
         setTasks([...tasks, newTask]);
     }
 
