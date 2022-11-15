@@ -93,7 +93,6 @@ export default function AnimatedGroupCard(props) {
   }
 
 
-
   const handleSubmit = () => {
       if(groupType == "public") {
         setMessage("Are you sure you want to join this group?");
@@ -117,7 +116,7 @@ export default function AnimatedGroupCard(props) {
 
     return (
     <div style ={style} className = "card">
-      { groupPicture ? <img src={`data:image/png;base64,${groupPicture}`} className="card__image" alt="" /> : <img src= "https://i.imgur.com/pPJmXV7.png" className="card__image" alt="" style = {{width: '100%', height: '100%'}} /> }
+      { groupPicture ? <img src={`data:image/png;base64,${groupPicture}`} className="card__image" alt="" style = {{width:'100%', height: '100%'}} /> : <img src= "https://i.imgur.com/pPJmXV7.png" className="card__image" alt="" style = {{width:'100%', height: '100%'}}/> }
       <div className="card__overlay" style ={{backgroundColor: 'white'}}>
         <div className="card__header"  style ={{backgroundColor: 'white'}}>
           <svg className="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                     
