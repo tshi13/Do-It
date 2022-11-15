@@ -6,7 +6,7 @@ const User = require("./schemaModels/User");
 
 
 router.put("/createTask", (req,res) => { //creates a new task for a group and adds the coresponding objectID to Group taskIDList
-	const {groupID, userID, taskName, time,coinsEntered = 0} = req.body;
+	const {groupID, userID, taskName, time = 0 ,coinsEntered = 0} = req.body;
 	let taskID;
 	let newTaskIDList;
 	// let newCoinBalance;

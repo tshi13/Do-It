@@ -69,7 +69,7 @@ export default function TaskModal(props) {
   const handleSubmit = () => {
 
     // checks if the user inputs are valid and exist
-    if(taskName === "" || time === 0 || coinsEntered === 0 || TaskForUser === "") {
+    if(taskName === "" || coinsEntered === 0 || TaskForUser === "") {
       if(taskName === "") {
         alert("Please enter a task name");
       }
@@ -82,11 +82,9 @@ export default function TaskModal(props) {
     } else  {
       // add task to database
       let coinsEnteredInt;
-      let timeInt;
       let taskID;
       try { // try to convert the input to an integer and catch any errors that may occur
         coinsEnteredInt = parseInt(coinsEntered);
-        timeInt = parseInt(time);
         if(type !== "group") {
           taskID = TaskForUser.id;
         } else {
@@ -95,7 +93,7 @@ export default function TaskModal(props) {
       } catch (err) {
         alert("Please enter a valid number for time and coins");
       }
-      if(isNaN(coinsEnteredInt) || isNaN(timeInt)) {
+      if(isNaN(coinsEnteredInt)) {
         alert("Please enter a valid number for time and coins");
       } else {
         // add task to database
@@ -107,7 +105,6 @@ export default function TaskModal(props) {
               let data = {
                 userID: taskID,
                 taskName: taskName,
-                time: timeInt,
                 coinsEntered: coinsEnteredInt,
               }
               groupDAO.addTasks(groupID, data).then((res) => {
@@ -116,7 +113,7 @@ export default function TaskModal(props) {
                     sessionStorage.setItem("coins",  sessionStorage.getItem("coins") - coinsEnteredInt);
                     userDAO.updateUser(userID, {coins: userRes.coins - coinsEnteredInt});
                   }
-                  props.taskCallback({_id: res._id, taskName: taskName, time: timeInt, coinsEntered: coinsEnteredInt, userID: taskID, completedList: [], groupID: groupID, userList: userList});
+                  props.taskCallback({_id: res._id, taskName: taskName, coinsEntered: coinsEnteredInt, userID: taskID, completedList: [], groupID: groupID, userList: userList});
                   setShow(false);
                   
                   informUsers(res._id);
