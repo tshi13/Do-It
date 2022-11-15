@@ -72,8 +72,6 @@ export default function TaskModal(props) {
     if(taskName === "" || time === 0 || coinsEntered === 0 || TaskForUser === "") {
       if(taskName === "") {
         alert("Please enter a task name");
-      } else if(time === 0) {
-        alert("Please enter a time");
       }
       else if(coinsEntered === 0) {
         alert("Please enter a coin amount");
