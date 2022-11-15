@@ -4,12 +4,15 @@ const port = process.env.PORT || 5000;
 const db = require("./db");
 const User = require("./schemaModels/User");
 const Task = require("./schemaModels/Task");
+const cors = require("cors");
 
 const router = express.Router();
 var bodyParser = require('body-parser');
 const Group = require("./schemaModels/Group");
 var ObjectId = require('mongodb').ObjectId;
 var mongoose = require('mongoose');
+app.use(cors());
+
 
 
 db.connect(); 
