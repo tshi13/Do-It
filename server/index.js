@@ -24,14 +24,17 @@ app.use(function(req, res, next) {
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.json({limit: '50mb'}));
 
+app.get("/", (req, res) => {
+  res.send("Do it project API");
+});
+
+
 app.use('/users', require('./UserRoutes'))
 app.use('/tasks', require('./TaskRoutes'))
 app.use('/group', require('./GroupRoutes'))
 
 
-app.get("/", (req, res) => {
-  res.send("Do it project API");
-});
+
 
 
 

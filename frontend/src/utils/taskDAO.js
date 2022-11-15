@@ -9,17 +9,17 @@ async function getTasks(data) {
 }
 
 async function addTask(data) {
-    let res = await axios.put('/createTask', data).then(data => data);
+    let res = await axios.put('/tasks/createTask', data).then(data => data);
     return res["data"];
 }
 
-async function updateTask(data) {
-    let res = await axios.put('/updateTask', data).then(data => data);
+async function updateTask(data) {//
+    let res = await axios.put('/tasks/updateTask', data).then(data => data);
     return res["data"];
 }
 
 async function deleteTask(userID, taskID) {
-    let res = await axios.delete('/deleteTask/user/' + userID + "/" + taskID).then(data => data);
+    let res = await axios.delete('/tasks/deleteTask/user/' + userID + "/" + taskID).then(data => data);
     return res["data"];
 }
 

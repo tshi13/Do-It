@@ -4,7 +4,7 @@ const Task = require("./schemaModels/Task");
 
 
 
-router.put("/updateTask", (req,res) =>{ //updates task"
+router.put("/updateTask", (req,res) =>{ //
 	const {taskID, data} = req.body;
 	Task.findByIdAndUpdate(taskID, data, {new: true, $set: data})
 		.then((data) => {

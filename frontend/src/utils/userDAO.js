@@ -9,7 +9,7 @@ async function getUser(data) {
     return res["data"];
 }
 
-async function addUser(data) {
+async function addUser(data) {//
     let res = await axios.post('/users/createUser', data).then(data => data);
 		await chatDAO.createUser(res["data"]._id, res["data"].name);
     return res["data"];
@@ -25,7 +25,7 @@ async function getTasks(userID) {
     return res["data"];
 }
 
-async function updateUser(userID, data) {
+async function updateUser(userID, data) {//
     let res = await axios.put('/users/updateUser', {userID: userID, data: data}).then(data => data);
     return res["data"];
 }

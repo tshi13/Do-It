@@ -3,22 +3,22 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://localhost:5000';
 
 async function getGroups(userID) {
-    let res = await axios.get('/groups/' + userID).then(data => data);
+    let res = await axios.get('/group/groups/' + userID).then(data => data);
     return res["data"];
 }
 
 async function createGroup(data) {
-    let res = await axios.post('/creategroup', data).then(data => data);
+    let res = await axios.post('/group/creategroup', data).then(data => data);
     return res["data"];
 }
 
 async function getUser(groupID) {
-    let res = await axios.get('/getUsersForGroup/' + groupID).then(data => data);
+    let res = await axios.get('/group/getUsersForGroup/' + groupID).then(data => data);
     return res["data"];
 }
 
 async function getTasks(groupID) {
-    let res = await axios.get('/tasks/group/' + groupID).then(data => data);
+    let res = await axios.get('/group/tasks/group/' + groupID).then(data => data);
     return res["data"];
 }
 
@@ -32,7 +32,7 @@ async function addTasks(groupID, data) {
         coinsEntered: data.coinsEntered
     }
 
-    let res = await axios.put('/createTask/group', updatedData).then(data => data);
+    let res = await axios.put('/group/createTask/group', updatedData).then(data => data);
     return res["data"];
 }
 
@@ -43,16 +43,16 @@ async function getGroup(groupID) {
 
 async function searchGroup(query, type) {
     if(type === "name") {
-        let res = await axios.get('/searchGroup/' + query).then(data => data);
+        let res = await axios.get('/group/searchGroup/' + query).then(data => data);
         return res["data"];
     } else if(type === "ID") {
-        let res = await axios.get('/searchGroupID/' + query).then(data => data);
+        let res = await axios.get('/group/searchGroupID/' + query).then(data => data);
         return res["data"];
     }
 }
 
 async function addToGroup(data) {
-    let res = await axios.post('/addToGroup', data).then(data => data);
+    let res = await axios.post('/group/addToGroup', data).then(data => data);
     return res["data"];
 }
 
@@ -69,7 +69,7 @@ async function leaveGroup(groupID, userID) {
 }
 
 async function deleteTask(groupID, taskID) {
-    let res = await axios.delete('/deleteTask/group/' + groupID + "/" + taskID).then(data => data);
+    let res = await axios.delete('/group/deleteTask/group/' + groupID + "/" + taskID).then(data => data);
     return res["data"];
 }
 
