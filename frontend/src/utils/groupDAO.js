@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 // Enable this for local development
-//axios.defaults.baseURL = 'http://localhost:5000'; 
+axios.defaults.baseURL = 'http://localhost:5000'; 
 
 //Enable this for heroku production app
-axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
+//axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
 
 async function getGroups(userID) {//This should not be here
     let res = await axios.get('/group/groups/' + userID).then(data => data);
@@ -17,7 +17,7 @@ async function createGroup(data) {//
 }
 
 async function getUser(groupID) {
-    let res = await axios.get('/getUsersForGroup/' + groupID).then(data => data);
+    let res = await axios.get('/group/getUsersForGroup/' + groupID).then(data => data);
     return res["data"];
 }
 
@@ -27,12 +27,12 @@ async function getTasks(groupID) {//
 }
 
 async function addTasks(groupID, data) {//
+
     
     let updatedData = {
         groupID: groupID,
         userID: data.userID,
         taskName: data.taskName,
-        time: data.time,
         coinsEntered: data.coinsEntered
     }
 
