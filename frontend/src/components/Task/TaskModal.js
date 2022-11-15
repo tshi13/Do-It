@@ -190,7 +190,7 @@ export default function TaskModal(props) {
                   <input type="text" placeholder="Task Name" className = "taskBox" onInput={e => setTaskName(e.target.value)} />
                   <input type="text" placeholder="Task Description" className = "taskBox"  />
                   {userList && type !== "group" ? <input type="text" placeholder="Coins For Completition"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>
-                  : <input type="text" placeholder="Coins To Join Task"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)} disabled/>}
+                  : <input type="text" placeholder="Coins To Join Task"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>}
               </div>
               
               <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
