@@ -21,6 +21,7 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
   lastUpdate = new Date();
   Task.find({userID: "Group Task"}).then((data) => {
     data.forEach((task) => {
+      let coinPool = !isNaN(task.coinPool) && task.coinPool !== null  ? task.coinPool : 0;
       let totalCoins = task.coinPool/task.completedList.length;
       let newCoins = Math.floor(totalCoins);
       task.completedList.forEach((completed) => {
@@ -32,12 +33,13 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
           });
         });
       });
-    });
+  }
+    );
   });
 });
 
 
-/*cron.schedule('* * * * * *"', () => { //every second fix users that have issues with their coins
+cron.schedule('* * * * * *"', () => { //every second fix users that have issues with their coins
   User.find({}).then((data) => {
     data.forEach((user) => {
       if (user.coins < 0 || isNaN(user.coins) || user.coins === null) {
@@ -47,7 +49,23 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
       }
     });
   });
-});*/
+  Task.find({}).then((data) => {
+    data.forEach((task) => {
+      if (task.coinsEntered < 0 || isNaN(task.coinsEntered) || task.coinsEntered === null) {
+        Task.findByIdAndUpdate(task._id, { $set: { coinsEntered: 0 } }, { new: true }).then((data) => {
+          console.log("Updated task coins" + task._id);
+        });
+      }
+      if(task.coinPool < 0 || isNaN(task.coinPool) || task.coinPool === null) {
+        Task.findByIdAndUpdate(task._id, { $set: { coinPool: 0 } }, { new: true }).then((data) => {
+          console.log("Updated task coin pool" + task._id);
+        });
+      }
+    });
+  });
+});
+
+
 
 db.connect(); 
 
