@@ -8,6 +8,10 @@ const UserSchema = new mongoose.Schema({
 	groupIDList: {type: [String], required:true},
 	profilePicture: {type: Buffer, required: false},
 	notifications: {type: Object, required: false},
+	password: {type: String, required: false},
+	googleID: {type: String, required: false},
+	facebookID: {type: String, required: false},
+	email: {type: String, required: false},
 });
 
 const User = mongoose.model("User", UserSchema);

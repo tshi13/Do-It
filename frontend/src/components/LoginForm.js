@@ -1,7 +1,9 @@
 import React, {useEffect, useState } from "react";
 import userDAO from "../utils/userDAO";
+import GoogleAuth from "./GoogleAuth";
 
 import '../styles/LoginForm.css';
+
 
 function LoginForm(props) {
   // React States
@@ -12,16 +14,14 @@ function LoginForm(props) {
 
   // User Login info
 
-  const errors = {
-    uname: "User Doesn't Exist",
-    pass: "invalid password"
-  };
+
 
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
     const data = {
-      name : userName,
+      loginType: "password",
+      name : username,
       password: password
     }  
     
@@ -48,20 +48,55 @@ function LoginForm(props) {
         setIsSubmitted(false);
         setErrorMessages({ name: "uname", message: errors.uname });
       }
+    })
 
-    // // Compare user info
-    // if (userData) {
-    //   if (userData.password !== pass.value) {
-    //     // Invalid password
-    //     setErrorMessages({ name: "pass", message: errors.pass });
-    //   } else {
-    //     setIsSubmitted(true);
-    //   }
-    // } else {
-    //   // Username not found
-    //   setErrorMessages({ name: "uname", message: errors.uname });
-    // }
-  })};
+    if(password === "" || username === ""){
+      setErrorMessages({name: "pass", message: "Please fill out all fields"});
+    } else {
+      userDAO.login(data).then((response) => {
+        
+        if (typeof response !== "string") {
+					props.setUser(data.name, response._id, response.coins);
+					setIsSubmitted(true);
+					window.location.href = "/";
+        } else {
+          setIsSubmitted(false);
+          setErrorMessages({ name: "pass", message: response });
+        }
+    })
+  }
+};
+
+	const handleGoogle = async (event) => {
+		const googleID = event.googleId;
+		const name = event.name;
+		const loginData = {
+			loginType: "google",
+			key: googleID
+		};
+
+		const data = {
+      name : name,
+      coins : 6,
+      taskIDList : [],
+      groupIDList : [],
+			googleID: googleID,
+			email: event.email
+    }
+
+		let response = await userDAO.login(loginData);
+		let id = response._id;
+		let coins = response.coins;
+		if (typeof response === "string") {
+			let newUser = await userDAO.addUser(data);
+			id = newUser._id;
+			coins = newUser.coins;
+		}
+		
+		props.setUser(data.name, id, coins);
+		setIsSubmitted(true);
+		window.location.href = "/";	
+	}
 
   // useEffect hook to redirect to home page after login
 
@@ -86,7 +121,7 @@ function LoginForm(props) {
                 name="name"
                 placeholder="Username"
                 className = "inputLogin"
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
               />
               {renderErrorMessage("uname")}
             </div>
@@ -97,6 +132,12 @@ function LoginForm(props) {
             <div className="input">
               <input type="submit" value="Login" className = "inputButton"/>
             </div>
+						<div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+							Or login with
+						</div>
+						<div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+							<GoogleAuth handleGoogle = {handleGoogle}/>
+						</div>
           </form>
 
         </div>
@@ -105,8 +146,8 @@ function LoginForm(props) {
                 <p>Don't have an account?</p>
                 <input type="submit" value="Register" className = "inputButton"/>
               </form>
-            </div>
-      </div>
+          </div>
+      	</div>
     }
     </div>
   );

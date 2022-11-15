@@ -131,7 +131,7 @@ app.put("/createTask/user", (req,res) => { //creates a new task and adds the cor
 	let taskID;
 	let newTaskIDList;
 	let newCoinBalance;
-	Task.create({userID, taskName,time,coinsEntered,groupID, completed: false, completedList: []})
+	Task.create({userID, taskName,time,coinsEntered,groupID, completedList: []})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);
@@ -157,7 +157,7 @@ app.put("/createTask/group", (req,res) => { //creates a new task for a group and
 	let taskID;
 	let newTaskIDList;
 	// let newCoinBalance;
-	Task.create({userID, taskName, time, coinsEntered, groupID, completed: false, completedList: []})
+	Task.create({userID, taskName, time, coinsEntered, groupID, completedList: []})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);
@@ -535,6 +535,54 @@ app.get("/user/:name",(req,res) => {
 		}
 	})
 })
+
+app.get("/user/login/:name/:password",(req,res) => {
+	
+	const name = req.params.name;
+	const password = req.params.password;
+	
+	User.find({name:name})
+	.then((data) => {
+		if(data.length != 0){
+			console.log(data[0].password);
+			if(data[0].password == password || data[0].password == null || data[0].password == ""){
+				let newData = {
+					_id: data[0]._id,
+					profilePicture: data[0].profilePicture ? data[0].profilePicture : null,
+					coins:data[0].coins
+				}
+				res.send(newData);
+			} else {
+				res.send("Incorrect password" + data[0].password + " " + password);
+			}
+		} else {
+			res.send("User not found");
+		}
+	})
+})
+
+app.get('/user/authLogin/:loginType/:key', (req, res) => {
+	const loginType = req.params.loginType;
+	const key = req.params.key;
+	let searchTerm = "";
+	if(loginType == 'google') {
+		searchTerm = "googleID";
+	} else if(loginType == 'facebook') {
+		searchTerm = "facebookID";
+	} else {
+		res.send("Invalid login type");
+	}
+	User.find({[searchTerm]:key})
+	.then((data) => {
+		if(data.length != 0){
+			res.send(data[0]);
+		} else {
+			res.send("User not found");
+		}
+	})
+})
+
+
 
 app.listen(port, () => {
   console.log(`Express app listening at port: http://localhost:${port}/`);

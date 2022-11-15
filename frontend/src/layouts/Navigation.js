@@ -3,6 +3,7 @@ import { Dropdown, NavDropdown } from 'react-bootstrap';
 import '../styles/navigation.css';
 import ProfilePicture from './ProfilePicture';
 import {Buffer} from 'buffer';
+import {GoogleLogout } from 'react-google-login';
 
 import userDAO from '../utils/userDAO';
 import Bell from '../assets/bell.png';
@@ -43,9 +44,15 @@ export const Navigation = (props) => {
 	}
 
 
+	const clientId = '311523881473-odufi85njfn04idsir7pr8ckmarl9hak.apps.googleusercontent.com';
 	
 	function logOut(e) {
 		e.preventDefault();
+		props.setUser(null, null);
+		window.location.href = '/';
+	}
+
+	function googleLogOut() {
 		props.setUser(null, null);
 		window.location.href = '/';
 	}
@@ -104,7 +111,9 @@ export const Navigation = (props) => {
 					<div className="dividerCustom"></div>
 					<a href="/profile">Profile</a>
 					<a href="/settings">Settings</a>
-					<a href="/login" onClick={e => {logOut(e)}}>Log Out</a>
+					{sessionStorage.getItem("loginType") === "password" ? 
+					<a href="/login" onClick={e => {logOut(e)}}>Log Out</a>  
+					:	<GoogleLogout clientId={clientId} buttonText="Log out" onLogoutSuccess={googleLogOut} /> }
 				</div>
 			</div>
 		</nav>		

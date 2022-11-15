@@ -12,14 +12,12 @@ import ConfirmBox from '../ConfirmBox';
 import userDAO from '../../utils/userDAO';
 
 
+
 export default function TaskCard(props) {
   const { task } = props;
-  const [completed, setCompleted] = React.useState(task.completed);
   const [userCompleted, setUserCompleted] = React.useState();
   const [list, setList] = React.useState(task.completedList ? task.completedList : []); // list of users who have completed the task 
-  const [progress, setProgress] = React.useState(0);
-  const groupSize = task.groupSize ? task.groupSize : 1;
-  const userList = props.userList;
+  const groupSize = props.groupSize ? props.groupSize : 1;
   const userID = props.userID;
   const deleteTask = props.deleteTask;
   
@@ -30,9 +28,10 @@ export default function TaskCard(props) {
   const [joinedList, setJoinedList] = React.useState(task.joinedList ? task.joinedList : []);
   const [joined, setJoined] = React.useState(false);
   const [coinPool, setCoinPool] = React.useState(task.coinPool ? task.coinPool : 0);
+  const [completedUsernames, setCompletedUsernames] = React.useState([]);
+  const [joinedUsernames, setJoinedUsernames] = React.useState([]);
+  const [username, setUsername] = React.useState("");
 
-
-  
 
   const handleSubmit = () => {
     if(task.type !== "group" || (task.type === "group" && joined)) {
@@ -45,46 +44,16 @@ export default function TaskCard(props) {
           completedList: newCompletedList,
         },
       };
-
-      if(task.type === "private") {
-        newTask.data.completed = true;
-      } else if(task.type === "groupIndividual") {
-        let maxSize = Math.ceil(groupSize * 0.75);
-        if(list.length + 1 >= maxSize) {
-          newTask.data.completed = true;
-        }
-      }
-
       taskDAO.updateTask(newTask).then((res) => {
-        setCompleted(res.completed);
         setUserCompleted(true);
         setList(newCompletedList);
-        handleProgress(newCompletedList);
       });
     } else if(task.type === "group" && !joined) {
       alert ("You must join the task to complete it!");
     }
   };
 
-  const handleProgress = (newCompletedList) => {
-    let compareList = newCompletedList ? newCompletedList : list;
   
-    if(Array.isArray(compareList)) {
-      let localProgress = 0;
-      if(task.type === "group") {
-        localProgress = compareList.length / groupSize * 100;
-      } else if(task.type === "groupIndividual") {
-        let maxSize = Math.ceil(groupSize * 0.75);
-        if(compareList.length >= maxSize) {
-          localProgress = 100;
-        } else {
-          localProgress = compareList.length / maxSize * 100;
-        }
-      }
-      setProgress(localProgress);
-    }
-  };
-
   React.useEffect(() => {
     if(task.completedList || task.userID === userID) {
       if(task.completedList.includes(userID) || task.userID === userID ) {
@@ -96,9 +65,46 @@ export default function TaskCard(props) {
         setJoined(true);
       }
     }
-    handleProgress();
+
+    let userName = "";
+    if(task.userID) {
+      userDAO.getUserData(task.userID).then((res) => {
+        userName = res.name;
+        setUsername(userName);
+      });
+
+    }
+    
+
+
   }, []);
 
+  React.useEffect(() => {
+    if(list) {
+      let completedUsernames = [];
+      list.map((item, index) => {
+        userDAO.getUserData(item).then((res) => {
+          completedUsernames.push(res.name);
+        });
+      });
+      setCompletedUsernames(completedUsernames);
+    }
+  }, [list]);
+
+  React.useEffect(() => {
+    if(joinedList) {
+      let joinedUsernames = [];
+      joinedList.map((item, index) => {
+        userDAO.getUserData(item).then((res) => {
+          joinedUsernames.push(res.name);
+        });
+      });
+      setJoinedUsernames(joinedUsernames);
+    }
+  }, [joinedList]);
+
+
+    
   const handleFinishTask = () => {
     let completedUsers = task.completedList ? task.completedList : [];
     if(task.type === "group") {
@@ -169,7 +175,6 @@ export default function TaskCard(props) {
               newTask.data.coinPool = coinPool;
               taskDAO.updateTask(newTask).then((res) => {
                 if(res) {
-                  console.log("Task joined!");
                 setJoined(true);
                 setJoinedList(newJoinedList);
                 setCoinPool(coinPool);
@@ -184,8 +189,6 @@ export default function TaskCard(props) {
 
     });
   };
-
-
 
   return (
     <div>
@@ -225,12 +228,12 @@ export default function TaskCard(props) {
                       Coins for Completion: {task.coinsEntered}
                       </Typography>
                       <Typography sx={{ mb: 1 }} color="text.secondary">
-                        Username: {task.username}
+                        Username: {username}
                       </Typography>
                       <Typography sx={{ mb: 1 }} color="text.secondary">
                         Checked off by: {Array.isArray(list) ? list.length : 0} Person(s)
                       </Typography>
-                      <ProgressBar bgcolor="#6a1b9a" progress={progress} style ={{width: '100%'}}/>
+                      <ProgressBar bgcolor="#6a1b9a"  base = {groupSize} compare = {list.length} style ={{width: '100%'}}/>
                     </div>
                     :
                     <></>
@@ -247,7 +250,7 @@ export default function TaskCard(props) {
                     <Typography sx={{ mb: 1 }} color="text.secondary">
                       Completed by: {Array.isArray(list) ? list.length : 0} Person(s)
                     </Typography>
-                    <ProgressBar bgcolor="#6a1b9a" progress={progress} style ={{width: '100%'}}/>
+                    <ProgressBar bgcolor="#6a1b9a" base = {joinedList.length} compare = {list.length} style ={{width: '100%'}}/>
                   </div>
                   :
                   <></>
@@ -270,13 +273,13 @@ export default function TaskCard(props) {
                   {task.type === "groupIndividual" ? "Checked off" : "Completed"}
                 </p>
                 <Grid container direction = "column">
-                  {list ? list.map((userData, index) => { 
+                  {completedUsernames ? completedUsernames.map((username, index) => { 
                     return (
                       <Grid item xs={12} sm={6} md={4} lg={3} key = {index}>
                         <Typography sx={{ mb: 1 }} color="text.secondary">
-                          {userList.find((user) => user.id === userData) ? userList.find((user) => user.id === userData).name : "User not found"}
+                          {username}
                         </Typography>
-                        
+         
                       </Grid>
                     )
                   }) : <></>}
@@ -288,11 +291,11 @@ export default function TaskCard(props) {
                   Joined
                 </p>
                 <Grid container direction = "column">
-                  {joinedList ? joinedList.map((userData, index) => {
+                  {joinedUsernames ? joinedUsernames.map((username, index) => {
                     return (
                       <Grid item xs={12} sm={6} md={4} lg={3} key = {index}>
                         <Typography sx={{ mb: 1 }} color="text.secondary">
-                          {userList.find((user) => user.id === userData) ? userList.find((user) => user.id === userData).name : "User not found"}
+                          {username}
                         </Typography>
                       </Grid>
                     )
@@ -306,7 +309,7 @@ export default function TaskCard(props) {
           <CardActions>
             
             { task.type !== "private" ?
-             completed || userCompleted ?
+             userCompleted ?
               <Button size="small" disabled>Completed</Button>
               :
               <Button size="small" onClick={handleSubmit}>Submit</Button>
