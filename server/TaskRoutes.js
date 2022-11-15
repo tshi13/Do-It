@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Task = require("./schemaModels/Task");
+const User = require("./schemaModels/User");
 
 router.put("/updateTask", (req,res) =>{ //updates task"
 	const {taskID, data} = req.body;
