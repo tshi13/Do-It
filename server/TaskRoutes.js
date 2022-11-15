@@ -30,7 +30,6 @@ router.get("/getTask/:taskID", (req,res) => { //gets task
 		})
 })
 
-
 router.delete("/deleteTask/user/:userID/:taskID",(req,res) => { //deletes a task from a user
 	const userID = req.params.userID;
 	const taskID = req.params.taskID;
