@@ -55,9 +55,8 @@ function SearchGroup(props) {
     }, []);
 
     
-    const handlePageChange = (e) => {
-        let intPage = parseInt(e.target.textContent);
-        setPage(intPage);
+    const handlePageChange = (event, value) => {
+        setPage(value); 
     };
 
     const handleRenderPage = () => {
@@ -74,8 +73,8 @@ function SearchGroup(props) {
                             ))}
                         </Grid>
                     </div>
-                    <div className="pagination" style ={{justifyContent: 'center', display: 'flex'}}>
-                            <Pagination count={maxPages} page={page} onChange={handlePageChange} />
+                    <div className="pagination" style ={{justifyContent: 'center', display: 'flex', marginTop: '5%'}}>
+                            <Pagination count={maxPages} page={page} onChange={handlePageChange} color="primary" />
                     </div>
                 </div>
 
