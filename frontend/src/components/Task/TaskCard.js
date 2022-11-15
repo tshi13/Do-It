@@ -31,6 +31,7 @@ export default function TaskCard(props) {
   const [completedUsernames, setCompletedUsernames] = React.useState([]);
   const [joinedUsernames, setJoinedUsernames] = React.useState([]);
   const [username, setUsername] = React.useState("");
+  const [message, setMessage] = React.useState("");
 
 
   const handleSubmit = () => {
@@ -76,7 +77,6 @@ export default function TaskCard(props) {
     }
     
 
-
   }, []);
 
   React.useEffect(() => {
@@ -102,9 +102,18 @@ export default function TaskCard(props) {
       setJoinedUsernames(joinedUsernames);
     }
   }, [joinedList]);
+  
+  React.useEffect(() => {
+    if(task.type === "group") {
+      setMessage("Are you sure you want to finish this task? This will pay out to everyone and delete the task. Please make sure to have everyone (INCLUDING YOURSELF) hit 'Submit' before Clicking confirm.");
+    } else if(task.type === "groupIndividual") {
+      setMessage("Are you sure you want to finish this task? This will pay out to the user who the task is for even if they haven't reached the goal.");
+    } else {
+      setMessage("Are you sure you want to finish this task?");
+    }
+  }, [task.type]);
 
 
-    
   const handleFinishTask = () => {
     let completedUsers = task.completedList ? task.completedList : [];
     if(task.type === "group") {
@@ -326,7 +335,7 @@ export default function TaskCard(props) {
           }
         </Card>
       </ListItem>
-      <ConfirmBox show={showPrompt} setShow={setShowPrompt} onConfirm ={() => {handleFinishTask()}} onCancel = {() => {setShowPrompt(false)}} message = {"Are you sure you want to finish this task? This will pay out to everyone and delete the task. Please make sure to have everyone (INCLUDING YOURSELF) hit 'Submit' before Clicking confirm."} />
+      <ConfirmBox show={showPrompt} setShow={setShowPrompt} onConfirm ={() => {handleFinishTask()}} onCancel = {() => {setShowPrompt(false)}} message = {message} />
     </div>
   );
 }
