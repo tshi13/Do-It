@@ -227,9 +227,6 @@ export default function TaskCard(props) {
                   <Typography variant="h5" component="div" className="title" style={{color: 'black', textOverflow: 'ellipsis'}}>
                     {task.taskName}
                   </Typography>
-                  <Typography sx={{ mb: 1 }} color="text.secondary">
-                    Time: {task.time}
-                  </Typography>
                   {
                     task.type === "groupIndividual" ?
                     <div>
