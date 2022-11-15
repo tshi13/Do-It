@@ -125,15 +125,20 @@ router.put("/leaveGroup", (req,res) => {
 
 router.get("/searchGroup/:groupName", (req,res) =>{  
 	const groupName = req.params.groupName;
-	const data = Group.find({groupName})
-	.then((data) => {
-		res.send(data);
-	})
-	.catch((err) => {
-		res
-		.status(500)
-		.send({ message: "Error finding group with name: " + groupName })
-	})
+	if(groupName !== ""){
+	
+		const data = Group.find({groupName: new RegExp('^' + groupName , "i")})
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res
+			.status(500)
+			.send({ message: "Error finding group with name: " + groupName })
+		})
+	} else {
+		res.send([]);
+	}
 })
 
 /**
@@ -179,8 +184,6 @@ router.post("/addToGroup", (req,res) =>{
 			.status(500)
 			.send({ message: "Error adding to group with: " + groupID });
 	});	
-	
-	
 })
 
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Grid from '@mui/material/Grid';
 import '../styles/Home.css';
 import AnimatedGroupCard from "../components/AnimatedGroupCard";
 import groupDao from "../utils/groupDAO";
@@ -13,18 +14,17 @@ function SearchGroup(props) {
         groupDao.searchGroup(query, type).then((data) => {setGroups(data)});
     }, []);
 
-   
    return (
     <div style ={{display: 'flex', flexDirection: 'row'}}>
-        {
-            groups?.map((item, index) => {
-                return (
-                    <AnimatedGroupCard style = {{width: '200px', height: '200px', margin: '10px'}} key = {index} item={item} userID={userID} />
-                );
-            })
-        }
+        <Grid container spacing={2} style ={{display: 'flex', flexDirection: 'row'}}>
+            {groups.map((item, index) => (
+                <Grid item >
+                    <AnimatedGroupCard style = {{width: '200px', height: '200px'}} key = {index} item={item} userID={userID}/>
+                </Grid>
+            ))}
+        </Grid>
     </div>
-   );
+    );
    
 }
 
