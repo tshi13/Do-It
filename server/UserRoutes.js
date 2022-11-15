@@ -1,0 +1,161 @@
+const express = require("express");
+const router = express.Router();
+const User = require("./schemaModels/User");
+const Task = require("./schemaModels/Task");
+
+/**
+ * req.body: 
+ * 	name: String
+ * 	coins: Int
+ * 	taskIDList: [] Use empty array to initialize
+ * 
+ * 	res: Copy of created User object in database 
+ *  */ 
+router.post("/createUser", (req,res) =>{ //creates new user
+	const {name,coins,taskIDList = [],groupIDList = [],googleID = "", facebookID = "", email = ""} = req.body;
+		User.create({name,coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email})
+			.then((data) => {
+			res.send(data);
+			})
+			.catch((err) => {
+				res
+				.status(500)
+				.send({ message: "Error creating user with name: " + name })
+			})
+})
+
+router.put("/updateUser", (req,res) =>{ //updates user
+	const {userID, data} = req.body;
+	User.findByIdAndUpdate(userID, data, {new: true, $set: data})
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res
+			.status(500)
+			.send({ message: "Error updating user with id: " + userID })
+
+		})
+})
+
+
+/**
+ * req.body: 
+ * 	userID: String, ObjectId of user associated to this task
+ * 	taskName: String
+ * 	time: int (temporary)
+ * 	coinsEntered: int
+ * 
+ * 	res: Copy of created Task object in database 
+ *  */ 
+ router.put("/createTask", (req,res) => { //creates a new task and adds the coresponding objectID to User taskIDList
+	const {userID,taskName,time,coinsEntered} = req.body;
+	const groupID = "Private Task";
+	let taskID;
+	let newTaskIDList;
+	let newCoinBalance;
+	Task.create({userID, taskName,time,coinsEntered,groupID, completedList: []})
+	.then((data) => {
+		taskID = data._id;
+		res.send(data);
+	})
+	.then(() => {
+		return User.findById(userID);
+	})
+	.then((user) => {
+		newTaskIDList = user.taskIDList;
+		newCoinBalance = user.coins - coinsEntered;
+		newTaskIDList.push(taskID);
+		return User.findOneAndUpdate({ _id: userID}, {taskIDList:newTaskIDList, coins:newCoinBalance}); // add taskID and update coin balance for user
+	})
+	.catch((err) => {
+		res
+		.status(500)
+		.send({ message: "Error creating task with name: " + taskName })
+	})
+})
+
+router.get("/userdata/:_id",(req,res) => { //gets the details of a user
+	const _id = req.params._id;
+	User.findById(_id)
+		.then((data) => {
+			res.send(data);
+		})
+		.catch(err => {
+			res
+			.status(500)
+			.send({ message: "Error retrieving user with id: " + _id });
+		});
+})
+
+
+
+/**
+ * req.params: 
+ * 	name: name of user 
+ * 
+ * res: ObjectId of user, profile picture, 
+ */
+router.get("/:name",(req,res) => {
+	const name = req.params.name;
+	User.find({name:name})
+	.then((data) => {
+		if(data.length != 0){
+			let newData = {
+				_id: data[0]._id,
+				profilePicture: data[0].profilePicture ? data[0].profilePicture : null
+			}
+			res.send(newData);
+		} else {
+			res.send("User not found");
+		}
+	})
+})
+
+router.get("/login/:name/:password",(req,res) => {
+	
+	const name = req.params.name;
+	const password = req.params.password;
+	
+	User.find({name:name})
+	.then((data) => {
+		if(data.length != 0){
+			console.log(data[0].password);
+			if(data[0].password == password || data[0].password == null || data[0].password == ""){
+				let newData = {
+					_id: data[0]._id,
+					profilePicture: data[0].profilePicture ? data[0].profilePicture : null,
+					coins:data[0].coins
+				}
+				res.send(newData);
+			} else {
+				res.send("Incorrect password" + data[0].password + " " + password);
+			}
+		} else {
+			res.send("User not found");
+		}
+	})
+})
+
+router.get('/authLogin/:loginType/:key', (req, res) => {
+	const loginType = req.params.loginType;
+	const key = req.params.key;
+	let searchTerm = "";
+	if(loginType == 'google') {
+		searchTerm = "googleID";
+	} else if(loginType == 'facebook') {
+		searchTerm = "facebookID";
+	} else {
+		res.send("Invalid login type");
+	}
+	User.find({[searchTerm]:key})
+	.then((data) => {
+		if(data.length != 0){
+			res.send(data[0]);
+		} else {
+			res.send("User not found");
+		}
+	})
+})
+
+module.exports = router
