@@ -79,8 +79,7 @@ async function login(data) {//
     } else {
         let res = await axios.get('/users/authLogin/' + data.loginType + '/' + data.key).then(data => data);
 				return res["data"];
-		}
-     
+    }   
 }
 
 export default class userDAO {
