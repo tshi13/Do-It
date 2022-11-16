@@ -44,7 +44,7 @@ router.post("/createUser", async (req,res) =>{ //creates new user
 	}
 })
 
-app.post("/authenticate",async(req,res) => { // authenticate the user
+router.post("/authenticate",async(req,res) => { // authenticate the user
 	const body = req.body;
 	const user = await User.find({name:body.name});
 	const isAuthenticated = await verifyPassword(body.password, user[0] ? user[0].password : "");
