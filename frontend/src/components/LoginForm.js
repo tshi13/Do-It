@@ -85,35 +85,35 @@ function LoginForm(props) {
       <div className="error">{errorMessages.message}</div>
     );
 
-  const fbContent = () => {
-    // let content = ();
-    // return content;
-  }
+  // const fbContent = () => {
+  //   // let content = ();
+  //   // return content;
+  // }
 
-  const componentClicked = (event) => {
-    FacebookLoginClient.init("865292997959919");
-		FacebookLoginClient.login((res) => {
-		console.log("here");
-		console.log(res);
-	});
-  }
+  // const componentClicked = (event) => {
+  //   FacebookLoginClient.init("865292997959919");
+	// 	FacebookLoginClient.login((res) => {
+	// 	console.log("here");
+	// 	console.log(res);
+	// });
+  // }
 
-  const responseFacebook = response => {
-    if (response.id == null) {
+  // const responseFacebook = response => {
+  //   if (response.id == null) {
       
-    }
-    // 
-    console.log(response);
-    // make a user with a facebook id
-    // if the user in the mongodb with a matching facebook id
-    // log that user in
-    // otherwise / else go to
-    // go to register page with value true add user to database
-    // other than that, the register
+  //   }
+  //   // 
+  //   console.log(response);
+  //   // make a user with a facebook id
+  //   // if the user in the mongodb with a matching facebook id
+  //   // log that user in
+  //   // otherwise / else go to
+  //   // go to register page with value true add user to database
+  //   // other than that, the register
     
-    // this line below needs to be fixed
-    handleFacebookSubmit(response);
-  }
+  //   // this line below needs to be fixed
+  //   handleFacebookSubmit(response);
+  // }
 
   const handleFacebookSubmit = async (facebookResponse) => {
 

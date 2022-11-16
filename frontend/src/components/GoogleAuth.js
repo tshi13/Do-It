@@ -36,11 +36,8 @@ export default function GoogleAuth(props) {
 				onFailure={onFailure}
 				cookiePolicy={'single_host_origin'}
 				isSignedIn={true}
+   	 		prompt="select_account"
 		/>
 		</div>
-		
-
-		
 	);
-
 }
