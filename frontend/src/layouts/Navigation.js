@@ -51,13 +51,20 @@ export const Navigation = (props) => {
 	function logOut(e) {
 		e.preventDefault();
 		props.setUser(null, null);
+		if (sessionStorage.getItem("loginType") === "facebook") { // handle facebook logout
+			facebookLogOut();
+		}
+		sessionStorage.clear();
 		window.location.href = '/';
 	}
 
 	function googleLogOut() {
 		props.setUser(null, null);
 		window.location.href = '/';
-		
+		sessionStorage.clear();
+	}
+
+	function facebookLogOut() {
 		FacebookLoginClient.logout(() => {
 			window.FB.init({ apiKey: '865292997959919', version: 'v9.0' });
 			window.FB.getLoginStatus(handleSessionResponse);
@@ -93,8 +100,6 @@ export const Navigation = (props) => {
 			document.getElementById("searchDropDown").style.display = "none";
 		}
 	}
-
-
 	
     return ( 
         <nav className="navbar navbar-expand-lg" style = {{backgroundColor: props.backgroundColor}}>

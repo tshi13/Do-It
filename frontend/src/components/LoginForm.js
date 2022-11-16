@@ -11,16 +11,6 @@ import FacebookLogin from 'react-facebook-login';
 
 function LoginForm(props) {
   
-  
-  // window.fbAsyncInit = function() {
-  //   FB.init({
-  //     appId            : '865292997959919',
-  //     autoLogAppEvents : true,
-  //     xfbml            : true,
-  //     version          : 'v15.0'
-  //   });
-  // };
-
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -29,9 +19,6 @@ function LoginForm(props) {
 
 
   // User Login info
-
-	
-
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
@@ -98,46 +85,16 @@ function LoginForm(props) {
       <div className="error">{errorMessages.message}</div>
     );
 
-  const fbContent = () => {
-    // let content = ();
-    // return content;
-  }
-
-  const componentClicked = (event) => {
-    // FacebookLoginClient.init("865292997959919");
-		// FacebookLoginClient.login((res) => {
-		// console.log("here");
-		// console.log(res);
-	// });
-  }
-
-  const responseFacebook = response => {
-    if (response.id == null) {
-      
-    }
-    // 
-    console.log(response);
-    // make a user with a facebook id
-    // if the user in the mongodb with a matching facebook id
-    // log that user in
-    // otherwise / else go to
-    // go to register page with value true add user to database
-    // other than that, the register
-    
-    // this line below needs to be fixed
-    handleFacebookSubmit(response);
-  }
 
   const handleFacebookSubmit = async (facebookResponse) => {
 
-		FacebookLoginClient.init({appId: "865292997959919", version: 'v9.0'});
-		FacebookLoginClient.login((res) => {
-		console.log("here");
-		console.log(res);
-		});
-    // FacebookLoginClient.login(console.log, {
-    //   scope: 'public_profile, email',
-    // })
+		// FacebookLoginClient.init({appId: "865292997959919", version: 'v9.0'});
+		// FacebookLoginClient.login((res) => {
+		// console.log("here");
+		// console.log(res);
+		// });
+
+  
     // this is the id associated with a user
     // on facebook.com
     const facebookID = facebookResponse.id;
@@ -170,16 +127,9 @@ function LoginForm(props) {
 		
 		props.setUser(data.name, id, coins);
 		setIsSubmitted(true);
-		window.location.href = "/";	
-    
-    // const doItloginResponse = userDAO.login(data);
-    // console.log(doItloginResponse);
-    
+		window.location.href = "/";	    
 };
 
-  // FB.getLoginStatus(function(response) {
-  //   statusChangeCallback(response);
-  // });
   
   return (
     <div className="app" style = {{width: '100%'}}>
@@ -205,41 +155,16 @@ function LoginForm(props) {
             <div className="input">
               <input type="submit" value="Login" className = "inputButton"/>
             </div>
-            {/* <FacebookLogin
-    appId="865292997959919"
-    autoLoad={false}
-    fields="name,email,picture"
-    onClick={() => {componentClicked();}}
-    callback={(res) => {responseFacebook(res);}} /> */}
+           
             <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
-					
             <FacebookLogin
 							appId="865292997959919"
 							autoLoad={false}
 							fields="name,email,picture"
 							// onClick={componentClicked}
-							callback={(res) => {responseFacebook(res);}} />
-
-
+							callback={(res) => {handleFacebookSubmit(res);}} />
             </div>
             
-    
-    {/* <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
-  
-    <script>
-      
- {window.fbAsyncInit = function() {
-    FB.init({
-      appId            : 'your-app-id',
-      autoLogAppEvents : true,
-      xfbml            : true,
-      version          : 'v15.0'
-    });
-  }}
-  {window.fbAsyncInit()}
-</script>
-  
-    <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div> */}
 						<div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
 							Or login with
 						</div>
