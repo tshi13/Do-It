@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("./schemaModels/User");
 const Task = require("./schemaModels/Task");
-const hash = require("./utils/hash");
+const { hashPassword, verifyPassword } = require("./utils/hash");
 
 /**
  * req.body: 

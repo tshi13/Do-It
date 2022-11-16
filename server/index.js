@@ -7,9 +7,6 @@ const Task = require("./schemaModels/Task");
 const Group = require("./schemaModels/Group");
 const cors = require("cors");
 const cron = require("node-cron");
-const { hashPassword, verifyPassword } = require("./utils/hash");
-
-
 
 const router = express.Router();
 var bodyParser = require('body-parser');
