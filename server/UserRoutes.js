@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("./schemaModels/User");
 const Task = require("./schemaModels/Task");
+const hash = require("./utils/hash");
 
 /**
  * req.body: 
@@ -12,8 +13,8 @@ const Task = require("./schemaModels/Task");
  * 	res: Copy of created User object in database 
  *  */ 
 router.post("/createUser", (req,res) =>{ //creates new user
-	const {name,coins,taskIDList = [],groupIDList = [],googleID = "", facebookID = "", email = ""} = req.body;
-		User.create({name,coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email})
+	const {name,coins,taskIDList = [],groupIDList = [],googleID = "", facebookID = "", email = "", password = ""} = req.body;
+		User.create({name,coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email, password})
 			.then((data) => {
 			res.send(data);
 			})
@@ -37,7 +38,6 @@ router.put("/updateUser", (req,res) =>{ //updates user
 
 		})
 })
-
 
 /**
  * req.body: 

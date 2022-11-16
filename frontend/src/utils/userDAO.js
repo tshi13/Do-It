@@ -14,8 +14,10 @@ async function getUser(data) {//
 
 
 async function addUser(data) {//
+    console.log(data);
     let res = await axios.post('/users/createUser', data).then(data => data);
 		await chatDAO.createUser(res["data"]._id, res["data"].name);
+        
 
     return res["data"];
 }
