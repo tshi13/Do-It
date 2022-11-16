@@ -59,23 +59,8 @@ export const Navigation = (props) => {
 		window.location.href = '/';
 		
 		FacebookLoginClient.logout(() => {
-			window.FB.init({ apiKey: '865292997959919', version: 'v9.0' });
-			window.FB.getLoginStatus(handleSessionResponse);
 			console.log('logout completed!');
 		});
-	}
-
-	//handle a session response from any of the auth related calls
-	function handleSessionResponse(response) {
-		//if we dont have a session (which means the user has been logged out, redirect the user)
-		if (!response.session) {
-				window.location = "/";
-				return;
-		}
-
-		//if we do have a non-null response.session, call FB.logout(),
-		//the JS method will log the user out of Facebook and remove any authorization cookies
-		window.FB.logout(handleSessionResponse);
 	}
 
 	async function handleSubmit (e, type) {

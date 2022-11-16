@@ -104,11 +104,11 @@ function LoginForm(props) {
   }
 
   const componentClicked = (event) => {
-    // FacebookLoginClient.init("865292997959919");
-		// FacebookLoginClient.login((res) => {
-		// console.log("here");
-		// console.log(res);
-	// });
+    FacebookLoginClient.init("865292997959919");
+		FacebookLoginClient.login((res) => {
+		console.log("here");
+		console.log(res);
+	});
   }
 
   const responseFacebook = response => {
@@ -130,14 +130,11 @@ function LoginForm(props) {
 
   const handleFacebookSubmit = async (facebookResponse) => {
 
-		FacebookLoginClient.init({appId: "865292997959919", version: 'v9.0'});
+		FacebookLoginClient.init("865292997959919");
 		FacebookLoginClient.login((res) => {
 		console.log("here");
 		console.log(res);
 		});
-    // FacebookLoginClient.login(console.log, {
-    //   scope: 'public_profile, email',
-    // })
     // this is the id associated with a user
     // on facebook.com
     const facebookID = facebookResponse.id;
