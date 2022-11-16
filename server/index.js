@@ -19,27 +19,53 @@ lastUpdate = new Date();
 
 cron.schedule("0 0 0 * * *", () => { //every day at midnight
   lastUpdate = new Date();
-  Task.find({userID: "Group Task"}).then((data) => {
-    data.forEach((task) => {
-      let coinPool = !isNaN(task.coinPool) && task.coinPool !== null  ? task.coinPool : 0;
-      let totalCoins = task.coinPool/task.completedList.length;
-      let newCoins = Math.floor(totalCoins);
-      task.completedList.forEach((completed) => {
-        User.findByIdAndUpdate(completed, { $inc: { coins: newCoins } }, { new: true }).then((data) => {
-          console.log("Updated user coins");
-        }).then(() => {
-          Task.findByIdAndUpdate(task._id, { $set: { coinPool: 0, joinedList: [], completedList: []} }, { new: true }).then((data) => {
-            console.log("Updated group task");
-          });
+
+  User.find({}).then((data) => {
+    data.forEach((user) => {
+      if (user.coins < 0 || isNaN(user.coins) || user.coins === null) {
+        User.findByIdAndUpdate(user._id, { $set: { coins: 0 } }, { new: true }).then((data) => {
+          console.log("Updated user coins" + user._id);
         });
-      });
-  }
-    );
+      }
+    });
   });
+  Task.find({}).then((data) => {
+    data.forEach((task) => {
+      if (task.coinsEntered < 0 || isNaN(task.coinsEntered) || task.coinsEntered === null) {
+        Task.findByIdAndUpdate(task._id, { $set: { coinsEntered: 0 } }, { new: true }).then((data) => {
+          console.log("Updated task coins" + task._id);
+        });
+      }
+      if(task.coinPool < 0 || isNaN(task.coinPool) || task.coinPool === null) {
+        Task.findByIdAndUpdate(task._id, { $set: { coinPool: 0 } }, { new: true }).then((data) => {
+          console.log("Updated task coin pool" + task._id);
+        });
+      }
+    });
+  }).then(() => {
+
+      Task.find({userID: "Group Task"}).then((data) => {
+        data.forEach((task) => {
+          let coinPool = !isNaN(task.coinPool) && task.coinPool !== null  ? task.coinPool : 0;
+          let totalCoins = task.coinPool/task.completedList.length;
+          let newCoins = Math.floor(totalCoins);
+          task.completedList.forEach((completed) => {
+            User.findByIdAndUpdate(completed, { $inc: { coins: newCoins } }, { new: true }).then((data) => {
+              console.log("Updated user coins");
+            }).then(() => {
+              Task.findByIdAndUpdate(task._id, { $set: { coinPool: 0, joinedList: [], completedList: []} }, { new: true }).then((data) => {
+                console.log("Updated group task");
+              });
+            });
+          });
+      }
+        );
+      });
+    });
 });
 
 
-cron.schedule('* * * * * *"', () => { //every second fix users that have issues with their coins
+cron.schedule('0 0 0 * * *"', () => { //every second fix users that have issues with their coins
   User.find({}).then((data) => {
     data.forEach((user) => {
       if (user.coins < 0 || isNaN(user.coins) || user.coins === null) {
