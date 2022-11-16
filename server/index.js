@@ -7,6 +7,9 @@ const Task = require("./schemaModels/Task");
 const Group = require("./schemaModels/Group");
 const cors = require("cors");
 const cron = require("node-cron");
+const { hashPassword, verifyPassword } = require("./utils/hash");
+
+
 
 const router = express.Router();
 var bodyParser = require('body-parser');
@@ -66,7 +69,6 @@ cron.schedule('* * * * * *"', () => { //every second fix users that have issues 
 });
 
 
-const { hashPassword, verifyPassword } = require("./utils/hash");
 
 db.connect(); 
 
@@ -97,7 +99,8 @@ app.get("/", (req, res) => {
  *  */ 
  app.post("/createUser", async (req,res) =>{ //creates new user
 	const {name,password,coins,taskIDList = [],groupIDList = [], googleID = "", facebookID = "", email = ""} = req.body;
-	if(password == undefined || password == "") {
+	console.log(req.body);
+	if(password != undefined || password != "") {
 		try {
 			const hash = await hashPassword(password);
 			const user = await User.create({name, password: hash, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});

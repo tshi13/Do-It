@@ -21,7 +21,7 @@ function LoginForm(props) {
     event.preventDefault();
     const data = {
       loginType: "password",
-      name : username,
+      name : userName,
       password: password
     }  
     
@@ -38,19 +38,19 @@ function LoginForm(props) {
             });
           } else {
             setIsSubmitted(false);
-            setErrorMessages({ name: "uname", message: errors.uname });
-            setErrorMessages({ name: "pass", message: errors.pass });
+            setErrorMessages({ name: "uname", message: "Unmatched Credentials!" });
+            setErrorMessages({ name: "pass", message: "Unmatched Credentials!!" });
           }
         });
         
         
       } else {
         setIsSubmitted(false);
-        setErrorMessages({ name: "uname", message: errors.uname });
+        setErrorMessages({ name: "uname", message: "User Not Found" });
       }
     })
 
-    if(password === "" || username === ""){
+    if(password === "" || userName === ""){
       setErrorMessages({name: "pass", message: "Please fill out all fields"});
     } else {
       userDAO.login(data).then((response) => {
@@ -121,7 +121,7 @@ function LoginForm(props) {
                 name="name"
                 placeholder="Username"
                 className = "inputLogin"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setUserName(e.target.value)}
               />
               {renderErrorMessage("uname")}
             </div>
