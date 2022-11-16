@@ -43,7 +43,6 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
       }
     });
   }).then(() => {
-
       Task.find({userID: "Group Task"}).then((data) => {
         data.forEach((task) => {
           let coinPool = !isNaN(task.coinPool) && task.coinPool !== null  ? task.coinPool : 0;
