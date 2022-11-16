@@ -4,10 +4,12 @@ import '../styles/navigation.css';
 import ProfilePicture from './ProfilePicture';
 import {Buffer} from 'buffer';
 import {GoogleLogout } from 'react-google-login';
+import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 
 import userDAO from '../utils/userDAO';
 import Bell from '../assets/bell.png';
 import NotificationCard from '../components/NotifcationCard';
+
 
 export const Navigation = (props) => { 
 
@@ -49,12 +51,38 @@ export const Navigation = (props) => {
 	function logOut(e) {
 		e.preventDefault();
 		props.setUser(null, null);
+		if (sessionStorage.getItem("loginType") === "facebook") { // handle facebook logout
+			facebookLogOut();
+		}
+		sessionStorage.clear();
 		window.location.href = '/';
 	}
 
 	function googleLogOut() {
 		props.setUser(null, null);
 		window.location.href = '/';
+		sessionStorage.clear();
+	}
+
+	function facebookLogOut() {
+		FacebookLoginClient.logout(() => {
+			window.FB.init({ apiKey: '865292997959919', version: 'v9.0' });
+			window.FB.getLoginStatus(handleSessionResponse);
+			console.log('logout completed!');
+		});
+	}
+
+	//handle a session response from any of the auth related calls
+	function handleSessionResponse(response) {
+		//if we dont have a session (which means the user has been logged out, redirect the user)
+		if (!response.session) {
+				window.location = "/";
+				return;
+		}
+
+		//if we do have a non-null response.session, call FB.logout(),
+		//the JS method will log the user out of Facebook and remove any authorization cookies
+		window.FB.logout(handleSessionResponse);
 	}
 
 	async function handleSubmit (e, type) {
@@ -72,8 +100,6 @@ export const Navigation = (props) => {
 			document.getElementById("searchDropDown").style.display = "none";
 		}
 	}
-
-
 	
     return ( 
         <nav className="navbar navbar-expand-lg" style = {{backgroundColor: props.backgroundColor}}>
@@ -111,7 +137,7 @@ export const Navigation = (props) => {
 					<div className="dividerCustom"></div>
 					<a href="/profile">Profile</a>
 					<a href="/settings">Settings</a>
-					{sessionStorage.getItem("loginType") === "password" ? 
+					{sessionStorage.getItem("loginType") !== "google" ? 
 					<a href="/login" onClick={e => {logOut(e)}}>Log Out</a>  
 					:	<GoogleLogout clientId={clientId} buttonText="Log out" onLogoutSuccess={googleLogOut} /> }
 				</div>

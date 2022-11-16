@@ -1,21 +1,24 @@
 import React, {useEffect, useState } from "react";
 import userDAO from "../utils/userDAO";
 import GoogleAuth from "./GoogleAuth";
+import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
+
 
 import '../styles/LoginForm.css';
-
+// 
+import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from '@greatsumini/react-facebook-login';
 
 function LoginForm(props) {
+  
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
+
   // User Login info
-
-
-
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
@@ -93,7 +96,78 @@ function LoginForm(props) {
       <div className="error">{errorMessages.message}</div>
     );
 
+  // const fbContent = () => {
+  //   // let content = ();
+  //   // return content;
+  // }
 
+  // const componentClicked = (event) => {
+  //   FacebookLoginClient.init("865292997959919");
+	// 	FacebookLoginClient.login((res) => {
+	// 	console.log("here");
+	// 	console.log(res);
+	// });
+  // }
+
+  // const responseFacebook = response => {
+  //   if (response.id == null) {
+      
+  //   }
+  //   // 
+  //   console.log(response);
+  //   // make a user with a facebook id
+  //   // if the user in the mongodb with a matching facebook id
+  //   // log that user in
+  //   // otherwise / else go to
+  //   // go to register page with value true add user to database
+  //   // other than that, the register
+    
+  //   // this line below needs to be fixed
+  //   handleFacebookSubmit(response);
+  // }
+
+  // facebook submitting for login
+  const handleFacebookSubmit = async (facebookResponse) => {
+
+		FacebookLoginClient.init({appId: "865292997959919", version: 'v9.0'});
+		FacebookLoginClient.login((res) => {});
+
+    // this is the id associated with a user
+    // on facebook.com
+    const facebookID = facebookResponse.id;
+    const name = facebookResponse.name;
+    const email = facebookResponse.email;
+		
+    // preparing to send data to login function
+    const loginData = {
+			loginType: "facebook",
+			key: facebookID
+		};
+
+		const data = {
+      name : name,
+      coins : 6,
+      taskIDList : [],
+      groupIDList : [],
+			facebookID: facebookID,
+			email: email
+    }
+
+		let response = await userDAO.login(loginData);
+		let id = response._id;
+		let coins = response.coins;
+		if (typeof response === "string") {
+			let newUser = await userDAO.addUser(data);
+			id = newUser._id;
+			coins = newUser.coins;
+		}
+		
+		props.setUser(data.name, id, coins);
+		setIsSubmitted(true);
+		window.location.href = "/";	    
+};
+
+  
   return (
     <div className="app" style = {{width: '100%'}}>
       {isSubmitted ? <div>User is successfully logged in <br></br> <p>Redirecting to Main Page</p></div> : 
@@ -118,6 +192,16 @@ function LoginForm(props) {
             <div className="input">
               <input type="submit" value="Login" className = "inputButton"/>
             </div>
+           
+            <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
+            <FacebookLogin
+							appId="865292997959919"
+							autoLoad={false}
+							fields="name,email,picture"
+							// onClick={componentClicked}
+							callback={(res) => {handleFacebookSubmit(res);}} />
+            </div>
+            
 						<div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
 							Or login with
 						</div>
