@@ -88,11 +88,8 @@ function LoginForm(props) {
 
   const handleFacebookSubmit = async (facebookResponse) => {
 
-		// FacebookLoginClient.init({appId: "865292997959919", version: 'v9.0'});
-		// FacebookLoginClient.login((res) => {
-		// console.log("here");
-		// console.log(res);
-		// });
+		FacebookLoginClient.init({appId: "865292997959919", version: 'v9.0'});
+		FacebookLoginClient.login((res) => {});
 
   
     // this is the id associated with a user
@@ -176,7 +173,7 @@ function LoginForm(props) {
         </div>
           <div className="login-form" style ={{marginTop: '5%'}}>
               <form action="/register" style = {{justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
-                <p>Don't have an account?!</p>
+                <p>Don't have an account?</p>
                 <input type="submit" value="Register" className = "inputButton"/>
               </form>
           </div>
