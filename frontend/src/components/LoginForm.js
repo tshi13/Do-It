@@ -118,11 +118,9 @@ function LoginForm(props) {
   // facebook submitting for login
   const handleFacebookSubmit = async (facebookResponse) => {
 
-		FacebookLoginClient.init("865292997959919");
-		FacebookLoginClient.login((res) => {
-		console.log("here");
-		console.log(res);
-		});
+		FacebookLoginClient.init({appId: "865292997959919", version: 'v9.0'});
+		FacebookLoginClient.login((res) => {});
+
     // this is the id associated with a user
     // on facebook.com
     const facebookID = facebookResponse.id;
