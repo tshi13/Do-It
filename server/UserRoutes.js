@@ -44,6 +44,36 @@ router.post("/createUser", async (req,res) =>{ //creates new user
 	}
 })
 
+app.post("/authenticate",async(req,res) => { // authenticate the user
+	const body = req.body;
+	const user = await User.find({name:body.name});
+	const isAuthenticated = await verifyPassword(body.password, user[0] ? user[0].password : "");
+	if (isAuthenticated) {
+		// return res.status(201).json({
+		// 	message: "Authentication successful!",
+		// });
+		res.status(201).send({ message: "Authentication successful!" })
+	} else {
+		// return res.status(403).json({
+		// 	message: "Wrong username or password!",
+		//   });
+		res.status(201).send({ message: "Wrong username or password!" })
+	}
+// 	.then((data) => {
+// 		const isAuthenticated = await verifyPassword(password, user ? user.password : "");
+// 	})
+// 	User.findById(_id)
+// 		.then((data) => {
+// 			res.send(data);
+// 		})
+// 		.catch(err => {
+// 			res
+// 			.status(500)
+// 			.send({ message: "Error retrieving user with id: " + _id });
+// 		});
+// })
+})
+
 router.put("/updateUser", (req,res) =>{ //updates user
 	const {userID, data} = req.body;
 	User.findByIdAndUpdate(userID, data, {new: true, $set: data})
