@@ -183,6 +183,13 @@ And a user's friends can put the invitation code into the search bar on the top 
 4. When a user creates a group task, the task card shows the percentage of group members that have completed the task. And when a user in the group completes the task, they can click submit and the progress bar will change automatically.
 ![Task Progress Bar](https://i.imgur.com/pikMb4O.png)
 
+### Iteration 4 - Usage
+1. As a new user, once you get into the home page, you can see the login page. You have the option to register an account in DO/It with your password. In addition, you can choose to login via Google/Meta account.![Login Page](https://i.imgur.com/pWVWksu.jpeg)
+2. If you choose to create a DO/It account, then you are welcome to do so in our register page.![Register Page](https://i.imgur.com/RiZFBL1.jpg))
+3. Users who want to login via their Google/Meta account can just click the relevant button, and a pop up page will appear asking you credentials from the relevant companies. ![Google Popup Page](https://i.imgur.com/UMwONMg.jpg)
+4. When choosing login via Google/Meta, your DO/It profile (name, email, etc) will be matched with your Google/Meta profile so users don't have to worry for trouble.
+![Google Profile](https://i.imgur.com/YaFokdo.png)
+
 
 _For more examples and documentation, please refer to the [doc folder in this repo](https://github.com/jhu-oose-f22/team-doit-project-repo/tree/main/doc) which contains the SRS and the UML diagram._
 
@@ -254,6 +261,21 @@ _For more examples and documentation, please refer to the [doc folder in this re
 - [x] As a user, I want to be able to leave a group so that I am not in the group anymore
 - [x] As a user, I want to be able to interact with task cards so that coin values can be redeemed upon task completion and checkboxes for “Task Done” or "Submit" can be selected by users
 - [x] Refactor all class components into function components
+
+### Iteration 4
+
+#### Iteration 4 User Stories Completed (original)
+- [x] As a user, I want to have a secure way of logging into my account
+- [x] As a user, I want to be notified about the progress of other members in the group
+
+#### Iteration 4 User Stories Completed (more specific)
+- [X] As developers, we want to have a backend codebase that is easily navigable with functions refactored into specific files (not all in index.js)
+- [x] Google Login
+- [x] Facebook Login
+- [x] DoIt Login
+- [x] Move display of personal tasks to profile page
+- [X] Seperate Backend into different files
+
 
 Please see the [Team DoIt Project Backlog](https://github.com/orgs/jhu-oose-f22/projects/8/views/1) for a full list of user stories for current and upcoming iterations.
 

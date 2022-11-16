@@ -27,9 +27,10 @@ function LoginForm(props) {
       name : userName,
       password: password
     }  
-    
+    if (password === "" || userName === ""){
+      setErrorMessages({name: "pass", message: "Please fill out all fields"});
+    } else {    
     userDAO.getUser(data).then((response) => {
-      
       if (response !== "User not found") {
         userDAO.authenticate(data).then((msg) => {
           console.log(msg);
@@ -51,21 +52,6 @@ function LoginForm(props) {
         setIsSubmitted(false);
         setErrorMessages({ name: "uname", message: "User Not Found" });
       }
-    })
-
-    if(password === "" || userName === ""){
-      setErrorMessages({name: "pass", message: "Please fill out all fields"});
-    } else {
-      userDAO.login(data).then((response) => {
-        
-        if (typeof response !== "string") {
-					props.setUser(data.name, response._id, response.coins);
-					setIsSubmitted(true);
-					window.location.href = "/";
-        } else {
-          setIsSubmitted(false);
-          setErrorMessages({ name: "pass", message: response });
-        }
     })
   }
 };
@@ -110,43 +96,42 @@ function LoginForm(props) {
       <div className="error">{errorMessages.message}</div>
     );
 
-  const fbContent = () => {
-    // let content = ();
-    // return content;
-  }
+  // const fbContent = () => {
+  //   // let content = ();
+  //   // return content;
+  // }
 
-  const componentClicked = (event) => {
-    FacebookLoginClient.init("865292997959919");
-		FacebookLoginClient.login((res) => {
-		console.log("here");
-		console.log(res);
-	});
-  }
+  // const componentClicked = (event) => {
+  //   FacebookLoginClient.init("865292997959919");
+	// 	FacebookLoginClient.login((res) => {
+	// 	console.log("here");
+	// 	console.log(res);
+	// });
+  // }
 
-  const responseFacebook = response => {
-    if (response.id == null) {
+  // const responseFacebook = response => {
+  //   if (response.id == null) {
       
-    }
-    // 
-    console.log(response);
-    // make a user with a facebook id
-    // if the user in the mongodb with a matching facebook id
-    // log that user in
-    // otherwise / else go to
-    // go to register page with value true add user to database
-    // other than that, the register
+  //   }
+  //   // 
+  //   console.log(response);
+  //   // make a user with a facebook id
+  //   // if the user in the mongodb with a matching facebook id
+  //   // log that user in
+  //   // otherwise / else go to
+  //   // go to register page with value true add user to database
+  //   // other than that, the register
     
-    // this line below needs to be fixed
-    handleFacebookSubmit(response);
-  }
+  //   // this line below needs to be fixed
+  //   handleFacebookSubmit(response);
+  // }
 
+  // facebook submitting for login
   const handleFacebookSubmit = async (facebookResponse) => {
 
-		FacebookLoginClient.init("865292997959919");
-		FacebookLoginClient.login((res) => {
-		console.log("here");
-		console.log(res);
-		});
+		FacebookLoginClient.init({appId: "865292997959919", version: 'v9.0'});
+		// FacebookLoginClient.login((res) => {});
+
     // this is the id associated with a user
     // on facebook.com
     const facebookID = facebookResponse.id;
@@ -165,7 +150,8 @@ function LoginForm(props) {
       taskIDList : [],
       groupIDList : [],
 			facebookID: facebookID,
-			email: email
+			email: email,
+			password: null
     }
 
 		let response = await userDAO.login(loginData);
