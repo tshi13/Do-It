@@ -176,7 +176,7 @@ function LoginForm(props) {
         </div>
           <div className="login-form" style ={{marginTop: '5%'}}>
               <form action="/register" style = {{justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
-                <p>Don't have an account?</p>
+                <p>Don't have an account?!</p>
                 <input type="submit" value="Register" className = "inputButton"/>
               </form>
           </div>
