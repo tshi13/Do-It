@@ -109,9 +109,11 @@ app.get("/", (req, res) => {
   res.send("Server Started At " + serverTime);
 });
 
+
 app.use('/users', require('./UserRoutes'))
 app.use('/tasks', require('./TaskRoutes'))
 app.use('/group', require('./GroupRoutes'))
+
 
 app.listen(port, () => {
   console.log(`Express app listening at port: http://localhost:${port}/`);
