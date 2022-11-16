@@ -115,6 +115,7 @@ function LoginForm(props) {
   //   handleFacebookSubmit(response);
   // }
 
+  // facebook submitting for login
   const handleFacebookSubmit = async (facebookResponse) => {
 
 		FacebookLoginClient.init("865292997959919");
