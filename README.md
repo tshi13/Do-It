@@ -185,7 +185,7 @@ And a user's friends can put the invitation code into the search bar on the top 
 
 ### Iteration 4 - Usage
 1. As a new user, once you get into the home page, you can see the login page. You have the option to register an account in DO/It with your password. In addition, you can choose to login via Google/Meta account.![Login Page](https://i.imgur.com/pWVWksu.jpeg))
-2. If you choose to create a DO/It account, then you are welcome to do so in our register page.![Register Page]([https://i.imgur.com/MbGas4W.png](https://i.imgur.com/RiZFBL1.jpg))
+2. If you choose to create a DO/It account, then you are welcome to do so in our register page.![Register Page](https://i.imgur.com/RiZFBL1.jpg))
 3. Users who want to login via their Google/Meta account can just click the relevant button, and a pop up page will appear asking you credentials from the relevant companies. ![Google Popup Page](https://i.imgur.com/UMwONMg.jpg)
 4. When a user creates a group task, the task card shows the percentage of group members that have completed the task. And when a user in the group completes the task, they can click submit and the progress bar will change automatically.
 ![Task Progress Bar](https://i.imgur.com/pikMb4O.png)
