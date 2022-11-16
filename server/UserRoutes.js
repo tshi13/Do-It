@@ -12,17 +12,36 @@ const hash = require("./utils/hash");
  * 
  * 	res: Copy of created User object in database 
  *  */ 
-router.post("/createUser", (req,res) =>{ //creates new user
-	const {name,coins,taskIDList = [],groupIDList = [],googleID = "", facebookID = "", email = "", password = ""} = req.body;
-		User.create({name,coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email, password})
-			.then((data) => {
-			res.send(data);
-			})
-			.catch((err) => {
-				res
-				.status(500)
-				.send({ message: "Error creating user with name: " + name })
-			})
+router.post("/createUser", async (req,res) =>{ //creates new user
+	const {name,password,coins,taskIDList = [],groupIDList = [], googleID = "", facebookID = "", email = ""} = req.body;
+	if(password != undefined || password != "") {
+		try {
+			const hash = await hashPassword(password);
+			const user = await User.create({name, password: hash, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			res.send(user);
+		} catch (err) {
+			res.status(500).send({ message: "Error creating user with name: " + name })
+		}
+		// User.create({name,password,coins,taskIDList, groupIDList, profilePicture: null})
+		// 	.then((data) => {
+		// 	const hash = await hashPassword(password);
+		// 	res.send(data);
+		// 	})
+		// 	.catch((err) => {
+		// 		res
+		// 		.status(500)
+		// 		.send({ message: "Error creating user with name: " + name })
+		// 	})
+	} else if(googleID != "" || facebookID != "") {
+		try {
+			const user = await User.create({name, password: null, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			res.send(user);
+		} catch (err) {
+			res.status(500).send({ message: "Error creating user with name: " + name });
+		}
+	} else {
+		res.status(500).send({ message: "Error creating user with name: " + name });
+	}
 })
 
 router.put("/updateUser", (req,res) =>{ //updates user
