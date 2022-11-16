@@ -2,10 +2,10 @@ import axios from 'axios';
 import chatDAO from './chatDAO';
 
 // Enable this for local development
-axios.defaults.baseURL = 'http://localhost:5000'; 
+//axios.defaults.baseURL = 'http://localhost:5000'; 
 
 //Enable this for heroku production app
-// axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
+axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
 
 async function getUser(data) {//
     let res = await axios.get('/users/' + data.name).then(data => data);
