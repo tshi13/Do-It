@@ -24,9 +24,10 @@ function LoginForm(props) {
       name : userName,
       password: password
     }  
-    
+    if (password === "" || userName === ""){
+      setErrorMessages({name: "pass", message: "Please fill out all fields"});
+    } else {    
     userDAO.getUser(data).then((response) => {
-      
       if (response !== "User not found") {
         userDAO.authenticate(data).then((msg) => {
           console.log(msg);
@@ -48,21 +49,6 @@ function LoginForm(props) {
         setIsSubmitted(false);
         setErrorMessages({ name: "uname", message: "User Not Found" });
       }
-    })
-
-    if(password === "" || userName === ""){
-      setErrorMessages({name: "pass", message: "Please fill out all fields"});
-    } else {
-      userDAO.login(data).then((response) => {
-        
-        if (typeof response !== "string") {
-					props.setUser(data.name, response._id, response.coins);
-					setIsSubmitted(true);
-					window.location.href = "/";
-        } else {
-          setIsSubmitted(false);
-          setErrorMessages({ name: "pass", message: response });
-        }
     })
   }
 };

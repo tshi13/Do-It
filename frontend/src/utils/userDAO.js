@@ -42,7 +42,7 @@ async function getUserData(userID) {//
 
 
 async function authenticate(data) {
-    let res = await axios.post('/authenticate', data).then(data => data);
+    let res = await axios.post('/users/authenticate', data).then(data => data);
     return res["data"];
 }
 
