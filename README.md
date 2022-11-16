@@ -255,6 +255,21 @@ _For more examples and documentation, please refer to the [doc folder in this re
 - [x] As a user, I want to be able to interact with task cards so that coin values can be redeemed upon task completion and checkboxes for “Task Done” or "Submit" can be selected by users
 - [x] Refactor all class components into function components
 
+### Iteration 4
+
+#### Iteration 4 User Stories Completed (original)
+- [x] As a user, I want to have a secure way of logging into my account
+- [x] As a user, I want to be notified about the progress of other members in the group
+
+#### Iteration 4 User Stories Completed (more specific)
+- [X] As developers, we want to have a backend codebase that is easily navigable with functions refactored into specific files (not all in index.js)
+- [x] Google Login
+- [x] Facebook Login
+- [x] DoIt Login
+- [x] Move display of personal tasks to profile page
+- [X] Seperate Backend into different files
+
+
 Please see the [Team DoIt Project Backlog](https://github.com/orgs/jhu-oose-f22/projects/8/views/1) for a full list of user stories for current and upcoming iterations.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
