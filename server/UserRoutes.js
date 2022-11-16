@@ -14,7 +14,7 @@ const { hashPassword, verifyPassword } = require("./utils/hash");
  *  */ 
 router.post("/createUser", async (req,res) =>{ //creates new user
 	const {name,password,coins,taskIDList = [],groupIDList = [], googleID = "", facebookID = "", email = ""} = req.body;
-	if(password != undefined || password != "") {
+	if(password != undefined && password != "" && password!=null) {
 		try {
 			const hash = await hashPassword(password);
 			const user = await User.create({name, password: hash, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});

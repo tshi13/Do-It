@@ -150,7 +150,8 @@ function LoginForm(props) {
       taskIDList : [],
       groupIDList : [],
 			facebookID: facebookID,
-			email: email
+			email: email,
+			password: null
     }
 
 		let response = await userDAO.login(loginData);
