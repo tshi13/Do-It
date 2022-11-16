@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/jhu-oose-f22/team-doit-project-repo#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "mongoose": "^6.6.3",

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("./schemaModels/User");
 const Task = require("./schemaModels/Task");
+const { hashPassword, verifyPassword } = require("./utils/hash");
 
 /**
  * req.body: 
@@ -11,17 +12,66 @@ const Task = require("./schemaModels/Task");
  * 
  * 	res: Copy of created User object in database 
  *  */ 
-router.post("/createUser", (req,res) =>{ //creates new user
-	const {name,coins,taskIDList = [],groupIDList = [],googleID = "", facebookID = "", email = ""} = req.body;
-		User.create({name,coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email})
-			.then((data) => {
-			res.send(data);
-			})
-			.catch((err) => {
-				res
-				.status(500)
-				.send({ message: "Error creating user with name: " + name })
-			})
+router.post("/createUser", async (req,res) =>{ //creates new user
+	const {name,password,coins,taskIDList = [],groupIDList = [], googleID = "", facebookID = "", email = ""} = req.body;
+	if(password != undefined || password != "") {
+		try {
+			const hash = await hashPassword(password);
+			const user = await User.create({name, password: hash, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			res.send(user);
+		} catch (err) {
+			res.status(500).send({ message: "Error creating user with name: " + name })
+		}
+		// User.create({name,password,coins,taskIDList, groupIDList, profilePicture: null})
+		// 	.then((data) => {
+		// 	const hash = await hashPassword(password);
+		// 	res.send(data);
+		// 	})
+		// 	.catch((err) => {
+		// 		res
+		// 		.status(500)
+		// 		.send({ message: "Error creating user with name: " + name })
+		// 	})
+	} else if(googleID != "" || facebookID != "") {
+		try {
+			const user = await User.create({name, password: null, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			res.send(user);
+		} catch (err) {
+			res.status(500).send({ message: "Error creating user with name: " + name });
+		}
+	} else {
+		res.status(500).send({ message: "Error creating user with name: " + name });
+	}
+})
+
+router.post("/authenticate",async(req,res) => { // authenticate the user
+	const body = req.body;
+	const user = await User.find({name:body.name});
+	const isAuthenticated = await verifyPassword(body.password, user[0] ? user[0].password : "");
+	if (isAuthenticated) {
+		// return res.status(201).json({
+		// 	message: "Authentication successful!",
+		// });
+		res.status(201).send({ message: "Authentication successful!" })
+	} else {
+		// return res.status(403).json({
+		// 	message: "Wrong username or password!",
+		//   });
+		res.status(201).send({ message: "Wrong username or password!" })
+	}
+// 	.then((data) => {
+// 		const isAuthenticated = await verifyPassword(password, user ? user.password : "");
+// 	})
+// 	User.findById(_id)
+// 		.then((data) => {
+// 			res.send(data);
+// 		})
+// 		.catch(err => {
+// 			res
+// 			.status(500)
+// 			.send({ message: "Error retrieving user with id: " + _id });
+// 		});
+// })
 })
 
 router.put("/updateUser", (req,res) =>{ //updates user
@@ -37,7 +87,6 @@ router.put("/updateUser", (req,res) =>{ //updates user
 
 		})
 })
-
 
 /**
  * req.body: 

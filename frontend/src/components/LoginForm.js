@@ -14,7 +14,7 @@ function LoginForm(props) {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [username, setUsername] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
 
@@ -24,23 +24,34 @@ function LoginForm(props) {
     event.preventDefault();
     const data = {
       loginType: "password",
-      name : username,
+      name : userName,
       password: password
     }  
-
-    if(password === "" || username === ""){
+    if (password === "" || userName === ""){
       setErrorMessages({name: "pass", message: "Please fill out all fields"});
-    } else {
-      userDAO.login(data).then((response) => {
+    } else {    
+    userDAO.getUser(data).then((response) => {
+      if (response !== "User not found") {
+        userDAO.authenticate(data).then((msg) => {
+          console.log(msg);
+          if (msg.message == "Authentication successful!") {
+            userDAO.getUserData(response._id).then((res) => {
+              props.setUser(data.name, res._id, res.coins);
+              setIsSubmitted(true);
+              window.location.href = "/";
+            });
+          } else {
+            setIsSubmitted(false);
+            setErrorMessages({ name: "uname", message: "Unmatched Credentials!" });
+            setErrorMessages({ name: "pass", message: "Unmatched Credentials!!" });
+          }
+        });
         
-        if (typeof response !== "string") {
-					props.setUser(data.name, response._id, response.coins);
-					setIsSubmitted(true);
-					window.location.href = "/";
-        } else {
-          setIsSubmitted(false);
-          setErrorMessages({ name: "pass", message: response });
-        }
+        
+      } else {
+        setIsSubmitted(false);
+        setErrorMessages({ name: "uname", message: "User Not Found" });
+      }
     })
   }
 };
@@ -170,12 +181,12 @@ function LoginForm(props) {
                 name="name"
                 placeholder="Username"
                 className = "inputLogin"
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setUserName(e.target.value)}
               />
               {renderErrorMessage("uname")}
             </div>
             <div className="input">
-              <input type="password" name="password" placeholder="Password" className = "inputLogin" onChange={(e) => setPassword(e.target.value)} />
+              <input type="password" name="password" placeholder="Password" className = "inputLogin" onChange={(e) => setPassword(e.target.value)}/>
               {renderErrorMessage("pass")}
             </div>
             <div className="input">

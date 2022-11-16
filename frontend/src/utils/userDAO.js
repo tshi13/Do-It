@@ -12,9 +12,10 @@ async function getUser(data) {//
     return res["data"];
 }
 
+
 async function addUser(data) {//
     let res = await axios.post('/users/createUser', data).then(data => data);
-		await chatDAO.createUser(res["data"]._id, res["data"].name);
+	await chatDAO.createUser(res["data"]._id, res["data"].name);    
     return res["data"];
 }
 
@@ -38,7 +39,16 @@ async function getUserData(userID) {//
     return res["data"];
 }
 
+
+
+async function authenticate(data) {
+    let res = await axios.post('/users/authenticate', data).then(data => data);
+    return res["data"];
+}
+
+
 async function addTasks(userID, data) {//
+
     
     let updatedData = {
         userID: userID,
@@ -115,6 +125,9 @@ export default class userDAO {
         return getUserData(userID);
     }
 
+    static authenticate(userID) {
+        return authenticate(userID);
+    }
     static login(data) {
         return login(data);
     }
