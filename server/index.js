@@ -165,8 +165,7 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
                   }
                 });
               }
-
-
+            });
             Task.findByIdAndDelete(task._id);
             groupTasks.splice(groupTasks.indexOf(task._id), 1);
             Group.findOneAndUpdate({_id: groupID}, {taskIDList: groupTasks});
