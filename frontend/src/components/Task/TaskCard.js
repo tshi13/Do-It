@@ -31,6 +31,7 @@ export default function TaskCard(props) {
   const [completedUsernames, setCompletedUsernames] = React.useState([]);
   const [joinedUsernames, setJoinedUsernames] = React.useState([]);
   const [username, setUsername] = React.useState("");
+  const [CreatedBy, setCreatedBy] = React.useState("");
   const [message, setMessage] = React.useState("");
 
 
@@ -102,6 +103,14 @@ export default function TaskCard(props) {
       setJoinedUsernames(joinedUsernames);
     }
   }, [joinedList]);
+
+  React.useEffect(() => {
+    if(task.createdBy) {
+      userDAO.getUserData(task.createdBy).then((res) => {
+        setCreatedBy(res.name);
+      });
+    }
+  }, [task.createdBy]);
   
   React.useEffect(() => {
     if(task.type === "group") {
@@ -231,6 +240,9 @@ export default function TaskCard(props) {
                     task.type === "groupIndividual" ?
                     <div>
                       <Typography sx={{ mb: 1 }} color="text.secondary">
+                        Created by: {CreatedBy}
+                      </Typography>
+                      <Typography sx={{ mb: 1 }} color="text.secondary">
                       Coins for Completion: {task.coinsEntered}
                       </Typography>
                       <Typography sx={{ mb: 1 }} color="text.secondary">
@@ -238,6 +250,12 @@ export default function TaskCard(props) {
                       </Typography>
                       <Typography sx={{ mb: 1 }} color="text.secondary">
                         Checked off by: {Array.isArray(list) ? list.length : 0} Person(s)
+                      </Typography>
+                        <Typography sx={{ mb: 1 }} color="text.secondary">
+                        Last Check Off: {task.lastCheckOff}
+                      </Typography>
+                      <Typography sx={{ mb: 1 }} color="text.secondary">
+                        Next Check Off: {task.nextCheckOff} (12 AM)
                       </Typography>
                       <ProgressBar bgcolor="#6a1b9a"  base = {groupSize} compare = {list.length} style ={{width: '100%'}}/>
                     </div>
@@ -248,6 +266,9 @@ export default function TaskCard(props) {
                   task.type === "group" ?
                   <div>
                     <Typography sx={{ mb: 1 }} color="text.secondary">
+                      Created by: {CreatedBy}
+                    </Typography>
+                    <Typography sx={{ mb: 1 }} color="text.secondary">
                       Cost To Join: {task.coinsEntered}
                     </Typography>
                     <Typography sx={{ mb: 1 }} color="text.secondary">
@@ -255,6 +276,12 @@ export default function TaskCard(props) {
                     </Typography>
                     <Typography sx={{ mb: 1 }} color="text.secondary">
                       Completed by: {Array.isArray(list) ? list.length : 0} Person(s)
+                    </Typography>
+                    <Typography sx={{ mb: 1 }} color="text.secondary">
+                      Last Check Off: {task.lastCheckOff}
+                    </Typography>
+                    <Typography sx={{ mb: 1 }} color="text.secondary">
+                    Next Check Off: {task.nextCheckOff} (12 AM)
                     </Typography>
                     <ProgressBar bgcolor="#6a1b9a" base = {joinedList.length} compare = {list.length} style ={{width: '100%'}}/>
                   </div>
@@ -266,6 +293,12 @@ export default function TaskCard(props) {
                   <div>
                     <Typography sx={{ mb: 1 }} color="text.secondary">
                       Coins for Completion: {task.coinsEntered}
+                    </Typography>
+                    <Typography sx={{ mb: 1 }} color="text.secondary">
+                      Last Check Off: {task.lastCheckOff}
+                    </Typography>
+                    <Typography sx={{ mb: 1 }} color="text.secondary">
+                      Next Check Off: {task.nextCheckOff} (12 AM)
                     </Typography>
                   </div>
                     :
@@ -310,6 +343,7 @@ export default function TaskCard(props) {
               </div> : <></>}
             </div>
             }
+      
           </CardContent>
           {!showList ? 
           <CardActions>

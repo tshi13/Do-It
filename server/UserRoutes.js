@@ -98,12 +98,12 @@ router.put("/updateUser", (req,res) =>{ //updates user
  * 	res: Copy of created Task object in database 
  *  */ 
  router.put("/createTask", (req,res) => { //creates a new task and adds the coresponding objectID to User taskIDList
-	const {userID,taskName,time,coinsEntered} = req.body;
+	const {userID,taskName,time,coinsEntered, createdDate = new Date(), checkedDate = new Date()} = req.body;
 	const groupID = "Private Task";
 	let taskID;
 	let newTaskIDList;
 	let newCoinBalance;
-	Task.create({userID, taskName,time,coinsEntered,groupID, completedList: []})
+	Task.create({userID, taskName,time,coinsEntered,groupID, completedList: [], createdDate, checkedDate})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);

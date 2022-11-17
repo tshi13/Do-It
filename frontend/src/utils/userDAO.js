@@ -5,7 +5,7 @@ import chatDAO from './chatDAO';
 // axios.defaults.baseURL = 'http://localhost:5000'; 
 
 //Enable this for heroku production app
-axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
+//axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
 
 async function getUser(data) {//
     let res = await axios.get('/users/' + data.name).then(data => data);
@@ -39,15 +39,13 @@ async function getUserData(userID) {//
     return res["data"];
 }
 
-
-
 async function authenticate(data) {
     let res = await axios.post('/users/authenticate', data).then(data => data);
     return res["data"];
 }
 
-
 async function addTasks(userID, data) {//
+
 
     
     let updatedData = {
@@ -57,6 +55,7 @@ async function addTasks(userID, data) {//
         time: data.time,
         coinsEntered: data.coinsEntered
     }
+    
 
     let res = await axios.put('/users/createTask', updatedData).then(data => data);
     return res["data"];

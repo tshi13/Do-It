@@ -10,6 +10,9 @@ const TaskSchema = new mongoose.Schema({
 	completedList: {type: Array, required: true},
 	joinedList: {type: Array, required: false},
 	coinPool: {type: Number, required: false},
+	createdDate: {type: Date, required: true},
+	checkedDate: {type: Date, required: true},
+	createdBy: {type: String, required: false},
 });
 
 const Task = mongoose.model("Task",TaskSchema);

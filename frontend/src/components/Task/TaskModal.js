@@ -9,11 +9,10 @@ import '../../styles/taskModal.css';
 
 export default function TaskModal(props) {
 
-
     const show = props.show;
     const setShow = props.setShow;
     const [taskName, setTaskName] = useState("");
-    const [time, setTimeForTask] = useState(0);
+    const [time, setTimeForTask] = useState(-1);
     const [coinsEntered, setCoinsEntered] = useState(0);
     const [groupID] = useState(props.groupID);
     const [type, setType] = useState("group");
@@ -67,9 +66,8 @@ export default function TaskModal(props) {
 
 
   const handleSubmit = () => {
-
     // checks if the user inputs are valid and exist
-    if(taskName === "" || coinsEntered === 0 || TaskForUser === "") {
+    if(taskName === "" || coinsEntered === 0 || TaskForUser === "" || isNaN(time) || (time < -1)) {
       if(taskName === "") {
         alert("Please enter a task name");
       }
@@ -78,13 +76,19 @@ export default function TaskModal(props) {
       }
       else if(TaskForUser === "") {
         alert("Please select a user");
+      } 
+      else if(isNaN(time) || (time < -1 && time !== -1) ) {
+        alert("Please enter a valid number for time");
       }
     } else  {
       // add task to database
       let coinsEnteredInt;
       let taskID;
+      let timeInt;
       try { // try to convert the input to an integer and catch any errors that may occur
         coinsEnteredInt = parseInt(coinsEntered);
+        timeInt = parseInt(time);
+
         if(type !== "group") {
           taskID = TaskForUser.id;
         } else {
@@ -94,8 +98,12 @@ export default function TaskModal(props) {
         alert("Please enter a valid number for time and coins");
       }
       if(isNaN(coinsEnteredInt)) {
-        alert("Please enter a valid number for time and coins");
-      } else {
+        alert("Please enter a valid number for coins");
+      }
+      if(isNaN(timeInt)) {
+        alert("Please enter a valid number for time. Please do not use Decimals.");
+      }
+       else {
         // add task to database
         userDAO.getUserData(userID).then((userRes) => {
           if(userRes) {
@@ -106,6 +114,8 @@ export default function TaskModal(props) {
                 userID: taskID,
                 taskName: taskName,
                 coinsEntered: coinsEnteredInt,
+                time: timeInt,
+                createdBy: userID,
               }
               groupDAO.addTasks(groupID, data).then((res) => {
                 if(res) {
@@ -113,7 +123,7 @@ export default function TaskModal(props) {
                     sessionStorage.setItem("coins",  sessionStorage.getItem("coins") - coinsEnteredInt);
                     userDAO.updateUser(userID, {coins: userRes.coins - coinsEnteredInt});
                   }
-                  props.taskCallback({_id: res._id, taskName: taskName, coinsEntered: coinsEnteredInt, userID: taskID, completedList: [], groupID: groupID, userList: userList});
+                  props.taskCallback({_id: res._id, taskName: taskName, coinsEntered: coinsEnteredInt, userID: taskID, completedList: [], groupID: groupID, userList: userList, time: timeInt, checkedDate: new Date(), createdBy: userID});
                   setShow(false);
                   
                   informUsers(res._id);
@@ -186,6 +196,19 @@ export default function TaskModal(props) {
                   <input type="text" placeholder="Task Description" className = "taskBox"  />
                   {userList && type !== "group" ? <input type="text" placeholder="Coins For Completition"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>
                   : <input type="text" placeholder="Coins To Join Task"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>}
+                  {type === "group" ? 
+                  <div>
+                    <input type="text" placeholder="Days Between Task Reset" className = "taskBox" onInput={e => setTimeForTask(e.target.value)}/>
+                    <h1 style = {{color: 'red', fontSize: '12px'}}>Note: If you do not enter a number for days between task reset, the task will not reset. Furthermore, the tasks reset occurs at Midnight.</h1>
+                  </div>
+                  :
+                  <div> 
+                    <input type="text" placeholder="Days For Task Completition" className = "taskBox" onInput={e => setTimeForTask(e.target.value)}/>
+                    <h1 style = {{color: 'red', fontSize: '12px'}}>Note: If you do not enter a number for days for completition, the task will not be automatically checked. Furthermore, the tasks checks occurs at Midnight.</h1>
+                  </div>
+                  }
+
+                 
               </div>
               
               <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
