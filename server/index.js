@@ -121,47 +121,51 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
 
               let winnerCoins;
               let loserCoins;
-              let userDoesNotExist = false;
               
-
-              User.findById(winner).then((user) => {
-                if(user) {
-                  let coins = user.coins ? user.coins : 0;
-                  winnerCoins = coins + newCoins;
-                  let newNotificationList;
-                  if(user.notifications === null || user.notifications === undefined) {
-                    newNotificationList = [];
-                  } else {
-                    newNotificationList = user.notifications;
-                  }
-                  newNotificationList.push(winnerNotification);
-                  User.findOneAndUpdate ({_id: winner }, {coins: winnerCoins, notificationList: newNotificationList});
+              User.findById(loser).then((loserData) => {
+                loserCoins = loserData.coins;
+                if(loserCoins < newCoins) {
+                  winnerNotification.message = "Task " + task.taskName + " in the group " + group.groupName + " has been completed. However, no one has received any coins as the loser does not have enough coins to pay the winner.";
+                  loserNotification.message = "Task " + task.taskName + " in the group " + group.groupName + " has been completed. However, no one has received any coins as you do not have enough coins to pay the winner.";
                 } else {
-                  userDoesNotExist = true;
-                }
-              });
-
-              User.findById(loser).then((user) => {
-                if(user) {
-                  let coins = user.coins ? user.coins : 0;
-                  loserCoins = coins - newCoins;
-                  let newNotificationList;
-                  if(user.notifications === null || user.notifications === undefined) {
-                    newNotificationList = [];
-                  } else {
-                    newNotificationList = user.notifications;
-                  }
-                  newNotificationList.push(loserNotification);
-                  User.findOneAndUpdate ({_id: loser}, {
-                    coins: loserCoins,
-                    notificationList: newNotificationList
+                  User.findById(winner).then((user) => {
+                    if(user) {
+                      let coins = user.coins ? user.coins : 0;
+                      winnerCoins = coins + newCoins;
+                      let newNotificationList;
+                      if(user.notifications === null || user.notifications === undefined) {
+                        newNotificationList = [];
+                      } else {
+                        newNotificationList = user.notifications;
+                      }
+                      newNotificationList.push(winnerNotification);
+                      User.findOneAndUpdate ({_id: winner }, {coins: winnerCoins, notificationList: newNotificationList});
+                    } else {
+                      userDoesNotExist = true;
+                    }
                   });
-              } else {
-                userDoesNotExist = true;
+
+                  User.findById(loser).then((user) => {
+                    if(user) {
+                      let coins = user.coins ? user.coins : 0;
+                      loserCoins = coins - newCoins;
+                      let newNotificationList;
+                      if(user.notifications === null || user.notifications === undefined) {
+                        newNotificationList = [];
+                      } else {
+                        newNotificationList = user.notifications;
+                      }
+                      newNotificationList.push(loserNotification);
+                      User.findOneAndUpdate ({_id: loser}, {
+                        coins: loserCoins,
+                        notificationList: newNotificationList
+                      });
+                  } else {
+                    userDoesNotExist = true;
+                  }
+                });
               }
             });
-
-
             Task.findByIdAndDelete(task._id);
             groupTasks.splice(groupTasks.indexOf(task._id), 1);
             Group.findOneAndUpdate({_id: groupID}, {taskIDList: groupTasks});
@@ -170,6 +174,38 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
       }
     });
   });
+  Task.find({}).then((data) => {
+    data.forEach((task) => {
+      if (task.coinsEntered < 0 || isNaN(task.coinsEntered) || task.coinsEntered === null) {
+        Task.findByIdAndUpdate(task._id, { $set: { coinsEntered: 0 } }, { new: true }).then((data) => {
+          console.log("Updated task coins" + task._id);
+        });
+      }
+      if(task.coinPool < 0 || isNaN(task.coinPool) || task.coinPool === null) {
+        Task.findByIdAndUpdate(task._id, { $set: { coinPool: 0 } }, { new: true }).then((data) => {
+          console.log("Updated task coin pool" + task._id);
+        });
+      }
+    });
+  }).then(() => {
+      Task.find({userID: "Group Task"}).then((data) => {
+        data.forEach((task) => {
+          let coinPool = !isNaN(task.coinPool) && task.coinPool !== null  ? task.coinPool : 0;
+          let totalCoins = task.coinPool/task.completedList.length;
+          let newCoins = Math.floor(totalCoins);
+          task.completedList.forEach((completed) => {
+            User.findByIdAndUpdate(completed, { $inc: { coins: newCoins } }, { new: true }).then((data) => {
+              console.log("Updated user coins");
+            }).then(() => {
+              Task.findByIdAndUpdate(task._id, { $set: { coinPool: 0, joinedList: [], completedList: []} }, { new: true }).then((data) => {
+                console.log("Updated group task");
+              });
+            });
+          });
+      }
+        );
+      });
+    });
 });
 
 cron.schedule('0 0 1 * * *"', () => { //every day at 1am fix issues with database
