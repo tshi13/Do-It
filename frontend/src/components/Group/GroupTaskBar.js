@@ -26,6 +26,12 @@ export default function GroupTaskBar(props) {
 
     const setNotifications = props.setNotifications;
 
+    function getFormattedDate(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let year = date.getFullYear();
+        return month + "/" + day + "/" + year;
+    }
 
     const leaveGroup = () => {
         props.leaveGroupCallback(props.groupID, userID);
@@ -75,6 +81,8 @@ export default function GroupTaskBar(props) {
     const deleteTask = (taskID) => {
         props.deleteTaskCallback(taskID);
     }
+
+ 
     
     const renderTasks = () => {
         if(tasks.length > 0 && sorted ) {
@@ -90,6 +98,9 @@ export default function GroupTaskBar(props) {
                             <div className = "taskWrapper">
                                 <h2 style = {{textAlign: 'center'}}>Group Tasks</h2>
                                 {groupTask.map((item, index) => {
+                                     let checkedDate = new Date(item.checkedDate);
+                                     let modifiedDate = new Date(item.checkedDate);
+                                        modifiedDate.setDate(modifiedDate.getDate() + item.time);
                                      let taskData = {
                                         id: item._id,
                                         taskName: item.taskName,
@@ -101,6 +112,9 @@ export default function GroupTaskBar(props) {
                                         completedList: item.completedList,
                                         joinedList: item.joinedList ? item.joinedList : [],
                                         coinPool: item.coinPool ? item.coinPool : 0,
+                                        lastCheckOff: getFormattedDate(checkedDate),
+                                        nextCheckOff: getFormattedDate(modifiedDate),
+                                        createdBy: item.createdBy,
                                     }
                                     return (
                                         <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID}  owner = {owner} />
@@ -114,6 +128,9 @@ export default function GroupTaskBar(props) {
                             <div className = "taskWrapper">
                                 <h2 style = {{textAlign: 'center'}}>Individual Tasks</h2>
                                 {individualTask.map((item, index) => {
+                                    let checkedDate = new Date(item.checkedDate);
+                                    let modifiedDate = new Date(item.checkedDate);
+                                       modifiedDate.setDate(modifiedDate.getDate() + item.time);
                                     let taskData = {
                                         id: item._id,
                                         taskName: item.taskName,
@@ -123,6 +140,9 @@ export default function GroupTaskBar(props) {
                                         type: "groupIndividual",
                                         userID: item.userID,
                                         completedList: item.completedList,
+                                        lastCheckOff: getFormattedDate(checkedDate),
+                                        nextCheckOff: getFormattedDate(modifiedDate),
+                                        createdBy: item.createdBy,
                                     }
                                     return (
                                         <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} owner = {owner} groupSize = {userList.length} />

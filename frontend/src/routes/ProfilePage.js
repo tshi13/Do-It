@@ -29,8 +29,9 @@ export default function Profile(props) {
     useEffect(() => {
         userDAO.getTasks(userID)
             .then((tasks) => {
-                if (tasks[0]) {
-                    setPrivateTasks(tasks);
+                if (tasks) {
+                    let removeNull = tasks.filter((task) => task !== null);
+                    setPrivateTasks(removeNull);
                 }
             })
     }, []);

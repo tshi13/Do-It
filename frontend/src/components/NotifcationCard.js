@@ -47,7 +47,6 @@ export default function NotificationCard(props) {
             
     }, [notification]);
 
-
     const style = {
         buttonStyle: {
             backgroundColor: 'white',
@@ -73,7 +72,7 @@ export default function NotificationCard(props) {
                     <CardContent>
                         <Typography component="div" gutterBottom>
                         Group Task Created in  <b>{groupName}</b> <br></br>
-                        <b>{createdBy}</b> has created a new task in <b>{groupName}</b> called <b>{notification.taskName}</b> with a time limit of <b>{notification.time}</b> minutes and a reward of <b>{notification.coinsEntered}</b> coins.
+                        <b>{createdBy}</b> has created a new task in <b>{groupName}</b> called <b>{notification.taskName}</b> with a time limit of <b>{notification.time}</b> days and a reward of <b>{notification.coinsEntered}</b> coins.
                         </Typography>
                         <CardActions>
                             <Button size="small" onClick={() => {openGroup(notification.groupID)}}>
@@ -93,9 +92,32 @@ export default function NotificationCard(props) {
                             </button>
                         </div>
                     <CardContent>
+                        <Typography component="div" gutterBottom style = {{textAlign: 'center'}} >
+                        <b>Personal Challenge</b> <br></br>
+                        <b>{createdBy}</b> has created a new challenge for you in <b>{groupName}</b> called <b>{notification.taskName}</b> with a time limit of <b>{notification.time}</b> day(s).
+                        </Typography>
+                        <CardActions>
+                            <Button size="small" onClick={() => {openGroup(notification.groupID)}}>
+                                Go to Challenge
+                            </Button>
+                        </CardActions>
+
+                    </CardContent>
+                </Card>
+                );
+            }
+        } else if (notification.messageType === "finishedTask") {
+            return (
+                <Card sx={{ minWidth: 300, maxWidth: 600, margin: 1 }}>
+                    <div style = {{display: 'flex', flexDirection: 'row-reverse'}}>
+                        <button className = "NCButton" onClick={() => {deleteNotification(notification.id)}} style ={style.buttonStyle}>
+                            X
+                        </button>
+                    </div>
+                    <CardContent>
                         <Typography component="div" gutterBottom>
-                        Personal Task created in  <b>{groupName}</b> <br></br>
-                        <b>{createdBy}</b> has created a new task for you in <b>{groupName}</b> called <b>{notification.taskName}</b> with a time limit of <b>{notification.time}</b> minutes and a reward of <b>{notification.coinsEntered}</b> coins.
+                        Task Completed in  <b>{groupName}</b> <br></br>
+                        <b>{createdBy}</b> has completed a task in <b>{groupName}</b> called <b>{notification.taskName}</b> with a time limit of <b>{notification.time}</b> days and a reward of <b>{notification.coinsEntered}</b> coins.
                         </Typography>
                         <CardActions>
                             <Button size="small" onClick={() => {openGroup(notification.groupID)}}>
@@ -105,8 +127,8 @@ export default function NotificationCard(props) {
 
                     </CardContent>
                 </Card>
-                );
-            }
+            );
+
         }
     }
 
