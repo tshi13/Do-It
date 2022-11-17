@@ -121,45 +121,50 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
 
               let winnerCoins;
               let loserCoins;
-              let userDoesNotExist = false;
               
-
-              User.findById(winner).then((user) => {
-                if(user) {
-                  let coins = user.coins ? user.coins : 0;
-                  winnerCoins = coins + newCoins;
-                  let newNotificationList;
-                  if(user.notifications === null || user.notifications === undefined) {
-                    newNotificationList = [];
-                  } else {
-                    newNotificationList = user.notifications;
-                  }
-                  newNotificationList.push(winnerNotification);
-                  User.findOneAndUpdate ({_id: winner }, {coins: winnerCoins, notificationList: newNotificationList});
+              User.findById(loser).then((loserData) => {
+                loserCoins = loserData.coins;
+                if(loserCoins < newCoins) {
+                  winnerNotification.message = "Task " + task.taskName + " in the group " + group.groupName + " has been completed. However, no one has received any coins as the loser does not have enough coins to pay the winner.";
+                  loserNotification.message = "Task " + task.taskName + " in the group " + group.groupName + " has been completed. However, no one has received any coins as you do not have enough coins to pay the winner.";
                 } else {
-                  userDoesNotExist = true;
-                }
-              });
-
-              User.findById(loser).then((user) => {
-                if(user) {
-                  let coins = user.coins ? user.coins : 0;
-                  loserCoins = coins - newCoins;
-                  let newNotificationList;
-                  if(user.notifications === null || user.notifications === undefined) {
-                    newNotificationList = [];
-                  } else {
-                    newNotificationList = user.notifications;
-                  }
-                  newNotificationList.push(loserNotification);
-                  User.findOneAndUpdate ({_id: loser}, {
-                    coins: loserCoins,
-                    notificationList: newNotificationList
+                  User.findById(winner).then((user) => {
+                    if(user) {
+                      let coins = user.coins ? user.coins : 0;
+                      winnerCoins = coins + newCoins;
+                      let newNotificationList;
+                      if(user.notifications === null || user.notifications === undefined) {
+                        newNotificationList = [];
+                      } else {
+                        newNotificationList = user.notifications;
+                      }
+                      newNotificationList.push(winnerNotification);
+                      User.findOneAndUpdate ({_id: winner }, {coins: winnerCoins, notificationList: newNotificationList});
+                    } else {
+                      userDoesNotExist = true;
+                    }
                   });
-              } else {
-                userDoesNotExist = true;
+
+                  User.findById(loser).then((user) => {
+                    if(user) {
+                      let coins = user.coins ? user.coins : 0;
+                      loserCoins = coins - newCoins;
+                      let newNotificationList;
+                      if(user.notifications === null || user.notifications === undefined) {
+                        newNotificationList = [];
+                      } else {
+                        newNotificationList = user.notifications;
+                      }
+                      newNotificationList.push(loserNotification);
+                      User.findOneAndUpdate ({_id: loser}, {
+                        coins: loserCoins,
+                        notificationList: newNotificationList
+                      });
+                  } else {
+                    userDoesNotExist = true;
+                  }
+                });
               }
-            });
 
 
             Task.findByIdAndDelete(task._id);
