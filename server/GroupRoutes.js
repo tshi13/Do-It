@@ -4,13 +4,12 @@ const Group = require("./schemaModels/Group");
 const Task = require("./schemaModels/Task");
 const User = require("./schemaModels/User");
 
-
 router.put("/createTask", (req,res) => { //creates a new task for a group and adds the coresponding objectID to Group taskIDList
-	const {groupID, userID, taskName, time = 0 ,coinsEntered = 0} = req.body;
+	const {groupID, userID, taskName, time = 0 ,coinsEntered = 0, createdDate = new Date(), checkedDate = new Date(), createdBy} = req.body;
 	let taskID;
 	let newTaskIDList;
 	// let newCoinBalance;
-	Task.create({userID, taskName, time, coinsEntered, groupID, completedList: []})
+	Task.create({userID, taskName, time, coinsEntered, groupID, completedList: [], createdDate, checkedDate, createdBy})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);
