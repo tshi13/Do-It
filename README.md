@@ -119,6 +119,7 @@ Here are major frameworks/libraries we used to build our project.
 * [![MaterialUI][mui.com]][mui-url]
 * [![Axios][axios-http.com]][axios-http-url]
 * [![getstream][getstream-http.com]][getstream-http-url]
+* [![heroku][heroku-http.com]][heroku-http-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -378,5 +379,7 @@ We are thankful for these resources which have helped us on our development jour
 [axios-http-url]: https://axios-http.com/docs/intro
 [getstream-http.com]: https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white
 [getstream-http-url]: https://getstream.io/
+[heroku-http.com]: https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white
+[heroku-http-url]: https://www.heroku.com/
 
 
