@@ -144,6 +144,7 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
               User.findById(loser).then((user) => {
                 if(user) {
                   let coins = user.coins ? user.coins : 0;
+                  loserCoins = coins - newCoins;
                   let newNotificationList;
                   if(user.notifications === null || user.notifications === undefined) {
                     newNotificationList = [];
@@ -152,6 +153,7 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
                   }
                   newNotificationList.push(loserNotification);
                   User.findOneAndUpdate ({_id: loser}, {
+                    coins: loserCoins,
                     notificationList: newNotificationList
                   });
               } else {
