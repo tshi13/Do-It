@@ -107,9 +107,7 @@ export default function TaskModal(props) {
         // add task to database
         userDAO.getUserData(userID).then((userRes) => {
           if(userRes) {
-            if(userRes.coins < coinsEnteredInt) {
-              alert("You do not have enough coins to enter this task");
-            } else {
+             {
               let data = {
                 userID: taskID,
                 taskName: taskName,
@@ -119,10 +117,6 @@ export default function TaskModal(props) {
               }
               groupDAO.addTasks(groupID, data).then((res) => {
                 if(res) {
-                  if(type !== "group") {  
-                    sessionStorage.setItem("coins",  sessionStorage.getItem("coins") - coinsEnteredInt);
-                    userDAO.updateUser(userID, {coins: userRes.coins - coinsEnteredInt});
-                  }
                   props.taskCallback({_id: res._id, taskName: taskName, coinsEntered: coinsEnteredInt, userID: taskID, completedList: [], groupID: groupID, userList: userList, time: timeInt, checkedDate: new Date(), createdBy: userID});
                   setShow(false);
                   
