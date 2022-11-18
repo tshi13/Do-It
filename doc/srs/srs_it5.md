@@ -28,9 +28,9 @@ This solution allows users to complete tasks under the supervision of others (an
 - As a user, I want to be able to create tasks for myself to complete  
 - As a user, I want to be able to see tasks that other people have created  
 - As a user, I want to be able to create or join private groups with my friends so we can have fun while holding each other accountable for the tasks  
-- As a user, I want to be able to create and assign tasks for multiple people at once so that groups of friends can participate on a common, shared task, have friendly competition, and have mutual encouragement
-- As a user, I want to be able to enter a certain number of coins to the pool with my friends when setting up a task  
-- As a user, I want to be able to gain/lose coins when someone fails to finish tasks 
+- As a user, I want to be able to create and assign tasks that multiple people can join so that groups of friends can participate on a common, shared task, have friendly competition, and have mutual encouragement
+- As a user, I want to be able to enter a certain number of coins to the pool when setting up a task  
+- As a user, I want to be able to gain/lose coins when I finish tasks or do not finish tasks (according to a regular timer)
 - As a user, I want to be able to search for existing groups and users
 
 
@@ -65,7 +65,7 @@ This solution allows users to complete tasks under the supervision of others (an
 - As a user, I want to be able to create private groups that are cost-protected, meaning only users with above a certain threshold of coins can join, so that I can form a group with experienced members with more coins
 - As a user, I want to be able to leave a group so that I am not in the group anymore
 - As a user, I want to have a group of buttons that includes groups and personal tasks, grouped together in the corner of the page
-- As a user, I want the createGroup UI to be easily navigable and user-friendlys
+- As a user, I want the createGroup UI to be easily navigable and user-friendly
 
 #### Logos and landing page
 - As a user, I want to see a user-friendly landing page with good UI and the apperance of the DoIt logo on the website, possible as a watermark or picture
