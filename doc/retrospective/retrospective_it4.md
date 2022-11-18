@@ -35,8 +35,8 @@ Our team delivered all the user stories outlined above in both sections, the 'ge
   - The lesson learned from this is to try to use better documented libraries when designing features, and to try to stick to soft deadline when possible to make sure that features can be merged and tested early. Overall the team did a great job with all other features, and there were no other problems. It was just this Facebook Login part that needed some help merging.
 
 ### What we will do differently for Iteration 5
-For iteration 5, we plan to discuss what kinds of features we will add next, possibly related to further gamification aspects (such as voting, payouts for completing tasks, etc.) or a frontend improvement (i.e. updating the UI/UX appearance of the app). These are all potential ideas.
+For iteration 5, we plan to discuss what kinds of features we will add next, possibly related to further frontend improvement (i.e. updating the UI/UX appearance of the app).
 
-For using external APIs, our team hopes to stick more with APIs that have good documentation for our tech stack so that they are easier to work with.
+If we use external APIs again, our team hopes to stick more with APIs that have good documentation for our tech stack so that they are easier to work with.
 
 Finally, we are considering trying to stick to a better soft deadline again, especially to help with merging certain features (like Facebook Login this time) which took some time.
