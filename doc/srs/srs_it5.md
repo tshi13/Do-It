@@ -67,6 +67,9 @@ This solution allows users to complete tasks under the supervision of others (an
 - As a user, I want to have a group of buttons that includes groups and personal tasks, grouped together in the corner of the page
 - As a user, I want the createGroup UI to be easily navigable and user-friendly
 
+#### Anti-setup strategy
+- As a user, I want some kind of strategy where users can avoid setting people up to profit / gain DoIt coins off of them, which could be related to a voting system, or having one trusted authority approve all tasks for being actually completed, or another way of validating tasks, like only the trusted authority having the submit button
+
 #### Logos and landing page
 - As a user, I want to see a user-friendly landing page with good UI and the apperance of the DoIt logo on the website, possible as a watermark or picture
 
