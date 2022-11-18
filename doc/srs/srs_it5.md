@@ -47,6 +47,10 @@ This solution allows users to complete tasks under the supervision of others (an
 - As a user, I want to be able to join tasks so that I can opt-in to any tasks
 - As a user, I want to be able to click "Submit" on a task card so that I can signal to the rest of the group that I have completed this task
 - As a group owner, I want to be able to "finish" a task meaning that users are paid out their share of coins for completing that task up to that point in time
+<<<<<<< Updated upstream
+=======
+- As a user, I want to be able to resize the tasks bar on the right hand side so that it is scrollable
+>>>>>>> Stashed changes
 
 #### Login    
 - As a user, I want to have a secure way of logging into my account
@@ -64,6 +68,13 @@ This solution allows users to complete tasks under the supervision of others (an
 - As a user, I want to be able to create private groups that are cost-protected, meaning only users with above a certain threshold of coins can join, so that I can form a group with experienced members with more coins
 - As a user, I want to be able to leave a group so that I am not in the group anymore
 - As a user, I want to have a group of buttons that includes groups and personal tasks, grouped together in the corner of the page
+<<<<<<< Updated upstream
+=======
+- As a user, I want the createGroup UI to be easily navigable and user-friendlys
+
+#### Logos and landing page
+- As a user, I want to see a user-friendly landing page with good UI and the apperance of the DoIt logo on the website, possible as a watermark or picture
+>>>>>>> Stashed changes
 
 ### Non-functional Requirements:
 - As a user, I want the DoIt website to be accessible on many different screen sizes and browsers
