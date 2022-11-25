@@ -22,11 +22,13 @@ export default function GroupComponent(props)  {
 
     const newHeight = props.newHeight;
 
+
     async function getGroupTasks() {
         let taskList = [];
         groupDAO.getTasks(groupID).then((tasks) => {
-            taskList = tasks;
-        }).then(() => {
+            tasks.map((item, index) => {
+                taskList.push(item);
+            });
             setTasks(taskList);
         });
     }
@@ -34,6 +36,7 @@ export default function GroupComponent(props)  {
     const deleteTaskCallback = (taskID) => {
         groupDAO.deleteTask(groupID, taskID).then(() => {
             setTasks(tasks.filter((task) => task._id !== taskID));
+            //setTasks(tasks.filter((tasks) => tasks !== null));
         });
     }
 

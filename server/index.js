@@ -16,9 +16,12 @@ app.use(cors());
 
 let serverTime = new Date();
 lastUpdate = new Date();
+let updateList = [];
 
 cron.schedule("0 0 0 * * *", () => { //every day at midnight
+  console.log("running a task every day at midnight");
   lastUpdate = new Date();
+  updateList.push(lastUpdate);
   Task.find({}).then((data) => {
       data.forEach((task) => {
         let time = task.time;
@@ -266,7 +269,12 @@ app.use(bodyParser.json({limit: '50mb'}));
 
 
 app.get("/", (req, res) => {
-  res.send("Server Started At " + serverTime);
+  let message = "Server Started At " + serverTime + '\n';
+  message += "Server Updated At:";
+  for(let i = 0; i < updateList.length; i++) {
+    message += "\n" + updateList[i];
+  }
+  res.send(message);
 });
 
 

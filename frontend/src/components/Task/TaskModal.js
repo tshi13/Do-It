@@ -16,7 +16,7 @@ export default function TaskModal(props) {
     const [coinsEntered, setCoinsEntered] = useState(0);
     const [groupID] = useState(props.groupID);
     const [type, setType] = useState("group");
-    const [TaskForUser, setTaskForUser] = useState("Group Task");
+    const [TaskForUser, setTaskForUser] = useState("");
     const userID = props.userID;
     const userList = props.userList;
     const userMap = props.userMap;
@@ -24,50 +24,59 @@ export default function TaskModal(props) {
 
    
     const informUsers = (taskID) => {
-      if(type === "group") {
-        for (let i = 0; i < userList.length; i++) {
-            userDAO.getUserData(userList[i].id).then((user) => {
-                let newTask = {
-                    taskID: taskID,
-                    taskName: taskName,
-                    groupID : groupID,
-                    createdBy: userID,
-                    type: type,
-                    messageType: "task",
-                    time: time,
-                    coinsEntered: coinsEntered,
+      groupDAO.getGroup(groupID).then((group) => {
+        if(group) {
+          userDAO.getUserData(userID).then((creator) => {
+            if(creator) {
+              if(type === "group") {
+                let newNotification = {
+                  message: '<b>' + creator.name + '</b> created a new task in <b>' + group.groupName + '</b>' + ' called <b>' + taskName + '</b>' + ' with a time limit of <b>' + time + '</b> days'  + ' and a reward of <b>' + coinsEntered + '</b> coins',
+                  messageType: "task",
+                  type: "group",
+                  groupID: groupID,
+                  taskID: taskID,
+                  createdBy: userID,
+                  title: "New Task Created",
+                  subtitle: "A Group Task has been created in " + group.groupName,
+                  date: new Date(),
                 }
-                user.notifications = user.notifications ? user.notifications : [];
-                user.notifications.push(newTask);
-                userDAO.updateUser(user._id, user);
-                setNotifications(newTask);
-            });
+                group.idList.forEach((user) => {
+                  userDAO.getUserData(user).then((user) => {
+                    if(user) {
+                      user.notifications.push(newNotification);
+                      userDAO.updateUser(user._id, user);
+                    }
+                  });
+                });
+              } else {
+                let newNotification = {
+                  message: '<b>' + creator.name + '</b> has challenged you to a task called <b>' + taskName + '</b>' + ' with a time limit of <b>' + time + '</b> days'  + ' and a reward of <b>' + coinsEntered + '</b> coins',
+                  messageType: "task",
+                  type: "challenge",
+                  groupID: groupID,
+                  taskID: taskID,
+                  createdBy: userID,
+                  title: "Challenge Task Created",
+                  subtitle: "A Task has been created for you by " + creator.name,
+                  date: new Date(),
+                }
+                userDAO.getUserData(TaskForUser.id).then((user) => {
+                  if(user) {
+                    user.notifications.push(newNotification);
+                    userDAO.updateUser(user._id, user);
+                  }
+                });
+              }
+            }
+          });
         }
-      }
-      else {
-        userDAO.getUserData(TaskForUser.id).then((user) => {
-            let newTask = {
-              taskID: taskID,
-              taskName: taskName,
-              groupID : groupID,
-              createdBy: userID,
-              type: type,
-              messageType: "task",
-              time: time,
-              coinsEntered: coinsEntered,
-            } 
-            user.notifications = user.notifications ? user.notifications : [];
-            user.notifications.push(newTask);
-            userDAO.updateUser(user._id, user);
-            setNotifications(newTask);
-        });
-      }
+      });
     }
 
 
   const handleSubmit = () => {
     // checks if the user inputs are valid and exist
-    if(taskName === "" || coinsEntered === 0 || TaskForUser === "" || isNaN(time) || (time < -1)) {
+    if(taskName === "" || coinsEntered === 0 || (TaskForUser === "" && type !== "group") || isNaN(time) || (time < -1)) {
       if(taskName === "") {
         alert("Please enter a task name");
       }
@@ -115,21 +124,38 @@ export default function TaskModal(props) {
                 time: timeInt,
                 createdBy: userID,
               }
-              groupDAO.addTasks(groupID, data).then((res) => {
-                if(res) {
-                  props.taskCallback({_id: res._id, taskName: taskName, coinsEntered: coinsEnteredInt, userID: taskID, completedList: [], groupID: groupID, userList: userList, time: timeInt, checkedDate: new Date(), createdBy: userID});
-                  setShow(false);
-                  
-                  informUsers(res._id);
-                  setType("group");       
-                }
-              });
+              if(type === "group") {
+                groupDAO.addTasks(groupID, data).then((res) => {
+                  if(res) {
+                    props.taskCallback({_id: res._id, taskName: taskName, coinsEntered: coinsEnteredInt, userID: taskID, completedList: [], groupID: groupID, userList: userList, time: timeInt, checkedDate: new Date(), createdBy: userID});
+                    setShow(false);  
+                    informUsers(res._id);
+                    setType("group");       
+                  }
+                });
+              } else {
+                if(userRes.coins < coinsEnteredInt) {
+                  alert("You do not have enough coins to create this task");
+                } else {
+                  data.joinedList = [];
+                  data.joinedList.push(userID);
+                  data.coinPool = coinsEnteredInt;
+                  groupDAO.addTasks(groupID, data).then((res) => {
+                    if(res) {
+                      props.taskCallback({_id: res._id, taskName: taskName, coinsEntered: coinsEnteredInt, userID: taskID, completedList: [], groupID: groupID, userList: userList, time: timeInt, checkedDate: new Date(), createdBy: userID, joinedList: data.joinedList, coinPool: coinsEnteredInt});
+                      setShow(false);  
+                      informUsers(res._id);
+                      setType("group");
+                      let newCoins = userRes.coins - coinsEnteredInt;
+                      userDAO.updateUser(userID, {coins: newCoins});
+                    }
+                  });
+              } 
             }
           }
-        });
       }
-    }
-  }
+    });
+  }}}
   
 
   const flipModal = () => {
@@ -141,7 +167,7 @@ export default function TaskModal(props) {
       group.classList.remove("on");
       autoPersonal.style.display = "none";
       setType("group");
-      setTaskForUser("Group Task");
+      setTaskForUser("");
     } else {
       autoPersonal.style.display = "block";
       personal.classList.remove("on");

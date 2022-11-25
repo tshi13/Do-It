@@ -5,11 +5,11 @@ const Task = require("./schemaModels/Task");
 const User = require("./schemaModels/User");
 
 router.put("/createTask", (req,res) => { //creates a new task for a group and adds the coresponding objectID to Group taskIDList
-	const {groupID, userID, taskName, time = 0 ,coinsEntered = 0, createdDate = new Date(), checkedDate = new Date(), createdBy} = req.body;
+	const {groupID, userID, taskName, time = 0 ,coinsEntered = 0, createdDate = new Date(), checkedDate = new Date(), createdBy, joinedList = null, coinPool = null} = req.body;
 	let taskID;
 	let newTaskIDList;
 	// let newCoinBalance;
-	Task.create({userID, taskName, time, coinsEntered, groupID, completedList: [], createdDate, checkedDate, createdBy})
+	Task.create({userID, taskName, time, coinsEntered, groupID, completedList: [], createdDate, checkedDate, createdBy, joinedList, coinPool})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);
@@ -185,7 +185,6 @@ router.post("/addToGroup", (req,res) =>{
 	});	
 })
 
-
 /**
  * req.params: 
  * 	_id: ObjectId of group
@@ -194,23 +193,31 @@ router.post("/addToGroup", (req,res) =>{
  *  */ 
 router.get("/tasks/:_id",(req,res) => { //gets all tasks that an _id has
 	const _id = req.params._id;
-	Group.findById(_id)
-		.then(async (data) => {
+	Group.findById(_id).then((data) => {
 		const taskIDList = data.taskIDList; //assume we only have one instance of each name
 		let taskList = [];
-		for (let i = 0; i < taskIDList.length; i++) {
-			taskList[i] = await Task.findById(taskIDList[i]);
+		let newTaskIDList = [];
+		let foundNull = false;
+		for(let i = 0; i < taskIDList.length; i++){
+			Task.findById(taskIDList[i]).then((data) => {
+				if(data == null){
+					foundNull = true;
+				} else {
+					taskList.push(data);
+					newTaskIDList.push(taskIDList[i]);
+				}
+				if(i == taskIDList.length - 1){
+					if(foundNull){
+						Group.findOneAndUpdate({_id: _id}, {taskIDList:newTaskIDList}).then(() => {
+							res.send(taskList);
+						})
+					} else {
+						res.send(taskList);
+					}
+				}
+			})
 		}
-		return taskList;
-		})
-		.then((data) => {
-			res.send(data);
-		})
-		.catch(err => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving tasks with id: " + _id });
-    });	
+	})	
 })
 
 
@@ -256,10 +263,10 @@ router.get("/:_id",(req,res) => {
 })
 
 router.delete("/deleteTask/:groupID/:taskID",(req,res) => { //deletes a task from a group
-	const grouPID = req.params.groupID;
+	const groupID = req.params.groupID;
 	const taskID = req.params.taskID;
-	Group.updateOne({ _id: grouPID },{ $pull: { taskIDList : taskID } })
-		.then(() => {
+	Group.updateOne({ _id: groupID },{ $pull: { taskIDList : taskID } })
+		.then((res) => {
 			return Task.deleteOne({ _id: taskID});
 		}
 		)

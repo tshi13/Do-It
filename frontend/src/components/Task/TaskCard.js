@@ -94,6 +94,10 @@ export default function TaskCard(props) {
 
   React.useEffect(() => {
     if(joinedList) {
+      if(joinedList.length > 0) {
+        console.log("joinedList: ", joinedList);
+        console.log("for task" , task.taskName);
+      }
       let joinedUsernames = [];
       joinedList.map((item, index) => {
         userDAO.getUserData(item).then((res) => {
@@ -246,16 +250,13 @@ export default function TaskCard(props) {
                       Coins for Completion: {task.coinsEntered}
                       </Typography>
                       <Typography sx={{ mb: 1 }} color="text.secondary">
-                        Username: {username}
+                        Challenge For: {username}
                       </Typography>
                       <Typography sx={{ mb: 1 }} color="text.secondary">
                         Checked off by: {Array.isArray(list) ? list.length : 0} Person(s)
                       </Typography>
-                        <Typography sx={{ mb: 1 }} color="text.secondary">
-                        Last Check Off: {task.lastCheckOff}
-                      </Typography>
                       <Typography sx={{ mb: 1 }} color="text.secondary">
-                        Next Check Off: {task.nextCheckOff} (12 AM)
+                        Must be Completed By: {task.nextCheckOff} (12 AM)
                       </Typography>
                       <ProgressBar bgcolor="#6a1b9a"  base = {groupSize} compare = {list.length} style ={{width: '100%'}}/>
                     </div>
@@ -324,7 +325,7 @@ export default function TaskCard(props) {
                   }) : <></>}
                 </Grid>
               </div>
-              {task.type === "group" ?
+              {task.type === "group" || task.type === "groupIndividual" ?
               <div className = "joinedByList">
                 <p component="div" style={{color: 'black', textOverflow: 'ellipsis'}} >
                   Joined

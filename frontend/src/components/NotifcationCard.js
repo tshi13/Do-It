@@ -8,6 +8,22 @@ import '../styles/NotificationCard.css';
 import groupDAO from '../utils/groupDAO';
 import userDAO from '../utils/userDAO';
 
+const convertDate = (date) => {
+    const newDate = new Date(date);
+    const month = newDate.getMonth() + 1;
+    const day = newDate.getDate();
+    const year = newDate.getFullYear();
+    const hour = newDate.getHours();
+    const minute = newDate.getMinutes();
+    const second = newDate.getSeconds();
+    return month + "/" + day + "/" + year;
+}
+
+const convertHTMLTextToHTML = (htmlText) => {
+    console.log("htmlText: ", htmlText);
+    return {__html: htmlText};
+}
+
 export default function NotificationCard(props) {
     const { notification } = props;
     const userID = props.userID;
@@ -59,84 +75,35 @@ export default function NotificationCard(props) {
         },
     };
 
-    const renderNotification = () => {
-        if (notification.messageType === "task") {
-            if(notification.type === "group") {
-                return (
-                    <Card sx={{ minWidth: 300, maxWidth: 600, margin: 1 }}>
-                        <div style = {{display: 'flex', flexDirection: 'row-reverse'}}>
-                            <button className = "NCButton" onClick={() => {deleteNotification(notification.id)}} style ={style.buttonStyle}>
-                                X
-                            </button>
-                        </div>
-                    <CardContent>
-                        <Typography component="div" gutterBottom>
-                        Group Task Created in  <b>{groupName}</b> <br></br>
-                        <b>{createdBy}</b> has created a new task in <b>{groupName}</b> called <b>{notification.taskName}</b> with a time limit of <b>{notification.time}</b> days and a reward of <b>{notification.coinsEntered}</b> coins.
-                        </Typography>
-                        <CardActions>
-                            <Button size="small" onClick={() => {openGroup(notification.groupID)}}>
-                                Go to Group
-                            </Button>
-                        </CardActions>
-
-                    </CardContent>
-                </Card>
-                );
-            } else if(notification.type == "personal") {
-                return (
-                    <Card sx={{ minWidth: 300, maxWidth: 600, margin: 1 }}>
-                        <div style = {{display: 'flex', flexDirection: 'row-reverse'}}>
-                            <button className = "NCButton" onClick={() => {deleteNotification(notification.id)}} style ={style.buttonStyle}>
-                                X
-                            </button>
-                        </div>
-                    <CardContent>
-                        <Typography component="div" gutterBottom style = {{textAlign: 'center'}} >
-                        <b>Personal Challenge</b> <br></br>
-                        <b>{createdBy}</b> has created a new challenge for you in <b>{groupName}</b> called <b>{notification.taskName}</b> with a time limit of <b>{notification.time}</b> day(s).
-                        </Typography>
-                        <CardActions>
-                            <Button size="small" onClick={() => {openGroup(notification.groupID)}}>
-                                Go to Challenge
-                            </Button>
-                        </CardActions>
-
-                    </CardContent>
-                </Card>
-                );
-            }
-        } else if (notification.messageType === "finishedTask") {
-            return (
-                <Card sx={{ minWidth: 300, maxWidth: 600, margin: 1 }}>
-                    <div style = {{display: 'flex', flexDirection: 'row-reverse'}}>
-                        <button className = "NCButton" onClick={() => {deleteNotification(notification.id)}} style ={style.buttonStyle}>
-                            X
-                        </button>
-                    </div>
-                    <CardContent>
-                        <Typography component="div" gutterBottom>
-                        Task Completed in  <b>{groupName}</b> <br></br>
-                        <b>{createdBy}</b> has completed a task in <b>{groupName}</b> called <b>{notification.taskName}</b> with a time limit of <b>{notification.time}</b> days and a reward of <b>{notification.coinsEntered}</b> coins.
-                        </Typography>
-                        <CardActions>
-                            <Button size="small" onClick={() => {openGroup(notification.groupID)}}>
-                                Go to Group
-                            </Button>
-                        </CardActions>
-
-                    </CardContent>
-                </Card>
-            );
-
-        }
-    }
-
 
     return (
-        <div>
-            {renderNotification()}
-        </div>
+        <Card sx={{ minWidth: 300, maxWidth: 600, margin: 1 }}>
+            <div style = {{display: 'flex', flexDirection: 'row-reverse'}}>
+                <button className = "NCButton" onClick={() => {deleteNotification(notification.id)}} style ={style.buttonStyle}>
+                    X
+                </button>
+            </div>
+            <div className='center' style ={{textAlign: 'center'}}>
+                <Typography component="div" gutterBottom>
+                        Created on: {convertDate(notification.date)}
+                    </Typography>
+                    <Typography component="div" gutterBottom>
+                        {notification.title}
+                    </Typography>
+            </div>
+            <CardContent>
+                <Typography component="div" gutterBottom>
+                    {new DOMParser().parseFromString(notification.message, "text/html").documentElement.textContent}
+
+                </Typography>
+                {notification.groupID ? 
+                <CardActions>
+                    <Button size="small" onClick={() => {openGroup(notification.groupID)}}>
+                        Go to Group
+                    </Button>
+                </CardActions> : null}
+            </CardContent>
+        </Card>
     );
 
 
