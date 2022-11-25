@@ -141,6 +141,8 @@ export default function GroupTaskBar(props) {
                                         lastCheckOff: getFormattedDate(checkedDate),
                                         nextCheckOff: getFormattedDate(modifiedDate),
                                         createdBy: item.createdBy,
+                                        joinedList: item.joinedList ? item.joinedList : [],
+                                        coinPool: item.coinPool ? item.coinPool : 0,
                                     }
                                     return (
                                         <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} owner = {owner} groupSize = {userList.length} />

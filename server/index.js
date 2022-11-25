@@ -30,153 +30,17 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
         let timeLeft = differenceInDays >= time ? true : false;
         if(timeLeft && time !== -1) {
           if(task.userID === "Group Task") {
-            let coinPool = !isNaN(task.coinPool) && task.coinPool !== null  ? task.coinPool : 0;
-            let lengthToSplit = task.completedList.length ? task.completedList.length : 1;
-            let totalCoins = coinPool/lengthToSplit;
-            let newCoins = Math.floor(totalCoins);
-            task.completedList.forEach((user) => {
-              User.findById(user).then((data) => {
-                let newCoinsTotal = data.coins + newCoins;
-                Group.findById(task.groupID).then((data) => {
-                  let newNotification = {
-                    message: "You have received " + newCoins + " coins for completing the task " + task.taskName + " in the group " + data.groupName,
-                    date: new Date(),
-                    messageType: "finishedTask",
-                  }
-                  let newNotificationList;
-                  if(data.notifications === null || data.notifications === undefined) {
-                    newNotificationList = [];
-                  } else {
-                    newNotificationList = data.notifications;
-                  }
-                  newNotificationList.push(newNotification);
-                  User.findOneAndUpdate ({_id: user }, {coins: newCoinsTotal, notificationList: newNotificationList});
-              })
-            })
-          })
-          Task.findOneAndUpdate(task._id,  {$set: { coinPool: 0, joinedList: [], completedList: [], checkedDate: lastUpdate} });
+            updateGroupTasks(task);
           } else if (task.groupID === "Private Task") {
-            let newCoins = task.coinsEntered;
-            User.findById(task.userID).then((user) => {
-              let newCoinsTotal;
-              let newNotification;
-              let taskList = user.taskIDList;
-              if((task.completedList.length > 0 && task.completedList[0] === task.userID) || task.completed) {
-                newNotification = {
-                  message: "You have received " + newCoins + " coins for completing the task " + task.taskName,
-                  date: new Date(),
-                  messageType: "finishedTask",
-                }
-                newCoinsTotal = user.coins + newCoins;
-            } else {
-              newNotification = {
-                message: "You have lost " + newCoins + " coins for not completing the task " + task.taskName,
-                date: new Date(),
-                messageType: "finishedTask",
-              }
-              newCoinsTotal = user.coins;
-            }
-              let newNotificationList;
-              if(user.notifications === null || user.notifications === undefined) {
-                newNotificationList = [];
-              } else {
-                newNotificationList = user.notifications;
-              }
-              newNotificationList.push(newNotification);
-              taskList.splice(taskList.indexOf(task._id), 1);
-              console.log(taskList);
-              User.findOneAndUpdate ({_id: task.userID }, {coins: newCoinsTotal, notificationList: newNotificationList, taskIDList: taskList}).then (() => {
-                Task.findByIdAndDelete(task._id);
-              });
-            })
-
+            updatePrivateTasks(task);
           } else if(task.groupID !== "Private Task" && task.userID !== "Group Task") {
-            let newCoins = task.coinsEntered;
-            let groupID = task.groupID;
-            let userID = task.userID;
-            let compettor = task.createdBy;
-            let completedListLength = task.completedList ? task.completedList.length : 0;
-            Group.findById(groupID).then((group) => {
-              let groupSize = group.idList.filter((id) => id !== null).length;
-              let groupTasks = group.taskIDList;
-              let winner;
-              let loser;
-              let winnerNotification = {
-                message: "You have received " + newCoins + " coins for the task " + task.taskName + " in the group " + group.groupName,
-                date: new Date(),
-                messageType: "finishedTask",
-              }
-
-              let loserNotification = {
-                message: "You have lost " + newCoins + " coins for the task " + task.taskName + " in the group " + group.groupName,
-                date: new Date(),
-                messageType: "finishedTask",
-              }
-
-              if(completedListLength >=  groupSize * 0.8) {
-                winner = userID;
-                loser = compettor;
-              }
-              else {
-                winner = compettor;
-                loser = userID;
-              }
-
-              let winnerCoins;
-              let loserCoins;
-              
-              User.findById(loser).then((loserData) => {
-                loserCoins = loserData.coins;
-                if(loserCoins < newCoins) {
-                  winnerNotification.message = "Task " + task.taskName + " in the group " + group.groupName + " has been completed. However, no one has received any coins as the loser does not have enough coins to pay the winner.";
-                  loserNotification.message = "Task " + task.taskName + " in the group " + group.groupName + " has been completed. However, no one has received any coins as you do not have enough coins to pay the winner.";
-                } else {
-                  User.findById(winner).then((user) => {
-                    if(user) {
-                      let coins = user.coins ? user.coins : 0;
-                      winnerCoins = coins + newCoins;
-                      let newNotificationList;
-                      if(user.notifications === null || user.notifications === undefined) {
-                        newNotificationList = [];
-                      } else {
-                        newNotificationList = user.notifications;
-                      }
-                      newNotificationList.push(winnerNotification);
-                      User.findOneAndUpdate ({_id: winner }, {coins: winnerCoins, notificationList: newNotificationList});
-                    } else {
-                      userDoesNotExist = true;
-                    }
-                  });
-
-                  User.findById(loser).then((user) => {
-                    if(user) {
-                      let coins = user.coins ? user.coins : 0;
-                      loserCoins = coins - newCoins;
-                      let newNotificationList;
-                      if(user.notifications === null || user.notifications === undefined) {
-                        newNotificationList = [];
-                      } else {
-                        newNotificationList = user.notifications;
-                      }
-                      newNotificationList.push(loserNotification);
-                      User.findOneAndUpdate ({_id: loser}, {
-                        coins: loserCoins,
-                        notificationList: newNotificationList
-                      });
-                  } else {
-                    userDoesNotExist = true;
-                  }
-                });
-              }
-            });
-            Task.findByIdAndDelete(task._id);
-            groupTasks.splice(groupTasks.indexOf(task._id), 1);
-            Group.findOneAndUpdate({_id: groupID}, {taskIDList: groupTasks});
-          })
-        }
-      }
+            updateChallengeTask(task);
+          }
+        }      
     });
   });
+
+  //Clean up broken tasks
   Task.find({}).then((data) => {
     data.forEach((task) => {
       if (task.coinsEntered < 0 || isNaN(task.coinsEntered) || task.coinsEntered === null) {
@@ -190,26 +54,146 @@ cron.schedule("0 0 0 * * *", () => { //every day at midnight
         });
       }
     });
-  }).then(() => {
-      Task.find({userID: "Group Task"}).then((data) => {
-        data.forEach((task) => {
-          let coinPool = !isNaN(task.coinPool) && task.coinPool !== null  ? task.coinPool : 0;
-          let totalCoins = task.coinPool/task.completedList.length;
-          let newCoins = Math.floor(totalCoins);
-          task.completedList.forEach((completed) => {
-            User.findByIdAndUpdate(completed, { $inc: { coins: newCoins } }, { new: true }).then((data) => {
-              console.log("Updated user coins");
-            }).then(() => {
-              Task.findByIdAndUpdate(task._id, { $set: { coinPool: 0, joinedList: [], completedList: []} }, { new: true }).then((data) => {
-                console.log("Updated group task");
-              });
-            });
-          });
-      }
-        );
-      });
-    });
+  });
 });
+
+
+function updateGroupTasks(task) {
+  let coinPool = !isNaN(task.coinPool) && task.coinPool !== null  ? task.coinPool : 0;
+  let lengthToSplit = task.completedList.length ? task.completedList.length : 1;
+  let totalCoins = coinPool/lengthToSplit;
+  let newCoins = Math.floor(totalCoins);
+  task.completedList.forEach((user) => {
+    User.findById(user).then((userData) => {
+      let newCoinsTotal = userData.coins + newCoins;
+      Group.findById(task.groupID).then((groupData) => {
+        let newNotification = {
+          message: "You have received " + newCoins + " coins for completing the task " + task.taskName + " in the group " + groupData.groupName + "new Balance: " + newCoinsTotal,
+          date: new Date(),
+          messageType: "finishedTask",
+        }
+        let newNotificationList;
+        if(data.notifications === null || data.notifications === undefined) {
+          newNotificationList = [];
+        } else {
+          newNotificationList = data.notifications;
+        }
+        newNotificationList.push(newNotification);
+        User.findOneAndUpdate ({_id: user }, {coins: newCoinsTotal, notifications: newNotificationList});
+    })
+  })
+}).then(() => {
+  Task.findOneAndUpdate(task._id,  {$set: { coinPool: 0, joinedList: [], completedList: [], checkedDate: lastUpdate} });
+})
+}
+
+function updateChallengeTask(task) {
+  let coinPool = !isNaN(task.coinPool) && task.coinPool !== null  ? task.coinPool : 0;
+  let groupID = task.groupID;
+  let challengee = task.userID;
+  let compettor = task.createdBy;
+  let completedListLength = task.completedList ? task.completedList.length : 0;
+  let joinedList = task.joinedList ? task.joinedList : [];
+  Group.findById(groupID).then((group) => {
+    let groupSize = group.idList.filter((id) => id !== null).length;
+    let groupTasks = group.taskIDList;
+    let winner;
+    let loser;
+    let winnerNotification = {
+      title: "Finished Challenge Task Rewards",
+      message: "You have received " + newCoins + " coins for the task " + task.taskName + " in the group " + group.groupName + " new balance: " + (user.coins + newCoins),
+      date: new Date(),
+      messageType: "finishedTask",
+      groupID: groupID,
+    }
+
+    let loserNotification = {
+      title: "Finished Challenge Task Rewards",
+      message: "You have lost " + newCoins + " coins for the task " + task.taskName + " in the group " + group.groupName + " new balance: " + (user.coins - newCoins),
+      date: new Date(),
+      messageType: "finishedTask",
+      groupID: groupID,
+    }
+
+    if(completedListLength >=  groupSize * 0.8) {
+      winner = challengee;
+      loser = compettor;
+    }
+    else {
+      winner = compettor;
+      loser = challengee;
+    }
+
+    let winnerCoins;
+    let winnerNotifications;
+    let loserNotifications;
+    
+    User.findById(loser).then((loserData) => {
+      if(joinedList.length !== 2) {
+        winnerNotification.message = "Task " + task.taskName + " in the group " + group.groupName + " has been completed. However, no one has recieved any coins as the challengee has not joined the task. + " + "new balance: " + (user.coins);
+        loserNotification.message = "Task " + task.taskName + " in the group " + group.groupName + " has been completed. However, no one has recieved any coins as the challengee has not joined the task." + "new balance: " + (user.coins);
+      } else {
+        User.findById(winner).then((user) => {
+          if(user) {
+            let coins = user.coins ? user.coins : 0;
+            winnerCoins = coins + coinPool;
+          } else {
+            userDoesNotExist = true;
+          }
+          winnerNotifications = user.notifications ? user.notifications : [];
+        });
+        loserNotifications = loserData.notifications ? loserData.notifications : [];      
+    }
+  }).then(() => {
+    User.findOneAndUpdate ({_id: winner }, {coins: winnerCoins, notifications: winnerNotifications});
+    User.findOneAndUpdate ({_id: loser }, {notifications: loserNotifications});
+  }).then(() => {
+    Task.findByIdAndDelete(task._id);
+    groupTasks.splice(groupTasks.indexOf(task._id), 1);
+    Group.findOneAndUpdate({_id: groupID}, {taskIDList: groupTasks});
+  })
+  })
+}
+
+function updatePrivateTasks(task) {
+  let newCoins = task.coinsEntered;
+  User.findById(task.userID).then((user) => {
+    let newCoinsTotal;
+    let newNotification;
+    let taskList = user.taskIDList;
+    if((task.completedList.length > 0) || task.completed) {
+      newNotification = {
+        title: "Finished Task Reward",
+        message: "You have received " + newCoins + " coins for completing the task " + task.taskName + " in time " + "new balance: " + (user.coins + newCoins),
+        date: new Date(),
+        messageType: "finishedTask",
+        groupID: task.groupID,
+      }
+      newCoinsTotal = user.coins + newCoins;
+  } else {
+    newNotification = {
+      title: "Failed Task",
+      message: "You have lost " + newCoins + " coins for not completing the task " + task.taskName + " in time " + "current balance: " + user.coins,
+      date: new Date(),
+      messageType: "finishedTask",
+      groupID: task.groupID,
+    }
+    newCoinsTotal = user.coins;
+  }
+    let newNotificationList;
+    if(user.notifications === null || user.notifications === undefined) {
+      newNotificationList = [];
+    } else {
+      newNotificationList = user.notifications;
+    }
+    newNotificationList.push(newNotification);
+    taskList.splice(taskList.indexOf(task._id), 1);
+    User.findOneAndUpdate ({_id: task.userID }, {coins: newCoinsTotal, notifications: newNotificationList, taskIDList: taskList}).then (() => {
+      Task.findByIdAndDelete(task._id);
+    });
+  })
+}
+
 
 cron.schedule('0 0 1 * * *"', () => { //every day at 1am fix issues with database
   User.find({}).then((data) => {
@@ -253,6 +237,85 @@ cron.schedule('0 0 1 * * *"', () => { //every day at 1am fix issues with databas
   });
 });
 
+handleGroupNotification = (task, type) => {
+  let groupID = task.groupID;
+  Group.findById (groupID).then((group) => {
+    let groupName = group.groupName;
+    for(let i = 0; i < group.idList.length; i++) {
+      let userID = group.idList[i];
+      User.findById(userID).then((user) => {
+        let newNotification;
+        if(type === "GroupTask") {
+          newNotification = {
+            title: "Group Task Reminder",
+            message: "This is a reminder about the Group task" + task.taskName + " in the group " + groupName,
+            date: new Date(),
+            messageType: "groupTask",
+            groupID: groupID,
+          }
+        } else if (type === "ChallengeTask") {
+          newNotification = {
+            title: "Challenge Task Reminder",
+            message: "This is a reminder about the Challenge" + task.taskName + " in the group " + groupName,
+            date: new Date(),
+            messageType: "groupTask",
+            groupID: groupID,
+          }
+        }
+        let newNotificationList;
+        if(user.notifications === null || user.notifications === undefined) {
+          newNotificationList = [];
+        } else {
+          newNotificationList = user.notifications;
+        }
+        newNotificationList.push(newNotification);
+        User.findOneAndUpdate ({_id: userID }, {notifications: newNotificationList});
+      })
+    }
+  })
+}
+
+
+handlePrivateNotification = (task) => {
+  let userID = task.userID;
+  User.findById(userID).then((user) => {
+    let newNotification = {
+      title: "Private Task Reminder",
+      message: "This is a reminder about the task" + task.taskName,
+      date: new Date(),
+      messageType: "privateTask",
+    }
+    let newNotificationList;
+    if(user.notifications === null || user.notifications === undefined) {
+      newNotificationList = [];
+    } else {
+      newNotificationList = user.notifications;
+    }
+    newNotificationList.push(newNotification);
+    User.findOneAndUpdate ({_id: userID }, {notifications: newNotificationList});
+  })
+}
+
+
+
+//everyday at 6pm send notifications to users about their tasks
+cron.schedule('0 0 18 * * *', () => {
+  Task.find({}).then((data) => {
+    data.forEach((task) => {
+      if(task.time !== -1) { 
+        if(task.userID === "Group Task") {
+          handleGroupNotification(task, "GroupTask");
+        } else if (task.groupID === "Private Task") {
+          handlePrivateNotification(task);
+        } else if(task.groupID !== "Private Task" && task.userID !== "Group Task") {
+          handleGroupNotification(task, "ChallengeTask");
+        }
+      }
+    });
+  });
+});
+
+      
 
 
 db.connect(); 

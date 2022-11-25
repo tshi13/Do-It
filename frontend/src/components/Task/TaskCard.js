@@ -94,10 +94,6 @@ export default function TaskCard(props) {
 
   React.useEffect(() => {
     if(joinedList) {
-      if(joinedList.length > 0) {
-        console.log("joinedList: ", joinedList);
-        console.log("for task" , task.taskName);
-      }
       let joinedUsernames = [];
       joinedList.map((item, index) => {
         userDAO.getUserData(item).then((res) => {
@@ -118,27 +114,28 @@ export default function TaskCard(props) {
   
   React.useEffect(() => {
     if(task.type === "group") {
-      setMessage("Are you sure you want to finish this task? This will pay out to everyone and delete the task. Please make sure to have everyone (INCLUDING YOURSELF) hit 'Submit' before Clicking confirm.");
+      setMessage("Are you sure you want to finish this task? This will pay out to everyone who has joined the task.");
     } else if(task.type === "groupIndividual") {
-      setMessage("Are you sure you want to finish this task? This will pay out to the user who the task is for even if they haven't reached the goal.");
+      setMessage("Are you sure you want to finish this task? This will pay back the users even if they haven't finished the task.");
     } else {
       setMessage("Are you sure you want to finish this task?");
     }
   }, [task.type]);
 
 
+
   const handleFinishTask = () => {
-    let completedUsers = task.completedList ? task.completedList : [];
     if(task.type === "group") {
-    for(let i = 0; i < completedUsers.length; i++) {
-      let coinsToAdd = Math.ceil(coinPool / completedUsers.length);
-      userDAO.getUserData(completedUsers[i]).then((res) => {
+      let joinedUsers = task.joinedList ? task.joinedList : [];
+    for(let i = 0; i < joinedUsers.length; i++) {
+      let coinsToAdd = Math.ceil(coinPool / joinedUsers.length);
+      userDAO.getUserData(joinedUsers[i]).then((res) => {
 
         if(res) {
           let coins = res.coins ? res.coins : 0;
           coins += coinsToAdd;
-          userDAO.updateUser(completedUsers[i], {coins: coins});
-          if(completedUsers[i] === userID) {
+          userDAO.updateUser(joinedUsers[i], {coins: coins});
+          if(joinedUsers[i] === userID) {
             sessionStorage.setItem("coins", coins);
             setCoins(coins);
           }
@@ -146,17 +143,21 @@ export default function TaskCard(props) {
       });
     }
   } else if(task.type === "groupIndividual") {
-    let userData = task.userID
-    userDAO.getUserData(userData).then((res) => {
-      if(res) {
-        let coins = res.coins ? res.coins : 0;
-        userDAO.updateUser(userData, {coins: coins});
-        if(userData === userID) {
-          sessionStorage.setItem("coins", coins);
-          setCoins(coins);
+    let joinedList = task.joinedList ? task.joinedList : [];
+    let coinsToAdd = Math.ceil(coinPool / joinedList.length);
+    for(let i = 0; i < joinedList.length; i++) {
+      userDAO.getUserData(joinedList[i]).then((res) => {
+        if(res) {
+          let coins = res.coins ? res.coins : 0;
+          coins += coinsToAdd;
+          userDAO.updateUser(joinedList[i], {coins: coins});
+          if(joinedList[i] === userID) {
+            sessionStorage.setItem("coins", coins);
+            setCoins(coins);
+          }
         }
-      }
-    });
+      });
+    }
   } else if(task.type === "private") {
     let userData = userID;
     userDAO.getUserData(userData).then((res) => {
@@ -220,7 +221,7 @@ export default function TaskCard(props) {
             {task.type !== "private" ? (
               <div>
                 <div className = "buttonStyle" style={{float: "left"}}>
-                { !joined && task.type === "group" ? (
+                {(!joined && task.type === "group") || (task.type === "groupIndividual" && userID === task.userID && task.joinedList.length < 2) || !joined  ? (
                     <Button size = "small" onClick={handleJoinTask}>Join Task</Button>
                   ) : (
                     <div></div>
@@ -258,6 +259,9 @@ export default function TaskCard(props) {
                       <Typography sx={{ mb: 1 }} color="text.secondary">
                         Must be Completed By: {task.nextCheckOff} (12 AM)
                       </Typography>
+                      <Typography sx={{ mb: 1 }} color="text.secondary">
+                        Current Participants: {Array.isArray(joinedList) ? joinedList.length : 0} Person(s)
+                      </Typography>
                       <ProgressBar bgcolor="#6a1b9a"  base = {groupSize} compare = {list.length} style ={{width: '100%'}}/>
                     </div>
                     :
@@ -284,6 +288,9 @@ export default function TaskCard(props) {
                     <Typography sx={{ mb: 1 }} color="text.secondary">
                     Next Check Off: {task.nextCheckOff} (12 AM)
                     </Typography>
+                    <Typography sx={{ mb: 1 }} color="text.secondary">
+                        Current Participants: {Array.isArray(joinedList) ? joinedList.length : 0} Person(s)
+                      </Typography>
                     <ProgressBar bgcolor="#6a1b9a" base = {joinedList.length} compare = {list.length} style ={{width: '100%'}}/>
                   </div>
                   :
@@ -349,12 +356,11 @@ export default function TaskCard(props) {
           {!showList ? 
           <CardActions>
             
-            { task.type !== "private" ?
+            {
              userCompleted ?
               <Button size="small" disabled>Completed</Button>
               :
               <Button size="small" onClick={handleSubmit}>Submit</Button>
-              : null
              }
             { owner == userID ?
               <Button size="small" onClick={() => setShowPrompt(true)}>Finish</Button>

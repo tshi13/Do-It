@@ -28,16 +28,8 @@ async function getTasks(groupID) {//
 
 async function addTasks(groupID, data) {//
 
-    
-    let updatedData = {
-        groupID: groupID,
-        userID: data.userID,
-        taskName: data.taskName,
-        coinsEntered: data.coinsEntered,
-        time: data.time,
-        createdBy: data.createdBy,
-    }
-
+    let updatedData = data;
+    updatedData["groupID"] = groupID;
     let res = await axios.put('/group/createTask', updatedData).then(data => data);
     return res["data"];
 }
