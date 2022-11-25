@@ -21,36 +21,6 @@ app.use(function(req, res, next) {
 
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 
-app.use(express.static(path.resolve(__dirname, 'frontend/build')));
-
-	app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
-  })
-
-  app.get('/register', (req, res) => {
-	res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
-	})
-
-	app.get('/NotFound', (req, res) => {
-		res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
-	})
-
-	app.get('/invite/*', (req, res) => {
-		res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
-	})
-
-	app.get('/profile', (req, res) => {
-		res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
-	})
-
-	app.get('/searchGroup', (req, res) => {
-		res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
-	})
-
-	app.get('*', (req, res) => {
-		res.sendFile(path.join(__dirname + '/frontend/build/index.html'))
-	})
-		
 
 app.listen(port, () => {
   console.log(`Express app listening at port: http://localhost:${port}/`);
