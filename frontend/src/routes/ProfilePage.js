@@ -74,7 +74,7 @@ export default function Profile(props) {
             <div className="profile">
                 <div className = "profileSideBar">
                     <button className="settingsButton" onClick={() => setSection('profile')}>Edit Profile</button>
-                    <button className = "settingsButton" onClick = {() => {setSection('tasks')}}>My Tasks</button> 
+                    {/*<button className = "settingsButton" onClick = {() => {setSection('tasks')}}>My Tasks</button>*/}
                     <button className = "settingsButton" onClick = {() => {handleSave()}}>Save Settings</button>
                 </div>
                 <div className ="mainContent" id = "mainContent">

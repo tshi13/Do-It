@@ -5,6 +5,10 @@ import GroupComponent from "../components/Group/GroupComponent";
 import GroupList from "../components/Group/GroupList";
 import groupDAO from '../utils/groupDAO';
 import {Buffer} from 'buffer';
+import DisplayTasks from "../components/DisplayTasks";
+import TaskModalUser from "../components/Task/TaskModalUser";
+import taskDAO from '../utils/taskDAO';
+import userDAO from '../utils/userDAO';
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
@@ -14,6 +18,8 @@ export default function Home(props) {
     const [selectedGroupPicture, setSelectedGroupPicture] = useState(null);
     const userID = props.userID;
     const setNotifications = props.setNotifications;
+    const [showTasks, setShowTasks] = useState(false);
+    const [privateTasks, setPrivateTasks] = useState([]);
 
     const newHeight = props.newHeight;
     
@@ -35,6 +41,26 @@ export default function Home(props) {
         
     }, []);
 
+    useEffect(() => {
+        userDAO.getTasks(userID)
+            .then((tasks) => {
+                if (tasks) {
+                    let removeNull = tasks.filter((task) => task !== null);
+                    setPrivateTasks(removeNull);
+                }
+            })
+    }, []);
+
+    const deleteTaskCallback = (taskID) => {
+        taskDAO.deleteTask(userID, taskID).then(() => {
+            setPrivateTasks(privateTasks.filter((task) => task._id !== taskID));
+        });
+    }
+
+    const taskCallback = (task) => {
+        setPrivateTasks([...privateTasks, task]);
+        props.setNavCoins(sessionStorage.getItem("coins"));
+    }
 
     const groupCallback = (group) => {
         let newGroup = {
@@ -79,12 +105,28 @@ export default function Home(props) {
         }
     }
     
+    const handleShowTasks = () => {
+        setShowTasks(!showTasks);
+    }
 
     const renderGroup = () => {
-        if(selectedGroupID !== null && checkUserStillInGroup(selectedGroupID))  {
+                    
+        if(selectedGroupID !== null && checkUserStillInGroup(selectedGroupID) && !showTasks)  {
             return (
                 <GroupComponent setNotifications = {setNotifications} setCoins = {setCoins} groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight}  />
             );
+        } else {
+            return (
+                <div>
+                    <button className="roundButton" onClick={() => handleShowTasks()}>{!showTasks ? "Show Private Tasks" : "Back"}</button>
+                    {showTasks ? 
+                        <div>
+                        <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
+                        <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
+                        </div>
+                        : null }
+                </div>
+            )
         }
     }
 
