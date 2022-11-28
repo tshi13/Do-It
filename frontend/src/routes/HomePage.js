@@ -20,6 +20,7 @@ export default function Home(props) {
     const setNotifications = props.setNotifications;
     const [showTasks, setShowTasks] = useState(false);
     const [privateTasks, setPrivateTasks] = useState([]);
+    const [coins, setLocalCoins] = useState(0);
 
     const newHeight = props.newHeight;
     
@@ -38,6 +39,7 @@ export default function Home(props) {
             }
             setGroups(groupList);
         });
+        setLocalCoins(sessionStorage.getItem("coins"));
         
     }, []);
 
@@ -118,7 +120,18 @@ export default function Home(props) {
         } else {
             return (
                 <div>
-                    <button className="roundButton" onClick={() => handleShowTasks()}>{!showTasks ? "Show Private Tasks" : "Back"}</button>
+                    <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%'}} >
+                        <button className="roundButton" onClick={() => handleShowTasks()}>{!showTasks ? "Show Private Tasks" : "Back"}</button>
+                        <button className="roundButton" onClick={() => {window.location.href = "/profile"}}>Go To Profile</button>
+                    </div>
+                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '50%', marginRight: '0'}}>
+                        <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} />
+                    </div>
+                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'right', marginRight: '1%', alignText: 'right'}}>
+                        <a className = "purchaseCoins" href = "/purchaseCoins">Purchase Coins</a>
+                        <p style = {{fontWeight: 'bold'}}>Current Coins: {coins}</p>
+                    </div>
+
                     {showTasks ? 
                         <div>
                         <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
