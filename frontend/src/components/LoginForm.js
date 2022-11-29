@@ -2,6 +2,7 @@ import React, {useEffect, useState } from "react";
 import userDAO from "../utils/userDAO";
 import GoogleAuth from "./GoogleAuth";
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
+import DoItLogo from '../assets/DoItCrop.png';
 
 
 import '../styles/LoginForm.css';
@@ -174,7 +175,7 @@ function LoginForm(props) {
       {isSubmitted ? <div>User is successfully logged in <br></br> <p>Redirecting to Main Page</p></div> : 
         <div style = {{width: '50%'}}>
         <div className="login-form">
-          <p className="title" style ={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '5vh'}}>DoIt</p>
+          <p className="title" style ={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '3vh'}}>Login</p>
           <form onSubmit={handleSubmit}>
             <div className="input">
               <input

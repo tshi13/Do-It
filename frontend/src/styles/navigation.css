@@ -116,5 +116,14 @@
   }
 
 
+  .imgStyle {
+    object-fit: cover;
+    margin-top: 0.5rem;
+    margin-left: 2rem;
+  }
+
+  .imgStyle:hover {
+    opacity: 0.6;
+  }
   
 

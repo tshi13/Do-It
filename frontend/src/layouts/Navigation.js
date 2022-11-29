@@ -5,6 +5,7 @@ import ProfilePicture from './ProfilePicture';
 import {Buffer} from 'buffer';
 import {GoogleLogout } from 'react-google-login';
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
+import DoItLogo from '../assets/DoItCrop.png';
 
 import userDAO from '../utils/userDAO';
 import Bell from '../assets/bell.png';
@@ -102,8 +103,11 @@ export const Navigation = (props) => {
 	}
 	
     return ( 
-        <nav className="navbar navbar-expand-lg" style = {{backgroundColor: props.backgroundColor}}>
-			<a className="navbar-brand bubble" aria-current="page" href="/" style = {{marginLeft: '2%', fontWeight: 'bold'}}>Do/It</a>
+        <nav className="navbar navbar-expand-lg" style = {{backgroundColor: props.backgroundColor, maxHeight: '10%'}}>
+
+			<a className="imgStyle" aria-current="page" href="/">
+				<img src={DoItLogo} alt="DoItLogo" style = {{width: '75px'}} />
+			</a>
 			<div className="center" style = {{width: '20%'}}>
 					<input className="form-control me-2" type="search" placeholder="Search For Groups" onChange={e => {handleSearchChange(e)}}  aria-label="Search"/>
 					<div id = "searchDropDown" className="searchButton" style ={{position: 'absolute', display: 'none', zIndex: '10', width: '20%'}}>
