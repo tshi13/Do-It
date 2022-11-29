@@ -2,7 +2,7 @@ import { Divider, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import groupDAO from '../../utils/groupDAO';
-import ProfileImage from '../imageEditor';
+import ProfileImage from '../../unused/ProfilePictureEditor';
 import chatDAO from '../../utils/chatDAO';
 import '../../styles/groupModal.css';
 

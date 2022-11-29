@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
-import ProfileImage from '../components/imageEditor';
+import ProfileImage from '../unused/ProfilePictureEditor';
 import userDAO from '../utils/userDAO';
 import taskDAO from '../utils/taskDAO';
-import DisplayTasks from '../components/DisplayTasks';
-import TaskModalUser from "../components/Task/TaskModalUser";
 
 import '../styles/profile.css';
 import '../styles/Home.css';
@@ -26,27 +24,7 @@ export default function Profile(props) {
        await userDAO.updateUser(userID, data);
     }
 
-    useEffect(() => {
-        userDAO.getTasks(userID)
-            .then((tasks) => {
-                if (tasks) {
-                    let removeNull = tasks.filter((task) => task !== null);
-                    setPrivateTasks(removeNull);
-                }
-            })
-    }, []);
-
-    const deleteTaskCallback = (taskID) => {
-        taskDAO.deleteTask(userID, taskID).then(() => {
-            setPrivateTasks(privateTasks.filter((task) => task._id !== taskID));
-        });
-    }
-
-    const taskCallback = (task) => {
-        setPrivateTasks([...privateTasks, task]);
-        props.setNavCoins(sessionStorage.getItem("coins"));
-    }
-
+  
     
     const renderMainContent = () => {
         if (section === 'profile') {
@@ -56,14 +34,6 @@ export default function Profile(props) {
                         <h1>Profile Picture Editor</h1>
                         <ProfileImage image={image} setImage={setImage} />
                     </div>
-                </div>
-            )
-        } else if (section === 'tasks') {
-            return (
-                <div className="profile-container">
-                    <h1>Tasks</h1>
-                    <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
-                    <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
                 </div>
             )
         }

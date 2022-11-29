@@ -25,9 +25,6 @@ export default function AnimatedGroupCard(props) {
   const [showMessage, setShowMessage] = useState(false);
   const style = props.style ? props.style : {};
 
-  
-
-
   useEffect(() => {
     let type = item.typeOfGroup ? item.typeOfGroup : "public";
     let status = item.groupStatus ? item.groupStatus : "open";
@@ -49,6 +46,11 @@ export default function AnimatedGroupCard(props) {
   
   }, []);
 
+
+  /** 
+   *  This function is called when the user clicks the join button
+   *  It will check if the user can join the group and then add them to the group if they can
+   */
   const handleJoinGroup = (input) => {
     const data = {
       userID: userID,

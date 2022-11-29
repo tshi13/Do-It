@@ -23,7 +23,10 @@ export default function Chatbox2(props)  {
 	const [groupImage, setGroupImage] = useState(props.groupPicture);
 
 	
-
+	/** 
+	 *  This useEffect is called when the component is first rendered,
+	 *  it will set the channel and channel name for the chat to display
+	 */
 	useEffect(()=> {
 		//let imgFile = Buffer.from(groupImage, 'base64');
 		//let imgURL = URL.createObjectURL(imgFile);
@@ -38,7 +41,7 @@ export default function Chatbox2(props)  {
 				//image: '<img src={`data:image/png;base64,${userImage}`}>',
 			},
 			chatClient.devToken(userID), //use devtoken as usertoken for now
-		)	;
+		);
 	
       // creating or recreating the channel
 			let tempChannel = await chatClient.channel('messaging', groupID, {  //make channel
@@ -52,32 +55,32 @@ export default function Chatbox2(props)  {
 			// await tempChannel.addMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' }); // add someone to channel
 			setChannel(tempChannel);
 			setFlag(true);
-			
 		}
-		
-			setupChat();		
-		
-		
-	},[username,groupName]);
+		setupChat();		
+	},[username, groupName]);
+
+	/**
+	 *  Render the chat component if the channel has been set
+	 */
 
 	if (flag) {
 		return (
-    // actually rendering the chat since the user has been added to the
-    // group already
-	<div className="chatbox2" style={{height: newHeight}}>
-	
-			<Chat client={chatClient} theme='str-chat__theme-light'>
-		<Channel channel={channel}>
-			<Window>
-			<ChannelHeader />
-			<MessageList />
-			<MessageInput />
-			</Window>
-			<Thread />
-		</Channel>
-		</Chat>
-	</div>
-	);
+		// actually rendering the chat since the user has been added to the
+		// group already
+		<div className="chatbox2" style={{height: newHeight}}>
+		
+				<Chat client={chatClient} theme='str-chat__theme-light'>
+			<Channel channel={channel}>
+				<Window>
+				<ChannelHeader />
+				<MessageList />
+				<MessageInput />
+				</Window>
+				<Thread />
+			</Channel>
+			</Chat>
+		</div>
+		);
 	}
 	
 }

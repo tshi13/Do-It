@@ -301,6 +301,17 @@ Don't forget to give the project a star! :star: Thanks again!
 4. Push to the Branch (`git push origin`)
 5. Open a Pull Request
 
+### Steps to Run Locally
+1. Run 'npm run install-all' to install all dependencies for both the frontend and backend
+2. cd into server folder, then run node index.js to start the server on port 5000
+3. In a new terminal, cd into the frontend folder and run npm start to start the frontend on port 3000
+
+Note: To switch between using the Heroku backend and the local backend, change the URL in the frontend/src/axiosSettings.js file to the URL of the backend you want to use.
+For example, if you want to use the Heroku backend, change the URL to 'https://backend-oose-doit.herokuapp.com/'
+For example, if you want to use the local backend, change the URL to 'http://localhost:5000/'
+
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import '../styles/Home.css';
-import CreateGroup from "../components/Group/CreateGroup";
+import CreateGroup from "../components/Group/CreateGroupButton";
 import GroupComponent from "../components/Group/GroupComponent";
 import GroupList from "../components/Group/GroupList";
 import groupDAO from '../utils/groupDAO';
 import {Buffer} from 'buffer';
 import DisplayTasks from "../components/DisplayTasks";
-import TaskModalUser from "../components/Task/TaskModalUser";
+import PersonalTaskModal from "../components/Task/PersonalTaskModal";
 import taskDAO from '../utils/taskDAO';
 import userDAO from '../utils/userDAO';
 
@@ -134,7 +134,7 @@ export default function Home(props) {
 
                     {showTasks ? 
                         <div>
-                        <TaskModalUser style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
+                        <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
                         <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
                         </div>
                         : null }

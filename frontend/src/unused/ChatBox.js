@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import MessageChat from './MessageChat';
+import MessageChat from '../unused/MessageChat';
 import TaskModal from "./Task/TaskModal";
 import GroupSettings from './Group/GroupSettings';
 
