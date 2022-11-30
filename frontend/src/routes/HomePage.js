@@ -9,6 +9,7 @@ import DisplayTasks from "../components/DisplayTasks";
 import PersonalTaskModal from "../components/Task/PersonalTaskModal";
 import taskDAO from '../utils/taskDAO';
 import userDAO from '../utils/userDAO';
+import Tutorial from "../components/Tutorial";
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
@@ -21,6 +22,7 @@ export default function Home(props) {
     const [showTasks, setShowTasks] = useState(false);
     const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setLocalCoins] = useState(0);
+    const [showTutorial, setShowTutorial] = useState(true);
 
     const newHeight = props.newHeight;
     
@@ -50,8 +52,22 @@ export default function Home(props) {
                     let removeNull = tasks.filter((task) => task !== null);
                     setPrivateTasks(removeNull);
                 }
-            })
+            });
+       
     }, []);
+
+    useEffect(() => {
+        let shownTut = sessionStorage.getItem("shownTutorial");
+        shownTut = "false"; // TODO: REMOVE THIS LINE AFTER TESTING
+
+        if (shownTut === "false" || shownTut === null ) {
+            setShowTutorial(true);
+        } else {
+            setShowTutorial(false);
+        }
+    }, []);
+
+    
 
     const deleteTaskCallback = (taskID) => {
         taskDAO.deleteTask(userID, taskID).then(() => {
@@ -146,7 +162,7 @@ export default function Home(props) {
     return (
         <div>
             <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
-
+                <Tutorial showTutorial = {showTutorial} setShowTutorial = {setShowTutorial} tutorialSteps = {3} />
                 <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px', height: newHeight}}>
                     <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
