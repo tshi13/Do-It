@@ -72,6 +72,15 @@ export default function Tutorial(props) {
                 return (
                     <div className="tutorial-step">
                         <div className="tutorial-step-title">Sample Code</div>
+                        <div className="tutorial-step-description">Sample Text</div>
+                    </div>
+                );
+            case 4:
+                return (
+                    <div className="tutorial-step">
+                        <div className="tutorial-step-title">Sample Code</div>
+                        <div className="tutorial-step-description">Sample Text</div>
+                    </div>
                 );
         }
     }
