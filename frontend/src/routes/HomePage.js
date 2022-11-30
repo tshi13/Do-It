@@ -162,7 +162,7 @@ export default function Home(props) {
     return (
         <div>
             <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
-                <Tutorial showTutorial = {showTutorial} setShowTutorial = {setShowTutorial} tutorialSteps = {3} />
+                <Tutorial showTutorial = {showTutorial} setShowTutorial = {setShowTutorial} />
                 <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px', height: newHeight}}>
                     <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>

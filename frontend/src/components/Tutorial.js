@@ -8,7 +8,7 @@ import tutorial1 from '../assets/DoItLogo.png';
 export default function Tutorial(props) {
     let [show, setShow] = useState(props.showTutorial);
     let [step, setStep] = useState(1);
-    let [totalSteps, setTotalSteps] = useState(props.tutorialSteps);
+    let [totalSteps, setTotalSteps] = useState(6);
 
     useEffect(() => {
         setShow(props.showTutorial);
@@ -70,10 +70,8 @@ export default function Tutorial(props) {
                 );
             case 3:
                 return (
-                <div className="tutorial-step">
-                    <div className="tutorial-step-title">Sample Code</div>
-                    <div className="tutorial-step-description">Sample Text</div>
-                </div>
+                    <div className="tutorial-step">
+                        <div className="tutorial-step-title">Sample Code</div>
                 );
         }
     }
@@ -98,7 +96,7 @@ export default function Tutorial(props) {
             </Modal.Body>
             <Modal.Footer className = "TutorialFooter">
                 {step > 1 ? <Button variant="secondary" onClick={() => {handleBack();}}>Back</Button> : null}
-                {step === 3 ? <Button variant="primary" onClick={() => {handleNext(); }}>Finish</Button> : <Button variant="primary" onClick={() => {handleNext();}}>Next</Button>}
+                {step === totalSteps ? <Button variant="primary" onClick={() => {handleNext(); }}>Finish</Button> : <Button variant="primary" onClick={() => {handleNext();}}>Next</Button>}
             </Modal.Footer>
         </Modal>
     );
