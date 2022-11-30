@@ -69,12 +69,12 @@ export default function Tutorial(props) {
                     </div>
                 );
             case 3:
+                return (
                 <div className="tutorial-step">
-                    return (
                     <div className="tutorial-step-title">Sample Code</div>
                     <div className="tutorial-step-description">Sample Text</div>
-                    );
                 </div>
+                );
         }
     }
 
