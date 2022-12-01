@@ -117,6 +117,7 @@ router.put("/updateUser", (req,res) =>{ //updates user
 
 router.get("/getUserdata/:_id",(req,res) => { //gets the details of a user
 	const _id = req.params._id;
+	console.log(_id);
 	User.findById(_id)
 		.then((data) => {
 			res.send(data);
