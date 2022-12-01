@@ -41,15 +41,19 @@ router.post("/createGroup", (req,res) =>{  // creating a new group. idList is th
 	const {groupName,idList,taskIDList = [], owner, costToJoin, password, typeOfGroup, inviteID} = req.body;
 	const groupPicture = req.body.groupPicture || null;
 	let groupID;
+	
 	const data = Group.create({groupName,idList,taskIDList, groupPicture, typeOfGroup, owner, costToJoin, password, inviteID})
 	.then((data) => {
 		groupID = data._id;
 		res.send(data);
+		console.log(idList[0])
 	})
 	.then(()=>{
 		return User.findById(idList[0])
+		
 	})
 	.then((user) => {
+		
 		newGroupList = user.groupIDList;
 		newGroupList.push(groupID);
 		return User.findOneAndUpdate({_id:idList[0]},{groupIDList:newGroupList}); //add new groupID to User groupIDList

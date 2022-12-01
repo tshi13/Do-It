@@ -1,6 +1,24 @@
+
 const request = require('supertest')
-const app = require('../app.js')
-const db = require("../db");
+const app = require('./app.js')
+const db = require("./db");
+
+function makeid(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+//Randomly generate a user
+const sample_name = makeid(10)
+const sample_password = makeid(5)
+
+//Randomly generate a group name
+const groupName = makeid(8)
 
 describe("initializing test", () => {
 
@@ -19,10 +37,11 @@ describe("initializing test", () => {
   })
 
   describe("User routes tests", ()=> {
-    test_user_name = 'test'
-    test_user_id = '635c25c9eaed95a24c491f7d'
+    describe("User get routes tests", ()=> {
+      test_user_name = 'test'
+      test_user_id = '635c25c9eaed95a24c491f7d'
 
-    non_existent_user_id ='dadadad'
+      non_existent_user_id ='dadadad'
 
     //Testing get /users/:name
     test("Get user id from username", async ()=> {
@@ -68,12 +87,51 @@ describe("initializing test", () => {
       expect(response.statusCode).toBe(200)
       expect(response.text).toBe('User not found')
     })
+    })
+    
+    
+
+    describe("User post routes tests", ()=> {
+      const sample_user = {
+        name: sample_name,
+        password: sample_password,
+        coins: 1
+      }
+      test("Create user", async () =>{
+        const response = await request(app).post('/users/createUser').send(sample_user)
+        expect(response.statusCode).toBe(200)
+        expect(response.body.name).toBe(sample_name)
+      })
+
+      test("Authenticate user", async ()=> {
+        const response = await request(app).post('/users/authenticate').send(sample_user)
+        expect(response.statusCode).toBe(201)
+        expect(response.body.message).toBe('Authentication successful!')
+
+      })
+    })
+
+    describe("User put routes tests",  ()=> {
+      test("Update user", async ()=> {
+        const sample_user = await request(app).get('/users/' + sample_name)
+        const sample_user_id = sample_user.body._id
+
+        const user_to_update = {
+          userID: sample_user_id,
+          data: {
+            name:"updating name",
+            coin: 0
+          }
+        }
+        const response = await request(app).put('/users/updateUser').send(user_to_update)
+        expect(response.statusCode).toBe(200)
+        expect(response.body.name).toBe("updating name")
+        expect(response.body.coins).toBe(1)
+
+      })
+      
+    })
+
   });
-
-
-
-
-
-
   
 })

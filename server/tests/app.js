@@ -18,9 +18,9 @@ app.get("/", (req, res) => {
 });
 
 
-app.use('/users', require('./UserRoutes'))
-app.use('/tasks', require('./TaskRoutes'))
-app.use('/group', require('./GroupRoutes'))
+app.use('/users', require('../UserRoutes'))
+app.use('/tasks', require('../TaskRoutes'))
+app.use('/group', require('../GroupRoutes'))
 
 
 module.exports = app;

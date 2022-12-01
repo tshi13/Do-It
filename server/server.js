@@ -1,6 +1,6 @@
-const app = require("./app")
+const app = require("./tests/app")
 const port = process.env.PORT || 5000;
-const db = require("./db");
+const db = require("./tests/db");
 db.connect(); 
 
 app.listen(port, () => {
