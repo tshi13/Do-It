@@ -58,6 +58,8 @@ describe("initializing test", () => {
       expect(user_coins).toBe(0)
 
       //expect({_id: user_id, name: user_name, coins: user_coins}).toBe( { _id: test_user_id, name: test_user_name, coins: 0 } )
+
+      // a user has a lot of other fields, so if you want to go into the db to compare the fields, you can do that. Data is stored in the response.body
     })
 
     //Testing get /users/getUserdata/:_id
