@@ -7,8 +7,12 @@ const TaskSchema = new mongoose.Schema({
 	coinsEntered: {type: Number, required: true},
 	groupID: {type: String, required: true},
 	username: {type: String, required: false},
-	completed: {type: Boolean, required: true},
 	completedList: {type: Array, required: true},
+	joinedList: {type: Array, required: false},
+	coinPool: {type: Number, required: false},
+	createdDate: {type: Date, required: true},
+	checkedDate: {type: Date, required: true},
+	createdBy: {type: String, required: false},
 });
 
 const Task = mongoose.model("Task",TaskSchema);

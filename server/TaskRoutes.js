@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Task = require("./schemaModels/Task");
+const User = require("./schemaModels/User");
 
-
-
-router.put("/updateTask", (req,res) =>{ //
+router.put("/updateTask", (req,res) =>{ //updates task"
 	const {taskID, data} = req.body;
 	Task.findByIdAndUpdate(taskID, data, {new: true, $set: data})
 		.then((data) => {
@@ -18,41 +17,39 @@ router.put("/updateTask", (req,res) =>{ //
 		})
 })
 
-/**
- * req.body: 
- * 	userID: String, ObjectId of user associated to this task
- * 	taskName: String
- * 	time: int (temporary)
- * 	coinsEntered: int
- * 
- * 	res: Copy of created Task object in database 
- *  */ 
-router.put("/createTask/user", (req,res) => { //creates a new task and adds the coresponding objectID to User taskIDList
-	const {userID,taskName,time,coinsEntered} = req.body;
-	const groupID = "Private Task";
-	let taskID;
-	let newTaskIDList;
-	let newCoinBalance;
-	Task.create({userID, taskName,time,coinsEntered,groupID, completed: false, completedList: []})
-	.then((data) => {
-		taskID = data._id;
-		res.send(data);
-	})
-	.then(() => {
-		return User.findById(userID);
-	})
-	.then((user) => {
-		newTaskIDList = user.taskIDList;
-		newCoinBalance = user.coins - coinsEntered;
-		newTaskIDList.push(taskID);
-		return User.findOneAndUpdate({ _id: userID}, {taskIDList:newTaskIDList, coins:newCoinBalance}); // add taskID and update coin balance for user
-	})
-	.catch((err) => {
-		res
-		.status(500)
-		.send({ message: "Error creating task with name: " + taskName })
-	})
+router.get("/getTask/:taskID", (req,res) => { //gets task
+	const {taskID} = req.params;
+	Task.findById(taskID)
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res
+			.status(500)
+			.send({ message: "Error getting task with id: " + taskID })
+
+		})
 })
+
+router.delete("/deleteTask/user/:userID/:taskID",(req,res) => { //deletes a task from a user
+	const userID = req.params.userID;
+	const taskID = req.params.taskID;
+	User.updateOne({ _id: userID },{ $pull: { taskIDList : taskID } })
+		.then(() => {
+			return Task.deleteOne({ _id: taskID});
+		}
+		)
+		.then(() => {
+			res.send("Task deleted");
+		}
+		)
+		.catch(err => {
+			res
+			.status(500)
+			.send({ message: "Error deleting task with id: " + taskID });
+		});
+})
+
 
 
 module.exports = router

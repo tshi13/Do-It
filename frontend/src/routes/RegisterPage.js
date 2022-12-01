@@ -7,6 +7,8 @@ function RegisterForm(props) {
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [userName, setUserName] = useState("");
+  const [firstPassword, setFirstPassword] = useState("");
+  const [secondPassword, setSecondPassword] = useState("");
   let user = props.user;
   let isLoggedIn = props.isLoggedIn;
 
@@ -15,7 +17,7 @@ function RegisterForm(props) {
   
   const errors = {
     uname: "User Already Exist",
-    pass: "invalid password"
+    pass: "Password Not Matched"
   };
 
   const handleSubmit = (event) => {
@@ -24,26 +26,32 @@ function RegisterForm(props) {
 
     const data = {
       name : userName,
+      password : firstPassword,
       coins : 6,
       taskIDList : [],
       groupIDList : [],
     }
 
-    userDAO.getUser(data).then((response) => {
-      if (response !== "User not found") {
-        setIsSubmitted(false);
-        setErrorMessages({ name: "uname", message: errors.uname });
-      } else {
-        userDAO.addUser(data)
-          .then((res) => 
-          {
-            setIsSubmitted(true);
-            props.setUser(data.name, res._id, 6);
-            window.location.href = "/";
-          })
-          .catch(err => console.log(err));
-      }
-    });  
+    if (firstPassword !== secondPassword) {
+      setIsSubmitted(false);
+      setErrorMessages({ name: "pass", message: errors.pass });
+    } else {
+      userDAO.getUser(data).then((response) => {
+        if (response !== "User not found") {
+          setIsSubmitted(false);
+          setErrorMessages({ name: "uname", message: errors.uname });
+        } else {
+          userDAO.addUser(data)
+            .then((res) => 
+            {
+              setIsSubmitted(true);
+              props.setUser(data.name, res._id, 6);
+              window.location.href = "/";
+            })
+            .catch(err => console.log(err));
+        }
+      });  
+  }
   };
 
   // Generate JSX code for error message
@@ -63,13 +71,13 @@ function RegisterForm(props) {
         </div>
         <div className="input-container">
           <label>Password </label>
-          <input type="password" name="pass"  />
+          <input type="password" name="pass" onChange={(e) => setFirstPassword(e.target.value)}/>
           {/* {renderErrorMessage("pass")} */}
         </div>
         <div className="input-container">
           <label>Re-enter Password </label>
-          <input type="password" name="pass"  />
-          {/* {renderErrorMessage("pass")} */}
+          <input type="password" name="pass"  onChange={(e) => setSecondPassword(e.target.value)}/>
+          {renderErrorMessage("pass")}
         </div>
         <div className="button-container">
           <input type="submit" className="registering"/>

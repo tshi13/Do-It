@@ -1,17 +1,21 @@
 import axios from 'axios';
 import chatDAO from './chatDAO';
 
+// Enable this for local development
+// axios.defaults.baseURL = 'http://localhost:5000'; 
 
-axios.defaults.baseURL = 'http://localhost:5000';
+//Enable this for heroku production app
+//axios.defaults.baseURL = 'https://backend-oose-doit.herokuapp.com/';
 
-async function getUser(data) {
+async function getUser(data) {//
     let res = await axios.get('/users/' + data.name).then(data => data);
     return res["data"];
 }
 
+
 async function addUser(data) {//
     let res = await axios.post('/users/createUser', data).then(data => data);
-		await chatDAO.createUser(res["data"]._id, res["data"].name);
+	await chatDAO.createUser(res["data"]._id, res["data"].name);    
     return res["data"];
 }
 
@@ -21,7 +25,7 @@ async function getGroups(userID) {
 }
 
 async function getTasks(userID) {
-    let res = await axios.get('/users/getTasks/' + userID).then(data => data);
+    let res = await axios.get('/users/tasks/' + userID).then(data => data);
     return res["data"];
 }
 
@@ -30,13 +34,19 @@ async function updateUser(userID, data) {//
     return res["data"];
 }
 
-//This is replicate
-async function getUserData(userID) {
-    let res = await axios.get('/users/getUserdata/' + userID).then(data => data);
+async function getUserData(userID) {//
+    let res = await axios.get('/users/userdata/' + userID).then(data => data);
     return res["data"];
 }
 
-async function addTasks(userID, data) {
+async function authenticate(data) {
+    let res = await axios.post('/users/authenticate', data).then(data => data);
+    return res["data"];
+}
+
+async function addTasks(userID, data) {//
+
+
     
     let updatedData = {
         userID: userID,
@@ -45,6 +55,7 @@ async function addTasks(userID, data) {
         time: data.time,
         coinsEntered: data.coinsEntered
     }
+    
 
     let res = await axios.put('/users/createTask', updatedData).then(data => data);
     return res["data"];
@@ -54,6 +65,31 @@ async function addTasks(userID, data) {
 async function joinGroup(userID, groupID) {
     let res = await axios.post('/joingroup', {userID: userID, groupID: groupID}).then(data => data);
     return res["data"];
+}
+
+async function login(data) {//
+
+    /*
+     data schema:
+     data = {
+            loginType: "google" or "facebook" or "password",
+            (if loginType is google or facebook fill out the following)
+            key: token,
+            (if loginType is password fill out the following)
+            username: username,
+            password: password
+        }
+    */
+
+    let loginType = data.loginType;
+		sessionStorage.setItem("loginType",loginType);
+    if(loginType === "password") {
+        let res = await axios.get('/users/login/' + data.name + '/' + data.password).then(data => data);
+        return res["data"];
+    } else {
+        let res = await axios.get('/users/authLogin/' + data.loginType + '/' + data.key).then(data => data);
+				return res["data"];
+    }   
 }
 
 export default class userDAO {
@@ -88,6 +124,12 @@ export default class userDAO {
     static getUserData(userID) {
         return getUserData(userID);
     }
+
+    static authenticate(userID) {
+        return authenticate(userID);
+    }
+    static login(data) {
+        return login(data);
+    }
+
 }
-
-

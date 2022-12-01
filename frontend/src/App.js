@@ -42,18 +42,31 @@ function App() {
 
   const [coins, setNavCoins] = useState(sessionStorage.getItem("coins"));
 
+  const [selectedGroup, setSelectedGroup] = useState(null);
+  const [notifications, setNotifications] = useState(null);
+
+  const updateNotifications = (newNotifications) => {
+    /*let newNotificationList = notifications;
+    newNotificationList.push(newNotifications);
+    setNotifications(newNotificationList);*/
+    //bug with this, it's not updating the notifications in the navbar. (sorry lidia)      
+  }
+
+
+
   let newHeight = height - 72;
 
   return (    
     <div>
+      <link rel="icon" type="image/ico" href="../public/favicon.ico"/>
       {isLoggedIn ? 
         <div>
           <BrowserRouter>
-          <Navigation  backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} setUser = {setUser} username = {user} userID = {userID} searchString = {searchString} setSearchString = {setSearchString} coins={coins}/>
+          <Navigation  notifications = {notifications} setNotifications = {setNotifications} backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} setUser = {setUser} username = {user} userID = {userID} searchString = {searchString} setSearchString = {setSearchString} coins={coins} groupCallback = {setSelectedGroup}/>
             <Routes>
-              <Route path="/" element={<Home userID={userID} username = {user} newHeight={newHeight} setNavCoins={setNavCoins} />} />
-              <Route path="/searchGroup" element={<SearchGroup searchString={searchString} userID = {userID} />} />
-              <Route path="/profile" element={<Profile userID={userID} />} />
+              <Route path="/" element={<Home setNotifications = {updateNotifications} userID={userID} username = {user} newHeight={newHeight} setNavCoins={setNavCoins} selectedGroup = {selectedGroup} setSelectedGroup = {setSelectedGroup} />} />
+              <Route path="/searchGroup" element={<SearchGroup searchString={searchString} userID = {userID} newHeight = {newHeight} />} />
+              <Route path="/profile" element={<Profile userID={userID} setNavCoins = {setNavCoins} />} />
               <Route path="/invite/*" element={<InvitePage userID={userID} />} />
               <Route path="*" element={<NotFound />} />
               <Route path="/register" element={<RegisterForm  user = {user} setUser = {setUser}  isLoggedIn = {isLoggedIn} />} />

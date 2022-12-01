@@ -2,31 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("./schemaModels/User");
 const Task = require("./schemaModels/Task");
-
-
-/**
- * req.body: 
- * 	name: name of user 
- * 
- * res: ObjectId of user, profile picture, 
- * 
- * Usage: Getting user data from user naem
- */
- router.get("/:name",(req,res) => {
-	const name = req.params.name;
-	User.find({name:name})
-	.then((data) => {
-		if(data.length != 0){
-			let newData = {
-				_id: data[0]._id,
-				profilePicture: data[0].profilePicture ? data[0].profilePicture : null
-			}
-			res.send(newData);
-		} else {
-			res.send("User not found");
-		}
-	})
-})
+const { hashPassword, verifyPassword } = require("./utils/hash");
 
 /**
  * req.body: 
@@ -35,70 +11,67 @@ const Task = require("./schemaModels/Task");
  * 	taskIDList: [] Use empty array to initialize
  * 
  * 	res: Copy of created User object in database 
- * 
- *  Usage: Creates new user
  *  */ 
- router.post("/createUser", (req,res) =>{ 
-	const {name,coins,taskIDList = [],groupIDList = []} = req.body;
-		User.create({name,coins,taskIDList, groupIDList, profilePicture: null})
-			.then((data) => {
-			res.send(data);
-			})
-			.catch((err) => {
-				res
-				.status(500)
-				.send({ message: "Error creating user with name: " + name })
-			})
+router.post("/createUser", async (req,res) =>{ //creates new user
+	const {name,password,coins,taskIDList = [],groupIDList = [], googleID = "", facebookID = "", email = ""} = req.body;
+	if(password != undefined && password != "" && password!=null) {
+		try {
+			const hash = await hashPassword(password);
+			const user = await User.create({name, password: hash, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			res.send(user);
+		} catch (err) {
+			res.status(500).send({ message: "Error creating user with name: " + name })
+		}
+		// User.create({name,password,coins,taskIDList, groupIDList, profilePicture: null})
+		// 	.then((data) => {
+		// 	const hash = await hashPassword(password);
+		// 	res.send(data);
+		// 	})
+		// 	.catch((err) => {
+		// 		res
+		// 		.status(500)
+		// 		.send({ message: "Error creating user with name: " + name })
+		// 	})
+	} else if(googleID != "" || facebookID != "") {
+		try {
+			const user = await User.create({name, password: null, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			res.send(user);
+		} catch (err) {
+			res.status(500).send({ message: "Error creating user with name: " + name });
+		}
+	} else {
+		res.status(500).send({ message: "Error creating user with name: " + name });
+	}
 })
 
-//Get the list of groups a user has from user id
-router.get("/getGroups/:_id",(req,res) => { 
-	const _id = req.params._id;
-	User.findById(_id)
-		.then(async (data) => {
-		const groupIDList = data.groupIDList; //assume we only have one instance of each name
-		let groupList = [];
-		for (let i = 0; i < groupIDList.length; i++) {
-			groupList[i] = await Group.findById(groupIDList[i]);
-		}
-		return groupList;
-		})
-		.then((data) => {
-		res.send(data);
-		})
-		.catch(err => {
-			res
-			.status(500)
-			.send({ message: "Error retrieving groups with id: " + _id });
-		});
-})
-
-
-/**
- * req.params: 
- * 	_id: ObjectId of user 
- * 
- * 	res: a list of task objects associated with user in database 
- *  */ 
- router.get("/getTasks/:_id",(req,res) => { //gets all tasks that an _id has
-	const _id = req.params._id;
-	User.findById(_id)
-		.then(async (data) => {
-		const taskIDList = data.taskIDList; //assume we only have one instance of each name
-		let taskList = [];
-		for (let i = 0; i < taskIDList.length; i++) {
-			taskList[i] = await Task.findById(taskIDList[i]);
-		}
-		return taskList;
-		})
-		.then((data) => {
-		res.send(data);
-		})
-		.catch(err => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving tasks with id: " + _id });
-    });	
+router.post("/authenticate",async(req,res) => { // authenticate the user
+	const body = req.body;
+	const user = await User.find({name:body.name});
+	const isAuthenticated = await verifyPassword(body.password, user[0] ? user[0].password : "");
+	if (isAuthenticated) {
+		// return res.status(201).json({
+		// 	message: "Authentication successful!",
+		// });
+		res.status(201).send({ message: "Authentication successful!" })
+	} else {
+		// return res.status(403).json({
+		// 	message: "Wrong username or password!",
+		//   });
+		res.status(201).send({ message: "Wrong username or password!" })
+	}
+// 	.then((data) => {
+// 		const isAuthenticated = await verifyPassword(password, user ? user.password : "");
+// 	})
+// 	User.findById(_id)
+// 		.then((data) => {
+// 			res.send(data);
+// 		})
+// 		.catch(err => {
+// 			res
+// 			.status(500)
+// 			.send({ message: "Error retrieving user with id: " + _id });
+// 		});
+// })
 })
 
 router.put("/updateUser", (req,res) =>{ //updates user
@@ -115,19 +88,6 @@ router.put("/updateUser", (req,res) =>{ //updates user
 		})
 })
 
-router.get("/getUserdata/:_id",(req,res) => { //gets the details of a user
-	const _id = req.params._id;
-	User.findById(_id)
-		.then((data) => {
-			res.send(data);
-		})
-		.catch(err => {
-			res
-			.status(500)
-			.send({ message: "Error retrieving user with id: " + _id });
-		});
-})
-
 /**
  * req.body: 
  * 	userID: String, ObjectId of user associated to this task
@@ -138,12 +98,12 @@ router.get("/getUserdata/:_id",(req,res) => { //gets the details of a user
  * 	res: Copy of created Task object in database 
  *  */ 
  router.put("/createTask", (req,res) => { //creates a new task and adds the coresponding objectID to User taskIDList
-	const {userID,taskName,time,coinsEntered} = req.body;
+	const {userID,taskName,time,coinsEntered, createdDate = new Date(), checkedDate = new Date()} = req.body;
 	const groupID = "Private Task";
 	let taskID;
 	let newTaskIDList;
 	let newCoinBalance;
-	Task.create({userID, taskName,time,coinsEntered,groupID, completed: false, completedList: []})
+	Task.create({userID, taskName,time,coinsEntered,groupID, completedList: [], createdDate, checkedDate})
 	.then((data) => {
 		taskID = data._id;
 		res.send(data);
@@ -164,102 +124,115 @@ router.get("/getUserdata/:_id",(req,res) => { //gets the details of a user
 	})
 })
 
-
-/** 
- * req.params:
- * 	_id: ObjectId of group
- * 
- * res: a group object with the matching _id
- */
-
- router.get("/group/:_id",(req,res) => { //gets all groups that an _id has
+router.get("/userdata/:_id",(req,res) => { //gets the details of a user
 	const _id = req.params._id;
-	Group.findById(_id)
+	User.findById(_id)
 		.then((data) => {
 			res.send(data);
 		})
 		.catch(err => {
 			res
 			.status(500)
-			.send({ message: "Error retrieving groups with id: " + _id });
+			.send({ message: "Error retrieving user with id: " + _id });
 		});
 })
 
 
-
-
-/** 
- * Leave group
- * req.params: userID groupID 
+/**
+ * req.params: 
+ * 	name: name of user 
  * 
- * res: updated user object
+ * res: ObjectId of user, profile picture, 
  */
-
- router.put("/leaveGroup", (req,res) => {
-	const {userID, groupID} = req.body;
-	let newGroupList;
-	let newTaskIDList;
-	let newGroupTaskIDList;
-	let user;
-	let group;
-	let newUserList;
-	User.findById(userID)
+router.get("/:name",(req,res) => {
+	const name = req.params.name;
+	User.find({name:name})
 	.then((data) => {
-		user = data;
-		newGroupList = user.groupIDList;
-		newTaskIDList = user.taskIDList;
-		return Group.findById(groupID);
-	})
-	.then((data) => {
-		group = data;
-		newGroupTaskIDList = group.taskIDList;
-		newGroupList = newGroupList.filter((id) => id != groupID);
-		newTaskIDList = newTaskIDList.filter((id) => !newGroupTaskIDList.includes(id));
-		newUserList = group.idList.filter((id) => id != userID);
-		return User.findOneAndUpdate({_id:userID},{groupIDList:newGroupList, taskIDList:newTaskIDList}); //remove groupID from User groupIDList
-	}).then(() => {
-		if(newUserList.length == 0){
-			for(let i = 0; i < newGroupTaskIDList.length; i++){
-				Task.findByIdAndDelete(newGroupTaskIDList[i]);
+		if(data.length != 0){
+			let newData = {
+				_id: data[0]._id,
+				profilePicture: data[0].profilePicture ? data[0].profilePicture : null
 			}
-			return Group.findOneAndDelete({_id:groupID});
+			res.send(newData);
 		} else {
-			return Group.findOneAndUpdate({_id:groupID},{idList:newUserList});
+			res.send("User not found");
 		}
-	}) //have to delete task cards
-
-	.then(() =>
-		res.send(user)
-	)
-	.catch((err) => {
-		res
-		.status(500)
-		.send({ message: "Error leaving group with id: " + groupID })
 	})
 })
 
+router.get("/login/:name/:password",(req,res) => {
+	
+	const name = req.params.name;
+	const password = req.params.password;
+	
+	User.find({name:name})
+	.then((data) => {
+		if(data.length != 0){
+			console.log(data[0].password);
+			if(data[0].password == password || data[0].password == null || data[0].password == ""){
+				let newData = {
+					_id: data[0]._id,
+					profilePicture: data[0].profilePicture ? data[0].profilePicture : null,
+					coins:data[0].coins
+				}
+				res.send(newData);
+			} else {
+				res.send("Incorrect password" + data[0].password + " " + password);
+			}
+		} else {
+			res.send("User not found");
+		}
+	})
+})
+
+router.get('/authLogin/:loginType/:key', (req, res) => {
+	const loginType = req.params.loginType;
+	const key = req.params.key;
+	let searchTerm = "";
+	if(loginType == 'google') {
+		searchTerm = "googleID";
+	} else if(loginType == 'facebook') {
+		searchTerm = "facebookID";
+	} else {
+		res.send("Invalid login type");
+	}
+	User.find({[searchTerm]:key})
+	.then((data) => {
+		if(data.length != 0){
+			res.send(data[0]);
+		} else {
+			res.send("User not found");
+		}
+	})
+})
+
+/**
+ * req.params: 
+ * 	_id: ObjectId of user 
+ * 
+ * 	res: a list of task objects associated with user in database 
+ *  */ 
 
 
-
-
-
-router.delete("/deleteTask/user/:userID/:taskID",(req,res) => { //deletes a task from a user
+router.get("/tasks/:userID",(req,res) => { //gets the tasks of a user
 	const userID = req.params.userID;
-	const taskID = req.params.taskID;
-	User.updateOne({ _id: userID },{ $pull: { taskIDList : taskID } })
-		.then(() => {
-			return Task.deleteOne({ _id: taskID});
+	User.findById(userID)
+	.then(async (data) => {
+		const taskIDList = data.taskIDList; //assume we only have one instance of each name
+		let taskList = [];
+		for (let i = 0; i < taskIDList.length; i++) {
+			taskList[i] = await Task.findById(taskIDList[i]);
 		}
-		)
-		.then(() => {
-			res.send("Task deleted");
-		}
-		)
+		return taskList;
+		})
+		.then((data) => {
+		res.send(data);
+		})
 		.catch(err => {
-			res
-			.status(500)
-			.send({ message: "Error deleting task with id: " + taskID });
-		});
+      res
+        .status(500)
+        .send({ message: "Error retrieving tasks with id: " + _id });
+    });	
 })
 
 

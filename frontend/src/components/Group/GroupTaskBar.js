@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import TaskCard from '../Task/TaskCard';
 import TaskModal from '../Task/TaskModal';
 import GroupSettings from './GroupSettings';
+import userDAO from '../../utils/userDAO';
 
 import '../../styles/GroupTaskBar.css';
 
@@ -10,10 +11,10 @@ export default function GroupTaskBar(props) {
     const style = props.style ? props.style : {};
     const newHeight = props.newHeight;
     const userID = props.userID ? props.userID : null;
-    const userList = props.userList;
     const [sorted, setSorted] = useState(false);
-    const [localList, setLocalList] = useState(userList);
     const owner = props.owner;
+    const userList = props.userList;
+    const [userMap, setUserMap] = useState([]);
 
     const firstPartOfURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
 
@@ -23,6 +24,14 @@ export default function GroupTaskBar(props) {
     const [groupTask, setGroupTask] = useState({});
     const setCoins = props.setCoins;
 
+    const setNotifications = props.setNotifications;
+
+    function getFormattedDate(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let year = date.getFullYear();
+        return month + "/" + day + "/" + year;
+    }
 
     const leaveGroup = () => {
         props.leaveGroupCallback(props.groupID, userID);
@@ -47,32 +56,39 @@ export default function GroupTaskBar(props) {
         });
         setIndividualTask(individualTask);
         setGroupTask(groupTask);
-        setSorted(true);        
+        setSorted(true);
+
+        let userMap = [];
+        for(let i = 0; i < userList.length; i++) {
+            if(userList[i] !== null) {
+                userDAO.getUserData(userList[i]).then((user) => {
+                    if(user) {
+                        let temp = {
+                            id: user._id,
+                            name: user.name,
+                        }
+                        userMap.push(temp); 
+                        
+                    }
+                });
+            }
+        }
+        setUserMap(userMap);   
+        
     }, [tasks]);
 
-    useEffect(() => {
-        setLocalList(userList);
-    }, [userList]);
 
     const deleteTask = (taskID) => {
         props.deleteTaskCallback(taskID);
     }
+
+ 
     
     const renderTasks = () => {
         if(tasks.length > 0 && sorted ) {
             return (
             <div style = {{height: newHeight}} className = "taskList">
                 <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
-                {/*<div className = "UsersinGroup">
-                    <h3>Users in Group</h3>
-                    {localList.map((item, index) => {
-                        return (
-                            <div key = {index}>
-                                <p>{item.name}</p>
-                            </div>
-                        )
-                    })}
-                </div>*/}
                 <h1 style ={{textAlign: 'center'}}>Task List</h1>
                 <p style = {{textAlign: 'center'}}>Group Invite: {props.inviteID}</p>
                  <button className = "button" onClick = {() => {navigator.clipboard.writeText(firstPartOfURL +"/invite/ID=" + props.inviteID)}}>Copy Invite Link To Clipboard</button>
@@ -82,20 +98,25 @@ export default function GroupTaskBar(props) {
                             <div className = "taskWrapper">
                                 <h2 style = {{textAlign: 'center'}}>Group Tasks</h2>
                                 {groupTask.map((item, index) => {
+                                     let checkedDate = new Date(item.checkedDate);
+                                     let modifiedDate = new Date(item.checkedDate);
+                                        modifiedDate.setDate(modifiedDate.getDate() + item.time);
                                      let taskData = {
                                         id: item._id,
                                         taskName: item.taskName,
                                         coinsEntered: item.coinsEntered,
                                         time: item.time,
-                                        id: item._id,
-                                        completed: item.completed,
                                         type: "group",
                                         userID: null,
                                         completedList: item.completedList,
-                                        groupSize: userList.length,
+                                        joinedList: item.joinedList ? item.joinedList : [],
+                                        coinPool: item.coinPool ? item.coinPool : 0,
+                                        lastCheckOff: getFormattedDate(checkedDate),
+                                        nextCheckOff: getFormattedDate(modifiedDate),
+                                        createdBy: item.createdBy,
                                     }
                                     return (
-                                        <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
+                                        <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID}  owner = {owner} />
                                     )
                                 })}
                             </div>
@@ -106,21 +127,25 @@ export default function GroupTaskBar(props) {
                             <div className = "taskWrapper">
                                 <h2 style = {{textAlign: 'center'}}>Individual Tasks</h2>
                                 {individualTask.map((item, index) => {
+                                    let checkedDate = new Date(item.checkedDate);
+                                    let modifiedDate = new Date(item.checkedDate);
+                                       modifiedDate.setDate(modifiedDate.getDate() + item.time);
                                     let taskData = {
                                         id: item._id,
                                         taskName: item.taskName,
                                         coinsEntered: item.coinsEntered,
                                         time: item.time,
-                                        id: item._id,
-                                        completed: item.completed,
                                         type: "groupIndividual",
                                         userID: item.userID,
                                         completedList: item.completedList,
-                                        groupSize: userList.length,
-                                        username: userList.find(user => user.id === item.userID) ? userList.find(user => user.id === item.userID).name : "User"
+                                        lastCheckOff: getFormattedDate(checkedDate),
+                                        nextCheckOff: getFormattedDate(modifiedDate),
+                                        createdBy: item.createdBy,
+                                        joinedList: item.joinedList ? item.joinedList : [],
+                                        coinPool: item.coinPool ? item.coinPool : 0,
                                     }
                                     return (
-                                        <TaskCard  setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} userList = {userList}  owner = {owner} />
+                                        <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} taskCallback = {taskCallback} userID = {userID} owner = {owner} groupSize = {userList.length} />
                                     )
                                 })}
                             </div>
@@ -148,7 +173,7 @@ export default function GroupTaskBar(props) {
 
     return (
         <div>
-            <TaskModal style ={{float: 'right', marginRight: '1%', marginLeft: '2%', zIndex: "5000"}} show = {showTaskModal} setShow = {setShowTaskModal} groupID = {props.groupID} taskCallback = {taskCallback} userID = {userID} userList = {userList}/>
+            <TaskModal setNotifications = {setNotifications} style ={{float: 'right', marginRight: '1%', marginLeft: '2%', zIndex: "5000"}} show = {showTaskModal} setShow = {setShowTaskModal} groupID = {props.groupID} taskCallback = {taskCallback} userID = {userID} userList = {userList} userMap = {userMap}/>
             {renderTasks()}
         </div>
     );

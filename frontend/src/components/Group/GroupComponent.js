@@ -5,9 +5,6 @@ import groupDAO from '../../utils/groupDAO';
 import GetStream2 from '../GetStreamChat/GetStream2';
 
 import '../../styles/groupComponent.css';
-import userDAO from '../../utils/userDAO';
-import {Buffer} from 'buffer';
-
 
 export default function GroupComponent(props)  {
     const groupID = props.groupID;
@@ -19,16 +16,19 @@ export default function GroupComponent(props)  {
     const [userList, setUserList] = useState([]);
     const groupPicture = props.groupPicture;
     const setCoins = props.setCoins;
+    const setNotifications = props.setNotifications;
 
     const [owner, setOwner] = useState(null);
 
     const newHeight = props.newHeight;
 
+
     async function getGroupTasks() {
         let taskList = [];
         groupDAO.getTasks(groupID).then((tasks) => {
-            taskList = tasks;
-        }).then(() => {
+            tasks.map((item, index) => {
+                taskList.push(item);
+            });
             setTasks(taskList);
         });
     }
@@ -36,6 +36,7 @@ export default function GroupComponent(props)  {
     const deleteTaskCallback = (taskID) => {
         groupDAO.deleteTask(groupID, taskID).then(() => {
             setTasks(tasks.filter((task) => task._id !== taskID));
+            //setTasks(tasks.filter((tasks) => tasks !== null));
         });
     }
 
@@ -49,20 +50,7 @@ export default function GroupComponent(props)  {
             setInviteID(group.inviteID);
             setOwner(group.owner);
             let userListIDs = group.idList;
-            let userList = [];
-            for(let i = 0; i < userListIDs.length; i++) {
-                if(userListIDs[i] !== null) {
-                    userDAO.getUserData(userListIDs[i]).then((user) => {
-                        let userData = {
-                            id: user._id,
-                            name: user.name,
-                            profilePicture: user.profilePicture,
-                        }
-                        userList.push(userData);
-                    });
-                }
-            }
-            setUserList(userList);
+            setUserList(userListIDs);
         });
 
     }, [groupID]);
@@ -71,12 +59,12 @@ export default function GroupComponent(props)  {
     
     const renderTasks = () => {
         return (
-            <GroupTaskBar  setCoins = {setCoins} deleteTaskCallback = {deleteTaskCallback} owner = {owner} tasks={tasks} style ={{width: '100%'}}  groupID = {groupID}  newHeight = {newHeight} inviteID = {inviteID} userID = {userID} userList = {userList} leaveGroupCallback = {leaveGroupCallback} taskCallback = {taskCallback} />
+            <GroupTaskBar setNotifications = {setNotifications} setCoins = {setCoins} deleteTaskCallback = {deleteTaskCallback} owner = {owner} tasks={tasks} style ={{width: '100%'}}  groupID = {groupID}  newHeight = {newHeight} inviteID = {inviteID} userID = {userID} userList = {userList} leaveGroupCallback = {leaveGroupCallback} taskCallback = {taskCallback} />
         );
     }
 
     const taskCallback = (newTask) => {
-        props.setNavCoins(sessionStorage.getItem("coins"));
+        setCoins(sessionStorage.getItem("coins"));
         setTasks([...tasks, newTask]);
     }
 
@@ -87,20 +75,12 @@ export default function GroupComponent(props)  {
     }
     
 
-   const renderChat = () => {
-        {/*<ChatBox newHeight = {newHeight} profilePicture = {profilePicture} username = {username} userID = {userID} groupID = {groupID} messages = {[]} taskCallback = {taskCallback} groupName = {groupName} leaveGroupCallback = {leaveGroupCallback} userList = {userList}/>*/}
-        if(userID && username && groupName && groupID) {
-            return (
-                <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
-            );
-        }
-    }
 
     return (
         <div className = "groupComponent">
             <div className = "centerSection" style = {{width: '100%', height: newHeight}}>
                 {userID && username && groupName && groupID ? 
-                <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} userList = {userList} groupPicture = {groupPicture} />
+                <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} groupPicture = {groupPicture} />
                 : null}
 
             </div>
