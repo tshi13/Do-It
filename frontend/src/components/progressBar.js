@@ -5,8 +5,6 @@ const ProgressBar = (props) => {
     const { bgcolor } = props;
     const [progress, setProgress] = useState(0);
 
-
-
     useEffect(() => {
       let compare = props.compare ? props.compare : 0;
       let base = props.base ? props.base : 0;

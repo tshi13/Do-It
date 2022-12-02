@@ -1,6 +1,6 @@
 import axios from 'axios';
-import chatDAO from './chatDAO';
 import axiosSettings from './axiosSettings';
+import chatDAO from './chatDAO';
 
 
 async function getUser(data) {//

@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import useUser from './utils/useUser';
 import {Navigation} from './layouts/Navigation';
 import Home from './routes/HomePage';
