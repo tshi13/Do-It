@@ -17,11 +17,6 @@ export default function GroupModal(props) {
     const [pass, setPass] = useState("");
     const [cost, setCost] = useState(0);
 
-
-      /** 
-     *  This function is called when a new group is created
-     *  It will generate random number as invitation code of the group, people can join the group through this invitation code
-     */
     const generateRandomInviteCode = (length) => {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -33,6 +28,8 @@ export default function GroupModal(props) {
     }
 
   const handleSubmit = () => {
+    // preventDefault();
+    // const { user, setUser, userID} = useUser();
 		let groupID;
     // checks if the user inputs are valid and exist
     if(createGroup) {
