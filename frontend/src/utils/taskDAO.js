@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosSettings from './axiosSettings';
 
 // getting tasks for a user only
 
