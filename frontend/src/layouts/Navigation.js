@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dropdown, NavDropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import '../styles/navigation.css';
 import ProfilePicture from './ProfilePicture';
 import {Buffer} from 'buffer';

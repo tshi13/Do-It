@@ -1,5 +1,5 @@
 import React from "react";
-import { GoogleLogin,GoogleLogout } from 'react-google-login';
+import { GoogleLogin } from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { useEffect } from "react";
 

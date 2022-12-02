@@ -7,25 +7,25 @@ import userDAO from '../../utils/userDAO';
 import '../../styles/GroupTaskBar.css';
 
 export default function GroupTaskBar(props) {
+
     const tasks = props.tasks ? props.tasks : [];
     const style = props.style ? props.style : {};
     const newHeight = props.newHeight;
     const userID = props.userID ? props.userID : null;
-    const [sorted, setSorted] = useState(false);
     const owner = props.owner;
     const userList = props.userList;
-    const [userMap, setUserMap] = useState([]);
-
-    const firstPartOfURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
-
-    const [showTaskModal, setShowTaskModal] = useState(false);
-
-    const [individualTask, setIndividualTask] = useState({});
-    const [groupTask, setGroupTask] = useState({});
     const setCoins = props.setCoins;
-
     const setNotifications = props.setNotifications;
 
+    const [sorted, setSorted] = useState(false);
+    const [userMap, setUserMap] = useState([]);
+    const [showTaskModal, setShowTaskModal] = useState(false);
+    const [individualTask, setIndividualTask] = useState({});
+    const [groupTask, setGroupTask] = useState({});
+    
+    const firstPartOfURL = window.location.href.substring(0, window.location.href.lastIndexOf('/'));
+
+    // Helper function to return dates for tasks
     function getFormattedDate(date) {
         let month = date.getMonth() + 1;
         let day = date.getDate();
@@ -33,15 +33,23 @@ export default function GroupTaskBar(props) {
         return month + "/" + day + "/" + year;
     }
 
+    // Callback for leaving a group
     const leaveGroup = () => {
         props.leaveGroupCallback(props.groupID, userID);
     }
 
+    // Callback for tasks
     const taskCallback = (task) => {
         props.taskCallback(task);
     }
-    
 
+    // Callback for deleting a task
+    const deleteTask = (taskID) => {
+        props.deleteTaskCallback(taskID);
+    }
+
+    // Setting state variables, like tasks array,
+    // to prepare to render them
     useEffect(() => {
         let individualTask = [];
         let groupTask = [];
@@ -76,14 +84,9 @@ export default function GroupTaskBar(props) {
         setUserMap(userMap);   
         
     }, [tasks]);
-
-
-    const deleteTask = (taskID) => {
-        props.deleteTaskCallback(taskID);
-    }
-
- 
     
+    // using .map() to render the list of tasks
+    // in the GroupTaskBar
     const renderTasks = () => {
         if(tasks.length > 0 && sorted ) {
             return (
@@ -171,6 +174,8 @@ export default function GroupTaskBar(props) {
         }
     }
 
+    // Render the .map() list of tasks,
+    // along with the Task Modal (to create new tasks)
     return (
         <div>
             <TaskModal setNotifications = {setNotifications} style ={{float: 'right', marginRight: '1%', marginLeft: '2%', zIndex: "5000"}} show = {showTaskModal} setShow = {setShowTaskModal} groupID = {props.groupID} taskCallback = {taskCallback} userID = {userID} userList = {userList} userMap = {userMap}/>

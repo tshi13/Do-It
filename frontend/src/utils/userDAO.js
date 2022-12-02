@@ -1,6 +1,6 @@
 import axios from 'axios';
-import chatDAO from './chatDAO';
 import axiosSettings from './axiosSettings';
+import chatDAO from './chatDAO';
 
 
 async function getUser(data) {//
@@ -16,7 +16,7 @@ async function addUser(data) {//
 }
 
 async function getGroups(userID) {
-    let res = await axios.get('/groups/' + userID).then(data => data);
+    let res = await axios.get('/users/getGroups/' + userID).then(data => data);
     return res["data"];
 }
 
@@ -57,6 +57,7 @@ async function addTasks(userID, data) {//
     return res["data"];
 }
 
+//No definition in the backend
 async function joinGroup(userID, groupID) {
     let res = await axios.post('/joingroup', {userID: userID, groupID: groupID}).then(data => data);
     return res["data"];
@@ -128,5 +129,3 @@ export default class userDAO {
     }
 
 }
-
-
