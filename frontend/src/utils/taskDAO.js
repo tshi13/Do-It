@@ -8,7 +8,7 @@ async function getTask(taskID) {//
 }
 
 async function addTask(data) {
-    let res = await axios.put('/createTask', data).then(data => data);
+    let res = await axios.put('/tasks/createTask', data).then(data => data);
     return res["data"];
 }
 
