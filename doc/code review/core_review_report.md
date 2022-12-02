@@ -142,3 +142,25 @@ Updates:
 - Remove Footer.js
 - Remove all unused lines of code/ unused imports from all files
 - Refactored all cron operations from index.js backend into separate cronScheduler.js file
+
+Christopher Code Review:
+
+Design: The codebase is well-designed. Each class has a single responsibility, and object inheritance and composition allow for clear relationships between classes. Files like groupDAO.js and userDAO.js follow the Data Access Object model, which is a kind of Dependency Inversion Principle where we use a high-level interface to access the underlying, low-level data in the database.
+
+Complexity: The code could be made somewhat more simple, specifically, in GroupComponent.js functions and variables could be organized better. I just gropued together related functions, and no new functionality was added (link here). Because of the organized filetree and filenames, our use of the Single Responsibility Principle, and our organized and commented code, the code should be relatively easy for other developers to understand in the future.
+
+Tests: We do not have an autograder or autochecker for our tests, but our group has taken care to test thoroughly in the web browser with the console open, carefully check edge cases, and have resilient code that will not crash even if a function call doesn't work (e.g. using Javascript Promises). An example is in TaskModal.js under the handleSubmit() function, where many edge cases are checked first for invalid values entered by the user before they are passed to the database (i.e. data cleaning or checking user input data).
+
+Naming: We did choose very clear and useful variable names, such as "groupID", "taskID", "message", and "createdBy" (in the TaskModal.js class in particular). Our class names are very clear and define the single, focused responsibility of a single file. For example, in the Group folder, we have multiple different files: "GroupList.js", "GroupSettings.js", and "GroupTaskBar.js", to name a few. Each file is named clearly for the single React component it is supposed to render.
+
+Comments: Frequently, our code is clear enough on its own and comments are not needed. In some cases, we could improve our commenting by organizing the code better and removing commented out code. In GroupComponent.js, I added one-line comments which describe each function's purpose.
+
+Style: Yes, the code follows good programming practices such as using interfaces and Data Access Objects (groupDAO, taskDAO, etc.), making each class have a single purpose (Single Responsibility Principle), and making classes open to extension but closed for modification. The Open-Closed principle is seen in the Group object: We can add more React components and features to groups, but the overall concept of the Group (list of users and list of tasks) is set in place.
+- Our project does not allow for nested groups, so the Composite design pattern is not something we chose to implement here (we only have one level of groups, no 'groups within groups').
+- We follow the Factory Design Pattern with CreateGroupButton.js and groupDAO.js, where these two files are responsible for instantiating as many groups as the user would like.
+
+Documentation: Yes, our README.md is periodically updated with local installation instructions and how to access the deployed website (doit-oose.herokuapp.com).
+
+Total list of updates:
+- Reorganized variables and functions in GroupComponent.js and GroupTaskBar.js to group together related variables and functions, improving readability
+- Added one-line comments in GroupComponent.js and GroupTaskBar.js to explain functions
