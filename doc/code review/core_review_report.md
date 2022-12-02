@@ -103,4 +103,23 @@ Updates:
 - add documentations and comments to "GroupModal.js"
 - delete unused and commented code in the file "GroupModal.js" and "LoginForm.js" 
 
+Code review deliverable
+
+Ian code review:
+
+My code review focused on the server code in our project. Overall, I found that our design can be refactored and there are limited testing on existing codebase.
+
+1.	Refactoring
+In previous iterations, we found that all our routes are clustered together in the index.js file, which is suboptimal as it adds complexity in development. To improve the structure, I created three files: GroupRoutes, TaskRoutes, UserRoutes, each corresponding to DAO we have in the frontend and our UML diagram. In addition, I changed all routes to a more structured way with user routes begin with users/, task routes begin with task, and group routes begin with group/.
+
+With this improvement, the complexity is reduced, design is improved, and future development is made a lot more easier.
+
+2.	Tests
+In our backend, there was limited testing to the codes we have. I created end point tests for all get,put and post routes, using supertest and jest. 
+
+Connected to mongoDB database with supertest, I first tested get methods with an existing test user with username ‘test’. Subsequently, I randomly generated a username and password and tested the created the user in the backend in the testing, and then tested update(put) routes that we have.
+
+Fortunately, all tests passed. Due to the time constraint, I did not add tests for tasks routes and group routes. They should definitely be added to validate the robustness of our server code in the future.
+![image](https://user-images.githubusercontent.com/69084400/205331425-7b1e2c75-0226-4207-9658-a87874e80158.png)
+
 
