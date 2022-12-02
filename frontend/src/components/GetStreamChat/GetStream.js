@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { StreamChat } from 'stream-chat';
 import { Chat, Channel, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
-import {Buffer} from 'buffer';
-
-
 import 'stream-chat-react/dist/css/v2/index.css';
 
 const chatClient = new StreamChat('hm7ff5yafac3');

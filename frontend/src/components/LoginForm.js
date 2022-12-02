@@ -1,14 +1,9 @@
-import React, {useEffect, useState } from "react";
+import React, { useState } from "react";
 import userDAO from "../utils/userDAO";
 import GoogleAuth from "./GoogleAuth";
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
-import DoItLogo from '../assets/DoItCrop.png';
-
-
 import '../styles/LoginForm.css';
-// 
 import FacebookLogin from 'react-facebook-login';
-// import FacebookLogin from '@greatsumini/react-facebook-login';
 
 function LoginForm(props) {
   

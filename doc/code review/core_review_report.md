@@ -121,3 +121,24 @@ Connected to mongoDB database with supertest, I first tested get methods with an
 Fortunately, all tests passed. Due to the time constraint, I did not add tests for tasks routes and group routes. They should definitely be added to validate the robustness of our server code in the future.
 
 
+Taiming code review:
+Design: Our code follows our UML diagram design and is divided into different folders with different functionality. Moreover, we follow a good OOP design where all core functionality is divided into their respective DAO objects (chatDAO, groupDAO, taskDAO, userDAO). This makes our code more maintainable and we can easily make changes to the structure of our database by only modifying a very small number of core files.
+
+Complexity: For frontend files, everything is separated into separated small components, which make it easier to understand, maintain, and update. Our backend is also organized into separate Route files which makes it a lot easier to navigate. 
+
+Tests: We currently do not have automated tests for our code. However, we have done rigorous testing for our backend APIs before they were pushed to production.
+
+Naming: Yes, filenames, classes, and important variables have clear naming, as well as supporting comments for complex procedures.
+
+Comments: We have good comments for non-intuitive code, such as how to use our backend APIs, and other complex situations, e.g. Chat integration, calling specific APIs to fetch/post data.
+
+Style: Yes, code is well formatted, with no unused commented out code/ unused imports.
+
+Documentation: Yes, we have good documentation on how to install and step by step instructions on how to use our application in the README.
+
+Updates:
+- Deprecate and remove UseClient.js
+- Remove useFBLoginScript.js
+- Remove Footer.js
+- Remove all unused lines of code/ unused imports from all files
+- Refactored all cron operations from index.js backend into separate cronScheduler.js file

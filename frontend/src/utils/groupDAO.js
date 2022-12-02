@@ -1,5 +1,4 @@
 import axios from 'axios';
-import axiosSettings from './axiosSettings';
 
 async function getGroups(userID) {//This should not be here
     let res = await axios.get('/group/groups/' + userID).then(data => data);

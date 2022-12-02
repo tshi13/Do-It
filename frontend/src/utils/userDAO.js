@@ -1,7 +1,5 @@
 import axios from 'axios';
 import chatDAO from './chatDAO';
-import axiosSettings from './axiosSettings';
-
 
 async function getUser(data) {//
     let res = await axios.get('/users/' + data.name).then(data => data);
