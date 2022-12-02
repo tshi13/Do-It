@@ -103,6 +103,7 @@ Updates:
 - add documentations and comments to "GroupModal.js"
 - delete unused and commented code in the file "GroupModal.js" and "LoginForm.js" 
 
+Code review deliverable
 
 Ian code review:
 
@@ -119,5 +120,6 @@ In our backend, there was limited testing to the codes we have. I created end po
 Connected to mongoDB database with supertest, I first tested get methods with an existing test user with username ‘test’. Subsequently, I randomly generated a username and password and tested the created the user in the backend in the testing, and then tested update(put) routes that we have.
 
 Fortunately, all tests passed. Due to the time constraint, I did not add tests for tasks routes and group routes. They should definitely be added to validate the robustness of our server code in the future.
+![image](https://user-images.githubusercontent.com/69084400/205331425-7b1e2c75-0226-4207-9658-a87874e80158.png)
 
 
