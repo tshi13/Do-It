@@ -22,16 +22,6 @@ router.post("/createUser", async (req,res) =>{ //creates new user
 		} catch (err) {
 			res.status(500).send({ message: "Error creating user with name: " + name })
 		}
-		// User.create({name,password,coins,taskIDList, groupIDList, profilePicture: null})
-		// 	.then((data) => {
-		// 	const hash = await hashPassword(password);
-		// 	res.send(data);
-		// 	})
-		// 	.catch((err) => {
-		// 		res
-		// 		.status(500)
-		// 		.send({ message: "Error creating user with name: " + name })
-		// 	})
 	} else if(googleID != "" || facebookID != "") {
 		try {
 			const user = await User.create({name, password: null, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
@@ -44,36 +34,33 @@ router.post("/createUser", async (req,res) =>{ //creates new user
 	}
 })
 
-router.post("/authenticate",async(req,res) => { // authenticate the user
+
+/**
+ * req.body: 
+ * 	user: A list that contains all fields of a user
+ * 	password: user entered non-hashed password
+ * 	authenticate the user based on the password provided 
+ * 	res: Success -> "Authentication successful!", Failed -> "Wrong username or password!"
+ *  */ 
+router.post("/authenticate",async(req,res) => { 
 	const body = req.body;
 	const user = await User.find({name:body.name});
 	const isAuthenticated = await verifyPassword(body.password, user[0] ? user[0].password : "");
 	if (isAuthenticated) {
-		// return res.status(201).json({
-		// 	message: "Authentication successful!",
-		// });
 		res.status(201).send({ message: "Authentication successful!" })
 	} else {
-		// return res.status(403).json({
-		// 	message: "Wrong username or password!",
-		//   });
 		res.status(201).send({ message: "Wrong username or password!" })
 	}
-// 	.then((data) => {
-// 		const isAuthenticated = await verifyPassword(password, user ? user.password : "");
-// 	})
-// 	User.findById(_id)
-// 		.then((data) => {
-// 			res.send(data);
-// 		})
-// 		.catch(err => {
-// 			res
-// 			.status(500)
-// 			.send({ message: "Error retrieving user with id: " + _id });
-// 		});
-// })
 })
 
+
+/**
+ * req.body: 
+ * 	userID: the objectId from a user
+ * 	data: a list that contains all fields of a user object
+ * 	update the user based on the new data 
+ * 	res: Success -> A copy of the user object, Failed -> Error code
+ *  */ 
 router.put("/updateUser", (req,res) =>{ //updates user
 	const {userID, data} = req.body;
 	User.findByIdAndUpdate(userID, data, {new: true, $set: data})
@@ -138,6 +125,13 @@ router.get("/getUserdata/:_id",(req,res) => { //gets the details of a user
 	})
 })
 
+
+/**
+ * req.params: 
+ * 	_id: the objectId from a user
+ * 	return all the details of a user associated with that objectID
+ * 	res: Success -> A copy of the user object, Failed -> Error code
+ *  */
 router.get("/userdata/:_id",(req,res) => { //gets the details of a user
 	const _id = req.params._id;
 	User.findById(_id)
@@ -174,6 +168,13 @@ router.get("/:name",(req,res) => {
 	})
 })
 
+/**
+ * req.params: 
+ * 	name: username
+ * 	password: user-entered password
+ * 	authenticate the login information 
+ * 	res: Success -> A copy of the user object, Failed -> Error code
+ *  */
 router.get("/login/:name/:password",(req,res) => {
 	
 	const name = req.params.name;
@@ -199,6 +200,13 @@ router.get("/login/:name/:password",(req,res) => {
 	})
 })
 
+/**
+ * req.params: 
+ * 	loginType: type of login, google | facebook
+ * 	key
+ * 	authenticate the login information with either facebook/google credentials
+ * 	res: Success -> A copy of the user object, Failed -> Error code
+ *  */
 router.get('/authLogin/:loginType/:key', (req, res) => {
 	const loginType = req.params.loginType;
 	const key = req.params.key;

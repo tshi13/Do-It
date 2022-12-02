@@ -62,5 +62,41 @@
     z-index: 1;
     overflow-x: hidden;
     overflow-y: hidden;
-    padding-top: 20px;
+}
+
+.roundButton {
+    border-radius: 5%;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    max-width: 80%;
+}
+
+.roundButton:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.purchaseCoins {
+    border-radius: 5%;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.purchaseCoins:hover {
+    background-color: #000000;
+    color: #ffffff;
 }

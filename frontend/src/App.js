@@ -54,7 +54,7 @@ function App() {
 
 
 
-  let newHeight = height - 72;
+  let newHeight = height - (height * 0.11);
 
   return (    
     <div>

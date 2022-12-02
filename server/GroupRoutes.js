@@ -4,11 +4,25 @@ const Group = require("./schemaModels/Group");
 const Task = require("./schemaModels/Task");
 const User = require("./schemaModels/User");
 
-router.put("/createTask", (req,res) => { //creates a new task for a group and adds the coresponding objectID to Group taskIDList
+
+/**
+ *  req.body: 
+ * 	groupName: String
+ *  userID: String
+ *  taskName: String
+ *  coinsEntered: Int
+ * 	createDate: Date obj
+ * 	checkedDate: Date obj
+ * 	createdby: String
+ * 	joinedList: [String], list of ObjectIds of users choose to join this task 
+ * 	coinPool: int
+ * 	creates a new task for a group and adds the coresponding objectID to Group taskIDList
+ * 	res: The new task information or error status code
+ *  */ 
+router.put("/createTask", (req,res) => { 
 	const {groupID, userID, taskName, time = 0 ,coinsEntered = 0, createdDate = new Date(), checkedDate = new Date(), createdBy, joinedList = null, coinPool = null} = req.body;
 	let taskID;
 	let newTaskIDList;
-	// let newCoinBalance;
 	Task.create({userID, taskName, time, coinsEntered, groupID, completedList: [], createdDate, checkedDate, createdBy, joinedList, coinPool})
 	.then((data) => {
 		taskID = data._id;
@@ -19,7 +33,6 @@ router.put("/createTask", (req,res) => { //creates a new task for a group and ad
 	})
 	.then((group) => {
 		newTaskIDList = group.taskIDList;
-		// newCoinBalance = user.coins - coinsEntered;
 		newTaskIDList.push(taskID);
 		return Group.findOneAndUpdate({ _id: groupID}, {taskIDList:newTaskIDList}); // add taskID and update coin balance for user
 	})
@@ -31,13 +44,20 @@ router.put("/createTask", (req,res) => { //creates a new task for a group and ad
 })
 
 /**
- * req.body: 
+ *  req.body: 
  * 	groupName: String
- * 	idList: [String], list of ObjectIds of users in this group 
- * 
- * 	res: Copy of created Group object in database 
+ *  userID: String
+ *  taskIdList: [String], list of taskIds associated with this group
+ *  coinsToJoin: Int
+ * 	password: String
+ * 	owner : String
+ * 	idList: [String], list of ObjectIds of users choose to join this task 
+ * 	typeOfGroup: String
+ *  inviteID: String, id used to invite others to join the group
+ * 	creating a new group. idList is the list of objectIDs of users
+ * 	res: The new task information or error status code
  *  */ 
-router.post("/createGroup", (req,res) =>{  // creating a new group. idList is the list of objectIDs of users
+router.post("/createGroup", (req,res) =>{  
 	const {groupName,idList,taskIDList = [], owner, costToJoin, password, typeOfGroup, inviteID} = req.body;
 	const groupPicture = req.body.groupPicture || null;
 	let groupID;
@@ -67,13 +87,14 @@ router.post("/createGroup", (req,res) =>{  // creating a new group. idList is th
 
 
 
-/** 
- * Leave group
- * req.params: userID groupID 
- * 
- * res: updated user object
- */
 
+/**
+ *  req.params: 
+ * 	userID: String
+ *  groupID: String
+ * 	Remove the user with the userID from a group
+ * 	res: The new group information or the error status code
+ *  */ 
 router.put("/leaveGroup", (req,res) => {
 	const {userID, groupID} = req.body;
 	let newGroupList;
@@ -223,6 +244,12 @@ router.get("/tasks/:_id",(req,res) => { //gets all tasks that an _id has
 })
 
 
+/**
+ * req.params: 
+ * 	_id: ObjectId of group
+ * 
+ * 	res: a list of group objects associated with the groupID in database 
+ *  */ 
 router.get("/groups/:_id",(req,res) => { //gets all groups that an _id has
 	const _id = req.params._id;
 	User.findById(_id)
@@ -263,6 +290,14 @@ router.get("/:_id",(req,res) => {
 			.send({ message: "Error retrieving groups with id: " + _id });
 		});
 })
+
+/** 
+ * req.params:
+ * 	groupID: ObjectId of group
+ *  taskID: ObjectId of the task
+ * 
+ * res: the status of deleting a task -> success / error
+ */
 
 router.delete("/deleteTask/:groupID/:taskID",(req,res) => { //deletes a task from a group
 	const groupID = req.params.groupID;

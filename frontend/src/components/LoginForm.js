@@ -2,6 +2,7 @@ import React, {useEffect, useState } from "react";
 import userDAO from "../utils/userDAO";
 import GoogleAuth from "./GoogleAuth";
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
+import DoItLogo from '../assets/DoItCrop.png';
 
 
 import '../styles/LoginForm.css';
@@ -87,7 +88,6 @@ function LoginForm(props) {
 		window.location.href = "/";	
 	}
 
-  // useEffect hook to redirect to home page after login
 
 
   // Generate JSX code for error message
@@ -96,41 +96,11 @@ function LoginForm(props) {
       <div className="error">{errorMessages.message}</div>
     );
 
-  // const fbContent = () => {
-  //   // let content = ();
-  //   // return content;
-  // }
-
-  // const componentClicked = (event) => {
-  //   FacebookLoginClient.init("865292997959919");
-	// 	FacebookLoginClient.login((res) => {
-	// 	console.log("here");
-	// 	console.log(res);
-	// });
-  // }
-
-  // const responseFacebook = response => {
-  //   if (response.id == null) {
-      
-  //   }
-  //   // 
-  //   console.log(response);
-  //   // make a user with a facebook id
-  //   // if the user in the mongodb with a matching facebook id
-  //   // log that user in
-  //   // otherwise / else go to
-  //   // go to register page with value true add user to database
-  //   // other than that, the register
-    
-  //   // this line below needs to be fixed
-  //   handleFacebookSubmit(response);
-  // }
 
   // facebook submitting for login
   const handleFacebookSubmit = async (facebookResponse) => {
 
 		FacebookLoginClient.init({appId: "865292997959919", version: 'v9.0'});
-		// FacebookLoginClient.login((res) => {});
 
     // this is the id associated with a user
     // on facebook.com
@@ -174,7 +144,7 @@ function LoginForm(props) {
       {isSubmitted ? <div>User is successfully logged in <br></br> <p>Redirecting to Main Page</p></div> : 
         <div style = {{width: '50%'}}>
         <div className="login-form">
-          <p className="title" style ={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '5vh'}}>DoIt</p>
+          <p className="title" style ={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '3vh'}}>Login</p>
           <form onSubmit={handleSubmit}>
             <div className="input">
               <input

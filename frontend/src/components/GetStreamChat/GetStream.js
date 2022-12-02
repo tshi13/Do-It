@@ -1,99 +1,88 @@
-// import React, {useEffect, useState} from 'react';
-// import { StreamChat } from 'stream-chat';
-// import { Chat, Channel, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
-// import GetStream2 from "./GetStream2";
-// import 'stream-chat-react/dist/css/v2/index.css';
-// import chatDAO from '../../utils/chatDAO';
-
-// const chatClient = new StreamChat('hm7ff5yafac3');
-// const userToken = 'DEV'; //DEV TOKEN, DO NOT CHANGE!
+import React, {useEffect, useState} from 'react';
+import { StreamChat } from 'stream-chat';
+import { Chat, Channel, ChannelHeader, MessageInput, MessageList, Thread, Window } from 'stream-chat-react';
+import {Buffer} from 'buffer';
 
 
-// // (async () => {
-// // 	await chatClient.connectUser( //create new user or connect to existing user
-// // 		{
-// // 			id: 'DEV',
-// // 			name: 'DEV',
-// // 			image: 'https://getstream.io/random_png/?id=mute-darkness-4&name=mute-darkness-4',
-// // 		},
-// // 		chatClient.devToken(userToken), //use devtoken as usertoken for now
-// // 	);
+import 'stream-chat-react/dist/css/v2/index.css';
 
-// // 	channel = chatClient.channel('messaging', 'TEST', {  //make channel
-// // 		// add as many custom fields as you'd like
-// // 		image: 'https://www.drupal.org/files/project-images/react.png',
-// // 		name: 'TEST CHANNEL'
-// // 	});
-// // 	await channel.create(); // create channel
-// // 	await channel.addMembers(['DEV'],{ text: 'DEV joined the channel.' }); // add someone to channel
+const chatClient = new StreamChat('hm7ff5yafac3');
+const userToken = 'DEV'; //DEV TOKEN, DO NOT CHANGE!
+
+// the purpose of this function in <GetStream2 /> is to actually display the chat
+// after the user has already been added to the chat by the global_moderator
+// back in <GetStream />
+
+export default function Chatbox2(props)  {
+	const [channel, setChannel] = useState();
+	const [channelName, setChannelName] = useState();
+	const {userID,username,groupID,groupName} = props;
+	const [flag, setFlag] = useState(false);
+	const newHeight = props.newHeight;
+	const [userImage, setUserImage] = useState(props.userImage);
+	const [groupImage, setGroupImage] = useState(props.groupPicture);
+
 	
-// // })();
+	/** 
+	 *  This useEffect is called when the component is first rendered,
+	 *  it will set the channel and channel name for the chat to display
+	 */
+	useEffect(()=> {
+		//let imgFile = Buffer.from(groupImage, 'base64');
+		//let imgURL = URL.createObjectURL(imgFile);
+		//setGroupImage(imgURL);
+		const setupChat = async() => {
+	
+      // connecting the actual user with userID
+			await chatClient.connectUser( //create new user or connect to existing user
+			{
+				id: userID,
+				name: username,
+				//image: '<img src={`data:image/png;base64,${userImage}`}>',
+			},
+			chatClient.devToken(userID), //use devtoken as usertoken for now
+		);
+	
+      // creating or recreating the channel
+			let tempChannel = await chatClient.channel('messaging', groupID, {  //make channel
+				// add as many custom fields as you'd like
+				image: 'https://www.drupal.org/files/project-images/react.png',
+				name: groupName,
+				//image: imgURL,
 
+			});
 
-// // the purpose of this function is to login as a global_moderator
-// // and use the global_moderator to add the userID to the chat
-// // then we will call <GetStream2 /> to form a whole new re-render
-// // so that the userID can login and send messages (done in <GetStream2 />)
+			// await tempChannel.addMembers([{user_id:userID}],{ text: {username} + ' joined the channel.' }); // add someone to channel
+			setChannel(tempChannel);
+			setFlag(true);
+		}
+		setupChat();		
+	},[username, groupName]);
 
-// // re-render was suggested by the following link:
-// // https://bytemeta.vip/repo/GetStream/stream-chat-react/issues/1188
+	/**
+	 *  Render the chat component if the channel has been set
+	 */
+
+	if (flag) {
+		return (
+		// actually rendering the chat since the user has been added to the
+		// group already
+		<div className="chatbox2" style={{height: newHeight}}>
 		
-// export default function Chatbox(props)  {
-// 	const [channel, setChannel] = useState();
-// 	const [channelName, setChannelName] = useState();
-// 	const {userID,username,groupID,groupName} = props;
-// 	const [flag, setFlag] = useState(false);
-
-// 	useEffect(()=> {
-// 		const setupChat = async() => {
-// 			// await chatDAO.createUser(userID, username); // DO NOT DELETE THIS LINE! THIS LINE WORKS AND 
-// 			// ACTS AS AN EXAMPLE OF HOW WE CAN DO STUFF WITHOUT INTRODUCING MULTIPLE RENDERS. THIS FUNCTIONALITY IS ALREADY ACHIEVED IN USERDAO addUser(). 
-
-		
-// 			//log in as global_moderator, add the userID to the group
-// 		// 		await chatClient.connectUser( //create new user or connect to existing user
-// 		// 	{
-// 		// 		id: "global_moderator108438945109697465891073291325065231",
-// 		// 		name: "global_moderator108438945109697465891073291325065231",
-// 		// 		image: 'https://getstream.io/random_png/?id=mute-darkness-4&name=mute-darkness-4',
-// 		// 	},
-// 		// 	chatClient.devToken("global_moderator108438945109697465891073291325065231"), //use devtoken as usertoken for now
-// 		// );
-// 		// chatDAO.createChannel(userID, username, groupID, groupName);
-// 		// chatDAO.moderatorAddUser(userID, username, groupID, groupName);
-				
-// 		// getting the group
-// 			// let tempChannel = await chatClient.channel('messaging', groupID, {  //make channel
-// 			// 	// add as many custom fields as you'd like
-// 			// 	image: 'https://www.drupal.org/files/project-images/react.png',
-// 			// 	name: groupName
-// 			// });
-
-			
-// 			// using the global_moderator logged in to create or recreate the channel
-// 			// and add the userID to become a member of the group 
-// 			// await tempChannel.create(); // create channel
-// 			// await tempChannel.addMembers([{user_id:userID}],{ text: `${username} joined the channel.` }); // add someone to channel
-// 			// setChannel(tempChannel);
-// 			// console.log("chat setup completed 1");
-// 			// console.log(groupName, username);
-
-// 			// logging out of the global_moderator, since we are done with the adding of users
-// 			// await chatClient.disconnectUser();
-// 			setFlag(true);	
-// 		}
-
-// 		if (username && groupName){
-// 			setupChat();		
-// 		}
-// 	},[username, groupName]);
-
-
-// 	if (flag ){
-// 		return (
-// 		<GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName}/>		
-// 	);
-// 	}
-// }
+				<Chat client={chatClient} theme='str-chat__theme-light'>
+			<Channel channel={channel}>
+				<Window>
+				<ChannelHeader />
+				<MessageList />
+				<MessageInput />
+				</Window>
+				<Thread />
+			</Channel>
+			</Chat>
+		</div>
+		);
+	}
+	
+}
 
 
