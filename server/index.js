@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
-const db = require("./db");
+const db =  require("./tests/db");
 const User = require("./schemaModels/User");
 const Task = require("./schemaModels/Task");
 const Group = require("./schemaModels/Group");
