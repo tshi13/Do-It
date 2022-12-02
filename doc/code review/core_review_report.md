@@ -74,3 +74,33 @@ Updates:
 -- Remove commented out code in server/UserRoutes
 -- Add / Refine the documentations and comments in server/UserRoutes
 
+Yujian Code Review:
+
+Design: 
+The code is well designed and compatible to our system. We follow to open-closed principle, most of the functions and class are free to extend without further modificaiton. Also, we follow the interface segregation principle as we do not have a very fat interface so far. However, we failed to follow the dependency inversion principle due to the overall interconnection of the project, which some functions are being used in multiple class.
+
+Complexity:
+I dont think so. The code is pretty clear and easy to follow right now; We always do refactoring on specific iterations to make sure our code logic is reasonable.
+
+Tests:
+Since it is a web application, we have tested with all the functions on our own. Sadly, We do not have automated tests.
+
+Names:
+Yes. I think so. The name is pretty clear and straight forward;
+
+Comments:
+We do not include a lot of comment cause the code is very clear and straight forward; We have comment on the area that may easy to confused reader.
+
+Style:
+Yes. And we also did refactoring after some iterations to make sure the overall style is good and not lengthy.
+
+Documentations:
+Yes, we include the steps to deploy our project locally. All the required package will be installed after follow the steps on readme. In the meantime, we are working on the tutorial for the application itself for the new users. New users can read through the tutorial before using the app.
+
+Updates: 
+- change the file "GetStream2.js" to "GetStream.js" since we removed the first version of GetStream.js
+- remove the file "ChatBoxv2.js", "chatBox.css" because we are no longer using this version of chat API.
+- add documentations and comments to "GroupModal.js"
+- delete unused and commented code in the file "GroupModal.js" and "LoginForm.js" 
+
+
