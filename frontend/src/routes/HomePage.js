@@ -34,7 +34,7 @@ export default function Home(props) {
 		];
 		
 		const options = {
-			title: "Private tasks progress",
+			title: (completedPrivateTasks == 0 && ongoingPrivateTasks == 0)? "Create a task to see your progress here!" :"Private tasks progress",
 			titleTextStyle: {
         fontSize: 18, // 12, 18 whatever you want (don't specify px)
         bold: true
