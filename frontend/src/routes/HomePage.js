@@ -9,6 +9,7 @@ import DisplayTasks from "../components/DisplayTasks";
 import PersonalTaskModal from "../components/Task/PersonalTaskModal";
 import taskDAO from '../utils/taskDAO';
 import userDAO from '../utils/userDAO';
+import { Chart } from "react-google-charts";
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
@@ -23,6 +24,23 @@ export default function Home(props) {
     const [coins, setLocalCoins] = useState(0);
 
     const newHeight = props.newHeight;
+
+
+
+		const data = [
+			["Task", "Hours per Day"],
+			["Work", 11],
+			["Eat", 2],
+			["Commute", 2],
+			["Watch TV", 2],
+			["Sleep", 7],
+		];
+		
+		const options = {
+			title: "Private tasks progress",
+		};
+
+
     
     useEffect(() => {
         //grab groups from database for userID
@@ -131,13 +149,24 @@ export default function Home(props) {
                         <a className = "purchaseCoins" href = "/purchaseCoins">Purchase Coins</a>
                         <p style = {{fontWeight: 'bold'}}>Current Coins: {coins}</p>
                     </div>
+										
 
                     {showTasks ? 
                         <div>
                         <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
                         <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
                         </div>
-                        : null }
+                        : 
+												
+												<div style = {{position:'relative', top:'200px', width:'800px', left:'180px'}}>
+												<Chart
+													chartType="PieChart"
+													data={data}
+													options={options}
+													width={"100%"}
+													height={"400px"}
+												/>
+												</div> }
                 </div>
             )
         }

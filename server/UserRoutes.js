@@ -13,18 +13,18 @@ const { hashPassword, verifyPassword } = require("./utils/hash");
  * 	res: Copy of created User object in database 
  *  */ 
 router.post("/createUser", async (req,res) =>{ //creates new user
-	const {name,password,coins,taskIDList = [],groupIDList = [], googleID = "", facebookID = "", email = ""} = req.body;
+	const {name,password,coins,taskIDList = [],groupIDList = [], googleID = "", facebookID = "", email = "",ongoingPrivateTasks=0, completedPrivateTasks=0} = req.body;
 	if(password != undefined && password != "" && password!=null) {
 		try {
 			const hash = await hashPassword(password);
-			const user = await User.create({name, password: hash, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			const user = await User.create({name, password: hash, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email, ongoingPrivateTasks, completedPrivateTasks});
 			res.send(user);
 		} catch (err) {
 			res.status(500).send({ message: "Error creating user with name: " + name })
 		}
 	} else if(googleID != "" || facebookID != "") {
 		try {
-			const user = await User.create({name, password: null, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			const user = await User.create({name, password: null, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email, ongoingPrivateTasks, completedPrivateTasks});
 			res.send(user);
 		} catch (err) {
 			res.status(500).send({ message: "Error creating user with name: " + name });
@@ -104,6 +104,7 @@ router.get("/getUserdata/:_id",(req,res) => { //gets the details of a user
 	let taskID;
 	let newTaskIDList;
 	let newCoinBalance;
+	let newOngoingPrivateTasks;
 	Task.create({userID, taskName,time,coinsEntered,groupID, completedList: [], createdDate, checkedDate})
 	.then((data) => {
 		taskID = data._id;
@@ -116,7 +117,8 @@ router.get("/getUserdata/:_id",(req,res) => { //gets the details of a user
 		newTaskIDList = user.taskIDList;
 		newCoinBalance = user.coins - coinsEntered;
 		newTaskIDList.push(taskID);
-		return User.findOneAndUpdate({ _id: userID}, {taskIDList:newTaskIDList, coins:newCoinBalance}); // add taskID and update coin balance for user
+		newOngoingPrivateTasks = user.ongoingPrivateTasks + 1;
+		return User.findOneAndUpdate({ _id: userID}, {taskIDList:newTaskIDList, coins:newCoinBalance, ongoingPrivateTasks: newOngoingPrivateTasks}); // add taskID and update coin balance for user
 	})
 	.catch((err) => {
 		res
