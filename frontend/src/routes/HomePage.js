@@ -22,24 +22,34 @@ export default function Home(props) {
     const [showTasks, setShowTasks] = useState(false);
     const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setLocalCoins] = useState(0);
+		const [ongoingPrivateTasks, setOngoingPrivateTasks] = useState();
+		const [completedPrivateTasks, setCompletedPrivateTasks] = useState();
 
     const newHeight = props.newHeight;
 
-
-
-		const data = [
+		const pieData = [
 			["Task", "Hours per Day"],
-			["Work", 11],
-			["Eat", 2],
-			["Commute", 2],
-			["Watch TV", 2],
-			["Sleep", 7],
+			["Ongoing Tasks", ongoingPrivateTasks],
+			["Completed Tasks", completedPrivateTasks],
 		];
 		
 		const options = {
 			title: "Private tasks progress",
+			titleTextStyle: {
+        fontSize: 18, // 12, 18 whatever you want (don't specify px)
+        bold: true
+    }
 		};
 
+	
+
+		// get data for pie chart 
+		useEffect(() => {
+			userDAO.getUserData(userID).then((data) => {
+				setCompletedPrivateTasks(data.completedPrivateTasks);
+				setOngoingPrivateTasks(data.ongoingPrivateTasks);
+			})
+		},[showTasks]);
 
     
     useEffect(() => {
@@ -161,7 +171,7 @@ export default function Home(props) {
 												<div style = {{position:'relative', top:'200px', width:'800px', left:'180px'}}>
 												<Chart
 													chartType="PieChart"
-													data={data}
+													data={pieData}
 													options={options}
 													width={"100%"}
 													height={"400px"}
