@@ -51,13 +51,13 @@ export default function ProfileImage(props) {
         <div style = {{width: '100%'}}>
 
             <div style ={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <p>Either Drop Image into Zone or Upload</p>
+                <p><h6>Either Drop Image into Zone or Upload</h6></p>
                 <input 
                 type="file"
                 accept="image/*"
                 onChange={handleImageChange}
                 ref={fileInput}
-                style ={{marginBottom: '5%'}}
+                style ={{marginBottom: '3%'}}
                  />
                     
                 <Dropzone
@@ -77,7 +77,7 @@ export default function ProfileImage(props) {
                     color = {[255, 255, 255, 0.6]}
                     scale = {scale}
                     rotate = {rotate}
-                    style = {{border: '1px solid black'}}
+                    style = {{border: '2px solid black'}}
                     />
                     </div>
 
@@ -85,10 +85,10 @@ export default function ProfileImage(props) {
                 </Dropzone>
             </div>
             <div style = {{width: '100%', display: 'flex', flexDirection: 'column'}}>
-                <p>Scale</p><input type="range" min="1" max="2" step="0.01" value={scale} onChange={e => setScale(parseFloat(e.target.value))} />
-                <p>Rotate</p><input type="range" min="0" max="360" step="1" value={rotate} onChange={e => setRotate(parseInt(e.target.value))} />
+                <p><h7>Scale</h7></p><input type="range" min="1" max="2" step="0.01" value={scale} onChange={e => setScale(parseFloat(e.target.value))} />
+                <p><h7>Rotate</h7></p><input type="range" min="0" max="360" step="1" value={rotate} onChange={e => setRotate(parseInt(e.target.value))} />
             </div>
-            <button type ="button" className = "buttonDesign" style ={{height: '20%', margin: 'auto', marginBottom: '5%', marginTop: '5%'}} onClick={handleSave}>Upload File</button>
+            <button type ="button" className = "buttonDesign" style ={{height: '20%', margin: 'auto', marginBottom: '5%', marginTop: '3%'}} onClick={handleSave}>Upload File</button>
         </div>
       );
 }
