@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dropdown, NavDropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import '../styles/navigation.css';
 import ProfilePicture from './ProfilePicture';
 import {Buffer} from 'buffer';
@@ -10,7 +10,7 @@ import DoItLogo from '../assets/DoItCrop.png';
 import userDAO from '../utils/userDAO';
 import Bell from '../assets/bell.png';
 import NotificationCard from '../components/NotifcationCard';
-
+import AppBar from '@mui/material/AppBar';
 
 export const Navigation = (props) => { 
 
@@ -103,7 +103,10 @@ export const Navigation = (props) => {
 	}
 	
     return ( 
-        <nav className="navbar navbar-expand-lg" style = {{backgroundColor: props.backgroundColor, maxHeight: '10%'}}>
+		<AppBar position="static">
+
+		
+        <nav className="navbar navbar-expand-lg" style = {{backgroundColor: '#FFFFFF', maxHeight: '10%'}}>
 
 			<a className="imgStyle" aria-current="page" href="/">
 				<img src={DoItLogo} alt="DoItLogo" style = {{width: '75px'}} />
@@ -147,6 +150,7 @@ export const Navigation = (props) => {
 				</div>
 			</div>
 		</nav>		
+		</AppBar>
     );
 
 }
