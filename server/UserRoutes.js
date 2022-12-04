@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const User = require("./schemaModels/User");
+const Group = require("./schemaModels/Group");
 const Task = require("./schemaModels/Task");
 const { hashPassword, verifyPassword } = require("./utils/hash");
+const { generateToken, decryptToken } = require("./utils/token");
+
 
 /**
  * req.body: 
@@ -181,6 +184,7 @@ router.get("/login/:name/:password",(req,res) => {
 	
 	const name = req.params.name;
 	const password = req.params.password;
+	generateToken(name, password);
 	
 	User.find({name:name})
 	.then((data) => {
@@ -259,5 +263,66 @@ router.get("/tasks/:userID",(req,res) => { //gets the tasks of a user
     });	
 })
 
+router.get("/logout/:_id",(req,res) => {
+	const _id = req.params._id;
+	console.log("Logging out user with id: " + _id);
+	res.send("Logged out");
+
+
+	/*User.findOneAndUpdate({_id:_id},{token:null})
+	.then((data) => {
+		res.send("Logged out");
+	})
+	.catch(err => {
+	  res.status(500).send({ message: "Error logging out user with id: " + _id });
+	});*/
+})
+
+router.get("/markOnline/:_id",(req,res) => {
+	const _id = req.params._id;
+	console.log("Marking user with id: " + _id + " as online");
+	User.findById(_id) //find the user
+	.then((data) => { // get the user's groups
+		const groupIDList = data.groupIDList;
+		for(let i = 0; i < groupIDList.length; i++) {
+			Group.findById(groupIDList[i]) //find the group
+			.then((data) => { //get the group's members
+				let memberList = data.onlineMembers;
+				if(!memberList.includes(_id)) { //if the user is not in the group's member list
+					memberList.push(_id); //add the user to the group's member list
+					Group.findOneAndUpdate ({_id:groupIDList[i]},{onlineMembers:memberList}, {new: true, $set: data}) //update the group's member list
+					.then((data) => {
+						console.log("Added user to group");
+					})
+					.catch(err => {
+						res.status(500).send({ message: "Error adding user to group with id: " + groupIDList[i] });
+					});
+				} else {
+					res.send("User Is Already Online");
+				}
+			})
+			.catch(err => {
+				res.status(500).send({ message: "Error finding group with id: " + groupIDList[i] });
+			});
+		}
+	})
+	.catch(err => {
+		
+		res.status(500).send({ message: "Error finding user with id: " + _id });
+	});
+})
+
+	
+
+router.get("/generateToken/:name/:ID/:coins/:loginType",(req,res) => {
+	const name = req.params.name;
+	const ID = req.params.ID;
+	const coins = req.params.coins;
+	const loginType = req.params.loginType;
+
+	let token = generateToken(name, ID, coins, loginType);
+	res.send("Token generated");
+})
+	
 
 module.exports = router

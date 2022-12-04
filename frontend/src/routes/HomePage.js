@@ -3,6 +3,7 @@ import '../styles/Home.css';
 import CreateGroup from "../components/Group/CreateGroupButton";
 import GroupComponent from "../components/Group/GroupComponent";
 import GroupList from "../components/Group/GroupList";
+import GroupSlideshow from "../components/Group/GroupSlideShow";
 import groupDAO from '../utils/groupDAO';
 import {Buffer} from 'buffer';
 import DisplayTasks from "../components/DisplayTasks";
@@ -10,6 +11,8 @@ import PersonalTaskModal from "../components/Task/PersonalTaskModal";
 import taskDAO from '../utils/taskDAO';
 import userDAO from '../utils/userDAO';
 import { Chart } from "react-google-charts";
+
+
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
@@ -22,8 +25,8 @@ export default function Home(props) {
     const [showTasks, setShowTasks] = useState(false);
     const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setLocalCoins] = useState(0);
-		const [ongoingPrivateTasks, setOngoingPrivateTasks] = useState();
-		const [completedPrivateTasks, setCompletedPrivateTasks] = useState();
+    const [ongoingPrivateTasks, setOngoingPrivateTasks] = useState();
+    const [completedPrivateTasks, setCompletedPrivateTasks] = useState();
 
     const newHeight = props.newHeight;
 
@@ -40,8 +43,6 @@ export default function Home(props) {
         bold: true
     }
 		};
-
-	
 
 		// get data for pie chart 
 		useEffect(() => {
@@ -60,17 +61,20 @@ export default function Home(props) {
             for(let i = 0; i < groups.length; i++) {
                 let groupData = {
                     id: groups[i]._id,
-                    groupName: groups[i].groupName,
                     groupPicture: groups[i].groupPicture ? Buffer.from(groups[i].groupPicture).toString('base64') : null,
                 }
+                groupData = {...groups[i], ...groupData};
                 groupList.push(groupData);
             }
             setGroups(groupList);
+
+
         });
         setLocalCoins(sessionStorage.getItem("coins"));
         
     }, []);
 
+    
     useEffect(() => {
         userDAO.getTasks(userID)
             .then((tasks) => {
@@ -168,15 +172,16 @@ export default function Home(props) {
                         </div>
                         : 
 												
-												<div style = {{position:'relative', top:'200px', width:'800px', left:'180px'}}>
-												<Chart
-													chartType="PieChart"
-													data={pieData}
-													options={options}
-													width={"100%"}
-													height={"400px"}
-												/>
-												</div> }
+                        <div style = {{position:'relative', width: '100%', display: 'flex'}}>
+                        <Chart
+                            chartType="PieChart"
+                            data={pieData}
+                            options={options}
+                            width={"60%"}
+                            height={"400px"}
+                        />
+                        <GroupSlideshow groups = {groups} setSelectedID = {setSelectedID} style = {{width: '50vh', float: 'right'}} />
+                        </div> }
                 </div>
             )
         }

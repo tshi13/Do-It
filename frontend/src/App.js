@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Routes, BrowserRouter } from "react-router-dom";
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
 import useUser from './utils/useUser';
 import {Navigation} from './layouts/Navigation';
 import Home from './routes/HomePage';
@@ -10,6 +10,7 @@ import InvitePage from './routes/InvitePage';
 import IntroPage from './routes/IntroPage';
 import RegisterForm from './routes/RegisterPage';
 import NotFound from './routes/NotFoundPage';
+import userDAO from './utils/userDAO';
 
 
 function useWindowSize() {
@@ -23,6 +24,13 @@ function useWindowSize() {
     return () => window.removeEventListener('resize', updateSize);
   }, []);
   return size;
+}
+
+const handleTabClose = (e) => {
+  e.preventDefault();
+  e.returnValue = '';
+  let userID = sessionStorage.getItem("userID");
+  userDAO.logout(userID);
 }
 
 
@@ -52,6 +60,19 @@ function App() {
     //bug with this, it's not updating the notifications in the navbar. (sorry lidia)      
   }
 
+  useEffect(() => {
+    
+    window.addEventListener('beforeunload', handleTabClose);
+    return () => {
+      window.removeEventListener('beforeunload', handleTabClose);
+    }
+  }, []);
+
+  useEffect(() => { 
+    if (userID) {
+      userDAO.markAsOnline(userID);
+    }
+  }, [userID]);
 
 
   let newHeight = height - (height * 0.11);
