@@ -266,13 +266,56 @@ router.get("/tasks/:userID",(req,res) => { //gets the tasks of a user
 router.get("/logout/:_id",(req,res) => {
 	const _id = req.params._id;
 	console.log("Logging out user with id: " + _id);
-	res.send("Logged out");
+	User.findById(_id). then ((data) => {
+		let groupList = data.groupIDList;
+		for(let i = 0; i < groupList.length; i++){
+			Group.findById(groupList[i]). then ((data) => {
+				let onlineUsers = data.onlineUsers;
+				let index = onlineUsers.indexOf(_id);
+				if(index > -1){
+					onlineUsers.splice(index, 1);
+				} 
+				Group.findOneAndUpdate({_id:groupList[i]}, {onlineUsers:onlineUsers}, {new: true, $set: data}).then((data) => {
+					console.log("Successfully removed user from online users list");
+				}).catch((err) => {
+					console.log("Error removing user from online users list");
+				})
+			})
+		}
+	}).then(() => {
+		res.send("Logged out");
+	}).catch(err => {
+		res.status(500).send({ message: "Error marking user with id: " + _id + " as online" });
+	});
 })
 
 router.get("/markOnline/:_id",(req,res) => {
 	const _id = req.params._id;
-	console.log("Marking user with id: " + _id + " as online");
-	res.send("Marked user as online");
+	User.findById(_id).then ((data) => { //get the group list of the user
+		let groupList = data.groupIDList;
+		for(let i = 0; i < groupList.length; i++){
+			let newOnlineUsers = [];
+			Group.findById(groupList[i]). then ((data) => { //get the online users of the group
+				let onlineUsers = data.onlineUsers;
+				let index = onlineUsers.indexOf(_id);
+				if(index == -1){ 
+					onlineUsers.push(_id);
+				}
+				newOnlineUsers = onlineUsers;
+			}).then(() => {
+				Group.findOneAndUpdate({_id:groupList[i]}, {onlineUsers:newOnlineUsers}, {new: true, $set: data}).then(() => {
+					console.log("Marked user with id: " + _id + " as online");
+				}).catch((err) => {
+					console.log("Error marking user with id: " + _id + " as online");
+				})
+			})
+		}
+	}).then(() => { 
+		res.send("Marked as online");
+	}).catch(err => {
+		console.log(err);
+	  res.status(500).send({ message: "Error marking user with id: " + _id + " as online" });
+	});
 })
 
 	

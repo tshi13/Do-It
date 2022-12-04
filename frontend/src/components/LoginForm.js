@@ -17,7 +17,6 @@ function LoginForm(props) {
   const handleLogin = () => {
     setIsSubmitted(true);
     setErrorMessages({});
-    sessionStorage.setItem("activeSession", true);
   };
 
 

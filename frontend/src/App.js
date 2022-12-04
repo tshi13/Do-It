@@ -27,41 +27,33 @@ function useWindowSize() {
 }
 
 const handleLogout = (userID) => {
-  let activeSession = sessionStorage.getItem("activeSession");
-  if(sessionStorage.loggedOutOnAuth) {
-    sessionStorage.removeItem("loggedOutOnAuth");
-  } else if(!activeSession) {
-    sessionStorage.loggedOutOnAuth = true;
-      
-    let useID = typeof userID === String ? userID : sessionStorage.getItem("userID");
+  let useID = typeof userID === String ? userID : JSON.parse(sessionStorage.getItem("userID"));;
     if(useID) {
     userDAO.logout(useID);
-    } 
-  }
+    }  
+    console.log("Logged out");
 }
 
 const handleLogin = (userID) => {
-  let useID = typeof userID === String ? userID : sessionStorage.getItem("userID");
+  let useID = typeof userID === String ? userID : JSON.parse(sessionStorage.getItem("userID"));;
+  console.log(useID);
   if(useID) {
     sessionStorage.setItem("activeSession", true);
     userDAO.markAsOnline(useID);
   }
+  console.log("Logged in");
 }
 
 const handleChange = (e) => {
   let type = e.type;
-  if(type === "visibilitychange") {
+  if(type === "visibilitychange" || type === "pagehide") {
     if(document.visibilityState === "visible") {
       handleLogin();
     } else {
       handleLogout();
     }
   } 
-  if(type === "pagehide") {
-    handleLogout();
-  }
 }
-
 
 function App() {
 
@@ -90,16 +82,13 @@ function App() {
   }
 
   useEffect(() => {
-    
-    window.addEventListener('onload', handleLogout);
-    window.addEventListener('onload', handleLogin);
+    window.addEventListener('load', handleLogin);
     window.addEventListener('visibilitychange', handleChange);
     window.addEventListener('pagehide', handleChange);
     window.addEventListener('beforeunload', handleLogout);
 
     return () => {
-      window.removeEventListener('onload', handleLogout);
-      window.removeEventListener('onload', handleLogin);
+      window.removeEventListener('load', handleLogin);
       window.removeEventListener('visibilitychange', handleLogout);
       window.removeEventListener('pagehide', handleLogout);
       window.removeEventListener('beforeunload', handleLogout);

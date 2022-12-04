@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import {Card} from 'react-bootstrap';
+import userDAO from '../../utils/userDAO';
 
 import '../../styles/GroupSlideshow.css';
 import { Typography } from '@mui/material';
 
 export default function GroupSlideshow(props) {
     const groups = props.groups;
+
+    const [onlineUsers, setOnlineUsers] = React.useState([]);
+    const [owners, setOwners] = React.useState([]);
 
     const handleImage = (groupPicture) => {
         if(groupPicture) {
@@ -26,6 +30,38 @@ export default function GroupSlideshow(props) {
         transitionDuration: 500,
         arrows: true,
     } 
+    
+    useEffect(() => {
+        getAllOnlineUsers();
+        getAllOwners();
+    }, [groups]);
+
+
+    const getAllOnlineUsers = () => {
+        let onlineUsers = [[]];
+        groups.map((group) => {
+            let onlineUsersInGroup = [];
+            let onlineUsersInGroupIDs = group.onlineUsers;
+            onlineUsersInGroupIDs.map((userID) => {
+                userDAO.getUserData(userID).then((user) => {
+                    onlineUsersInGroup.push(user.name);
+                });
+            });
+            onlineUsers.push(onlineUsersInGroup);
+        });
+    }
+
+    const getAllOwners = () => {
+        let owners = [];
+        groups.map((group) => {
+            userDAO.getUserData(group.owner).then((user) => {
+                owners.push(user);
+                if(owners.length === groups.length) {
+                    setOwners(owners);
+                }
+            });
+        });
+    }
 
     return (
         <div className="slide-container" style = {props.style}>
@@ -42,16 +78,19 @@ export default function GroupSlideshow(props) {
                                         <Card.Body>
                                             {handleImage(group.groupPicture)}
                                             <Typography variant="body2" color="text.secondary">
-                                                Group Name: {group.groupName}
+                                                Group Type: {group.typeOfGroup}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
-                                                Group Description: {group.groupDescription}
+                                                Online Users: {group.onlineUsers.length + 1}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
-                                                Group Members: {group.groupMembers}
+                                                Member Count: {group.idList.length}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
-                                                Online Users: {group.onlineUsers}
+                                                Group Owner: {owners[index] ? owners.filter((data) => data._id === group.owner)[0].name : "Loading..."}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Number of Current Tasks: {group.taskIDList.length}
                                             </Typography>
                                         </Card.Body>
                                     </Card.Body>

@@ -83,18 +83,17 @@ async function login(data) {//
     } else {
         res = await axios.get('/users/authLogin/' + data.loginType + '/' + data.key).then(data => data);
     }   
+    return res["data"];
 
 }
 
 async function logout(id) {//
     let res = await axios.get('/users/logout/' + id).then(data => data);
-    console.log(res);
     return res["data"];
 }
 
 async function markAsOnline(id) {
     let res = await axios.get('/users/markOnline/' + id ).then(data => data);
-    console.log(res);
     return res["data"];
 }
 
