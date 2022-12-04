@@ -9,6 +9,8 @@ import DisplayTasks from "../components/DisplayTasks";
 import PersonalTaskModal from "../components/Task/PersonalTaskModal";
 import taskDAO from '../utils/taskDAO';
 import userDAO from '../utils/userDAO';
+import "../styles/GroupList.css"
+import coin from '../assets/coin.webp';
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
@@ -121,15 +123,16 @@ export default function Home(props) {
             return (
                 <div>
                     <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%'}} >
-                        <button className="roundButton" onClick={() => handleShowTasks()}>{!showTasks ? "Show Private Tasks" : "Back"}</button>
-                        <button className="roundButton" onClick={() => {window.location.href = "/profile"}}>Go To Profile</button>
+                        <button className="buttonDesign" onClick={() => handleShowTasks()}>{!showTasks ? "Private Tasks" : "Back"}</button>
+                        <button className="buttonDesign" onClick={() => {window.location.href = "/profile"}}>Go To Profile</button>
                     </div>
                     <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '50%', marginRight: '0'}}>
                         <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} />
                     </div>
                     <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'right', marginRight: '1%', alignText: 'right'}}>
                         <a className = "purchaseCoins" href = "/purchaseCoins">Purchase Coins</a>
-                        <p style = {{fontWeight: 'bold'}}>Current Coins: {coins}</p>
+                        <p style = {{fontWeight: 'bold'}}>
+                        <img src = {coin} style={{width: '30px', height:'30px'}}/>Current Coins: {coins}</p>
                     </div>
 
                     {showTasks ? 
@@ -147,7 +150,7 @@ export default function Home(props) {
         <div>
             <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
 
-                <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px', height: newHeight}}>
+                <div className="groupList" style ={{backgroundColor: '#33DCFF', padding: '10px', height: newHeight}}>
                     <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
                         <CreateGroup userID = {props.userID} groupCallback = {groupCallback}/>
