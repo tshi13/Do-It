@@ -109,12 +109,12 @@ export default function GroupModal(props) {
     <div>
         <header>
           <div >
-            {createGroup ? <p variant="h4" ><h1 className='class_title'>Create Group</h1></p> : <p variant="h4">Edit Group</p>}
+            {createGroup ? <p variant="h4" ><h1 className='class_title_groupcard'>Create Group</h1></p> : <p variant="h4">Edit Group</p>}
           </div>
         </header>
         <form onSubmit={handleSubmit}>
             <div className="form-group" style ={{marginTop: "2%"}}>
-                <TextField type="text" id="filled-basic" label="Group Name" inputProps={ariaLabel} className = "inputBox" onInput={e => setGroupName(e.target.value)} />
+                <TextField type="text" id="outlined-basic" label="Group Name" variant="outlined" inputProps={ariaLabel} className = "inputBox" onInput={e => setGroupName(e.target.value)} />
             </div>
             <div className='type' style ={{display: 'flex', flexDirection: 'column', marginBottom: "5%", marginTop: "10%"}}>
             <FormControl fullWidth>
@@ -143,8 +143,8 @@ export default function GroupModal(props) {
             </div>
             <ProfileImage setImage = {setImage} />
             <div style ={{display: 'flex', flexDirection: 'row',justifyContent: 'space-between'}}>
-            <Button variant="primary" type="button" class="button-63" onClick={handleSubmit}>Confirm</Button>
-            <Button variant="secondary" class="button-64" onClick={props.close}>Close</Button>
+            <Button variant="primary" type="button" className="button-63" onClick={handleSubmit}>Confirm</Button>
+            <Button variant="secondary" className="button-64" onClick={props.close}>Close</Button>
             </div>
             </form>
       </div>
