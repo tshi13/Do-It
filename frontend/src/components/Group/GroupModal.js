@@ -5,7 +5,6 @@ import groupDAO from '../../utils/groupDAO';
 import ProfileImage from '../../unused/ProfilePictureEditor';
 import chatDAO from '../../utils/chatDAO';
 import '../../styles/groupModal.css';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -107,7 +106,7 @@ export default function GroupModal(props) {
    // JSX code for groupModal form
   return (
     <div>
-        <header>
+        <header className = "groupcard_header">
           <div >
             {createGroup ? <p variant="h4" ><h1 className='class_title_groupcard'>Create Group</h1></p> : <p variant="h4">Edit Group</p>}
           </div>

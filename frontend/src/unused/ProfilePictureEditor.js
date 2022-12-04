@@ -88,7 +88,7 @@ export default function ProfileImage(props) {
                 <p><h7>Scale</h7></p><input type="range" min="1" max="2" step="0.01" value={scale} onChange={e => setScale(parseFloat(e.target.value))} />
                 <p><h7>Rotate</h7></p><input type="range" min="0" max="360" step="1" value={rotate} onChange={e => setRotate(parseInt(e.target.value))} />
             </div>
-            <button type ="button" className = "buttonDesign" style ={{height: '20%', margin: 'auto', marginBottom: '5%', marginTop: '3%'}} onClick={handleSave}>Upload File</button>
+            <button type ="button" className = "upload_pic" style ={{height: '20%', margin: 'auto', marginBottom: '5%', marginTop: '3%'}} onClick={handleSave}>Upload File</button>
         </div>
       );
 }
