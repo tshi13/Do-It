@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import groupDAO from '../../utils/groupDAO';
 import userDAO from '../../utils/userDAO';
 import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 import '../../styles/taskModal.css'; 
 
@@ -187,10 +188,10 @@ export default function TaskModal(props) {
           style = {{width: '100%', top: '25%',}}
       >
           <Modal.Header closeButton>
-          <Modal.Title>Add Task</Modal.Title>
+          <Modal.Title><h1 className='class_title'>Add Task</h1></Modal.Title>
           <div id="switch" onClick ={() => {flipModal()}} style ={{width: '60%', marginLeft: '5%'}}>
-            <div className="choice on" id ="individual">Individual</div>
-            <div className="choice" id = "group">Group</div>
+            <div className="choice on" id ="individual"><h1 className='sub_title'>Individual</h1></div>
+            <div className="choice" id = "group"><h1 className='sub_title'>Group</h1></div>
           </div>
           
           </Modal.Header>
@@ -205,36 +206,44 @@ export default function TaskModal(props) {
                   getOptionLabel={(option) => option.name}
                   renderInput={(params) => (
                     <div ref={params.InputProps.ref}>
-                      <input type="text" {...params.inputProps} className = "taskBox2" placeholder = "Select User"/>
+                      <input type="text" {...params.inputProps} className = "taskBox2" placeholder = "   Select User"/>
                     </div>
                   )}
                 /> 
                 : null}
 
                   </div>
-                  <input type="text" placeholder="Task Name" className = "taskBox" onInput={e => setTaskName(e.target.value)} />
-                  <input type="text" placeholder="Task Description" className = "taskBox"  />
-                  {userList && type !== "group" ? <input type="text" placeholder="Coins For Completition"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>
-                  : <input type="text" placeholder="Coins To Join Task"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>}
+                  <div style={{marginBottom: "8%"}}>
+                  {/* <TextField type="text" id="filled-basic" label="Group Name" inputProps={ariaLabel} */}
+                  <TextField type="text" label="Task Name"  className = "taskBox" onInput={e => setTaskName(e.target.value)} />
+                  </div>
+                  <div style={{marginBottom: "8%"}}>
+                  <TextField type="text" label="Task Description" className = "taskBox"/>
+                  </div>
+                  <div style={{marginBottom: "8%"}}>
+                  {userList && type !== "group" ? <TextField type="text" label="Coins For Completition" className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>
+                  : <TextField type="text" label="Coins To Join Task"  className = "taskBox"  onInput={e => setCoinsEntered(e.target.value)}/>}
+                  </div>
                   {type === "group" ? 
-                  <div>
-                    <input type="text" placeholder="Days Between Task Reset" className = "taskBox" onInput={e => setTimeForTask(e.target.value)}/>
-                    <h1 style = {{color: 'red', fontSize: '12px'}}>Note: If you do not enter a number for days between task reset, the task will not reset. Furthermore, the tasks reset occurs at Midnight.</h1>
+                  <div style={{marginBottom: "8%"}}>
+                    <TextField type="text" label="Days Between Task Reset" className = "taskBox" onInput={e => setTimeForTask(e.target.value)}/>
+                    <h1 style = {{color: 'red', fontSize: '12px', marginTop: "8%"}}>Note: If you do not enter a number for days between task reset, the task will not reset. Furthermore, the tasks reset occurs at Midnight.</h1>
                   </div>
                   :
-                  <div> 
-                    <input type="text" placeholder="Days For Task Completition" className = "taskBox" onInput={e => setTimeForTask(e.target.value)}/>
-                    <h1 style = {{color: 'red', fontSize: '12px'}}>Note: If you do not enter a number for days for completition, the task will not be automatically checked. Furthermore, the tasks checks occurs at Midnight.</h1>
+                  <div style={{marginBottom: "5%"}}> 
+                    <TextField type="text" label="Days For Task Completition" className = "taskBox" onInput={e => setTimeForTask(e.target.value)}/>
+                    <h1 style = {{color: 'red', fontSize: '12px', marginTop: "8%"}}>Note: If you do not enter a number for days for completition, the task will not be automatically checked. Furthermore, the tasks checks occurs at Midnight.</h1>
                   </div>
                   }
 
                  
               </div>
-              
-              <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
-              <Button variant="secondary" onClick={() => {setShow(false)}}>
+              <div style ={{display: 'flex', flexDirection: 'row',justifyContent: 'space-between'}}>
+              <Button variant="primary" className='button-63' type="button" onClick={handleSubmit}>Confirm</Button>
+              <Button variant="secondary" className='button-64' onClick={() => {setShow(false)}}>
                   Close
               </Button>
+              </div>
           </form>
           </Modal.Body>
       </Modal>

@@ -38,7 +38,6 @@
 .taskBox {
     width: 100%;
     height: 30px;
-    background-color: lightgray;
     border-radius: 5px;
     border: none;
     margin-top: 2%;
@@ -52,4 +51,88 @@
     border-radius: 5px;
     border: none;
     margin-top: 2%
+}
+
+.button-63 {
+    align-items: center;
+    background-image: linear-gradient(144deg,#71c7e9, #25aadf 50%,#3e8b91);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-family: 'Dancing Script', cursive;
+    font-size: 20px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 10px 10px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.button-63:active,
+.button-63:hover {
+    outline: 0;
+}
+
+@media (min-width: 768px) {
+    .button-63 {
+    font-size: 24px;
+    min-width: 196px;
+    }
+}
+.button-64 {
+    align-items: center;
+    background-image: linear-gradient(144deg,#928f96, #0c0c0e 50%,#667072);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-family: 'Dancing Script', cursive;
+    font-size: 20px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 10px 10px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  
+  .button-64:active,
+  .button-64:hover {
+    outline: 0;
+  }
+  
+  @media (min-width: 768px) {
+    .button-64 {
+      font-size: 24px;
+      min-width: 196px;
+    }
+  }
+
+  .class_title {
+	font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+	font-size: 25px;
+	margin-bottom: 3;
+}
+
+.sub_title {
+	font-family: 'Dancing Script', cursive;
+	font-size: 15px;
+	margin-bottom: 3;
 }

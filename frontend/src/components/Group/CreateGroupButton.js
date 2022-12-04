@@ -3,6 +3,7 @@ import {Button, Modal, Form} from 'react-bootstrap';
 import GroupModal from './GroupModal';
 import "../../styles/GroupList.css"
 
+
 export default function CreateGroup(props) {
 
     const[show, setShow] = useState(false)
@@ -20,7 +21,7 @@ export default function CreateGroup(props) {
 
     return (
         <div style = {style}>
-            <button className = "buttonDesign" size = "lg" onClick={() => {handleShow()}}  style ={{marginTop: '5%'}}>
+            <button className = "buttonDesign" size = "lg" onClick={() => {handleShow()}} >
                 Create Group
             </button>
             <Modal show={show} onHide={handleClose}>
@@ -35,3 +36,4 @@ export default function CreateGroup(props) {
         </div>
     );
 };
+
