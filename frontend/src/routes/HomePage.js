@@ -35,6 +35,7 @@ export default function Home(props) {
 			["Ongoing Tasks", ongoingPrivateTasks],
 			["Completed Tasks", completedPrivateTasks],
 		];
+
 		
 		const options = {
 			title: (completedPrivateTasks == 0 && ongoingPrivateTasks == 0)? "Create a task to see your progress here!" :"Private tasks progress",

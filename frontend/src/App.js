@@ -70,7 +70,7 @@ function App() {
 
   useEffect(() => { 
     if (userID) {
-      userDAO.markAsOnline(userID);
+      //userDAO.markAsOnline(userID);
     }
   }, [userID]);
 
