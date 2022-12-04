@@ -29,6 +29,7 @@ export default function GroupSlideshow(props) {
 
     return (
         <div className="slide-container" style = {props.style}>
+            {groups.length > 0 ? (
             <Slide {...properties}>
                 {groups.map((group, index) => {
                     return (
@@ -38,7 +39,7 @@ export default function GroupSlideshow(props) {
                                     <Card.Body>
                                         <Card.Title>{group.groupName}</Card.Title>
                                         <Card.Subtitle className="mb-2 text-muted">Group Stats</Card.Subtitle>
-                                        <Card.Text>
+                                        <Card.Body>
                                             {handleImage(group.groupPicture)}
                                             <Typography variant="body2" color="text.secondary">
                                                 Group Name: {group.groupName}
@@ -52,14 +53,14 @@ export default function GroupSlideshow(props) {
                                             <Typography variant="body2" color="text.secondary">
                                                 Online Users: {group.onlineUsers}
                                             </Typography>
-                                        </Card.Text>
+                                        </Card.Body>
                                     </Card.Body>
                                 </Card>
                             </div>
                         </div>
                     );
                 })}
-            </Slide>
+            </Slide> ) : null }
         </div>
     )
 

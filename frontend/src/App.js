@@ -26,11 +26,40 @@ function useWindowSize() {
   return size;
 }
 
-const handleTabClose = (e) => {
-  e.preventDefault();
-  e.returnValue = '';
-  let userID = sessionStorage.getItem("userID");
-  userDAO.logout(userID);
+const handleLogout = (userID) => {
+  let activeSession = sessionStorage.getItem("activeSession");
+  if(sessionStorage.loggedOutOnAuth) {
+    sessionStorage.removeItem("loggedOutOnAuth");
+  } else if(!activeSession) {
+    sessionStorage.loggedOutOnAuth = true;
+      
+    let useID = typeof userID === String ? userID : sessionStorage.getItem("userID");
+    if(useID) {
+    userDAO.logout(useID);
+    } 
+  }
+}
+
+const handleLogin = (userID) => {
+  let useID = typeof userID === String ? userID : sessionStorage.getItem("userID");
+  if(useID) {
+    sessionStorage.setItem("activeSession", true);
+    userDAO.markAsOnline(useID);
+  }
+}
+
+const handleChange = (e) => {
+  let type = e.type;
+  if(type === "visibilitychange") {
+    if(document.visibilityState === "visible") {
+      handleLogin();
+    } else {
+      handleLogout();
+    }
+  } 
+  if(type === "pagehide") {
+    handleLogout();
+  }
 }
 
 
@@ -62,17 +91,20 @@ function App() {
 
   useEffect(() => {
     
-    window.addEventListener('beforeunload', handleTabClose);
+    window.addEventListener('onload', handleLogout);
+    window.addEventListener('onload', handleLogin);
+    window.addEventListener('visibilitychange', handleChange);
+    window.addEventListener('pagehide', handleChange);
+    window.addEventListener('beforeunload', handleLogout);
+
     return () => {
-      window.removeEventListener('beforeunload', handleTabClose);
+      window.removeEventListener('onload', handleLogout);
+      window.removeEventListener('onload', handleLogin);
+      window.removeEventListener('visibilitychange', handleLogout);
+      window.removeEventListener('pagehide', handleLogout);
+      window.removeEventListener('beforeunload', handleLogout);
     }
   }, []);
-
-  useEffect(() => { 
-    if (userID) {
-      //userDAO.markAsOnline(userID);
-    }
-  }, [userID]);
 
 
   let newHeight = height - (height * 0.11);
@@ -83,7 +115,7 @@ function App() {
       {isLoggedIn ? 
         <div>
           <BrowserRouter>
-          <Navigation  notifications = {notifications} setNotifications = {setNotifications} backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} setUser = {setUser} username = {user} userID = {userID} searchString = {searchString} setSearchString = {setSearchString} coins={coins} groupCallback = {setSelectedGroup}/>
+          <Navigation handleLogout = {handleLogout}  notifications = {notifications} setNotifications = {setNotifications} backgroundColor = {backgroundColor} isLoggedIn = {isLoggedIn} setUser = {setUser} username = {user} userID = {userID} searchString = {searchString} setSearchString = {setSearchString} coins={coins} groupCallback = {setSelectedGroup}/>
             <Routes>
               <Route path="/" element={<Home setNotifications = {updateNotifications} userID={userID} username = {user} newHeight={newHeight} setNavCoins={setNavCoins} selectedGroup = {selectedGroup} setSelectedGroup = {setSelectedGroup} />} />
               <Route path="/searchGroup" element={<SearchGroup searchString={searchString} userID = {userID} newHeight = {newHeight} />} />

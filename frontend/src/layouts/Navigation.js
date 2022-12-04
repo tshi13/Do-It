@@ -22,6 +22,7 @@ export const Navigation = (props) => {
 	const notifications = props.notifications ? props.notifications : {};
 	const setNotifications = props.setNotifications;
 	const userID = props.userID;
+	const handleLogout = props.handleLogout;
 
 	
 	useEffect(() => {
@@ -32,11 +33,15 @@ export const Navigation = (props) => {
 					let profilePicture = res.profilePicture ? Buffer.from(res.profilePicture.data).toString('base64') : null;
 					setProfilePicture(profilePicture);
 					setNotifications(res.notifications);
-					setCoins(res.coins);
 				}				
 			});
 		}
 	}, [props.username, props.userID, props.coins]);
+
+	useEffect(() => {
+		let coins = sessionStorage.getItem('coins');
+		setCoins(coins);
+	}, [props.coins]);
 
 	const handleRemoveNotification = (taskID) => {
 		let newNotifications = notifications;
@@ -51,6 +56,7 @@ export const Navigation = (props) => {
 	
 	function logOut(e) {
 		e.preventDefault();
+		handleLogout(userID);
 		props.setUser(null, null);
 		if (sessionStorage.getItem("loginType") === "facebook") { // handle facebook logout
 			facebookLogOut();
@@ -60,6 +66,7 @@ export const Navigation = (props) => {
 	}
 
 	function googleLogOut() {
+		handleLogout(userID);
 		props.setUser(null, null);
 		window.location.href = '/';
 		sessionStorage.clear();
@@ -70,6 +77,7 @@ export const Navigation = (props) => {
 			window.FB.init({ apiKey: '865292997959919', version: 'v9.0' });
 			window.FB.getLoginStatus(handleSessionResponse);
 			console.log('logout completed!');
+			handleLogout(userID);
 		});
 	}
 

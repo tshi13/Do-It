@@ -84,10 +84,6 @@ async function login(data) {//
         res = await axios.get('/users/authLogin/' + data.loginType + '/' + data.key).then(data => data);
     }   
 
-    if(typeof res["data"] !== String) {
-        axios.get('/successfulAuth/' + res["data"]._id).then(data => data);
-        return res["data"];
-    }
 }
 
 async function logout(id) {//
@@ -98,6 +94,7 @@ async function logout(id) {//
 
 async function markAsOnline(id) {
     let res = await axios.get('/users/markOnline/' + id ).then(data => data);
+    console.log(res);
     return res["data"];
 }
 
