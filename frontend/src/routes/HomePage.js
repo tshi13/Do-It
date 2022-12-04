@@ -9,8 +9,7 @@ import DisplayTasks from "../components/DisplayTasks";
 import PersonalTaskModal from "../components/Task/PersonalTaskModal";
 import taskDAO from '../utils/taskDAO';
 import userDAO from '../utils/userDAO';
-import "../styles/GroupList.css"
-import coin from '../assets/coin.webp';
+import { Chart } from "react-google-charts";
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
@@ -23,8 +22,35 @@ export default function Home(props) {
     const [showTasks, setShowTasks] = useState(false);
     const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setLocalCoins] = useState(0);
+		const [ongoingPrivateTasks, setOngoingPrivateTasks] = useState();
+		const [completedPrivateTasks, setCompletedPrivateTasks] = useState();
 
     const newHeight = props.newHeight;
+
+		const pieData = [
+			["Task", "Hours per Day"],
+			["Ongoing Tasks", ongoingPrivateTasks],
+			["Completed Tasks", completedPrivateTasks],
+		];
+		
+		const options = {
+			title: (completedPrivateTasks == 0 && ongoingPrivateTasks == 0)? "Create a task to see your progress here!" :"Private tasks progress",
+			titleTextStyle: {
+        fontSize: 18, // 12, 18 whatever you want (don't specify px)
+        bold: true
+    }
+		};
+
+	
+
+		// get data for pie chart 
+		useEffect(() => {
+			userDAO.getUserData(userID).then((data) => {
+				setCompletedPrivateTasks(data.completedPrivateTasks);
+				setOngoingPrivateTasks(data.ongoingPrivateTasks);
+			})
+		},[showTasks]);
+
     
     useEffect(() => {
         //grab groups from database for userID
@@ -123,24 +149,34 @@ export default function Home(props) {
             return (
                 <div>
                     <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%'}} >
-                        <button className="buttonDesign" onClick={() => handleShowTasks()}>{!showTasks ? "Private Tasks" : "Back"}</button>
-                        <button className="buttonDesign" onClick={() => {window.location.href = "/profile"}}>Go To Profile</button>
+                        <button className="roundButton" onClick={() => handleShowTasks()}>{!showTasks ? "Show Private Tasks" : "Back"}</button>
+                        <button className="roundButton" onClick={() => {window.location.href = "/profile"}}>Go To Profile</button>
                     </div>
                     <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '50%', marginRight: '0'}}>
                         <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} />
                     </div>
                     <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'right', marginRight: '1%', alignText: 'right'}}>
                         <a className = "purchaseCoins" href = "/purchaseCoins">Purchase Coins</a>
-                        <p style = {{fontWeight: 'bold'}}>
-                        <img src = {coin} style={{width: '30px', height:'30px'}}/>Current Coins: {coins}</p>
+                        <p style = {{fontWeight: 'bold'}}>Current Coins: {coins}</p>
                     </div>
+										
 
                     {showTasks ? 
                         <div>
                         <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
                         <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
                         </div>
-                        : null }
+                        : 
+												
+												<div style = {{position:'relative', top:'200px', width:'800px', left:'180px'}}>
+												<Chart
+													chartType="PieChart"
+													data={pieData}
+													options={options}
+													width={"100%"}
+													height={"400px"}
+												/>
+												</div> }
                 </div>
             )
         }
@@ -150,7 +186,7 @@ export default function Home(props) {
         <div>
             <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
 
-                <div className="groupList" style ={{backgroundColor: '#33DCFF', padding: '10px', height: newHeight}}>
+                <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px', height: newHeight}}>
                     <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
                         <CreateGroup userID = {props.userID} groupCallback = {groupCallback}/>

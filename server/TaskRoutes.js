@@ -55,7 +55,7 @@ router.get("/getTask/:taskID", (req,res) => { //gets task
 router.delete("/deleteTask/user/:userID/:taskID",(req,res) => { 
 	const userID = req.params.userID;
 	const taskID = req.params.taskID;
-	User.updateOne({ _id: userID },{ $pull: { taskIDList : taskID } })
+	User.updateOne({ _id: userID },{ $pull: { taskIDList : taskID }, $inc : {completedPrivateTasks: 1, ongoingPrivateTasks: -1} })
 		.then(() => {
 			return Task.deleteOne({ _id: taskID});
 		}

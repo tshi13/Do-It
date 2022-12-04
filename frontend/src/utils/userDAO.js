@@ -15,10 +15,10 @@ async function addUser(data) {//
     return res["data"];
 }
 
-async function getGroups(userID) {
-    let res = await axios.get('/users/getGroups/' + userID).then(data => data);
-    return res["data"];
-}
+// async function getGroups(userID) {
+//     let res = await axios.get('/users/getGroups/' + userID).then(data => data);
+//     return res["data"];
+// }
 
 async function getTasks(userID) {
     let res = await axios.get('/users/tasks/' + userID).then(data => data);
@@ -97,9 +97,9 @@ export default class userDAO {
         return addUser(data);
     }
 
-    static getGroups(userID) {
-        return getGroups(userID);
-    }
+    // static getGroups(userID) {
+    //     return getGroups(userID);
+    // }
 
     static getTasks(userID) {
         return getTasks(userID);
