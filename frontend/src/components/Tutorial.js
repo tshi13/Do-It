@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import '../styles/Tutorial.css';
 
-import tutorial1 from '../assets/DoItLogo.png';
+import tutorial1 from '../assets/DoItCrop.png';
 
 export default function Tutorial(props) {
     let [show, setShow] = useState(props.showTutorial);
@@ -62,16 +62,16 @@ export default function Tutorial(props) {
             case 2:
                 return (
                     <div className="tutorial-step">
-                        <div className="tutorial-step-title">Sample Code</div>
+                        <div className="tutorial-step-title">DoIt: An awesome application to find the better you!</div>
                         <img src={tutorial1} alt="tutorial1" className="tutorial-step-image "/>
-                        <div className="tutorial-step-description">Sample Text</div>
+                        <div className="tutorial-step-description">The DoIt App helps you and your friends stay focused and motivated on the important things in life.</div>
                     
                     </div>
                 );
             case 3:
                 return (
                     <div className="tutorial-step">
-                        <div className="tutorial-step-title">Sample Code</div>
+                        <div className="tutorial-step-title"></div>
                         <div className="tutorial-step-description">Sample Text</div>
                     </div>
                 );

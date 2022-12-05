@@ -129,6 +129,11 @@ export default function Home(props) {
         setShowTasks(!showTasks);
     }
 
+    const handleShowTutorial = () => {
+        setShowTutorial(true);
+    }
+    
+
     const renderGroup = () => {
                     
         if(selectedGroupID !== null && checkUserStillInGroup(selectedGroupID) && !showTasks)  {
@@ -141,22 +146,31 @@ export default function Home(props) {
                     <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%'}} >
                         <button className="buttonDesign" onClick={() => handleShowTasks()}>{!showTasks ? "Private Tasks" : "Back"}</button>
                         <button className="buttonDesign" onClick={() => {window.location.href = "/profile"}}>Go To Profile</button>
-                    </div>
-                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '50%', marginRight: '0'}}>
+                        <button className="buttonDesign" onClick={() => handleShowTutorial()}>Tutorial</button>
+                        <button className="buttonDesign" onClick={() => handleShowTutorial()}>Create Personal Task</button>
                         <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} />
                     </div>
-                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'right', marginRight: '1%', alignText: 'right'}}>
+                    <div className = "personalTaskGrid" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '50%', marginLeft: '4%'}}>
+                        {/* <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} /> */}
+                        {showTasks ? 
+                        <div>
+                        {/* <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/> */}
+                        <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
+                        </div>
+                        : null }
+                    </div>
+                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'right', marginRight: '4%', marginTop: '2%', alignText: 'right'}}>
                         <a className = "purchaseCoins" href = "/purchaseCoins">Purchase Coins</a>
                         <p style = {{fontWeight: 'bold'}}>
                         <img src = {coin} style={{width: '30px', height:'30px'}}/>Current Coins: {coins}</p>
                     </div>
 
-                    {showTasks ? 
+                    {/* {showTasks ? 
                         <div>
                         <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
                         <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
                         </div>
-                        : null }
+                        : null } */}
                 </div>
             )
         }

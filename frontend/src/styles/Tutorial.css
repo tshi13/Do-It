@@ -59,7 +59,13 @@
 }
 
 .tutorial-step-image {
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
     object-fit: contain;
 }
