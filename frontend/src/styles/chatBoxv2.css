@@ -39,6 +39,7 @@
 }
 
 .imgAsButton {
+  margin: 10px;
   float: right;
   cursor: pointer;
   width: 40px;

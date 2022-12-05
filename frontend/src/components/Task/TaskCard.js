@@ -216,11 +216,11 @@ export default function TaskCard(props) {
   return (
     <div>
       <ListItem >
-        <Card sx={{ width: '100%', boxShadow: 2}}>
+        <Card sx={{ height:'50%', boxShadow: 3}}>
           <CardContent>
             {task.type !== "private" ? (
               <div>
-                <div className = "buttonStyle" style={{float: "left"}}>
+                <div className = "buttonStyle" style={{float: "left", height:"50%"}}>
                 {(!joined && task.type === "group") || (task.type === "groupIndividual" && userID === task.userID && task.joinedList.length < 2) || !joined  ? (
                     <Button size = "small" onClick={handleJoinTask}>Join Task</Button>
                   ) : (
@@ -228,7 +228,7 @@ export default function TaskCard(props) {
                   )
                 }
                 </div>
-                <div className="buttonStyle" style = {{float: 'right'}} >
+                <div className="buttonStyle" style = {{float: 'right', height:"50%"}} >
                       {showList  ? 
                         <Button size="small" onClick={() => setShowList(false)}>Show Task</Button> : 
                         <Button size="small" onClick={() => setShowList(true)}>Show Stats</Button>
@@ -299,13 +299,13 @@ export default function TaskCard(props) {
                 {
                   task.type === "private" ?
                   <div>
-                    <Typography sx={{ mb: 1 }} color="text.secondary">
+                    <Typography sx={{ mb: 1 }} color="text.secondary" style={{height:"50%"}}>
                       Coins for Completion: {task.coinsEntered}
                     </Typography>
-                    <Typography sx={{ mb: 1 }} color="text.secondary">
+                    <Typography sx={{ mb: 1 }} color="text.secondary" style={{height:"50%"}}>
                       Last Check Off: {task.lastCheckOff}
                     </Typography>
-                    <Typography sx={{ mb: 1 }} color="text.secondary">
+                    <Typography sx={{ mb: 1 }} color="text.secondary" style={{height:"50%"}}>
                       Next Check Off: {task.nextCheckOff} (12 AM)
                     </Typography>
                   </div>
