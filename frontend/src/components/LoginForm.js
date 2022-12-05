@@ -145,18 +145,16 @@ function LoginForm(props) {
 							appId="865292997959919"
 							autoLoad={false}
 							fields="name,email,picture"
-              textButton="   Facebook"
+              textButton="Sign in with Facebook"
+              // icon="fa-facebook"
               cssClass="btnFacebook"
-              icon="fa-facebook"
 							callback={(res) => {handleFacebookSubmit(res);}} />
           </div>
-          <div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+          <div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', padding:'15px'}}>
 							<GoogleAuth handleGoogle = {handleGoogle}/>
 					</div>
-        
-          <div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
-						Or login with
-					</div>
+
+          <div className="header"><h6>or</h6></div>
         
           <p className="title" style ={{color: 'rgb(0, 104, 74)', fontFamily: '"MongoDB Value Serif", "Times New Roman", serif', fontSize: '3vh'}}>Log in to your account</p>
           <form onSubmit={handleSubmit}>
@@ -185,12 +183,15 @@ function LoginForm(props) {
           </form>
 
 
-          <div className="login-form" style ={{marginTop: '5%'}}>
-              <form action="/register" style = {{justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
-                <p>Don't have an account?</p>
-                <input type="submit" value="Register" className = "inputButton"/>
-              </form>
-          </div>
+     
+              {/* <form action="/register" style = {{justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}> */}
+              <span style = {{ display: 'flex', justifyContent: 'center', fontFamily: 'Euclid Circular A', fontSize: '1.6vh'}}>
+                Don't have an account?
+                &nbsp;<a href="/register" style = {{fontFamily: 'Euclid Circular A', fontSize: '1.6vh'}}>Sign Up</a>
+              </span>
+                {/* <input type="submit" value="Register" className = "inputButton"/> */}
+              {/* </form> */}
+    
       	</div>
     }
     </div>

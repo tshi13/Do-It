@@ -1,5 +1,6 @@
 import React from "react";
 import { GoogleLogin } from 'react-google-login';
+import GoogleButton from 'react-google-button'
 import { gapi } from 'gapi-script';
 import { useEffect } from "react";
 
@@ -32,6 +33,9 @@ export default function GoogleAuth(props) {
 			<GoogleLogin
 				clientId={clientId}
 				buttonText="Google"
+				render={renderProps => (
+					<GoogleButton onClick={renderProps.onClick} disabled={renderProps.disabled}>Login with Google</GoogleButton>
+				)}
 				onSuccess={onSuccess}
 				onFailure={onFailure}
 				cookiePolicy={'single_host_origin'}

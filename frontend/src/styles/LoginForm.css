@@ -95,14 +95,32 @@
     color: black;
   }
 
-  .btnFacebook { 
-    width: 15vw;
-    height:45px;  
-    border-radius: 4px;
-    background: #3b5998;
-    color:white;
-    border:0px transparent;  
-    /* text-align: center; */
-    margin:5px;
-    display: inline-block;
-  }
+.btnFacebook { 
+  width: 14vw;
+  height:50px;  
+  border-radius: 4px;
+  background: #3b5998;
+  color:white;
+  border:0px transparent;  
+  margin:5px;
+  display: inline-block;
+}
+
+.header {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center; /* making vertical centerign of all children */
+}
+
+.header::before, .header::after {
+  content: '';
+  flex: 1 1 auto; /* the first digint is 'flex-grow: 1', helps elemet to occupy all free space */ 
+  border-bottom: solid 1px grey;
+}
+
+h6 {
+  flex: 0 1 auto; /* the first digint is flex-grow: 0 */ 
+  padding: 0 15px 0 15px;
+  color: grey;
+}
