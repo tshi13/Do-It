@@ -150,7 +150,7 @@ function LoginForm(props) {
               cssClass="btnFacebook"
 							callback={(res) => {handleFacebookSubmit(res);}} />
           </div>
-          <div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', padding:'15px'}}>
+          <div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', padding:'15px',marginTop:'0px'}}>
 							<GoogleAuth handleGoogle = {handleGoogle}/>
 					</div>
 
