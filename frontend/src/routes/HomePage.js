@@ -201,11 +201,6 @@ export default function Home(props) {
                         <p style = {{fontWeight: 'bold'}}>
                         <img src = {coin} style={{width: '30px', height:'30px'}}/>Current Coins: {coins}</p>
                     </div>
-                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'right', marginRight: '4%', marginTop: '2%', alignText: 'right'}}>
-                        <a className = "purchaseCoins" href = "/purchaseCoins">Purchase Coins</a>
-                        <p style = {{fontWeight: 'bold'}}>Current Coins: {coins}</p>
-                    </div>
-										
 
                      {showTasks ? 
                         <div>
