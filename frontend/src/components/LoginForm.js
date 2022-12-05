@@ -173,7 +173,7 @@ function LoginForm(props) {
       {isSubmitted ? <div>User is successfully logged in <br></br> <p>Redirecting to Main Page</p></div> : 
       <div className="login-form" style={{border:'none', backgroundColor:'transparent'}}>
         <img src={DoitLogo} alt="DoIt Logo" style={{width:'50%', justifyContent:'center', display: 'block', marginLeft: 'auto', marginRight: 'auto', marginTop:'-30%'}}/>  
-        <p className="title" style ={{color: 'rgb(0, 104, 74)', fontFamily: '"MongoDB Value Serif", "Times New Roman", serif', fontSize: '3vh'}}>Log in to your account</p>
+        <p className="title" style ={{color: 'black', fontFamily: '"MongoDB Value Serif", "Times New Roman", serif', fontSize: '3vh'}}>Log in to your account</p>
           <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
             <FacebookLogin
 							appId="865292997959919"
