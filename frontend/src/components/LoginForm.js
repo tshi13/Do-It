@@ -4,6 +4,7 @@ import GoogleAuth from "./GoogleAuth";
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 import '../styles/LoginForm.css';
 import FacebookLogin from 'react-facebook-login';
+import DoitLogo from '../assets/DoItCrop.png';
 
 
 
@@ -137,9 +138,11 @@ function LoginForm(props) {
 
   
   return (
-    <div className="app" style = {{width: '100%'}}>
+    <div className="app" style = {{width: '100%',border:'none', backgroundColor:'transparent'}}>
       {isSubmitted ? <div>User is successfully logged in <br></br> <p>Redirecting to Main Page</p></div> : 
-      <div className="login-form">
+      <div className="login-form" style={{border:'none', backgroundColor:'transparent'}}>
+        <img src={DoitLogo} alt="DoIt Logo" style={{width:'50%', justifyContent:'center', display: 'block', marginLeft: 'auto', marginRight: 'auto', marginTop:'-30%'}}/>  
+        <p className="title" style ={{color: 'rgb(0, 104, 74)', fontFamily: '"MongoDB Value Serif", "Times New Roman", serif', fontSize: '3vh'}}>Log in to your account</p>
           <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
             <FacebookLogin
 							appId="865292997959919"
@@ -156,7 +159,7 @@ function LoginForm(props) {
 
           <div className="header"><h6>or</h6></div>
         
-          <p className="title" style ={{color: 'rgb(0, 104, 74)', fontFamily: '"MongoDB Value Serif", "Times New Roman", serif', fontSize: '3vh'}}>Log in to your account</p>
+          
           <form onSubmit={handleSubmit}>
             <div className="input">
               <input
@@ -174,16 +177,9 @@ function LoginForm(props) {
             </div>
             <div className="input">
               <input type="submit" value="Login" className = "inputButton"/>
-            </div>
-           
-            
-            
-						
-						
+            </div>	
+		
           </form>
-
-
-     
               {/* <form action="/register" style = {{justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}> */}
               <span style = {{ display: 'flex', justifyContent: 'center', fontFamily: 'Euclid Circular A', fontSize: '1.6vh'}}>
                 Don't have an account?

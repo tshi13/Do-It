@@ -1,18 +1,18 @@
 .left {
     float: left;
-    width: 50%;
+    width: 80%;
     height: 100%;
 }
 
 .leftContent {
-    width: 100%;
+    width: 50%;
     height: 100vh;
     background-color: #99ffdd;
 }
 
 .right {
     float: right;
-    width: 50%;
+    width: 20%;
     height: 100%;
     background-color: #f1f1f1;
 }
@@ -35,4 +35,30 @@
     height: 100vh;
     max-height: 100vh;
     overflow: hidden;
+}
+
+.top-right {
+    position: absolute;
+    top: 10%;
+    right: 25%;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 23px;
+    line-height: 31px;
+    font-family: 'Euclid Circular A';
+    display: block;
+    width:370px;
+}
+
+.sub-right {
+    position: absolute;
+    top: 18%;
+    right: 26.2%;
+    color: rgb(255, 255, 255);
+    font-family: 'Euclid Circular A';
+    display: block;
+    font-size: 16px;
+    line-height: 24px;
+    width: 350px;
+    padding: 24px 0px;
 }

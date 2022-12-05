@@ -4,6 +4,7 @@ import userDAO from "../utils/userDAO";
 import GoogleAuth from "../components/GoogleAuth";
 import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 import FacebookLogin from 'react-facebook-login';
+import DoitLogo from '../assets/DoItCrop.png';
 
 function RegisterForm(props) {
   // React States
@@ -140,7 +141,8 @@ const handleGoogle = async (event) => {
   const renderForm = (
     <div>
       <form onSubmit={handleSubmit}>
-      <h2 class="css-13nuthu leafygreen-ui-1wgcd7w">Create your account</h2>
+      <img src={DoitLogo} alt="DoIt Logo" style={{width:'20%', justifyContent:'center', display: 'block', marginLeft: 'auto', marginRight: 'auto', marginTop:'-10%'}}/>
+      <h2 class="css-13nuthu leafygreen-ui-1wgcd7w" style={{justifyContent:'center', display: 'block', marginLeft: '20%', marginRight: 'auto', marginBottom:'5%'}}>Create your account</h2>
       <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
             <FacebookLogin
 							appId="865292997959919"
