@@ -17,7 +17,7 @@ export default function IntroPage(props)  {
             <div className="left">
                 <div className="leftContent">
                     <img src={CoverPage} alt="Cover Page" />  
-                    <div class="top-right">Create, learn and grow in the Do/iT 1.0</div>
+                    <div class="top-right">Create, learn and grow in the Do/it 1.0</div>
                     <div class="sub-right">Power modern applications with enriched collboation capabilities, new mode, added motivational features and more.</div>
                 </div>
             </div>
