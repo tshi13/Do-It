@@ -4,11 +4,17 @@ import Modal from 'react-bootstrap/Modal';
 import '../styles/Tutorial.css';
 
 import tutorial1 from '../assets/DoItCrop.png';
+import CreateGroupIcon from '../assets/CreateGroupIcon.png';
+import GearBox from '../assets/GearBox.png';
+import GroupChat from '../assets/GroupChat.png';
+import GroupInvite from '../assets/GroupInvite.png';
+import SearchGroups from '../assets/SearchGroups.png';
+
 
 export default function Tutorial(props) {
     let [show, setShow] = useState(props.showTutorial);
     let [step, setStep] = useState(1);
-    let [totalSteps, setTotalSteps] = useState(6);
+    let [totalSteps, setTotalSteps] = useState(8);
 
     useEffect(() => {
         setShow(props.showTutorial);
@@ -59,6 +65,7 @@ export default function Tutorial(props) {
                         <div className="tutorial-step-description">This tutorial will walk you through the basics of using the app. Click the <b>Next</b> button to continue.</div>
                     </div>
                 );
+                break;
             case 2:
                 return (
                     <div className="tutorial-step">
@@ -68,20 +75,61 @@ export default function Tutorial(props) {
                     
                     </div>
                 );
+                break;
             case 3:
                 return (
                     <div className="tutorial-step">
-                        <div className="tutorial-step-title"></div>
-                        <div className="tutorial-step-description">Sample Text</div>
+                        <div className="tutorial-step-title">Creating Groups</div>
+                        <img src={CreateGroupIcon} alt="CreateGroupIcon" className="tutorial-step-image" style={{width:"60%"}}/>
+                        <div className="tutorial-step-description">To create a group, please press <b>Create Group</b> on the side bar.</div>
                     </div>
                 );
+                break;
             case 4:
                 return (
                     <div className="tutorial-step">
-                        <div className="tutorial-step-title">Sample Code</div>
-                        <div className="tutorial-step-description">Sample Text</div>
+                        <div className="tutorial-step-title">Inviting Friends</div>
+                        <img src={GroupInvite} alt="GroupInvite" className="tutorial-step-image" style={{width:"60%"}}/>
+                        <div className="tutorial-step-description">After you create a group, you can send the <b>Invite Code</b> on the right side of the screen to your friends.</div>
                     </div>
                 );
+                break;
+            case 5:
+                return (
+                    <div className="tutorial-step">
+                        <div className="tutorial-step-title">Chatting in Groups</div>
+                        <img src={GroupChat} alt="GroupChat" className="tutorial-step-image" style={{width:"60%"}}/>
+                        <div className="tutorial-step-description">You can chat with friends via the <b>group chat!</b></div>
+                    </div>
+                );
+                break;
+            case 6:
+                return (
+                    <div className="tutorial-step">
+                        <div className="tutorial-step-title">Searching for Groups</div>
+                        <img src={SearchGroups} alt="SearchGroups" className="tutorial-step-image" style={{width:"60%"}}/>
+                        <div className="tutorial-step-description">At the center of the top navigation bar, you can <b>search for groups</b> by name or Invite Code.</div>
+                    </div>
+                );
+                break;
+            case 7:
+                return (
+                    <div className="tutorial-step">
+                        <div className="tutorial-step-title">Creating Group Tasks</div>
+                        <img src={GearBox} alt="GearBox" className="tutorial-step-image" style={{width:"60%"}}/>
+                        <div className="tutorial-step-description">You can press the gearbox and then press <b>Create Task</b> to create a task for the entire group. People who press <b>Join Task</b> will be pay coins to join the task and receive their payout on a regular basis if they complete their tasks.</div>
+                    </div>
+                );
+                break;
+            case 8:
+                return (
+                    <div className="tutorial-step">
+                        <div className="tutorial-step-title">That's it!</div>
+                        <img src={tutorial1} alt="tutorial1" className="tutorial-step-image "/>
+                        <div className="tutorial-step-description">You've completed the DoIt tutorial. We hope you enjoy the application! For further questions, please see <a href="https://github.com/jhu-oose-f22/team-doit-project-repo">our Github Repo.</a> Thank you for using DoIt!</div>
+                    </div>
+                );
+                break;
         }
     }
 
