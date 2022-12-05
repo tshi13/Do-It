@@ -96,7 +96,7 @@ function App() {
   }, []);
 
 
-  let newHeight = height - (height * 0.14);
+  let newHeight = height - (height * 0.142);
 
   return (    
     <div style = {{maxHeight: '100vh'}}>
