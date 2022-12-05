@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import GroupTaskBar from "./GroupTaskBar";
 import groupDAO from '../../utils/groupDAO';
-import GetStream2 from '../GetStreamChat/GetStream';
+import GetStream2 from '../GetStreamChat/GetStream2';
 
 import '../../styles/groupComponent.css';
 
@@ -81,7 +81,7 @@ export default function GroupComponent(props)  {
                 : null}
 
             </div>
-            <div className = "rightSection" style = {{width: '20%',  height: newHeight}}>
+            <div className = "rightSection" style = {{width: '35%',  height: newHeight}}>
                 {renderTasks()}
             </div>
         </div>

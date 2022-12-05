@@ -13,6 +13,9 @@ import userDAO from '../utils/userDAO';
 import { Chart } from "react-google-charts";
 
 
+import Tutorial from "../components/Tutorial";
+import "../styles/GroupList.css"
+import coin from '../assets/coin.webp';
 
 export default function Home(props) {
     const [groups, setGroups] = useState([]);
@@ -27,6 +30,7 @@ export default function Home(props) {
     const [coins, setLocalCoins] = useState(0);
     const [ongoingPrivateTasks, setOngoingPrivateTasks] = useState();
     const [completedPrivateTasks, setCompletedPrivateTasks] = useState();
+    const [showTutorial, setShowTutorial] = useState(true);
 
     const newHeight = props.newHeight;
 
@@ -83,8 +87,22 @@ export default function Home(props) {
                     let removeNull = tasks.filter((task) => task !== null);
                     setPrivateTasks(removeNull);
                 }
-            })
+            });
+       
     }, []);
+
+    useEffect(() => {
+        let shownTut = sessionStorage.getItem("shownTutorial");
+        shownTut = "false"; // TODO: REMOVE THIS LINE AFTER TESTING
+
+        if (shownTut === "false" || shownTut === null ) {
+            setShowTutorial(true);
+        } else {
+            setShowTutorial(false);
+        }
+    }, []);
+
+    
 
     const deleteTaskCallback = (taskID) => {
         taskDAO.deleteTask(userID, taskID).then(() => {
@@ -144,6 +162,11 @@ export default function Home(props) {
         setShowTasks(!showTasks);
     }
 
+    const handleShowTutorial = () => {
+        setShowTutorial(true);
+    }
+    
+
     const renderGroup = () => {
                     
         if(selectedGroupID !== null && checkUserStillInGroup(selectedGroupID) && !showTasks)  {
@@ -154,13 +177,22 @@ export default function Home(props) {
             return (
                 <div>
                     <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%'}} >
-                        <button className="roundButton" onClick={() => handleShowTasks()}>{!showTasks ? "Show Private Tasks" : "Back"}</button>
-                        <button className="roundButton" onClick={() => {window.location.href = "/profile"}}>Go To Profile</button>
-                    </div>
-                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '50%', marginRight: '0'}}>
+                        <button className="buttonDesign" onClick={() => handleShowTasks()}>{!showTasks ? "Private Tasks" : "Back"}</button>
+                        <button className="buttonDesign" onClick={() => {window.location.href = "/profile"}}>Go To Profile</button>
+                        <button className="buttonDesign" onClick={() => handleShowTutorial()}>Tutorial</button>
+                        <button className="buttonDesign" onClick={() => handleShowTutorial()}>Create Personal Task</button>
                         <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} />
                     </div>
-                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'right', marginRight: '1%', alignText: 'right'}}>
+                    <div className = "personalTaskGrid" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '50%', marginLeft: '4%'}}>
+                        {/* <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} /> */}
+                        {showTasks ? 
+                        <div>
+                        {/* <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/> */}
+                        <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
+                        </div>
+                        : null }
+                    </div>
+                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'right', marginRight: '4%', marginTop: '2%', alignText: 'right'}}>
                         <a className = "purchaseCoins" href = "/purchaseCoins">Purchase Coins</a>
                         <p style = {{fontWeight: 'bold'}}>Current Coins: {coins}</p>
                     </div>
@@ -191,8 +223,8 @@ export default function Home(props) {
     return (
         <div>
             <div className="home" style = {{display: 'flex', flexDirection: 'row'}}>
-
-                <div className="groupList" style ={{backgroundColor: '#99ffdd', padding: '10px', height: newHeight}}>
+                <Tutorial showTutorial = {showTutorial} setShowTutorial = {setShowTutorial} />
+                <div className="groupList" style ={{backgroundColor: '#33DCFF', padding: '10px', height: newHeight}}>
                     <div className ="sideBar" style = {{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                         <GroupList groups={groups} groupCallback = {setSelectedID} newHeight = {newHeight} setSelectedGroupID = {setSelectedGroupID}/>
                         <CreateGroup userID = {props.userID} groupCallback = {groupCallback}/>

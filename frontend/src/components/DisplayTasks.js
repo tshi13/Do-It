@@ -18,7 +18,7 @@ export default function DisplayTasks(props){
 
     return (
         <>
-            <Grid container spacing={1}>
+            <Grid container spacing={0}>
                 {
                    
                     tasks.map((task, index) => {
@@ -38,7 +38,7 @@ export default function DisplayTasks(props){
                         }
 
                         return (
-                            <Grid item xs={2.2} key={index}>
+                            <Grid item xs={6} key={index} width="100%" >
                                 <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
                             </Grid>
                         );

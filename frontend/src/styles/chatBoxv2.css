@@ -39,6 +39,7 @@
 }
 
 .imgAsButton {
+  margin: 10px;
   float: right;
   cursor: pointer;
   width: 40px;
@@ -425,3 +426,5 @@ Message Box
   }
   
   .dropdown-content a:hover {background-color: #f1f1f1}
+
+  

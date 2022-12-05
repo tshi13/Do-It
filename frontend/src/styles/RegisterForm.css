@@ -60,3 +60,75 @@
     gap: 8px;
     margin: 10px;
   }
+
+  .css-13nuthu {
+    margin-top: 32px;
+    margin-bottom: 80px;
+    padding : 10px;
+}
+
+.leafygreen-ui-1wgcd7w {
+  margin: unset;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 400;
+  font-family: "MongoDB Value Serif", "Times New Roman", serif;
+  color: rgb(0, 104, 74);
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+.btnFacebook { 
+  width: 14vw;
+  height:50px;  
+  border-radius: 4px;
+  background: #3b5998;
+  color:white;
+  border:0px transparent;  
+  margin:5px;
+  display: inline-block;
+}
+
+.header {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center; /* making vertical centerign of all children */
+}
+
+.header::before, .header::after {
+  content: '';
+  flex: 1 1 auto; /* the first digint is 'flex-grow: 1', helps elemet to occupy all free space */ 
+  border-bottom: solid 1px grey;
+}
+
+h6 {
+  flex: 0 1 auto; /* the first digint is flex-grow: 0 */ 
+  padding: 0 15px 0 15px;
+  color: grey;
+}
+
+.leafygreen-ui-ceps5p {
+  width: 100%;
+  font-weight: normal;
+  border: 1px solid rgb(136, 147, 151);
+  transition: border-color 150ms ease-in-out 0s;
+  z-index: 1;
+  outline: none;
+  color: rgb(0, 30, 43);
+  background-color: rgb(255, 255, 255);
+  font-size: 13px;
+  height: 36px;
+  padding-left: 12px;
+  font-family: "Euclid Circular A", Akzidenz, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border-radius: 6px;
+  padding-right: 12px;
+}

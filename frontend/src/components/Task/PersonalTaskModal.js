@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import userDAO from '../../utils/userDAO';
+import TextField from '@mui/material/TextField';
 
 import '../../styles/taskModal.css';
 
@@ -101,24 +102,31 @@ export default function TaskModalUser(props) {
             style = {{width: '100%', top: '25%',}}
         >
             <Modal.Header closeButton>
-            <Modal.Title>Add Task</Modal.Title>
+            <Modal.Title><h1 className='class_title'>Add Task</h1></Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <input type="text" placeholder="Task Name" className = "taskBox" onInput={e => setTaskName(e.target.value)} />
-                    <input type="text" placeholder="Task Description" className = "taskBox" />
-                    <input type="text" placeholder="Coins For Task"  className = "taskBox" onInput={e => setCoinsEntered(e.target.value)}/>
+                    <div style={{marginBottom: "8%"}}> 
+                      <TextField type="text" label="Task Name" className = "taskBox" onInput={e => setTaskName(e.target.value)} />
+                    </div>
+                    <div style={{marginBottom: "8%"}}> 
+                      <TextField type="text" label="Task Description" className = "taskBox" />
+                    </div>
+                    <div style={{marginBottom: "8%"}}> 
+                      <TextField type="text" label="Coins For Task"  className = "taskBox" onInput={e => setCoinsEntered(e.target.value)}/>
+                    </div>
                     <div> 
-                      <input type="text" placeholder="Days For Task Completition" className = "taskBox" onInput={e => setTimeForTask(e.target.value)}/>
-                      <h1 style = {{color: 'red', fontSize: '12px'}}>Note: If you do not enter a number for days for completition, the task will not be automatically checked. Furthermore, the tasks checks occurs at Midnight.</h1>
+                    <TextField type="text" label="Days For Task Completition" className = "taskBox" onInput={e => setTimeForTask(e.target.value)}/>
+                      <h1 style = {{color: 'red', fontSize: '12px', marginTop: "8%"}}>Note: If you do not enter a number for days for completition, the task will not be automatically checked. Furthermore, the tasks checks occurs at Midnight.</h1>
                   </div>
                 </div>
-                
-                <Button variant="primary" type="button" onClick={handleSubmit}>Confirm</Button>
-                <Button variant="secondary" onClick={handleClose}>
+                <div style ={{display: 'flex', flexDirection: 'row',justifyContent: 'space-between'}}>
+                <Button variant="primary" className='button-63' type="button" onClick={handleSubmit}>Confirm</Button>
+                <Button variant="secondary" className='button-64' onClick={handleClose}>
                     Close
                 </Button>
+                </div>
             </form>
             </Modal.Body>
         </Modal>
