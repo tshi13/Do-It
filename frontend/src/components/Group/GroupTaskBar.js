@@ -166,7 +166,7 @@ export default function GroupTaskBar(props) {
                     <h1 style ={{textAlign: 'center'}}>Task List</h1>
                     <p style = {{textAlign: 'center'}}>Group Invite: {props.inviteID}</p>
                     <button className = "button" onClick = {() => {navigator.clipboard.writeText(firstPartOfURL +"/invite/ID=" + props.inviteID)}}>Copy Invite Link To Clipboard</button>
-                    <div style = {{height: '65%'}}>
+                    <div>
                         <h2 style ={{textAlign: 'center'}}>No Tasks</h2>
                     </div>
                 </div>
