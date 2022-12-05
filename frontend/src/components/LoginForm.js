@@ -5,6 +5,8 @@ import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 import '../styles/LoginForm.css';
 import FacebookLogin from 'react-facebook-login';
 
+
+
 function LoginForm(props) {
   
   // React States
@@ -137,9 +139,26 @@ function LoginForm(props) {
   return (
     <div className="app" style = {{width: '100%'}}>
       {isSubmitted ? <div>User is successfully logged in <br></br> <p>Redirecting to Main Page</p></div> : 
-        <div style = {{width: '50%'}}>
-        <div className="login-form">
-          <p className="title" style ={{color: 'black', fontFamily: 'Brush Script MT', fontSize: '3vh'}}>Login</p>
+      <div className="login-form">
+          <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
+            <FacebookLogin
+							appId="865292997959919"
+							autoLoad={false}
+							fields="name,email,picture"
+              textButton="   Facebook"
+              cssClass="btnFacebook"
+              icon="fa-facebook"
+							callback={(res) => {handleFacebookSubmit(res);}} />
+          </div>
+          <div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+							<GoogleAuth handleGoogle = {handleGoogle}/>
+					</div>
+        
+          <div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
+						Or login with
+					</div>
+        
+          <p className="title" style ={{color: 'rgb(0, 104, 74)', fontFamily: '"MongoDB Value Serif", "Times New Roman", serif', fontSize: '3vh'}}>Log in to your account</p>
           <form onSubmit={handleSubmit}>
             <div className="input">
               <input
@@ -159,24 +178,13 @@ function LoginForm(props) {
               <input type="submit" value="Login" className = "inputButton"/>
             </div>
            
-            <div style={{"display": "flex", "justifyContent": "center", "alignItems": "center"}}>
-            <FacebookLogin
-							appId="865292997959919"
-							autoLoad={false}
-							fields="name,email,picture"
-							// onClick={componentClicked}
-							callback={(res) => {handleFacebookSubmit(res);}} />
-            </div>
             
-						<div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
-							Or login with
-						</div>
-						<div style = {{marginTop: '5%', justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
-							<GoogleAuth handleGoogle = {handleGoogle}/>
-						</div>
+            
+						
+						
           </form>
 
-        </div>
+
           <div className="login-form" style ={{marginTop: '5%'}}>
               <form action="/register" style = {{justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column'}}>
                 <p>Don't have an account?</p>
