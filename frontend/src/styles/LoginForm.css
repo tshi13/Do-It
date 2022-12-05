@@ -4,10 +4,12 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    border: none;
     gap: 20px;
     height: 100vh;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-    background-color: #f8f9fd;
+    background-color: transparent;
+    outline: none;
   }
   
   input[type="text"],
@@ -35,9 +37,12 @@
   }
   
   .login-form {
-    background-color: white;
+    background-color: transparent; 
     padding: 2rem;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: none;
+    outline: none;
+    box-shadow: none;
+  
   }
   
   .list-container {
@@ -94,3 +99,34 @@
     opacity: 0.6;
     color: black;
   }
+
+.btnFacebook { 
+  width: 14vw;
+  height:50px;  
+  border-radius: 4px;
+  background: #3b5998;
+  color:white;
+  border:0px transparent;  
+  margin:5px;
+  display: inline-block;
+  margin-top: -10px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center; /* making vertical centerign of all children */
+}
+
+.header::before, .header::after {
+  content: '';
+  flex: 1 1 auto; /* the first digint is 'flex-grow: 1', helps elemet to occupy all free space */ 
+  border-bottom: solid 1px grey;
+}
+
+h6 {
+  flex: 0 1 auto; /* the first digint is flex-grow: 0 */ 
+  padding: 0 15px 0 15px;
+  color: grey;
+}
