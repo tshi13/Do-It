@@ -28,6 +28,12 @@ export default function Home(props) {
     const [showPersonalTaskModal, setShowPersonalTaskModal] = useState(false);
 
     const newHeight = props.newHeight;
+
+    const butttonStyle = {
+        marginLeft: "15px",
+        marginTop: "25px",
+        width: "100%",
+    }
     
     useEffect(() => {
         //grab groups from database for userID
@@ -61,7 +67,6 @@ export default function Home(props) {
 
     useEffect(() => {
         let shownTut = sessionStorage.getItem("shownTutorial");
-        shownTut = "false"; // TODO: REMOVE THIS LINE AFTER TESTING
 
         if (shownTut === "false" || shownTut === null ) {
             setShowTutorial(true);
