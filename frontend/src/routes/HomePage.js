@@ -27,6 +27,12 @@ export default function Home(props) {
     const [showTutorial, setShowTutorial] = useState(true);
 
     const newHeight = props.newHeight;
+
+    const butttonStyle = {
+        marginLeft: "15px",
+        marginTop: "25px",
+        width: "100%",
+    }
     
     useEffect(() => {
         //grab groups from database for userID
@@ -60,7 +66,6 @@ export default function Home(props) {
 
     useEffect(() => {
         let shownTut = sessionStorage.getItem("shownTutorial");
-        shownTut = "false"; // TODO: REMOVE THIS LINE AFTER TESTING
 
         if (shownTut === "false" || shownTut === null ) {
             setShowTutorial(true);
@@ -144,11 +149,11 @@ export default function Home(props) {
             return (
                 <div>
                     <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%'}} >
-                        <button className="buttonDesign" onClick={() => handleShowTasks()}>{!showTasks ? "Private Tasks" : "Back"}</button>
-                        <button className="buttonDesign" onClick={() => {window.location.href = "/profile"}}>Go To Profile</button>
-                        <button className="buttonDesign" onClick={() => handleShowTutorial()}>Tutorial</button>
-                        <button className="buttonDesign" onClick={() => handleShowTutorial()}>Create Personal Task</button>
-                        <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} />
+                        <button className="buttonDesign" onClick={() => handleShowTasks()} style = {butttonStyle}>{!showTasks ? "Private Tasks" : "Back"}</button>
+                        <button className="buttonDesign" onClick={() => {window.location.href = "/profile"}} style = {butttonStyle}>Go To Profile</button>
+                        <button className="buttonDesign" onClick={() => handleShowTutorial()} style = {butttonStyle}>Tutorial</button>
+                        <button className="buttonDesign" onClick={() => handleShowTutorial()} style = {butttonStyle} >Create Personal Task</button>
+                        <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {butttonStyle} />
                     </div>
                     <div className = "personalTaskGrid" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '50%', marginLeft: '4%'}}>
                         {/* <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} /> */}

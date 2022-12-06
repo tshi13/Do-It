@@ -54,10 +54,10 @@ function App() {
 
 
 
-  let newHeight = height - (height * 0.11);
+  let newHeight = height - (height * 0.142);
 
   return (    
-    <div>
+    <div style = {{maxHeight: '100vh'}}>
       <link rel="icon" type="image/ico" href="../public/favicon.ico"/>
       {isLoggedIn ? 
         <div>
