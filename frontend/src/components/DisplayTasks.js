@@ -70,11 +70,11 @@ export default function DisplayTasks(props){
 
     const handleRenderPage = () => {
         if (renderPage) {
-            let boxWidth = width/6;
+            // let boxWidth = width/6;
             return (
                 <div>
-                    <div className="groups" style ={{display: 'flex', flexDirection: 'column', justifyContent: 'center', allignItems: 'center'}}>
-                        <Grid container spacing = {2} style = {{marginLeft: '-8px', marginTop: '10px', width: '100%', justifyContent: 'center'}} >
+                    <div className="groups" style ={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                        <Grid container spacing = {0} style = {{marginLeft: '-8px', marginTop: '10px', width: '100%', justifyContent: 'center'}} >
                             {pages[page].map((task, index) => {
                                 let checkedDate = new Date(task.checkedDate);
                                 let modifiedDate = new Date(task.checkedDate);
@@ -92,7 +92,7 @@ export default function DisplayTasks(props){
                                 }
         
                                 return (
-                                    <Grid item xs={5.8} key={index} width="100%" >
+                                    <Grid item xs={6} key={index} width="100%" >
                                         <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
                                     </Grid>
                                 );
@@ -138,7 +138,7 @@ export default function DisplayTasks(props){
 
                         return (
                             <Grid item xs={5.8} key={index} width="100%" >
-                                <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
+                                    <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
                             </Grid>
                         );
                     })
