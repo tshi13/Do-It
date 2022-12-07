@@ -10,6 +10,7 @@ import taskDAO from '../../utils/taskDAO';
 import Grid from '@mui/material/Grid';
 import ConfirmBox from '../ConfirmBox';
 import userDAO from '../../utils/userDAO';
+import "../../styles/TaskButton.css"
 
 
 
@@ -216,7 +217,7 @@ export default function TaskCard(props) {
   return (
     <div>
       <ListItem >
-        <Card sx={{ height:'50%', boxShadow: 3}}>
+        <Card sx={{ height:'50%', boxShadow: 3, borderRadius: '16px'}}>
           <CardContent>
             {task.type !== "private" ? (
               <div>
