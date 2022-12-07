@@ -90,8 +90,8 @@ export default function GroupTaskBar(props) {
     const renderTasks = () => {
         if(tasks.length > 0 && sorted ) {
             return (
-            // <div style = {{height: newHeight}} className = "taskList" >
-            <div className = "taskList">    
+            <div style = {{height: newHeight}} className = "taskList" >
+            {/* <div className = "taskList">     */}
                 <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
                 <h1 style ={{textAlign: 'center'}}>Task List</h1>
                 <p style = {{textAlign: 'center'}}>Group Invite: {props.inviteID}</p>
@@ -162,7 +162,7 @@ export default function GroupTaskBar(props) {
             );
         } else {
             return (
-                <div style = {{height: newHeight, width: "100%"}} className = "taskList">
+                <div style = {{height: newHeight}} className = "taskList">
                 {/* <div className = "taskList"> */}
                     
                     <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
