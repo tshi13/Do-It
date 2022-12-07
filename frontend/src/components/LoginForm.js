@@ -17,6 +17,12 @@ function LoginForm(props) {
   const [password, setPassword] = useState("");
 
 
+  const handleLogin = () => {
+    setIsSubmitted(true);
+    setErrorMessages({});
+  };
+
+
   // User Login info
   const handleSubmit = (event) => {
     //Prevent page reload
@@ -32,12 +38,10 @@ function LoginForm(props) {
     userDAO.getUser(data).then((response) => {
       if (response !== "User not found") {
         userDAO.authenticate(data).then((msg) => {
-          console.log(msg);
           if (msg.message == "Authentication successful!") {
             userDAO.getUserData(response._id).then((res) => {
               props.setUser(data.name, res._id, res.coins);
-              setIsSubmitted(true);
-              window.location.href = "/";
+              handleLogin();
             });
           } else {
             setIsSubmitted(false);
@@ -45,7 +49,6 @@ function LoginForm(props) {
             setErrorMessages({ name: "pass", message: "Unmatched Credentials!!" });
           }
         });
-        
         
       } else {
         setIsSubmitted(false);
@@ -82,8 +85,7 @@ function LoginForm(props) {
 		}
 		
 		props.setUser(data.name, id, coins);
-		setIsSubmitted(true);
-		window.location.href = "/";	
+		handleLogin();
 	}
 
   // useEffect hook to redirect to home page after login
@@ -163,8 +165,7 @@ function LoginForm(props) {
 		}
 		
 		props.setUser(data.name, id, coins);
-		setIsSubmitted(true);
-		window.location.href = "/";	    
+		handleLogin();	    
 };
 
   
