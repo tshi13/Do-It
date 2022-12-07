@@ -11,6 +11,7 @@ const GroupSchema = new mongoose.Schema({
 	costToJoin: {type: Number, required: false},
 	password: {type: String, required: false},
 	inviteID: {type: String, required: false},
+	onlineUsers: {type: [String], required: false},
 });
 
 const Group = mongoose.model("Group", GroupSchema);

@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const User = require("./schemaModels/User");
+const Group = require("./schemaModels/Group");
 const Task = require("./schemaModels/Task");
 const { hashPassword, verifyPassword } = require("./utils/hash");
+const { generateToken, decryptToken } = require("./utils/token");
+
 
 /**
  * req.body: 
@@ -13,18 +16,18 @@ const { hashPassword, verifyPassword } = require("./utils/hash");
  * 	res: Copy of created User object in database 
  *  */ 
 router.post("/createUser", async (req,res) =>{ //creates new user
-	const {name,password,coins,taskIDList = [],groupIDList = [], googleID = "", facebookID = "", email = ""} = req.body;
+	const {name,password,coins,taskIDList = [],groupIDList = [], googleID = "", facebookID = "", email = "",ongoingPrivateTasks=0, completedPrivateTasks=0} = req.body;
 	if(password != undefined && password != "" && password!=null) {
 		try {
 			const hash = await hashPassword(password);
-			const user = await User.create({name, password: hash, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			const user = await User.create({name, password: hash, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email, ongoingPrivateTasks, completedPrivateTasks});
 			res.send(user);
 		} catch (err) {
 			res.status(500).send({ message: "Error creating user with name: " + name })
 		}
 	} else if(googleID != "" || facebookID != "") {
 		try {
-			const user = await User.create({name, password: null, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email});
+			const user = await User.create({name, password: null, coins,taskIDList, groupIDList, profilePicture: null, googleID, facebookID, email, ongoingPrivateTasks, completedPrivateTasks});
 			res.send(user);
 		} catch (err) {
 			res.status(500).send({ message: "Error creating user with name: " + name });
@@ -104,6 +107,7 @@ router.get("/getUserdata/:_id",(req,res) => { //gets the details of a user
 	let taskID;
 	let newTaskIDList;
 	let newCoinBalance;
+	let newOngoingPrivateTasks;
 	Task.create({userID, taskName,time,coinsEntered,groupID, completedList: [], createdDate, checkedDate})
 	.then((data) => {
 		taskID = data._id;
@@ -116,7 +120,8 @@ router.get("/getUserdata/:_id",(req,res) => { //gets the details of a user
 		newTaskIDList = user.taskIDList;
 		newCoinBalance = user.coins - coinsEntered;
 		newTaskIDList.push(taskID);
-		return User.findOneAndUpdate({ _id: userID}, {taskIDList:newTaskIDList, coins:newCoinBalance}); // add taskID and update coin balance for user
+		newOngoingPrivateTasks = user.ongoingPrivateTasks + 1;
+		return User.findOneAndUpdate({ _id: userID}, {taskIDList:newTaskIDList, coins:newCoinBalance, ongoingPrivateTasks: newOngoingPrivateTasks}); // add taskID and update coin balance for user
 	})
 	.catch((err) => {
 		res
@@ -179,6 +184,7 @@ router.get("/login/:name/:password",(req,res) => {
 	
 	const name = req.params.name;
 	const password = req.params.password;
+	generateToken(name, password);
 	
 	User.find({name:name})
 	.then((data) => {
@@ -257,5 +263,72 @@ router.get("/tasks/:userID",(req,res) => { //gets the tasks of a user
     });	
 })
 
+router.get("/logout/:_id",(req,res) => {
+	const _id = req.params._id;
+	console.log("Logging out user with id: " + _id);
+	User.findById(_id). then ((data) => {
+		let groupList = data.groupIDList;
+		for(let i = 0; i < groupList.length; i++){
+			Group.findById(groupList[i]). then ((data) => {
+				let onlineUsers = data.onlineUsers;
+				let index = onlineUsers.indexOf(_id);
+				if(index > -1){
+					onlineUsers.splice(index, 1);
+				} 
+				Group.findOneAndUpdate({_id:groupList[i]}, {onlineUsers:onlineUsers}, {new: true, $set: data}).then((data) => {
+					console.log("Successfully removed user from online users list");
+				}).catch((err) => {
+					console.log("Error removing user from online users list");
+				})
+			})
+		}
+	}).then(() => {
+		res.send("Logged out");
+	}).catch(err => {
+		res.status(500).send({ message: "Error marking user with id: " + _id + " as online" });
+	});
+})
+
+router.get("/markOnline/:_id",(req,res) => {
+	const _id = req.params._id;
+	User.findById(_id).then ((data) => { //get the group list of the user
+		let groupList = data.groupIDList;
+		for(let i = 0; i < groupList.length; i++){
+			let newOnlineUsers = [];
+			Group.findById(groupList[i]). then ((data) => { //get the online users of the group
+				let onlineUsers = data.onlineUsers;
+				let index = onlineUsers.indexOf(_id);
+				if(index == -1){ 
+					onlineUsers.push(_id);
+				}
+				newOnlineUsers = onlineUsers;
+			}).then(() => {
+				Group.findOneAndUpdate({_id:groupList[i]}, {onlineUsers:newOnlineUsers}, {new: true, $set: data}).then(() => {
+					console.log("Marked user with id: " + _id + " as online");
+				}).catch((err) => {
+					console.log("Error marking user with id: " + _id + " as online");
+				})
+			})
+		}
+	}).then(() => { 
+		res.send("Marked as online");
+	}).catch(err => {
+		console.log(err);
+	  res.status(500).send({ message: "Error marking user with id: " + _id + " as online" });
+	});
+})
+
+	
+
+router.get("/generateToken/:name/:ID/:coins/:loginType",(req,res) => {
+	const name = req.params.name;
+	const ID = req.params.ID;
+	const coins = req.params.coins;
+	const loginType = req.params.loginType;
+
+	let token = generateToken(name, ID, coins, loginType);
+	res.send("Token generated");
+})
+	
 
 module.exports = router
