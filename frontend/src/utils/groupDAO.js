@@ -18,7 +18,7 @@ async function getUser(groupID) {
 }
 
 async function getTasks(groupID) {
-    let res = await axios.get('/group/tasks' + groupID).then(data => data);
+    let res = await axios.get('/group/tasks/' + groupID).then(data => data);
     return res["data"];
 }
 

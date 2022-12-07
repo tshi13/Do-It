@@ -3,12 +3,16 @@ import '../styles/Home.css';
 import CreateGroup from "../components/Group/CreateGroupButton";
 import GroupComponent from "../components/Group/GroupComponent";
 import GroupList from "../components/Group/GroupList";
+import GroupSlideshow from "../components/Group/GroupSlideShow";
 import groupDAO from '../utils/groupDAO';
 import {Buffer} from 'buffer';
 import DisplayTasks from "../components/DisplayTasks";
 import PersonalTaskModal from "../components/Task/PersonalTaskModal";
 import taskDAO from '../utils/taskDAO';
 import userDAO from '../utils/userDAO';
+import { Chart } from "react-google-charts";
+
+
 import Tutorial from "../components/Tutorial";
 import "../styles/GroupList.css"
 import coin from '../assets/coin.webp';
@@ -24,10 +28,35 @@ export default function Home(props) {
     const [showTasks, setShowTasks] = useState(false);
     const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setLocalCoins] = useState(0);
+    const [ongoingPrivateTasks, setOngoingPrivateTasks] = useState();
+    const [completedPrivateTasks, setCompletedPrivateTasks] = useState();
     const [showTutorial, setShowTutorial] = useState(false);
     const [showPersonalTaskModal, setShowPersonalTaskModal] = useState(false);
 
     const newHeight = props.newHeight;
+
+		const pieData = [
+			["Task", "Hours per Day"],
+			["Ongoing Tasks", ongoingPrivateTasks],
+			["Completed Tasks", completedPrivateTasks],
+		];
+
+		
+		const options = {
+			title: (completedPrivateTasks == 0 && ongoingPrivateTasks == 0)? "Create a task to see your progress here!" :"Private tasks progress",
+			titleTextStyle: {
+        fontSize: 18, // 12, 18 whatever you want (don't specify px)
+        bold: true
+    }
+		};
+
+		// get data for pie chart 
+		useEffect(() => {
+			userDAO.getUserData(userID).then((data) => {
+				setCompletedPrivateTasks(data.completedPrivateTasks);
+				setOngoingPrivateTasks(data.ongoingPrivateTasks);
+			})
+		},[showTasks]);
 
     const butttonStyle = {
         marginLeft: "15px",
@@ -43,17 +72,20 @@ export default function Home(props) {
             for(let i = 0; i < groups.length; i++) {
                 let groupData = {
                     id: groups[i]._id,
-                    groupName: groups[i].groupName,
                     groupPicture: groups[i].groupPicture ? Buffer.from(groups[i].groupPicture).toString('base64') : null,
                 }
+                groupData = {...groups[i], ...groupData};
                 groupList.push(groupData);
             }
             setGroups(groupList);
+
+
         });
         setLocalCoins(sessionStorage.getItem("coins"));
         
     }, []);
 
+    
     useEffect(() => {
         userDAO.getTasks(userID)
             .then((tasks) => {
@@ -175,12 +207,25 @@ export default function Home(props) {
                         <p style = {{fontWeight: 'bold'}}>
                         <img src = {coin} style={{width: '30px', height:'30px'}}/>Current Coins: {coins}</p>
                     </div>
-
-                    {showTasks ? 
+										<div style = {{position:'relative', width: '100%', display: 'flex'}}>
+                        <Chart
+                            chartType="PieChart"
+                            data={pieData}
+                            options={options}
+                            width={"60%"}
+                            height={"400px"}
+                        />
+										</div>
+                     {showTasks ? 
                         <div>
                         {/* <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} /> */}
                         </div>
-                        : null }
+                        : 
+												
+                        <div style = {{position:'relative', width: '100%', display: 'flex'}}>
+
+                        <GroupSlideshow groups = {groups} setSelectedID = {setSelectedID} style = {{width: '60vh', float: 'right', position: 'absolute', left:'75vh', top:'-65vh'}} />
+                        </div> }
                 </div>
             )
         }
