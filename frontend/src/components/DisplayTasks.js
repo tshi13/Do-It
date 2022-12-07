@@ -36,13 +36,14 @@ function useWindowSize() {
 
 export default function DisplayTasks(props){
 
-    const tasks = props.privateTasks;
+    const privateTasks = props.privateTasks;
     const userID = props.userID;
     const deleteTask = props.deleteTask;
     const setCoins = props.setCoins;
 
     // const { userID } = props;
     // const [groups, setGroups] = useState([]);
+    let [tasks, setTasks] = useState([]);
     const [page, setPage] = useState(1);
     const [pages, setPages] = useState({});
     const [maxPages, setMaxPages] = useState(0);
@@ -51,17 +52,21 @@ export default function DisplayTasks(props){
     const [width, height] = useWindowSize();
 
     useEffect(() => {
+        // setTasks([...privateTasks]);
+        tasks = privateTasks;
+        // console.log(tasks);
+        // console.log(privateTasks);
         // const query = window.sessionStorage.getItem("searchQuery");
         // const type = window.sessionStorage.getItem("searchType");
         // groupDao.searchGroup(query, type).then((data) => {
         //     setGroups(data)
-            createPages(tasks, 4).then((data) => {
+            createPages(tasks, 6).then((data) => {
                 setPages(data["pages"]);
                 setMaxPages(data["maxPages"]);
                 setRenderPage(true);
             });
         // });   
-    }, []);
+    }, [privateTasks]);
 
     
     const handlePageChange = (event, value) => {
@@ -92,9 +97,8 @@ export default function DisplayTasks(props){
                                 }
         
                                 return (
-                                    <Grid item xs={6} key={index} width="100%" >
                                         <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
-                                    </Grid>
+                                    
                                 );
                             })}
                         </Grid>
