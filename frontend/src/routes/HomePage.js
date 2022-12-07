@@ -207,14 +207,7 @@ export default function Home(props) {
                         <p style = {{fontWeight: 'bold'}}>
                         <img src = {coin} style={{width: '30px', height:'30px'}}/>Current Coins: {coins}</p>
                     </div>
-
-                     {showTasks ? 
-                        <div>
-                        {/* <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} /> */}
-                        </div>
-                        : 
-												
-                        <div style = {{position:'relative', width: '100%', display: 'flex'}}>
+										<div style = {{position:'relative', width: '100%', display: 'flex'}}>
                         <Chart
                             chartType="PieChart"
                             data={pieData}
@@ -222,7 +215,16 @@ export default function Home(props) {
                             width={"60%"}
                             height={"400px"}
                         />
-                        <GroupSlideshow groups = {groups} setSelectedID = {setSelectedID} style = {{width: '50vh', float: 'right'}} />
+										</div>
+                     {showTasks ? 
+                        <div>
+                        {/* <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} /> */}
+                        </div>
+                        : 
+												
+                        <div style = {{position:'relative', width: '100%', display: 'flex'}}>
+
+                        <GroupSlideshow groups = {groups} setSelectedID = {setSelectedID} style = {{width: '60vh', float: 'right', position: 'absolute', left:'75vh', top:'-65vh'}} />
                         </div> }
                 </div>
             )
