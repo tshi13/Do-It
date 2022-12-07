@@ -153,11 +153,11 @@ export default function Home(props) {
             return (
                 <div>
                     <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%'}} >
-                        <button className="buttonDesign" onClick={() => handleShowTasks()} >{!showTasks ? "Private Tasks" : "Back"}</button>
-                        <button className="buttonDesign" onClick={() => {window.location.href = "/profile"}} >Go To Profile</button>
-                        <button className="buttonDesign" onClick={() => handleShowTutorial()} >Tutorial</button>
-                        <button className="buttonDesign" onClick={() => handleShowPersonalTaskModal()}  >Create Personal Task</button>
-                        <CreateGroup groupCallback = {groupCallback} userID = {props.userID}  />
+                        <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowTasks()} >{!showTasks ? "Private Tasks" : "Back"}</button>
+                        <button className="buttonDesign" style = {butttonStyle} onClick={() => {window.location.href = "/profile"}} >Go To Profile</button>
+                        <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowTutorial()} >Tutorial</button>
+                        <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowPersonalTaskModal()}  >Create Personal Task</button>
+                        <CreateGroup groupCallback = {groupCallback} style = {butttonStyle} userID = {props.userID}  />
                         <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} showPersonalTaskModal={showPersonalTaskModal} setShowPersonalTaskModal={setShowPersonalTaskModal}taskCallback = {taskCallback} userID = {userID}/>
                 
                     </div>

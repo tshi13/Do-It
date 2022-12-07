@@ -38,7 +38,7 @@ export default function DisplayTasks(props){
                         }
 
                         return (
-                            <Grid item xs={6} key={index} width="100%" >
+                            <Grid item xs={5.8} key={index} width="100%" >
                                 <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
                             </Grid>
                         );
