@@ -12,6 +12,9 @@ import SearchGroups from '../assets/SearchGroups.png';
 
 
 export default function Tutorial(props) {
+    // changing to const, and equal to the props
+    // show and setShow -- we don't need to change it locally, we just need
+    // to change the state in the parent
     let [show, setShow] = useState(props.showTutorial);
     let [step, setStep] = useState(1);
     let [totalSteps, setTotalSteps] = useState(8);
@@ -135,7 +138,7 @@ export default function Tutorial(props) {
 
 
    return (
-        <Modal show={show} onHide={() => {setShow(false); props.setShowTutorial(false);}} centered className = "tutorial-modal" size = "md" >
+        <Modal show={show} onHide={() => {setShow(false); handleFinish();}} centered className = "tutorial-modal" size = "md" >
             <Modal.Header closeButton>
                 <div className="tutorialHeader">
                     <div className = "tutorialCircles">

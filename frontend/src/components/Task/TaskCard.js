@@ -216,7 +216,7 @@ export default function TaskCard(props) {
   return (
     <div>
       <ListItem >
-        <Card sx={{ height:'50%', boxShadow: 3}}>
+        <Card sx={{ height:'100%', boxShadow: 3}}>
           <CardContent>
             {task.type !== "private" ? (
               <div>

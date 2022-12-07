@@ -24,7 +24,8 @@ export default function Home(props) {
     const [showTasks, setShowTasks] = useState(false);
     const [privateTasks, setPrivateTasks] = useState([]);
     const [coins, setLocalCoins] = useState(0);
-    const [showTutorial, setShowTutorial] = useState(true);
+    const [showTutorial, setShowTutorial] = useState(false);
+    const [showPersonalTaskModal, setShowPersonalTaskModal] = useState(false);
 
     const newHeight = props.newHeight;
 
@@ -138,6 +139,9 @@ export default function Home(props) {
         setShowTutorial(true);
     }
     
+    const handleShowPersonalTaskModal = () => {
+        setShowPersonalTaskModal(!showPersonalTaskModal);
+    }
 
     const renderGroup = () => {
                     
@@ -149,11 +153,13 @@ export default function Home(props) {
             return (
                 <div>
                     <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%'}} >
-                        <button className="buttonDesign" onClick={() => handleShowTasks()} style = {butttonStyle}>{!showTasks ? "Private Tasks" : "Back"}</button>
-                        <button className="buttonDesign" onClick={() => {window.location.href = "/profile"}} style = {butttonStyle}>Go To Profile</button>
-                        <button className="buttonDesign" onClick={() => handleShowTutorial()} style = {butttonStyle}>Tutorial</button>
-                        <button className="buttonDesign" onClick={() => handleShowTutorial()} style = {butttonStyle} >Create Personal Task</button>
-                        <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {butttonStyle} />
+                        <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowTasks()} >{!showTasks ? "Private Tasks" : "Back"}</button>
+                        <button className="buttonDesign" style = {butttonStyle} onClick={() => {window.location.href = "/profile"}} >Go To Profile</button>
+                        <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowTutorial()} >Tutorial</button>
+                        <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowPersonalTaskModal()}  >Create Personal Task</button>
+                        <CreateGroup groupCallback = {groupCallback} style = {butttonStyle} userID = {props.userID}  />
+                        <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} showPersonalTaskModal={showPersonalTaskModal} setShowPersonalTaskModal={setShowPersonalTaskModal}taskCallback = {taskCallback} userID = {userID}/>
+                
                     </div>
                     <div className = "personalTaskGrid" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '50%', marginLeft: '4%'}}>
                         {/* <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} /> */}
@@ -170,12 +176,11 @@ export default function Home(props) {
                         <img src = {coin} style={{width: '30px', height:'30px'}}/>Current Coins: {coins}</p>
                     </div>
 
-                    {/* {showTasks ? 
+                    {showTasks ? 
                         <div>
-                        <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} taskCallback = {taskCallback} userID = {userID}/>
-                        <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} />
+                        {/* <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} /> */}
                         </div>
-                        : null } */}
+                        : null }
                 </div>
             )
         }

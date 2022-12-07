@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import userDAO from '../../utils/userDAO';
@@ -15,11 +15,22 @@ export default function TaskModalUser(props) {
     const [userID] = useState(props.userID);
 
 
+    useEffect(() => {
+      if (props.showPersonalTaskModal) {
+        setShow(true);
+      }
+      else {
+        setShow(false);
+      }
+  }, []);
+
   const handleClose = () => {
     setShow(false);
+    props.setShowPersonalTaskModal();
   }
-  const handleShow = () => setShow(true);
-
+  const handleShow = () => {
+    setShow(true);
+  }
   const handleSubmit = () => {
     // checks if the user inputs are valid and exist
     if(taskName === "" || coinsEntered === 0 || isNaN(time) || (time < -1)) {
@@ -83,19 +94,10 @@ export default function TaskModalUser(props) {
    // JSX code for taskModal form
   return (
     <div style ={props.style}>
-      <div className ="parent" style ={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <div>
-            <p style ={{marginBottom: '1%'}}>Create a task</p>
-          </div>
-          <div>
-            <Button variant="primary" onClick={handleShow} style ={{borderRadius: '50%'}}>
-                +
-            </Button>
-          </div> 
-        </div>
+      
 
         <Modal
-            show={show}
+            show={props.showPersonalTaskModal}
             onHide={handleClose}
             backdrop="static"
             keyboard={false}
