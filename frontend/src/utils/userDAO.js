@@ -15,10 +15,10 @@ async function addUser(data) {//
     return res["data"];
 }
 
-async function getGroups(userID) {
-    let res = await axios.get('/users/getGroups/' + userID).then(data => data);
-    return res["data"];
-}
+// async function getGroups(userID) {
+//     let res = await axios.get('/users/getGroups/' + userID).then(data => data);
+//     return res["data"];
+// }
 
 async function getTasks(userID) {
     let res = await axios.get('/users/tasks/' + userID).then(data => data);
@@ -42,8 +42,6 @@ async function authenticate(data) {
 
 async function addTasks(userID, data) {//
 
-
-    
     let updatedData = {
         userID: userID,
         groupID: "None",
@@ -78,15 +76,27 @@ async function login(data) {//
     */
 
     let loginType = data.loginType;
-		sessionStorage.setItem("loginType",loginType);
+    let res;
+	sessionStorage.setItem("loginType", loginType);
     if(loginType === "password") {
-        let res = await axios.get('/users/login/' + data.name + '/' + data.password).then(data => data);
-        return res["data"];
+        res = await axios.get('/users/login/' + data.name + '/' + data.password).then(data => data);
     } else {
-        let res = await axios.get('/users/authLogin/' + data.loginType + '/' + data.key).then(data => data);
-				return res["data"];
+        res = await axios.get('/users/authLogin/' + data.loginType + '/' + data.key).then(data => data);
     }   
+    return res["data"];
+
 }
+
+async function logout(id) {//
+    let res = await axios.get('/users/logout/' + id).then(data => data);
+    return res["data"];
+}
+
+async function markAsOnline(id) {
+    let res = await axios.get('/users/markOnline/' + id ).then(data => data);
+    return res["data"];
+}
+
 
 export default class userDAO {
     static getUser(data) {
@@ -97,9 +107,9 @@ export default class userDAO {
         return addUser(data);
     }
 
-    static getGroups(userID) {
-        return getGroups(userID);
-    }
+    // static getGroups(userID) {
+    //     return getGroups(userID);
+    // }
 
     static getTasks(userID) {
         return getTasks(userID);
@@ -127,5 +137,14 @@ export default class userDAO {
     static login(data) {
         return login(data);
     }
+
+    static logout(id) {
+        return logout(id);
+    }
+
+    static markAsOnline(id) {
+        return markAsOnline(id);
+    }
+
 
 }
