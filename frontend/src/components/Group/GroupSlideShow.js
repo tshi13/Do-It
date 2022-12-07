@@ -3,7 +3,7 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import {Card} from 'react-bootstrap';
 import userDAO from '../../utils/userDAO';
-import { Chart } from "react-google-charts";
+
 import '../../styles/GroupSlideshow.css';
 import { Typography } from '@mui/material';
 
@@ -29,25 +29,7 @@ export default function GroupSlideshow(props) {
         duration: 5000,
         transitionDuration: 500,
         arrows: true,
-    };
-
-		let completedPrivateTasks;
-		let ongoingPrivateTasks;
-
-		const pieData = [
-			["Task", "Hours per Day"],
-			["Ongoing Tasks", 2],
-			["Completed Tasks", 3],
-		];
-
-		
-		const options = {
-			title: (completedPrivateTasks == 0 && ongoingPrivateTasks == 0)? "Create a task to see your progress here!" :"Private tasks progress",
-			titleTextStyle: {
-        fontSize: 18, // 12, 18 whatever you want (don't specify px)
-        bold: true
-    }
-		};
+    } 
     
     useEffect(() => {
         getAllOnlineUsers();
@@ -89,14 +71,11 @@ export default function GroupSlideshow(props) {
                     return (
                         <div className="each-slide-effect" key = {index}>
                             <div className="slide-image">
-                                <Card>
-                                    <Card.Body >
+                                <Card style={{ width: '20rem', height: '100%'}}>
+                                    <Card.Body>
                                         <Card.Title>{group.groupName}</Card.Title>
                                         <Card.Subtitle className="mb-2 text-muted">Group Stats</Card.Subtitle>
-																				<div style={{display:'flex', flexDirection: 'row'}}>
-
-																				
-                                        <div>
+                                        <Card.Body>
                                             {handleImage(group.groupPicture)}
                                             <Typography variant="body2" color="text.secondary">
                                                 Group Type: {group.typeOfGroup}
@@ -113,19 +92,8 @@ export default function GroupSlideshow(props) {
                                             <Typography variant="body2" color="text.secondary">
                                                 Number of Current Tasks: {group.taskIDList.length}
                                             </Typography>
-                                        </div>
-																				<Chart
-																			chartType="PieChart"
-																			data={pieData}
-																			options={options}
-																			width={"50%"}
-																			// height={"400px"}
-																			/>
-																				</div>
+                                        </Card.Body>
                                     </Card.Body>
-
-																		
-
                                 </Card>
                             </div>
                         </div>
