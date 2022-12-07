@@ -78,7 +78,7 @@
   .inputButton {
     cursor: pointer;
     font-size: 15px;
-    background: #01d28e;
+    background: black;
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
@@ -86,7 +86,8 @@
     }
 
   .inputButton:hover{
-    background: #6cf0c2;
+    background: cadetblue;
+    /* color: black; */
   }
 
   .inputLogin {
