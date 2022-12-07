@@ -90,7 +90,8 @@ export default function GroupTaskBar(props) {
     const renderTasks = () => {
         if(tasks.length > 0 && sorted ) {
             return (
-            <div style = {{height: newHeight}} className = "taskList">
+            // <div style = {{height: newHeight}} className = "taskList" >
+            <div className = "taskList">    
                 <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
                 <h1 style ={{textAlign: 'center'}}>Task List</h1>
                 <p style = {{textAlign: 'center'}}>Group Invite: {props.inviteID}</p>
@@ -161,7 +162,9 @@ export default function GroupTaskBar(props) {
             );
         } else {
             return (
-                <div style = {{height: newHeight}} className = "taskList">
+                <div style = {{height: newHeight, width: "100%"}} className = "taskList">
+                {/* <div className = "taskList"> */}
+                    
                     <GroupSettings leaveGroup = {leaveGroup} setShow = {setShowTaskModal} />
                     <h1 style ={{textAlign: 'center'}}>Task List</h1>
                     <p style = {{textAlign: 'center'}}>Group Invite: {props.inviteID}</p>
@@ -177,7 +180,7 @@ export default function GroupTaskBar(props) {
     // Render the .map() list of tasks,
     // along with the Task Modal (to create new tasks)
     return (
-        <div>
+        <div width="100%">
             <TaskModal setNotifications = {setNotifications} style ={{float: 'right', marginRight: '1%', marginLeft: '2%', zIndex: "5000"}} show = {showTaskModal} setShow = {setShowTaskModal} groupID = {props.groupID} taskCallback = {taskCallback} userID = {userID} userList = {userList} userMap = {userMap}/>
             {renderTasks()}
         </div>
