@@ -191,9 +191,19 @@ export default function Home(props) {
                         <button className="buttonDesign" style = {butttonStyle} onClick={() => {window.location.href = "/profile"}} >Go To Profile</button>
                         <CreateGroup groupCallback = {groupCallback} style = {butttonStyle} userID = {props.userID}  />
                         <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowTutorial()} >Tutorial</button>
-                        
+                        <Chart
+                            chartType="PieChart"
+                            data={pieData}
+                            options={options}
+                            width={"100%"}
+                            height={"150%"}
+                            style={{marginTop:"3vh"}}
+                        />
                         <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} showPersonalTaskModal={showPersonalTaskModal} setShowPersonalTaskModal={setShowPersonalTaskModal}taskCallback = {taskCallback} userID = {userID}/>
                 
+                    </div>
+                    <div style = {{position:'relative', width: '100%', display: 'flex', flexDirection: 'row', float: 'left', width: '50%', marginLeft: '4%'}}>
+                        
                     </div>
                     <div className = "personalTaskGrid" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '50%', marginLeft: '4%'}}>
                         {/* <CreateGroup groupCallback = {groupCallback} userID = {props.userID} style = {{marginRight: '0px'}} /> */}
@@ -209,15 +219,7 @@ export default function Home(props) {
                         <p style = {{fontWeight: 'bold'}}>
                         <img src = {coin} style={{width: '30px', height:'30px'}}/>Current Coins: {coins}</p>
                     </div>
-										<div style = {{position:'relative', width: '100%', display: 'flex'}}>
-                        <Chart
-                            chartType="PieChart"
-                            data={pieData}
-                            options={options}
-                            width={"60%"}
-                            height={"400px"}
-                        />
-										</div>
+                    
                      {showTasks ? 
                         <div>
                         {/* <DisplayTasks setCoins = {props.setNavCoins} userID={userID} privateTasks = {privateTasks} deleteTask = {deleteTaskCallback} /> */}

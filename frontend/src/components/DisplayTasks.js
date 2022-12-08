@@ -78,8 +78,12 @@ export default function DisplayTasks(props){
                         :
                         
                         <>
-                            <div className="groups" style ={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start'}}> 
-                            <Grid container spacing = {0} direction = {"row"} style = {{marginLeft: '-8px', marginTop: '10px', width: '100%', justifyContent: 'flex-start', wrap: 'nowrap'}} >
+                            <div className="groups" style ={{marginTop: "3vh", display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                            {/* <div style={{maxHeight:"10px"}}> */}
+                            {/* <Grid container spacing = {0} direction = {"row"} style = {{marginLeft: '-8px', marginTop: '10px', width: '100%', justifyContent: 'flex-start', wrap: 'nowrap'}} > */}
+                            <Grid container spacing = {0} direction = {"row"} style = {{width: '100%', justifyContent: 'center', wrap: 'nowrap'}} >
+                            
+                            {/* <Grid xs={6} style = {{marginLeft: '-8px', marginTop: '10px', width: '100%', justifyContent: 'flex-start', wrap: 'nowrap'}}> */}
                                 {pages[page].map((task, index) => {
                                     let checkedDate = new Date(task.checkedDate);
                                     let modifiedDate = new Date(task.checkedDate);
@@ -97,14 +101,14 @@ export default function DisplayTasks(props){
                                     }
             
                                     return (
-                                        <Grid item xs={6} key={index} width="100%">
+                                        // <Grid item xs={6} key={index} width="100%">
                                             <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
-                                        </Grid>
+                                        // </Grid>
                                     );
                                 })}
                             </Grid>
                             </div>
-                            <div className="pagination" style ={{justifyContent: 'center', display: 'flex', marginTop: '5%'}}>
+                            <div className="pagination" style ={{justifyContent: 'center', display: 'flex', marginTop: '2vh'}}>
                                     <Pagination count={maxPages} page={page} onChange={handlePageChange} color="primary" />
                             </div>
                         </>
