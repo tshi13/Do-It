@@ -7,9 +7,9 @@ import WallPaper from '../assets/wallpaper.jpeg';
 import {motion} from 'framer-motion';
 import { Typography } from '@mui/material';
 import Typical from 'react-typical'
+import Typed from "react-typed"
 
 import '../styles/IntroPage.css';
-import zIndex from '@mui/material/styles/zIndex';
 
 
 export default function IntroPage(props)  {
@@ -17,23 +17,55 @@ export default function IntroPage(props)  {
     const setUser = props.setUser;
 
     return (
-			
-        <div className="introPage">
-            <div className="left">
-                <div className="leftContent">
-                    <img src={WallPaper} alt="Cover Page" style={{width:'250%', objectPosition:'-250px 0px'}} />
-										
-                </div>
-            </div>
-            <div className="right">
-                <div className="rightContent">
-                    <div className="login">
-                        <LoginForm setUser={setUser} />
-                    </div>
-                </div>
-            </div>
-						
-						
-        </div>
+			<div className="introPage">
+			<div className="left">
+					<div className="leftContent">
+					<img src={WallPaper} alt="Cover Page" style={{width:'250%', objectPosition:'-250px 0px'}} /> 
+							{/* <div class="top-right">Create, learn and grow in the Do/it 1.0</div> */}
+							<div class = "top-right">
+							<h1 style={{color:'white'}}>
+							<Typed
+								strings={[
+									"Hello!",
+									"Welcome to Do it! ",
+								]}
+								typeSpeed={50}
+								backSpeed={50}
+								
+								/>
+								</h1>
+							</div>
+							<div class="sub-right">
+							<h3>
+								Here, you can: 
+								<br></br>
+								<br></br>
+								<h4>
+									<Typed
+								strings={[
+									"Set Private Goals 🎯",
+									"Meet New Friends 😎",
+									"Create Groups 🤩",
+									"Bet on Your Success 🥂",
+									"Win Money 💵"
+								]}
+								typeSpeed={70}
+								backSpeed={5}
+								loop
+								/>
+								</h4>
+								
+								</h3>
+							</div>
+					</div>
+			</div>
+			<div className="right">
+					<div className="rightContent">
+							<div className="login">
+									<LoginForm setUser={setUser} />
+							</div>
+					</div>
+			</div>
+	</div>
     );
 }
