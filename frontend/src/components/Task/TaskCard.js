@@ -10,6 +10,7 @@ import taskDAO from '../../utils/taskDAO';
 import Grid from '@mui/material/Grid';
 import ConfirmBox from '../ConfirmBox';
 import userDAO from '../../utils/userDAO';
+import "../../styles/TaskButton.css"
 
 
 
@@ -216,22 +217,22 @@ export default function TaskCard(props) {
   return (
     <div>
       <ListItem >
-        <Card sx={{ height:'100%', boxShadow: 3}}>
+        <Card sx={{ height:'50%', boxShadow: 3, borderRadius: '16px'}}>
           <CardContent>
             {task.type !== "private" ? (
               <div>
-                <div className = "buttonStyle" style={{float: "left", height:"50%"}}>
+                <div className = "GroupButton" style={{float: "left", height:"50%"}}>
                 {(!joined && task.type === "group") || (task.type === "groupIndividual" && userID === task.userID && task.joinedList.length < 2) || !joined  ? (
-                    <Button size = "small" onClick={handleJoinTask}>Join Task</Button>
+                    <Button style={{color:"white"}}size = "small" onClick={handleJoinTask}>Join Task</Button>
                   ) : (
                     <div></div>
                   )
                 }
-                </div>
-                <div className="buttonStyle" style = {{float: 'right', height:"50%"}} >
+                </div >
+                <div className = "GroupButton" style = {{float: 'right', height:"50%", padding:"2px"}} >
                       {showList  ? 
-                        <Button size="small" onClick={() => setShowList(false)}>Show Task</Button> : 
-                        <Button size="small" onClick={() => setShowList(true)}>Show Stats</Button>
+                        <Button style={{color:"white"}} size="small" onClick={() => setShowList(false)}>Show Task</Button> : 
+                        <Button style={{color:"white"}} size="small" onClick={() => setShowList(true)}>Show Stats</Button>
                       }
                 </div>
             </div>
@@ -360,10 +361,10 @@ export default function TaskCard(props) {
              userCompleted ?
               <Button size="small" disabled>Completed</Button>
               :
-              <Button size="small" onClick={handleSubmit}>Submit</Button>
+              <Button className = "taskButton" style={{}} onClick={handleSubmit}>Submit</Button>
              }
             { owner == userID ?
-              <Button size="small" onClick={() => setShowPrompt(true)}>Finish</Button>
+              <Button className = "finishButton" onClick={() => setShowPrompt(true)}>Finish</Button>
               :
               <></>
             }

@@ -185,6 +185,7 @@ export default function Home(props) {
             return (
                 <div>
                     <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%'}} >
+                        <h1 className="quickstart"> QUICK START</h1>
                         <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowTasks()} >{!showTasks ? "Private Tasks" : "Back"}</button>
                         <button className="buttonDesign" style = {butttonStyle} onClick={() => {window.location.href = "/profile"}} >Go To Profile</button>
                         <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowTutorial()} >Tutorial</button>

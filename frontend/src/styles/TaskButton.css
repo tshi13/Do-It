@@ -1,0 +1,179 @@
+.taskButton {
+    appearance: button;
+    background-color: #8aebc9;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: din-round,sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 13px;
+    outline: none;
+    overflow: visible;
+    padding: 8px 12px;
+    text-align: center;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 80%;
+  } 
+
+  .taskButton:after {
+    background-clip: padding-box;
+    background-color: #41d9b3;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    bottom: -4px;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+
+  .taskButton:main,
+  .taskButton:focus {
+    user-select: auto;
+  }
+
+  .taskButton:hover:not(:disabled) {
+    filter: brightness(1.1);
+    -webkit-filter: brightness(1.1);
+  }
+
+  .taskButton:disabled {
+    cursor: auto;
+  }
+
+
+  .finishButton {
+    appearance: button;
+    background-color: #ebd7a0;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: din-round,sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .8px;
+    line-height: 13px;
+    outline: none;
+    overflow: visible;
+    padding: 8px 12px;
+    text-align: center;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 80%;
+  } 
+
+  .finishButton:after {
+    background-clip: padding-box;
+    background-color: #efdc5efb;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    bottom: -4px;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+
+  .finishButton:main,
+  .finishButton:focus {
+    user-select: auto;
+  }
+
+  .finishButton:hover:not(:disabled) {
+    filter: brightness(1.1);
+    -webkit-filter: brightness(1.1);
+  }
+
+  .finishButton:disabled {
+    cursor: auto;
+  }
+
+
+  .GroupButton {
+    appearance: button;
+    background-color: #1899D6;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: din-round,sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: .8px;
+    line-height: 6px;
+    outline: none;
+    overflow: visible;
+    padding: 8px 12px;
+    text-align: center;
+    text-transform: uppercase;
+    touch-action: manipulation;
+    transform: translateZ(0);
+    transition: filter .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 50%;
+  } 
+
+  .GroupButton:after {
+    background-clip: padding-box;
+    background-color: #1CB0F6;
+    border: solid transparent;
+    border-radius: 16px;
+    border-width: 0 0 4px;
+    bottom: -4px;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+
+  .GroupButton:main,
+  .GroupButton:focus {
+    user-select: auto;
+  }
+
+  .GroupButton:hover:not(:disabled) {
+    filter: brightness(1.1);
+    -webkit-filter: brightness(1.1);
+  }
+
+  .GroupButton:disabled {
+    cursor: auto;
+  }
