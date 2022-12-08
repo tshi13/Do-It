@@ -81,7 +81,7 @@ export default function GroupSlideshow(props) {
                                                 Group Type: {group.typeOfGroup}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
-                                                Online Users: {group.onlineUsers.length + 1}
+                                                Online Users: {group.onlineUsers === undefined ? "Loading..." : group.onlineUsers.length + 1}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
                                                 Member Count: {group.idList.length}
