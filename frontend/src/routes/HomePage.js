@@ -37,8 +37,8 @@ export default function Home(props) {
 
 		const pieData = [
 			["Task", "Hours per Day"],
-			["Ongoing Tasks", ongoingPrivateTasks],
-			["Completed Tasks", completedPrivateTasks],
+			["Ongoing Tasks", ongoingPrivateTasks >= 0 ? ongoingPrivateTasks : 0],
+			["Completed Tasks", completedPrivateTasks >= 0 ? completedPrivateTasks : 0],
 		];
 
 		
