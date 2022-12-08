@@ -75,15 +75,19 @@ export default function GroupComponent(props)  {
     // Renders the entire group component
     return (
         <div className = "groupComponent">
+            
             <div className = "centerSection" style = {{width: '100%', height: newHeight}}>
                 {userID && username && groupName && groupID ? 
                 <GetStream2 userID = {userID} username = {username} groupID = {groupID} groupName = {groupName} newHeight = {newHeight} groupPicture = {groupPicture} />
                 : null}
 
             </div>
-            <div className = "rightSection" style = {{width: '35%',  height: newHeight}}>
+
+            <div className = "rightSection" style = {{width: '25%',  height: newHeight}}>
+            {/* <div className = "rightSection"> */}
                 {renderTasks()}
             </div>
+            
         </div>
     );
 }

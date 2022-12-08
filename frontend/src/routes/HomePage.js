@@ -176,8 +176,8 @@ export default function Home(props) {
     }
 
     const renderGroup = () => {
-                    
-        if(selectedGroupID !== null && checkUserStillInGroup(selectedGroupID) && !showTasks)  {
+        // setShowTasks(false); // hide personal tasks before rendering group
+        if(selectedGroupID !== null && checkUserStillInGroup(selectedGroupID))  {
             return (
                 <GroupComponent setNotifications = {setNotifications} setCoins = {setCoins} groupPicture = {selectedGroupPicture} groupID = {selectedGroupID} userID = {props.userID} username = {props.username} leaveGroupCallback = {leaveGroupCallback} newHeight = {newHeight}  />
             );
