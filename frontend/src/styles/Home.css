@@ -134,8 +134,8 @@
     font-weight: bold;
     background-position: center;
     background-size: contain;
-    height: 70px;
-    background-image: url("https://media.istockphoto.com/id/1308501705/vector/rainbow-paint-splash-background.jpg?s=612x612&w=0&k=20&c=lZkkLxibsqCgztKU62kHpnyH-KRng3AUui2B9Xp16rs=");
+    height: 30%;
+    /* background-image: url("https://media.istockphoto.com/id/1308501705/vector/rainbow-paint-splash-background.jpg?s=612x612&w=0&k=20&c=lZkkLxibsqCgztKU62kHpnyH-KRng3AUui2B9Xp16rs="); */
 }
 
 .buttonList{
