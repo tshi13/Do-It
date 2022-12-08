@@ -67,6 +67,9 @@ export default function DisplayTasks(props){
             return (
                 <div>
                     <div className="groups" style ={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
+                        {pages[page] === undefined || pages[page].length === 0 ?
+                        null
+                        : 
                         <Grid container spacing = {0} direction = {"row"} style = {{marginLeft: '-8px', marginTop: '10px', width: '100%', justifyContent: 'flex-start', wrap: 'nowrap'}} >
                             {pages[page].map((task, index) => {
                                 let checkedDate = new Date(task.checkedDate);
@@ -91,6 +94,7 @@ export default function DisplayTasks(props){
                                 );
                             })}
                         </Grid>
+                        }
                     </div>
                     <div className="pagination" style ={{justifyContent: 'center', display: 'flex', marginTop: '5%'}}>
                             <Pagination count={maxPages} page={page} onChange={handlePageChange} color="primary" />
