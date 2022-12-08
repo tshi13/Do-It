@@ -87,7 +87,8 @@ export default function GroupSlideshow(props) {
                                                 Member Count: {group.idList.length}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
-                                                Group Owner: {owners[index] ? owners.filter((data) => data._id === group.owner)[0].name : "Loading..."}
+                                                
+                                                Group Owner: {owners[index] && (owners.filter((data) => data._id === group.owner)) !== undefined ? owners.filter((data) => data._id === group.owner)[0].name : "Loading..."}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
                                                 Number of Current Tasks: {group.taskIDList.length}
