@@ -195,6 +195,12 @@ Deployed website: https://doit-oose.herokuapp.com/
 4. When choosing login via Google/Meta, your DO/It profile (name, email, etc) will be matched with your Google/Meta profile so users don't have to worry for trouble.
 ![Google Profile](https://i.imgur.com/YaFokdo.png)
 
+### Iteration 5 - Usage
+
+1. We have a brand new landing page. ![landing](https://i.imgur.com/uDFA0cd.png)
+2.  As a new user after logging in, you will see an interactive quick start guide popup window ![start](https://imgur.com/vH2yNbJ.png)
+3. We have improved design for our home page and corresponding UI ![Imgur](https://imgur.com/GOpMbPt.png)
+
 
 _For more examples and documentation, please refer to the [doc folder in this repo](https://github.com/jhu-oose-f22/team-doit-project-repo/tree/main/doc) which contains the SRS and the UML diagram._
 
@@ -291,6 +297,7 @@ _For more examples and documentation, please refer to the [doc folder in this re
 - [x] As a user, I want the UI to be user-friendly and easily navigable in the program
 - [x] As a user, I want a pie chart to show private task progress
 - [x] As a user, I want a slideshow with data for my groups
+- [x] As a user, I want a quickstart interactive guide popup window
 
 
 
