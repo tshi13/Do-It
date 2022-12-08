@@ -43,7 +43,7 @@
     <a href="https://github.com/jhu-oose-f22/team-doit-project-repo"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/jhu-oose-f22/team-doit-project-repo">View Demo</a>
+    <a href="https://doit-oose.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/jhu-oose-f22/team-doit-project-repo/issues">Report Bug</a>
     ·
@@ -128,6 +128,8 @@ Here are major frameworks/libraries we used to build our project.
 
 <!-- GETTING STARTED -->
 ## Getting Started
+
+View a deployed version of our website here: https://doit-oose.herokuapp.com/
 
 ### Installation
 
@@ -278,6 +280,18 @@ _For more examples and documentation, please refer to the [doc folder in this re
 - [x] DoIt Login
 - [x] Move display of personal tasks to profile page
 - [X] Seperate Backend into different files
+
+### Iteration 5
+
+- [x] As a user, I want a better looking landing page, with same sized buttons, doit logo
+- [x] As a user, I want better looking task cards UI
+- [x] As a user, I want to see a doit logo
+- [x] As a user, I want a better looking create group UI
+- [x] As a user, I want a group of useful buttons on home page
+- [x] As a user, I want the UI to be user-friendly and easily navigable in the program
+- [x] As a user, I want a pie chart to show private task progress
+- [x] As a user, I want a slideshow with data for my groups
+
 
 
 Please see the [Team DoIt Project Backlog](https://github.com/orgs/jhu-oose-f22/projects/8/views/1) for a full list of user stories for current and upcoming iterations.
