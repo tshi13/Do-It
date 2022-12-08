@@ -66,35 +66,51 @@ export default function DisplayTasks(props){
         if (renderPage) {
             return (
                 <div>
-                    <div className="groups" style ={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
-                        <Grid container spacing = {0} direction = {"row"} style = {{marginLeft: '-8px', marginTop: '10px', width: '100%', justifyContent: 'flex-start', wrap: 'nowrap'}} >
-                            {pages[page].map((task, index) => {
-                                let checkedDate = new Date(task.checkedDate);
-                                let modifiedDate = new Date(task.checkedDate);
-                                modifiedDate.setDate(modifiedDate.getDate() + task.time);
-                                let taskData = {
-                                    taskName: task.taskName,
-                                    coinsEntered: task.coinsEntered,
-                                    time: task.time,
-                                    id: task._id,
-                                    completedList: task.completedList,
-                                    type: "private",
-                                    userID: null,
-                                    lastCheckOff: getFormattedDate(checkedDate),
-                                    nextCheckOff: getFormattedDate(modifiedDate),
-                                }
-        
-                                return (
-                                    <Grid item xs={6} key={index} width="100%">
-                                        <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
-                                    </Grid>
-                                );
-                            })}
+                    
+                        {pages[page] === undefined || pages[page].length === 0 ?
+                        
+                        <Grid item xs={5.8} width="100%" >
+                            <Typography variant="h6" style={{margin:"5vh"}} align="center" color="textSecondary" paragraph>
+                                You have no ongoing private tasks currently!
+                            </Typography>
                         </Grid>
-                    </div>
-                    <div className="pagination" style ={{justifyContent: 'center', display: 'flex', marginTop: '5%'}}>
-                            <Pagination count={maxPages} page={page} onChange={handlePageChange} color="primary" />
-                    </div>
+
+                        :
+                        
+                        <>
+                            <div className="groups" style ={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start'}}> 
+                            <Grid container spacing = {0} direction = {"row"} style = {{marginLeft: '-8px', marginTop: '10px', width: '100%', justifyContent: 'flex-start', wrap: 'nowrap'}} >
+                                {pages[page].map((task, index) => {
+                                    let checkedDate = new Date(task.checkedDate);
+                                    let modifiedDate = new Date(task.checkedDate);
+                                    modifiedDate.setDate(modifiedDate.getDate() + task.time);
+                                    let taskData = {
+                                        taskName: task.taskName,
+                                        coinsEntered: task.coinsEntered,
+                                        time: task.time,
+                                        id: task._id,
+                                        completedList: task.completedList,
+                                        type: "private",
+                                        userID: null,
+                                        lastCheckOff: getFormattedDate(checkedDate),
+                                        nextCheckOff: getFormattedDate(modifiedDate),
+                                    }
+            
+                                    return (
+                                        <Grid item xs={6} key={index} width="100%">
+                                            <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
+                                        </Grid>
+                                    );
+                                })}
+                            </Grid>
+                            </div>
+                            <div className="pagination" style ={{justifyContent: 'center', display: 'flex', marginTop: '5%'}}>
+                                    <Pagination count={maxPages} page={page} onChange={handlePageChange} color="primary" />
+                            </div>
+                        </>
+
+                        }
+                    
                 </div>
 
             );
