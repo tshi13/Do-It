@@ -50,7 +50,7 @@ export default function IntroPage(props)  {
 									"Win Money 💵"
 								]}
 								typeSpeed={70}
-								backSpeed={5}
+								backSpeed={20}
 								loop
 								/>
 								</h4>
