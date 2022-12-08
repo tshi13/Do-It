@@ -19,9 +19,14 @@ export default function DisplayTasks(props){
     return (
         <>
             <Grid container spacing={0}>
-                {
-                   
-                    tasks.map((task, index) => {
+                { tasks.length === 0 ?
+                    <Grid item xs={5.8} width="100%" >
+                        <Typography variant="h6" align="center" color="textSecondary" paragraph>
+                            You have no private tasks!
+                        </Typography>
+                    </Grid>
+                    :
+                    tasks?.map((task, index) => {
                         let checkedDate = new Date(task.checkedDate);
                         let modifiedDate = new Date(task.checkedDate);
                         modifiedDate.setDate(modifiedDate.getDate() + task.time);
