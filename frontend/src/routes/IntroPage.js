@@ -29,8 +29,8 @@ export default function IntroPage(props)  {
 									"Hello!",
 									"Welcome to Do it! ",
 								]}
-								typeSpeed={50}
-								backSpeed={50}
+								typeSpeed={100}
+								backSpeed={100}
 								
 								/>
 								</h1>
