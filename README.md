@@ -81,7 +81,7 @@
 
 <br>
 
-![Landing Page](https://i.imgur.com/gyjM3O3.png)
+!![landing](https://i.imgur.com/uDFA0cd.png)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
