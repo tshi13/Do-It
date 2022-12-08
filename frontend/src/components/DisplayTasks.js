@@ -78,8 +78,8 @@ export default function DisplayTasks(props){
             // let boxWidth = width/6;
             return (
                 <div>
-                    <div className="groups" style ={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                        <Grid container spacing = {0} style = {{marginLeft: '-8px', marginTop: '10px', width: '100%', justifyContent: 'center'}} >
+                    <div className="groups" style ={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
+                        <Grid container spacing = {0} direction = {"row"} style = {{marginLeft: '-8px', marginTop: '10px', width: '100%', justifyContent: 'flex-start', wrap: 'nowrap'}} >
                             {pages[page].map((task, index) => {
                                 let checkedDate = new Date(task.checkedDate);
                                 let modifiedDate = new Date(task.checkedDate);
@@ -97,8 +97,9 @@ export default function DisplayTasks(props){
                                 }
         
                                 return (
+                                    // <Grid item xs={6} key={index} width="100%">
                                         <TaskCard setCoins = {setCoins} deleteTask = {deleteTask} task = {taskData} key = {index} userID = {userID} owner = {userID} />
-                                    
+                                    // </Grid>
                                 );
                             })}
                         </Grid>

@@ -83,7 +83,7 @@ export default function GroupComponent(props)  {
 
             </div>
 
-            <div className = "rightSection" style = {{width: '35%',  height: newHeight}}>
+            <div className = "rightSection" style = {{width: '25%',  height: newHeight}}>
             {/* <div className = "rightSection"> */}
                 {renderTasks()}
             </div>

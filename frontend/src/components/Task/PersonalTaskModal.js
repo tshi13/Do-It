@@ -87,6 +87,7 @@ export default function TaskModalUser(props) {
         });
         }
       }
+      handleClose();
     }
 
  
