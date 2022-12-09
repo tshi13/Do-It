@@ -221,18 +221,15 @@ export default function TaskCard(props) {
           <CardContent>
             {task.type !== "private" ? (
               <div>
-                <div className = "GroupButton" style={{float: "left", height:"50%"}}>
+                <div style={{float: "left", width:"50%", paddingRight: '2.5%'}}>
                 {(!joined && task.type === "group") || (task.type === "groupIndividual" && userID === task.userID && task.joinedList.length < 2) || !joined  ? (
-                    <Button style={{color:"white"}}size = "small" onClick={handleJoinTask}>Join Task</Button>
-                  ) : (
-                    <div></div>
-                  )
-                }
+                    <Button className = "GroupButton" style={{color:"white"}} onClick={handleJoinTask}>Join Task</Button>
+                  ) : null}
                 </div >
-                <div className = "GroupButton" style = {{float: 'right', height:"50%", padding:"2px"}} >
+                <div style={{float: "right", width: '50%', paddingRight: '2.5%'}}>
                       {showList  ? 
-                        <Button style={{color:"white"}} size="small" onClick={() => setShowList(false)}>Show Task</Button> : 
-                        <Button style={{color:"white"}} size="small" onClick={() => setShowList(true)}>Show Stats</Button>
+                        <Button className = "GroupButton" style={{color:"white"}} size="small" onClick={() => setShowList(false)}>Show Task</Button> : 
+                        <Button  className = "GroupButton"style={{color:"white"}} size="small" onClick={() => setShowList(true)}>Show Stats</Button>
                       }
                 </div>
             </div>
