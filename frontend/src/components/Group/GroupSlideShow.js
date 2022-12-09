@@ -20,7 +20,7 @@ export default function GroupSlideshow(props) {
             );
         } else {
             return (
-                <img src="https://i.imgur.com/pPJmXV7.png" alt="group image" className="groupImage" style ={{maxWidth: '50%'}}/>
+                <img src="https://i.imgur.com/rCYsHUb.png" alt="group image" className="groupImage" style ={{maxWidth: '50%'}}/>
             );
         }
     }
