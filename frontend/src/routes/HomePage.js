@@ -184,7 +184,7 @@ export default function Home(props) {
         } else {
             return (
                 <div>
-                    <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%'}} >
+                    <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%', marginLeft: "3vw"}} >
                         <h2><p className="quickstart">&#128071; QUICK START </p></h2>
                         <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowTasks()} >{!showTasks ? "Private Tasks" : "Back"}</button>
                         <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowPersonalTaskModal()}  >Create Personal Task</button>
@@ -196,7 +196,7 @@ export default function Home(props) {
                             data={pieData}
                             options={options}
                             width={"100%"}
-                            height={"150%"}
+                            height={"100%"}
                             style={{marginTop:"3vh"}}
                         />
                         <PersonalTaskModal style ={{float: 'right', margin: '1vw'}} showPersonalTaskModal={showPersonalTaskModal} setShowPersonalTaskModal={setShowPersonalTaskModal}taskCallback = {taskCallback} userID = {userID}/>
@@ -214,7 +214,9 @@ export default function Home(props) {
                         </div>
                         : null }
                     </div>
-                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'right', marginRight: '4%', marginTop: '2%', alignText: 'right'}}>
+                    
+
+                    <div className = "groupList" style = {{display: 'flex', flexDirection: 'column', float: 'right', marginRight: '4%', marginTop: '4%', alignText: 'right'}}>
                         <a className = "purchaseCoins" href = "/purchaseCoins">Purchase Coins</a>
                         <p style = {{fontWeight: 'bold'}}>
                         <img src = {coin} style={{width: '30px', height:'30px'}}/>Current Coins: {coins}</p>
@@ -226,10 +228,11 @@ export default function Home(props) {
                         </div>
                         : 
 												
-                        <div style = {{position:'relative', width: '100%', display: 'flex'}}>
+                        <div style = {{position:'relative', width: '100%', display: 'flex', flexDirection: 'left'}}>
 
-                        <GroupSlideshow groups = {groups} setSelectedID = {setSelectedID} style = {{width: '60vh', float: 'right', position: 'absolute', left:'75vh', top:'-65vh'}} />
+                        <GroupSlideshow groups = {groups} setSelectedID = {setSelectedID} style = {{width: '40vw', float: 'right', position: 'absolute', left:'55vh', top:'-75vh'}} />
                         </div> }
+
                 </div>
             )
         }
