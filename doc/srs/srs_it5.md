@@ -13,13 +13,13 @@ The Dolt app will help people stay focused with their tasks and be present by co
 ## Proposed Solution: 
 Through the betting system in DoIt, users need a certain amount of DoIt coins to play the game. Users can set private tasks for themselves or set tasks for everyone in a group. For group tasks, other people will keep track of them by verifying their progress in the group chat with texts and pictures. The user who fails to do their tasks will lose coins and the rest of the users will spilt the coins evenly. Successful users will be able to help friends gain better habits, get tasks done, earn more coins along the way, and have the opportunity to upload content to the general public. 
 
-Two types of coins exist: free coins and paid coins. Only the paid coins correspond to real money. The free coins exist in order to allow groups to complete tasks even if they choose not to use real money.
+Currently, only one type of coin exists in our applicatoin: free coins. The free coins allow groups to complete tasks instead of using real money. In the future, if we were to continue development on this app, we may choose to implement paid coins in some way to motivate users.
 
 In addition to group tasks, individual tasks also exist, for users to complete their own goals outside of groups.
 
 Also, users can search for groups by name and invite code, meaning groups are easy to find and access.
 
-This solution allows users to complete tasks under the supervision of others (and face possible consequences) while enjoying the fun of gaining community recognition and rewards when friends fail to do tasks.  
+This solution allows users to complete tasks under the supervision of others (and face possible consequences, thus motivating users) while enjoying the fun of gaining community recognition and rewards when completing tasks.
 
 
 ## Functional Requirements: 
@@ -40,14 +40,13 @@ This solution allows users to complete tasks under the supervision of others (an
 - As a user, I want to be able to see chat history when I log in so that we can see what happened
 
 #### Tasks and Coins:
-- As a user, I want to be able to enter a due date or time for when the task is due so that I can be held accountable by others to complete tasks on time 
-- As a user, I want to be able to enter the amount of coins I lose when I fail to complete a task
+- As a user, I want to be able to enter a date or time for when the task is pays out coins so that I can be held accountable by others to complete tasks on time 
+- As a user, I want to be able to enter the amount of coins I lose when I fail to complete a task (the amount of coins a task is worth)
 - As a user, I want to be able to interact with task cards so that coin values can be redeemed upon task completion and checkboxes for “Task Done” can be selected by users
 - As a user, I want to be able to see "Task Stats" for each task to see who has completed the task so that I can see the group's progress in a task
 - As a user, I want to be able to join tasks so that I can opt-in to any tasks
 - As a user, I want to be able to click "Submit" on a task card so that I can signal to the rest of the group that I have completed this task
 - As a group owner, I want to be able to "finish" a task meaning that users are paid out their share of coins for completing that task up to that point in time
-- As a user, I want to be able to resize the tasks bar on the right hand side so that it is scrollable
 
 #### Login    
 - As a user, I want to have a secure way of logging into my account
@@ -60,18 +59,21 @@ This solution allows users to complete tasks under the supervision of others (an
 
 #### Joining Groups (invitations, etc.)
 - As a user, I want to be able to invite a user to a group so they can join the group using the invite
-- As a user, a random invitation code will be generate when I try to create a group and my friend can use that code to join the group as well.
+- As a user, I want a random invitation code will be generated when I try to create a group so that my friend can use that code to join the group as well.
 - As a user, I want to be able to create private groups that are password-protected so that only my friends who know the password can join
 - As a user, I want to be able to create private groups that are cost-protected, meaning only users with above a certain threshold of coins can join, so that I can form a group with experienced members with more coins
 - As a user, I want to be able to leave a group so that I am not in the group anymore
-- As a user, I want to have a group of buttons that includes groups and personal tasks, grouped together in the corner of the page
+- As a user, I want to have a group settings button that includes group and individual tasks for the group, located together in the corner of the page under one icon
 - As a user, I want the createGroup UI to be easily navigable and user-friendly
 
-#### Anti-setup strategy
-- As a user, I want some kind of strategy where users can avoid setting people up to profit / gain DoIt coins off of them, which could be related to a voting system, or having one trusted authority approve all tasks for being actually completed, or another way of validating tasks, like only the trusted authority having the submit button
-
-#### Logos and landing page
-- As a user, I want to see a user-friendly landing page with good UI and the apperance of the DoIt logo on the website, possible as a watermark or picture
+#### Logos, landing page, and home page UI
+- As a user, I want to see a user-friendly landing page with good UI and the appearance of the DoIt logo on the website, possible as a watermark or picture
+- As a user, I want better looking task cards UI
+- As a user, I want to see a doit logo
+- As a user, I want a group of useful buttons on home page
+- As a user, I want a pie chart to show private task progress on the home page
+- As a user, I want a slideshow with data for my groups on the home page
+- As a user, I want a quickstart interactive guide popup window on the home page
 
 ### Non-functional Requirements:
 - As a user, I want the DoIt website to be accessible on many different screen sizes and browsers
@@ -79,13 +81,15 @@ This solution allows users to complete tasks under the supervision of others (an
 - As a user, I want the UI to be user-friendly and easily navigable in the program
 
 ## Software Architecture & Technology Stack: 
-In addition to CRUD functionality, the DoIt web application will include user interaction in a group chat with texts and pictures, users' voting on each others' completion of tasks, the ability to search and join groups by invite code or name, the ability to mark shared/group tasks as completed, and the ability to trade and earn coins. For the tech stack, we will use the MongoDB, Express, React, and Node.js. More technologies may be introduced if needed, programming languages could be Javascript and Python.
+In addition to CRUD functionality, the DoIt web application will include user interaction in a group chat with texts and pictures, users' selecting the completion of group tasks, the ability to search and join groups by invite code or name, the ability to mark shared/group tasks as completed, and the ability to trade and earn coins. For the tech stack, we will use MongoDB, Express, React, and Node.js, and we will use the programming languages JavaScript.
 
-Specifically, we used MaterialUI to style the front end, and we used Axios in our DAOs (Data Access Objects) to communicate with the database backend. Lastly, for the chat, we used the Stream API to include a functional and quality chat in the app.
+Additonal technologies have been very helpful too. Specifically, we used MaterialUI to style the front end, and we used Axios in our DAOs (Data Access Objects) to communicate with the database backend. For the chat, we used the Stream API to include a functional and quality chat in the app.
 
-GetStream acts a self-contained application with its own database, meaning that it is modularized and separate from the rest of our program. GetStream has its own database which stores all users, groups, and chat messages. MongoDB also stores users and groups, but not chat messages. This point is relevant for our software architecture because our application simulataneously maintains identical records in MongoDB and the GetStream database for users and groups (similar to a foreign key linked across two tables), so that the correct chat messages can be retrieved and rendered for any group in MongoDB.
+More on the chat: The GetStream Chat acts a self-contained application with its own database, meaning that it is modularized and separate from the rest of our program. GetStream has its own database which stores all users, groups, and chat messages. MongoDB also stores users and groups, but not chat messages. This point is relevant for our software architecture because our application simulataneously maintains identical records in MongoDB and the GetStream database for users and groups (similar to a foreign key linked across two tables), so that the correct chat messages can be retrieved and rendered for any group in MongoDB.
 
 For our login options, which include DoIt hashed password login, Google login, and Facebook login, we used external libraries. For example, to hash the password, we used an external library. Also, for Google and Facebook logins, we used APIs to handle communicating with those external services for us.
+
+Finally, the backend and frontend are deployed on Heroku so that the DoIt app is available 24/7 to all users.
 
 ### Built With
 
@@ -102,7 +106,7 @@ Here are major frameworks/libraries we used to build our project.
 
 
 ## Similar Apps:
-Forest. Forest users can earn points and plant a tree by not using their cell phones. If they use their cell phone during that period their tree will die. However, the app lacks interaction with other users and customizability. For our app, users will feel more excited with the "betting system" and be more engaged with the community.
+Forest. Forest users can earn points and plant a tree by not using their cell phones. If they use their cell phone during that period their tree will die. However, the app lacks interaction with other users and customizability of tasks. For our app, users will feel more excited with DoIt coins on the line and be more engaged with the community of group members.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
