@@ -226,9 +226,12 @@ export default function TaskCard(props) {
                     <Button className = "GroupButton" style={{color:"white"}} onClick={handleJoinTask}>Join Task</Button>
                   ) : null}
                 </div >
-                <div style={{float: "right", width: '50%', paddingRight: '2.5%'}}>
+                <div style={{width: '50%', paddingRight: '2.5%', float: 'right'}}>
                       {showList  ? 
-                        <Button className = "GroupButton" style={{color:"white"}} size="small" onClick={() => setShowList(false)}>Show Task</Button> : 
+                        <div style={{float: 'right'}}>
+                          <Button className = "GroupButton" style={{color:"white", width: '100%'}} size="small" onClick={() => setShowList(false)}>Show Task</Button> 
+                        </div>
+                        : 
                         <Button  className = "GroupButton"style={{color:"white"}} size="small" onClick={() => setShowList(true)}>Show Stats</Button>
                       }
                 </div>

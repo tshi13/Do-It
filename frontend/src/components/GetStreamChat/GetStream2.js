@@ -19,6 +19,8 @@ export default function Chatbox2(props)  {
 	const [userImage, setUserImage] = useState(props.userImage);
 	const [groupImage, setGroupImage] = useState(props.groupPicture);
 
+	const letChatHeight = newHeight - 10;
+
 	
 	/** 
 	 *  This useEffect is called when the component is first rendered,
@@ -64,7 +66,7 @@ export default function Chatbox2(props)  {
 		return (
 		// actually rendering the chat since the user has been added to the
 		// group already
-		<div className="chatbox2" style={{height: newHeight}}>
+		<div className="chatbox2" style={{marginTop: '10px', height: letChatHeight}}>
 		
 				<Chat client={chatClient} theme='str-chat__theme-light'>
 			<Channel channel={channel}>
