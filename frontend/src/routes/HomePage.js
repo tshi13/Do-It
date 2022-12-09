@@ -184,7 +184,7 @@ export default function Home(props) {
         } else {
             return (
                 <div>
-                    <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%', marginLeft: "3vw"}} >
+                    <div className = "buttonList" style = {{display: 'flex', flexDirection: 'column', float: 'left', width: '25%', marginLeft: "2.5vw"}} >
                         <h2><p className="quickstart">&#128071; QUICK START </p></h2>
                         <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowTasks()} >{!showTasks ? "Private Tasks" : "Back"}</button>
                         <button className="buttonDesign" style = {butttonStyle} onClick={() => handleShowPersonalTaskModal()}  >Create Personal Task</button>
@@ -230,7 +230,7 @@ export default function Home(props) {
 												
                         <div style = {{position:'relative', width: '100%', display: 'flex', flexDirection: 'left'}}>
 
-                        <GroupSlideshow groups = {groups} setSelectedID = {setSelectedID} style = {{width: '40vw', float: 'right', position: 'absolute', left:'55vh', top:'-75vh'}} />
+                        <GroupSlideshow groups = {groups} setSelectedID = {setSelectedID} style = {{width: '40vw', float: 'right', position: 'absolute', left:'57vh', top:'-75vh'}} />
                         </div> }
 
                 </div>
