@@ -42,7 +42,7 @@ export default function GroupSlideshow(props) {
         groups.map((group) => {
             let onlineUsersInGroup = [];
             let onlineUsersInGroupIDs = group.onlineUsers;
-            if (onlineUsersInGroupIDs.length > 0) {
+            if (onlineUsersInGroupIDs !== undefined && onlineUsersInGroupIDs.length > 0) {
                 onlineUsersInGroupIDs.map((userID) => {
                     userDAO.getUserData(userID).then((user) => {
                         onlineUsersInGroup.push(user.name);
