@@ -31,17 +31,17 @@ const handleLogout = (userID) => {
     if(useID) {
     userDAO.logout(useID);
     }  
-    console.log("Logged out");
+    // console.log("Logged out");
 }
 
 const handleLogin = (userID) => {
   let useID = typeof userID === String ? userID : JSON.parse(sessionStorage.getItem("userID"));;
-  console.log(useID);
+  // console.log(useID);
   if(useID) {
     sessionStorage.setItem("activeSession", true);
     userDAO.markAsOnline(useID);
   }
-  console.log("Logged in");
+  // console.log("Logged in");
 }
 
 const handleChange = (e) => {
