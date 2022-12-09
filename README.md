@@ -43,7 +43,7 @@
     <a href="https://github.com/jhu-oose-f22/team-doit-project-repo"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/jhu-oose-f22/team-doit-project-repo">View Demo</a>
+    <a href="https://doit-oose.herokuapp.com/">View Demo</a>
     ·
     <a href="https://github.com/jhu-oose-f22/team-doit-project-repo/issues">Report Bug</a>
     ·
@@ -81,7 +81,7 @@
 
 <br>
 
-![Landing Page](https://i.imgur.com/gyjM3O3.png)
+!![landing](https://i.imgur.com/uDFA0cd.png)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -128,6 +128,8 @@ Here are major frameworks/libraries we used to build our project.
 
 <!-- GETTING STARTED -->
 ## Getting Started
+
+View a deployed version of our website here: https://doit-oose.herokuapp.com/
 
 ### Installation
 
@@ -192,6 +194,12 @@ Deployed website: https://doit-oose.herokuapp.com/
 3. Users who want to login via their Google/Meta account can just click the relevant button, and a pop up page will appear asking you credentials from the relevant companies. ![Google Popup Page](https://i.imgur.com/UMwONMg.jpg)
 4. When choosing login via Google/Meta, your DO/It profile (name, email, etc) will be matched with your Google/Meta profile so users don't have to worry for trouble.
 ![Google Profile](https://i.imgur.com/YaFokdo.png)
+
+### Iteration 5 - Usage
+
+1. We have a brand new landing page. ![landing](https://i.imgur.com/uDFA0cd.png)
+2.  As a new user after logging in, you will see an interactive quick start guide popup window ![start](https://imgur.com/vH2yNbJ.png)
+3. We have improved design for our home page and corresponding UI ![Imgur](https://imgur.com/GOpMbPt.png)
 
 
 _For more examples and documentation, please refer to the [doc folder in this repo](https://github.com/jhu-oose-f22/team-doit-project-repo/tree/main/doc) which contains the SRS and the UML diagram._
@@ -278,6 +286,19 @@ _For more examples and documentation, please refer to the [doc folder in this re
 - [x] DoIt Login
 - [x] Move display of personal tasks to profile page
 - [X] Seperate Backend into different files
+
+### Iteration 5
+
+- [x] As a user, I want a better looking landing page, with same sized buttons, doit logo
+- [x] As a user, I want better looking task cards UI
+- [x] As a user, I want to see a doit logo
+- [x] As a user, I want a better looking create group UI
+- [x] As a user, I want a group of useful buttons on home page
+- [x] As a user, I want the UI to be user-friendly and easily navigable in the program
+- [x] As a user, I want a pie chart to show private task progress
+- [x] As a user, I want a slideshow with data for my groups
+- [x] As a user, I want a quickstart interactive guide popup window
+
 
 
 Please see the [Team DoIt Project Backlog](https://github.com/orgs/jhu-oose-f22/projects/8/views/1) for a full list of user stories for current and upcoming iterations.
