@@ -290,7 +290,7 @@ _For more examples and documentation, please refer to the [doc folder in this re
 
 ### Iteration 5
 
-#### Iteration 4 User Stories Completed
+#### Iteration 5 User Stories Completed
 - [x] As a user, I want a better looking landing page, with same sized buttons, doit logo
 - [x] As a user, I want better looking task cards UI
 - [x] As a user, I want to see a doit logo
