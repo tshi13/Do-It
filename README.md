@@ -88,20 +88,20 @@
 
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-The purpose of the DoIt application is to help you stay focused and motivated on the important things in life. Whenever you want to stay focused or show off your accomplishments to your circle of friends, use DoIt and place a bet. Stay motivated daily and turn hard work into a handful of DoIt coins. In the future, we believe that DoIt would be a popular productivity app that helps people beat their laziness and reach their goals in an interesting and pleasant way. 
+The purpose of the DoIt application is to help you stay focused and motivated on the important things in life. Whenever you want to stay focused or show off your accomplishments to your circle of friends, use DoIt and place a bet of DoIt coins. Stay motivated daily and turn hard work into a handful of DoIt coins. In the future, we believe that DoIt would be a popular productivity app that helps people beat their laziness and reach their goals with others in an interesting and pleasant way.
 
 Here's why:
 * People often feel unmotivated and discouraged to do academic, professional, and personal tasks. :sob:
 * There currently are only to-do list applications that allow you to list and plan the tasks that you need to complete. 
 * The market is lacking a solution that focuses on actually pushing users to actually do the tasks! DoIt is our solution to these problems. :relaxed:
 
-Through the betting system in Dolt, users need a certain amount of Dolt coins to play the game. Users can set private tasks for themselves or set tasks for everyone in a group. For group tasks, other people will keep track of them by verifying their public social media posts or private group posts. The user who fails to do their tasks will lose coins and the rest of the users will spilt the coins evenly. Successful users will be able to help friends gain better habits, get tasks done, earn more coins along the way, and have the opportunity to upload content to the general public. In this way, people are more motivated by losses rather then gains, so we want to motivate people by introducing consequences. We also allow them to be motivated by recognition and followers across our social platform.
+Through the betting system in Dolt, users need a certain amount of Dolt coins to play the game. Users can set private tasks for themselves or set tasks for everyone in a group. For group tasks, other people can keep track of them by verifying their posts in the group chat. The user who fails to do their tasks will lose DoIt coins and the rest of the users will spilt the coins evenly. Successful users will be able to help friends gain better habits, get tasks done, earn more DoIt coins along the way, and have the opportunity to upload content to group chats to communicate with friends. People are motivated more by losses than by gains, so we want to motivate people by introducing consequences of having DoIt coins on the line. We also allow users to be motivated by recognition in the group chat and by gaining group coins when they complete tasks.
 
 Types of Coins:
-* Paid coins (Correspond to real money)
-* Free coins (Earn through daily checkin)
+* Free coins (Users start out with some coins upon registration)
+* In the future, we may choose to include paid coins; however, the DoIt app only offers free coins at this time.
 
-Either coins work well in our betting system. The existence of free coins allows users to complete tasks under the supervision of others (and face possible consequences) while enjoying the fun of gaining community recognition and rewards when friends fail to do tasks.
+The existence of free coins allows users to complete tasks under the supervision of others (and face possible consequences of losing DoIt coins) while enjoying the fun of gaining community recognition and rewards when friends fail to do tasks.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -200,6 +200,7 @@ Deployed website: https://doit-oose.herokuapp.com/
 1. We have a brand new landing page. ![landing](https://i.imgur.com/uDFA0cd.png)
 2.  As a new user after logging in, you will see an interactive quick start guide popup window ![start](https://imgur.com/vH2yNbJ.png)
 3. We have improved design for our home page and corresponding UI ![Imgur](https://imgur.com/GOpMbPt.png)
+4. This is a picture of the group slideshow on the home page: ![Group Slideshow on Home Page](https://i.imgur.com/7tUEPBO.png)
 
 
 _For more examples and documentation, please refer to the [doc folder in this repo](https://github.com/jhu-oose-f22/team-doit-project-repo/tree/main/doc) which contains the SRS and the UML diagram._
@@ -289,6 +290,7 @@ _For more examples and documentation, please refer to the [doc folder in this re
 
 ### Iteration 5
 
+#### Iteration 4 User Stories Completed
 - [x] As a user, I want a better looking landing page, with same sized buttons, doit logo
 - [x] As a user, I want better looking task cards UI
 - [x] As a user, I want to see a doit logo
@@ -323,13 +325,13 @@ Don't forget to give the project a star! :star: Thanks again!
 5. Open a Pull Request
 
 ### Steps to Run Locally
-1. Run 'npm run install-all' to install all dependencies for both the frontend and backend
-2. cd into server folder, then run node index.js to start the server on port 5000
-3. In a new terminal, cd into the frontend folder and run npm start to start the frontend on port 3000
+1. Run `npm run install-all` to install all dependencies for both the frontend and backend
+2. `cd` into `server` folder, then run `node index.js` to start the server on port 5000
+3. In a new terminal, `cd` into the `frontend` folder and run `npm start` to start the frontend on port 3000
 
-Note: To switch between using the Heroku backend and the local backend, change the URL in the frontend/src/axiosSettings.js file to the URL of the backend you want to use.
-For example, if you want to use the Heroku backend, change the URL to 'https://backend-oose-doit.herokuapp.com/'
-For example, if you want to use the local backend, change the URL to 'http://localhost:5000/'
+Note: To switch between using the Heroku backend and the local backend, change the URL in the `frontend/src/axiosSettings.js` file to the URL of the backend you want to use.
+For example, if you want to use the Heroku backend, change the URL to `https://backend-oose-doit.herokuapp.com/`
+For example, if you want to use the local backend, change the URL to `http://localhost:5000/`
 
 
 
