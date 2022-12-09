@@ -84,14 +84,14 @@ export default function GroupSlideshow(props) {
                                                 Online Users: {group.onlineUsers === undefined ? "Loading..." : group.onlineUsers.length + 1}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
-                                                Member Count: {group.idList.length}
+                                                Member Count: {group.idList === undefined ? null : group.idList.length}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
                                                 
                                                 Group Owner: {owners[index] && (owners.filter((data) => data._id === group.owner)).length > 0 ? owners.filter((data) => data._id === group.owner)[0].name : "Loading..."}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
-                                                Number of Current Tasks: {group.taskIDList.length}
+                                                Number of Current Tasks: {group.taskIDList === undefined ? null : group.taskIDList.length}
                                             </Typography>
                                         </Card.Body>
                                     </Card.Body>
