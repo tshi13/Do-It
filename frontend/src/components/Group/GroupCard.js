@@ -13,7 +13,7 @@ export default function GroupCard(props) {
         );
     } else {
         return (
-            <img src="https://i.imgur.com/pPJmXV7.png" alt="group image" className="group image"/>
+            <img src="https://i.imgur.com/rCYsHUb.png" alt="group image" className="group image"/>
         );
     }
 }

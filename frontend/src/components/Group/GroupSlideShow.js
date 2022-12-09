@@ -42,11 +42,13 @@ export default function GroupSlideshow(props) {
         groups.map((group) => {
             let onlineUsersInGroup = [];
             let onlineUsersInGroupIDs = group.onlineUsers;
-            onlineUsersInGroupIDs.map((userID) => {
-                userDAO.getUserData(userID).then((user) => {
-                    onlineUsersInGroup.push(user.name);
+            if (onlineUsersInGroupIDs.length > 0) {
+                onlineUsersInGroupIDs.map((userID) => {
+                    userDAO.getUserData(userID).then((user) => {
+                        onlineUsersInGroup.push(user.name);
+                    });
                 });
-            });
+            }
             onlineUsers.push(onlineUsersInGroup);
         });
     }
