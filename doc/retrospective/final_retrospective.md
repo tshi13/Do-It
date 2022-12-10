@@ -29,12 +29,14 @@ Our team completed the above user stories.   Specifically, we focused on designe
 Accomplished:
 - All must have and nice to have features in SRS 1, along with others added along the way up to and including SRS 5. The exceptions are listed below, mostly resulting from changes in plan with voting, using real money, and social media functionality:
 
-Didn't accomplish (modified our original plan along the way):
-- As a user, I want to be able to enter the percentage of coins I lose when I fail to complete a task 
-- As a user, I want to be able to vote on whether a group member has finished their tasks  
-- As a developer, I want to be able to ban certain users if necessary
+Didn't accomplish (modified our original plan along the way): 
+
+Real money coins
 - As a user, I want to be able to purchase DoIt coins with real money
 - As a user, I want to be able to withdraw the coins in my account and receive real money
+
+Social media aspect
+- As a developer, I want to be able to ban certain users if necessary
 - As a user, I want to be able to adjust the percentage of votes required to be considered that a task is completed  
 - As a user, I want to be able to join a variety of public rooms sorted by interests/task category  
 - As a user, I want to be able to post my progress to the public  
