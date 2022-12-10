@@ -33,7 +33,7 @@ Didn't accomplish (modified our original plan along the way):
 - As a user, I want to be able to enter the percentage of coins I lose when I fail to complete a task 
 - As a user, I want to be able to vote on whether a group member has finished their tasks  
 - As a developer, I want to be able to ban certain users if necessary
-- As a user, I want to be able to purchase DoIt coins with real money  
+- As a user, I want to be able to purchase DoIt coins with real money
 - As a user, I want to be able to withdraw the coins in my account and receive real money
 - As a user, I want to be able to adjust the percentage of votes required to be considered that a task is completed  
 - As a user, I want to be able to join a variety of public rooms sorted by interests/task category  
@@ -44,7 +44,7 @@ Didn't accomplish (modified our original plan along the way):
 #### Challenges we have had throughout the last five iterations
 - An initial challenge was getting off the ground in iteration 1. That is, it was a challenge to set up the backend and frontend from scratch and get groups and tasks to render.
 - It was also challenging to design the User, Group, and Task schemas in Mongoose to show exactly what fields they had. In fact, over time we updated them to better reflect the information that was necessary for each.
-- Finally, we faced a challenge in figuring out  how to have an anti-setup strategy for not having users set up each other purposely. In the end, we decided...
+- Finally, we faced a challenge in figuring out  how to have an anti-setup strategy for not having users set up each other purposely. In the end, we decided to have group members redeem their own coins for completing a task, and we eventually implemented a voting system.
 
 ### What we will do differently for Iteration 1 of the next software project we do
 For Iteration 1 of the next software project we do, we plan to discuss what kinds of features we will add next, possibly related to further frontend improvement (i.e. updating the UI/UX appearance of the app).
