@@ -81,7 +81,7 @@
 
 <br>
 
-!![landing](https://i.imgur.com/uDFA0cd.png)
+![landing](https://i.imgur.com/uDFA0cd.png)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
